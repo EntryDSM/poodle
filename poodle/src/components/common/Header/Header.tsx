@@ -29,14 +29,14 @@ function Header({ isLogin,  user, loginError, loginLoading, login, logout }: Hea
                         <S.LinkPointer to="/mypage">
                             <S.GNB>마이페이지</S.GNB>
                         </S.LinkPointer>
-                            <S.LinkPointer to="/logout">
+                            <S.Pointer>
                             <S.GNB onClick={logout}>{user.userName}</S.GNB>
-                        </S.LinkPointer>    
+                        </S.Pointer>    
                     </>}
                     {!loginLoading && !loginError && !isLogin &&
-                        <S.LinkPointer to="/login">
+                        <S.Pointer>
                             <S.GNB onClick={login}>로그인</S.GNB>
-                        </S.LinkPointer>
+                        </S.Pointer>
                     }
                 </S.GNBWrapper>
             </S.HeaderContent>
