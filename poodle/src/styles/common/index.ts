@@ -46,7 +46,7 @@ export const Global = createGlobalStyle`
 `;
 
 export const ResponsiveWrapper = styled.div`
-    padding: 0 3.125rem;
+    box-sizing: border-box;
     width: 1270px;
     margin: 0 auto;
     @media screen and (max-width: 1269px) {

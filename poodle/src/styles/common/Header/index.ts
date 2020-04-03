@@ -11,6 +11,7 @@ export const HeaderWrapper = styled.header`
 `;
 
 export const HeaderContent = styled(ResponsiveWrapper)`
+    padding: 0 3.125rem;
     height: 100%;
     display: flex;
     justify-content: space-between;
@@ -23,7 +24,7 @@ export const GNBWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     height: 1.125rem;
-    > a:last-child {
+    > a:last-child, > p:last-child {
         margin-left: 3.75rem;
         @media screen and (max-width: 1269px) {
             margin-left: 0.5rem;
@@ -38,6 +39,12 @@ export const LogoWrapper = styled.h1`
 export const LinkPointer = styled(Link)`
     display: block;
     text-decoration: none;
+    cursor: pointer;
+    color: #000000;
+`;
+
+export const Pointer = styled.p`
+    display: block;
     cursor: pointer;
     color: #000000;
 `;
