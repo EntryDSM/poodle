@@ -1,10 +1,10 @@
+import React from 'react';
 import { 
     FooterDiv,
     FooterText,
     FooterTitle, 
     FooterImgButtonDiv,
 } from '../../../styles/Footer';
-import React from 'react';
 import { facebook, github } from '../../../assets/Footer';
 import { FooterImgLink, FooterLink } from '../Footer';
  

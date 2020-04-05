@@ -7,7 +7,7 @@ interface Props {
 
 const FooterLink: FC<Props> = ({ link, children }) => {
     const redirectToLink = (link: string) => {
-        window.location.href=link;
+        window.open(link,"_blank");
     }
     const clickHandler = (link: string) => {
         redirectToLink(link);
