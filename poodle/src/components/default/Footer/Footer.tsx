@@ -1,23 +1,36 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { 
     FooterDiv,
     FooterText,
     FooterTitle, 
     FooterImgButtonDiv,
 } from '../../../styles/Footer';
-import { facebook, github } from '../../../assets/Footer';
-import { FooterImgLink, FooterLink } from '../Footer';
+import { 
+    facebook, 
+    github 
+} from '../../../assets/Footer';
+import { 
+    FooterImgLink, 
+    FooterLink 
+} from '../Footer';
+import { 
+    BUSINESS_NUMBER, 
+    SCHOOL_ADDRESS, 
+    SCHOOL_PHONE_NUMBER, 
+    ENTRY_TITLE, 
+    TERMS 
+} from './FooterConstance';
  
-const Footer = () => {
+const Footer: FC = () => {
     return (
         <FooterDiv>
             <div>
                 <FooterTitle>Entry</FooterTitle>
-                <FooterText margin="20">ⓒ 2019 Entry</FooterText>
-                <FooterText>개인정보 처리방침 ㅣ 이용약관</FooterText>
-                <FooterText>(34111) 대전광역시 유성구 가정북로 76(장동 23-9)</FooterText>
-                <FooterText>교무실 : 042-866-8822 / Fax : 042-867-9900     행정실 : 042-866-8885 / Fax : 042-863-4308</FooterText>
-                <FooterText>사업자 등록 번호 314-83-01600</FooterText>
+                <FooterText margin="20">{ENTRY_TITLE}</FooterText>
+                <FooterText>{TERMS}</FooterText>
+                <FooterText>{SCHOOL_ADDRESS}</FooterText>
+                <FooterText>{SCHOOL_PHONE_NUMBER}</FooterText>
+                <FooterText>{BUSINESS_NUMBER}</FooterText>
             </div>
             <div>
                 <FooterLink link="">Entry 소개</FooterLink>
