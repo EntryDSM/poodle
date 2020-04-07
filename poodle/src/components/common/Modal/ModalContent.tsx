@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import * as S from '../../../styles/common/Modal';
+import * as S from '@/styles/common/Modal';
 import { ModalContentProps } from './';
-import { BlueSuccess, BlueCheck, RedError, YellowCheck } from '../../../assets/common/Modal';
+import { BlueSuccess, BlueCheck, RedError, YellowCheck } from '@/assets/common/Modal';
 
 const imageList: any = {
     'BlueSuccess': BlueSuccess,

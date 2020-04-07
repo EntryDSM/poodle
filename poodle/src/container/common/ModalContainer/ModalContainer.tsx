@@ -1,19 +1,19 @@
 import React, { useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { RootState } from '../../../core/redux/reducer';
+import { RootState } from '@/core/redux/reducer';
 import { LOGINMODAL, RESETMODAL, YELLOWCHECKMODAL,
     BLUECHECKMODAL, REDERRORMODAL, WARNINGMODAL,
     modalClear, modalOff
-} from '../../../core/redux/actions/modal';
+} from '@/core/redux/actions/modal';
 import {
     LoginModalContainer,
     ResetModalContainer,
     ErrorModalContainer
 } from './';
-import Modal from '../../../components/common/Modal/Modal';
-import ModalBox from '../../../components/common/Modal/ModalBox';
-import { YellowCheckModal, BlueCheckModal, RedErrorModal, WarningModal } from '../../../components/common/Modal';
+import Modal from '@/components/common/Modal/Modal';
+import ModalBox from '@/components/common/Modal/ModalBox';
+import { YellowCheckModal, BlueCheckModal, RedErrorModal, WarningModal } from '@/components/common/Modal';
 
 function ModalContainer() {
     const dispatch = useDispatch();

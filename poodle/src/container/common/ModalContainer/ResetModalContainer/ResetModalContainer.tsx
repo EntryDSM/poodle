@@ -1,5 +1,5 @@
 import React from 'react';
-import ResetModal from '../../../../components/common/Modal/ResetModal/ResetModal';
+import ResetModal from '@/components/common/Modal/ResetModal/ResetModal';
 
 function ResetModalContainer() {
     return (

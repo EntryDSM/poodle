@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from '../../../styles/common/Header';
+import * as S from '@/styles/common/Header';
 
 export type HeaderProps = {
     isLogin: boolean,

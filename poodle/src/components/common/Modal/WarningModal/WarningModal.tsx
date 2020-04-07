@@ -1,6 +1,6 @@
 import React from 'react';
 import { ModalContent, ModalButtonList } from '../';
-import * as S from '../../../../styles/common/Modal';
+import * as S from '@/styles/common/Modal';
 
 function WarningModal() {
     return (

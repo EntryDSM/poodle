@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import * as S from '../../../../styles/common/Modal';
+import * as S from '@/styles/common/Modal';
 import { ModalContent, ModalInput, ModalButtonList, ModalContentProps } from '../';
 
 function RestModal({ title, contour, error, color }: ModalContentProps) {

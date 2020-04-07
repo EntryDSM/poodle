@@ -3,7 +3,7 @@ import {
 
 } from '../../actions/header';
 import { takeLatest } from 'redux-saga/effects';
-import createRequestSaga from '../../../../lib/utils/saga/createRequestSaga';
+import createRequestSaga from '@/lib/utils/saga/createRequestSaga';
 
 const loginSaga = createRequestSaga(LOGIN, () => ({ data: { userName: 'woochanleee' } }));
 

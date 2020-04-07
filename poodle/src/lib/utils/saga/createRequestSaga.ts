@@ -1,5 +1,5 @@
 import { call, put, delay } from 'redux-saga/effects';
-import { startLoading, finishLoading } from '../../../core/redux/actions/loading';
+import { startLoading, finishLoading } from '@/core/redux/actions/loading';
 
 export default function createRequestSaga(type: any, request: any) {
     const SUCCESS = `${type}_SUCCESS`;

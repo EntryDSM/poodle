@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from '../../../styles/common/Modal';
+import * as S from '@/styles/common/Modal';
 
 type ModalBoxProps = {
     children: React.ReactNode,
@@ -8,7 +8,7 @@ type ModalBoxProps = {
 
 function ModalBox({ children, modalOff }: ModalBoxProps) {
     return (
-        <S.ModalBox onClick={e => e.stopPropagation()}>
+        <S.ModalBox onClick={(e: any) => e.stopPropagation()}>
             <S.ModalHeader>
                 <S.CloseButton onClick={modalOff}>
                     <S.CloseButtonImage />

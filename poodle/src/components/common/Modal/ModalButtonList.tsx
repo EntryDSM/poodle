@@ -1,6 +1,6 @@
 import React from 'react';
 import ModalButton from './ModalButton';
-import * as S from '../../../styles/common/Modal';
+import * as S from '@/styles/common/Modal';
 
 type ModalButtonListProps = {
     buttonList: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginModal from '../../../../components/common/Modal/LoginModal/LoginModal';
+import LoginModal from '@/components/common/Modal/LoginModal/LoginModal';
 
 function LoginModalContainer() {
     return (

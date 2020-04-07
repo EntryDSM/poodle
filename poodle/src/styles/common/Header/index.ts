@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ResponsiveWrapper } from '../index';
-import Logo from '../../../assets/common/Header/Logo.png';
+import Logo from '@/assets/common/Header/Logo.png';
 
 export const HeaderWrapper = styled.header`
     width: 100%;

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import ClearButton from '../../../assets/common/Modal/Button_clear@3x.png';
+import ClearButton from '@/assets/common/Modal/Button_clear@3x.png';
 
 export const ModalWrapper = styled.div`
     width: 100%;
@@ -235,7 +235,7 @@ export const StyledModalButton = styled.button<ModalButtonProps>`
 `;
 
 export const ETCSentence = styled.p`
-    width: 7.625rem;
+    width: auto;
     height: 0.8125rem;
     line-height: 0.8125rem;
     font-family: NanumSquareR;

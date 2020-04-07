@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import * as S from '../../../../styles/common/Modal';
+import * as S from '@/styles/common/Modal';
 import { ModalContent, ModalInput, ModalButtonList, ModalContentProps } from '../';
-import { modalOn, RESETMODAL, YELLOWCHECKMODAL, BLUECHECKMODAL, REDERRORMODAL, WARNINGMODAL } from '../../../../core/redux/actions/modal';
+import { modalOn, RESETMODAL, YELLOWCHECKMODAL, BLUECHECKMODAL, REDERRORMODAL, WARNINGMODAL } from '@/core/redux/actions/modal';
 
 function LoginModal({ title, contour, error, color }: ModalContentProps) {
     const dispatch = useDispatch();

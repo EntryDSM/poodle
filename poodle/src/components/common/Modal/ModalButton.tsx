@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from '../../../styles/common/Modal';
+import * as S from '@/styles/common/Modal';
 
 export type ModalButtonProps = {
     color: string,
