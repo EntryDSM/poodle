@@ -1,7 +1,16 @@
-import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { modalOn, modalOff, modalClear } from '@/core/redux/actions/modal';
 
-const dispatch = useDispatch();
+export const openModal = (action: string, dispatch: any) => {
+    dispatch(modalOn(action));
+}
+
+export const closeModal = (action: string, dispatch: any) => {
+    dispatch(modalOff(action));
+}
+
+export const clearModal = (dispatch: any) => {
+    dispatch(modalClear());
+}
 
 export { default as Modal } from './Modal';
 export { default as ModalBox } from './ModalBox';
@@ -13,10 +22,6 @@ export { default as BlueCheckModal } from './BlueCheckModal/BlueCheckModal';
 export { default as YellowCheckModal } from './YellowCheckModal/YellowCheckModal';
 export { default as RedErrorModal } from './RedErrorModal/RedErrorModal';
 export { default as WarningModal } from './WarningModal/WarningModal';
-
-export const openModal = useCallback((action) => {
-    dispatch(action);
-}, [dispatch]);
 
 export type ModalContentProps = {
     children?: React.ReactNode,
