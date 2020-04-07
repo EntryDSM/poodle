@@ -1,11 +1,11 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback } from 'react';
 import * as S from '@/styles/common/Modal';
-import { ModalContent, ModalInput, ModalButtonList, ModalContentProps } from '../';
-import { modalOn, RESETMODAL, YELLOWCHECKMODAL, BLUECHECKMODAL, REDERRORMODAL, WARNINGMODAL } from '@/core/redux/actions/modal';
+import { ModalContent, ModalInput, ModalButtonList, ModalContentProps,
+    openModal
+} from '../';
+import { RESETMODAL } from '@/core/redux/actions/modal';
 
 function LoginModal({ title, contour, error, color }: ModalContentProps) {
-    const dispatch = useDispatch();
     return (
         <ModalContent
             title={title}
@@ -31,7 +31,7 @@ function LoginModal({ title, contour, error, color }: ModalContentProps) {
             <S.ETCSentence>
                 아직 계정이 없으신가요?
             </S.ETCSentence>
-            <S.ETCSentence onClick={() => dispatch(modalOn(WARNINGMODAL))}>
+            <S.ETCSentence onClick={openModal(RESETMODAL)}>
                 비밀번호 재설정
             </S.ETCSentence>
         </ModalContent>
