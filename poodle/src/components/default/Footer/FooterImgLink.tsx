@@ -1,0 +1,26 @@
+import {
+    FooterImgButton,
+} from '../../../styles/Footer';
+import React, { FC } from 'react';
+
+interface Props {
+    img: string,
+    alt: string,
+    link: string,
+}
+
+const FooterImgLink: FC<Props> = ({ img, alt, link }) => {
+    const redirectToLink = (link: string) => {
+        window.location.href=link;
+    }
+    const clickHandler = (link: string) => {
+        redirectToLink(link);
+    }
+    return (
+        <FooterImgButton onClick={() => clickHandler(link)}>
+            <img src={img} alt={alt}/>
+        </FooterImgButton>
+    )
+}
+
+export default FooterImgLink;
