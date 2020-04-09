@@ -80,6 +80,7 @@ type CheckButtonProps = {
 }
 
 export const CheckButton = styled.button<CheckButtonProps>`
+    background: none;
     background-image: url(${props => props.checked ? checked : check});
     border: none;
     outline: none;
