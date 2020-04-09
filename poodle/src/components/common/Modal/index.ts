@@ -28,8 +28,8 @@ export type ModalContentProps = {
     title: string,
     contour?: boolean,
     normal?: string,
-    error?: string,
-    explain?: string[] | string,
+    errorSentence?: string,
+    explain?: string,
     color: string,
     icon?: string
 }
