@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as S from '@/styles/common/Header';
 
 export type HeaderProps = {
@@ -12,7 +12,7 @@ export type HeaderProps = {
     }
 };
 
-function Header({ isLogin,  user, loginError, loginLoading, login, logout }: HeaderProps) {
+const Header: FC<HeaderProps> = ({ isLogin,  user, loginError, loginLoading, login, logout }: HeaderProps) => {
     return (
         <S.HeaderWrapper>
             <S.HeaderContent>

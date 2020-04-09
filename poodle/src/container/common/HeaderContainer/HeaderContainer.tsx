@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/core/redux/reducer';
 import { LOGIN, login, loginFailure } from '@/core/redux/actions/header';
@@ -7,7 +7,7 @@ import { Header } from '@/components/common';
 import ModalContainer from '../ModalContainer/ModalContainer';
 import { modalOn, modalOff, LOGINMODAL } from '@/core/redux/actions/modal';
 
-function HeaderContainer() {
+const HeaderContainer: FC<{}> = () => {
     const { 
         isLogin,
         loginLoading,

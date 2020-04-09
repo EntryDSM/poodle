@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-function ErrorModalContainer() {
+const ErrorModalContainer: FC<{}> = () => {
     return (
         <h1>에러모달</h1>
     );

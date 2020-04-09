@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ModalContent, ModalButtonList } from '../';
 
-function YellowCheckModal() {
+const YellowCheckModal: FC<{}> = () => {
     return (
         <ModalContent
             title='접근 오류'

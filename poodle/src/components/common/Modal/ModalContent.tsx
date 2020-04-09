@@ -1,27 +1,28 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as S from '@/styles/common/Modal';
 import { ModalContentProps } from './';
 import { BlueSuccess, BlueCheck, RedError, YellowCheck } from '@/assets/common/Modal';
 
-const imageList: any = {
-    'BlueSuccess': BlueSuccess,
-    'BlueCheck': BlueCheck,
-    'RedError': RedError,
-    'YellowCheck': YellowCheck
+enum IMAGE_LIST {
+    BlueSuccess = 'BlueSuccess',
+    BlueCheck = 'BlueCheck',
+    RedError = 'RedError',
+    YellowCheck = 'YellowCheck'
 }
 
-function ModalContent({ children, title, contour, error, normal, explain, color, icon }: ModalContentProps) {
+const ModalContent: FC<ModalContentProps> = ({ children, title, contour, errorSentence, normal, explain, color, icon }) => {
     return (
         <S.ModalContentWrapper>
             <S.Title>{title}</S.Title>
             <S.SubTitle
                 contour={contour}
-                error={error}
+                error={errorSentence}
                 color={color}
             >
+                {errorSentence && errorSentence}
                 {normal && normal}
             </S.SubTitle>
-            {icon && <S.IconImage src={imageList[icon]} />}
+            {icon && <S.IconImage src={BlueSuccess} />}
             {explain && 
             <S.ExplainSentence>
                 {explain}

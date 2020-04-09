@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback, FC } from 'react';
 import { useDispatch } from 'react-redux';
 import * as S from '@/styles/common/Modal';
 import { ModalContent, ModalInput, ModalButtonList, ModalContentProps,
@@ -6,23 +6,49 @@ import { ModalContent, ModalInput, ModalButtonList, ModalContentProps,
 } from '../';
 import { RESETMODAL } from '@/core/redux/actions/modal';
 
-function LoginModal({ title, contour, error, color }: ModalContentProps) {
+type LoginModalProps = ModalContentProps & {
+    onClick: () => void
+}
+
+const LoginModal: FC<LoginModalProps> = ({ title, contour, errorSentence, color, onClick }) => {
     const dispatch = useDispatch();
     const openResetModal = useCallback(() => {
         openModal(RESETMODAL, dispatch);
     }, [dispatch]);
+    const [loginInfo, setLoginInfo] = useState<{[key: string]: string}>({
+        email: '',
+        password: ''
+    });
+    const onSubmit = useCallback(() => {
+        const loginInfoValue = Object.keys(loginInfo).map(key => loginInfo[key]);
+        console.log(loginInfo, loginInfoValue);
+        if (loginInfoValue.some(v => !v || v.indexOf(' ') !== -1)) {
+            alert('빈칸은 입력할수 없습ㄴ디ㅏ.');
+        } else {
+            console.log('로그인 !!')
+        }
+    }, [loginInfo]);
     return (
         <ModalContent
             title={title}
             contour={contour}
-            error={error}
+            errorSentence={errorSentence}
             color={color}
         >
             <ModalInput
                 type="email"
-            />
+                textCenter={false}
+                value={loginInfo}
+                setValue={setLoginInfo}
+                id='email'
+                />
             <ModalInput
                 type="password"
+                textCenter={false}
+                value={loginInfo}
+                setValue={setLoginInfo}
+                id="password"
+                submit={onSubmit}
             />
             <ModalButtonList 
                 color={color}
@@ -30,10 +56,10 @@ function LoginModal({ title, contour, error, color }: ModalContentProps) {
                     id: 1,
                     title,
                     size: 'max',
-                    onClick: () => {}
+                    onClick: onSubmit
                 }]}
             />
-            <S.ETCSentence onClick={() => { console.log(1); }}>
+            <S.ETCSentence>
                 아직 계정이 없으신가요?
             </S.ETCSentence>
             <S.ETCSentence onClick={openResetModal}>

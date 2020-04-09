@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as S from '@/styles/common/Modal';
 
 export type ModalButtonProps = {
@@ -8,7 +8,7 @@ export type ModalButtonProps = {
     onClick: () => void
 }
 
-function ModalButton({ color, title, size, onClick }: ModalButtonProps) {
+const ModalButton: FC<ModalButtonProps> = ({ color, title, size, onClick }) => {
     return (
         <S.StyledModalButton color={color} size={size} onClick={onClick}>
             {title}

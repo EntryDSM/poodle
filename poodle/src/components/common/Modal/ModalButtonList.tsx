@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { FC } from 'react';
 import ModalButton from './ModalButton';
 import * as S from '@/styles/common/Modal';
 
-type ModalButtonListProps = {
-    buttonList: {
-        id: number,
-        title: string,
-        size: string,
-        onClick: () => void,
-    }[],
+export type ButtonType = {
+    id: number,
+    title: string,
+    size: string,
+    onClick: () => void
+}
+
+export type ModalButtonListProps = {
+    buttonList: Array<ButtonType>,
     color: string
 }
 
-function ModalButtonList({ buttonList, color }: ModalButtonListProps) {
+const ModalButtonList: FC<ModalButtonListProps> = ({ buttonList, color }) => {
     return (
         <S.ModalButtonListWrapper>
             {buttonList.map(button => (

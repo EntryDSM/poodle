@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as S from '@/styles/common/Modal';
 
 type ModalBoxProps = {
@@ -6,7 +6,7 @@ type ModalBoxProps = {
     modalOff: () => void
 }
 
-function ModalBox({ children, modalOff }: ModalBoxProps) {
+const ModalBox: FC<ModalBoxProps> = ({ children, modalOff }) => {
     return (
         <S.ModalBox onClick={(e: any) => e.stopPropagation()}>
             <S.ModalHeader>

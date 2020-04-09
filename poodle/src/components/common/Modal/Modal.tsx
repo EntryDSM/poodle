@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as S from '@/styles/common/Modal';
 
 type ModalProps = {
@@ -6,7 +6,7 @@ type ModalProps = {
     children: React.ReactNode
 };
 
-function Modal({ modalClear, children }: ModalProps) {
+const Modal: FC<ModalProps> = ({ modalClear, children }) => {
     return (
         <S.ModalWrapper onClick={modalClear}>
             {children}

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ModalContent, ModalButtonList } from '../';
 
-function RedErrorModal() {
+const RedErrorModal: FC<{}> = () => {
     return (
         <ModalContent
             title='파일 오류'

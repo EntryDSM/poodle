@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ModalContent, ModalButtonList } from '../';
 
-function BlueCheckModal() {
+const BlueCheckModal: FC<{}> = () => {
     return (
         <ModalContent
             title='정말 제출하시겠습니까?'

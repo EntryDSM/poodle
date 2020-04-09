@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ModalContent, ModalButtonList } from '../';
 import * as S from '@/styles/common/Modal';
 
-function WarningModal() {
+const WarningModal: FC<{}> = () => {
     return (
         <ModalContent
             title='주의사항'
