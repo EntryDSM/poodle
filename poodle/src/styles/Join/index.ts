@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ResponsiveWrapper } from '../common'
-import { check, checkedImage, rightArrow, validRightArrow } from '../../assets/Join';
+import { check, checkedImage, rightArrow, validRightArrow, inputCheck } from '../../assets/Join';
 
 export const Footer = styled.div`
     width: 100%;
@@ -173,11 +173,11 @@ export const StyledButton = styled.button`
 `;
 
 export const ValidCheckImage = styled.img.attrs({
-    src: checkedImage
+    src: inputCheck
 })`
     width: 20px;
     height: 15px;
-    object-fit: cover;
+    object-fit: contain;
     margin-left: 1.125rem;
 `;
 
