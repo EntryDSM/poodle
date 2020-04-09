@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import LoginModal from '@/components/common/Modal/LoginModal/LoginModal';
+import { MAINCOLOR } from '@/lib/utils/style/color';
 
 const LoginModalContainer: FC<{}> = () => {
     const submitLogin = () => {
@@ -10,7 +11,7 @@ const LoginModalContainer: FC<{}> = () => {
             title="로그인"
             contour={true}
             errorSentence={false ? "이메일 또는 비밀번호가 잘못되었습니다" : ''}
-            color="#78cede"
+            color={MAINCOLOR}
             onClick={submitLogin}
         />
     );

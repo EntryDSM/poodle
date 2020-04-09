@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import { ModalContent, ModalButtonList } from '../';
+import { BLUE } from '@/lib/utils/style/color';
 
 const BlueCheckModal: FC<{}> = () => {
     return (
         <ModalContent
             title='정말 제출하시겠습니까?'
             contour={true}
-            color='#56c2d6'
+            color={BLUE}
             explain='제출하면 다시 수정할 수 없으니 다시 한번 확인해 주세요'
             icon='BlueCheck'
         >
@@ -16,7 +17,7 @@ const BlueCheckModal: FC<{}> = () => {
                 size: 'max',
                 onClick: () => {}
             }]}
-                color='#56c2d6'
+                color={BLUE}
             />
         </ModalContent>
     );

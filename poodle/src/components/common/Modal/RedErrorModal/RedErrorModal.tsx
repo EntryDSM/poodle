@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import { ModalContent, ModalButtonList } from '../';
+import { RED } from '@/lib/utils/style/color';
 
 const RedErrorModal: FC<{}> = () => {
     return (
         <ModalContent
             title='파일 오류'
             contour={true}
-            color='#ff6969'
+            color={RED}
             explain='파일 형식이 올바른지 다시 한번 확인해 주세요'
             icon='RedError'
         >
@@ -16,7 +17,7 @@ const RedErrorModal: FC<{}> = () => {
                 size: 'max',
                 onClick: () => {}
             }]}
-            color='#ff6969'
+            color={RED}
             />
         </ModalContent>
     );

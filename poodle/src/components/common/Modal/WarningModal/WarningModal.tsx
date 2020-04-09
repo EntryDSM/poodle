@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
 import { ModalContent, ModalButtonList } from '../';
 import * as S from '@/styles/common/Modal';
+import { RED } from '@/lib/utils/style/color';
 
 const WarningModal: FC<{}> = () => {
     return (
         <ModalContent
             title='주의사항'
             contour={true}
-            color='#ff6969'
+            color={RED}
         >
             <S.WarningWrapper>
                 미리보기 단계에서는 <S.WarningFocus>내신 성적</S.WarningFocus>이 표기되지 않습니다.{`\r\n`}
@@ -24,7 +25,7 @@ const WarningModal: FC<{}> = () => {
                 size: 'max',
                 onClick: () => {}
             }]}
-                color='#ff6969'
+                color={RED}
             />
         </ModalContent>
     );
