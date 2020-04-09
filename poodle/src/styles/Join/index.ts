@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ResponsiveWrapper } from '../common'
-import { check, checked, rightArrow, validRightArrow } from '../../assets/Join';
+import { check, checkedImage, rightArrow, validRightArrow } from '../../assets/Join';
 
 export const Footer = styled.div`
     width: 100%;
@@ -81,7 +81,7 @@ type CheckButtonProps = {
 
 export const CheckButton = styled.button<CheckButtonProps>`
     background: none;
-    background-image: url(${props => props.checked ? checked : check});
+    background-image: url(${({ checked }) => checked ? checkedImage : check});
     border: none;
     outline: none;
     background-size: contain;
@@ -173,7 +173,7 @@ export const StyledButton = styled.button`
 `;
 
 export const ValidCheckImage = styled.img.attrs({
-    src: checked
+    src: checkedImage
 })`
     width: 20px;
     height: 15px;
