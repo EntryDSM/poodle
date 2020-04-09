@@ -16,8 +16,3 @@ function JoinInput({ maxSize, middleSize }: JoinInputProps) {
 }
 
 export default JoinInput;
-
-JoinInput.defaultProps = {
-    maxSize: false,
-    middleSize: false,
-}
