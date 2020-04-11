@@ -5,18 +5,15 @@ type ModalInputProps = {
     type: string,
     placeholder: string,
     textCenter: boolean,
-    value: any,
-    setValue: any,
+    value: string,
+    setValue: React.Dispatch<React.SetStateAction<string>>,
     id: string,
     submit?: () => void,
 }
 
 const ModalInput: FC<ModalInputProps> = ({ type, placeholder, value, setValue, textCenter, id, submit }) => {
     const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue({
-            ...value,
-            [id]: e.target.value
-        });
+        setValue(e.target.value);
     }, [value, id]);
     const onKeyPress = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && submit) submit();
@@ -26,7 +23,7 @@ const ModalInput: FC<ModalInputProps> = ({ type, placeholder, value, setValue, t
             <S.ModalInputBox>
                 <S.StyledInput
                     type={type}
-                    value={value[id]}
+                    value={value}
                     placeholder={placeholder}
                     onChange={onChange}
                     textCenter={textCenter}
