@@ -15,19 +15,16 @@ const LoginModal: FC<LoginModalProps> = ({ title, contour, errorSentence, color,
     const openResetModal = useCallback(() => {
         openModal(RESETMODAL, dispatch);
     }, [dispatch]);
-    const [loginInfo, setLoginInfo] = useState<{[key: string]: string}>({
-        email: '',
-        password: ''
-    });
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
     const onSubmit = useCallback(() => {
-        const loginInfoValue = Object.keys(loginInfo).map(key => loginInfo[key]);
-        console.log(loginInfo, loginInfoValue);
+        const loginInfoValue = [email, password];
         if (loginInfoValue.some(v => !v || v.indexOf(' ') !== -1)) {
-            alert('빈칸은 입력할수 없습ㄴ디ㅏ.');
+            alert('빈칸은 입력할수 없습니다.');
         } else {
             console.log('로그인 !!')
         }
-    }, [loginInfo]);
+    }, [email, password]);
     return (
         <ModalContent
             title={title}
@@ -37,16 +34,18 @@ const LoginModal: FC<LoginModalProps> = ({ title, contour, errorSentence, color,
         >
             <ModalInput
                 type="email"
+                placeholder="이메일"
                 textCenter={false}
-                value={loginInfo}
-                setValue={setLoginInfo}
+                value={email}
+                setValue={setEmail}
                 id='email'
-                />
+            />
             <ModalInput
                 type="password"
+                placeholder="비밀번호"
                 textCenter={false}
-                value={loginInfo}
-                setValue={setLoginInfo}
+                value={password}
+                setValue={setPassword}
                 id="password"
                 submit={onSubmit}
             />
