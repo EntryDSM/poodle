@@ -85,12 +85,14 @@ export const getButtonList = (
 export const setPageList = (sendEmailSuccess: boolean) => [
     {
         inputType: 'email',
+        placeholder: '이메일',
         key: 'email',
         errorSentence: '잘못된 형식의 이메일입니다',
         explain: !sendEmailSuccess ? '본인인증 시 인증했던 이메일 주소를 입력해 주세요' : '아래의 이메일로 인증코드를 전송했습니다'
     },
     {
         inputType: 'verification',
+        placeholder: '인증번호',
         key: 'code',
         errorSentence: '잘못된 인증코드입니다',
         explain: '전송된 인증코드를 입력해 주세요',
@@ -99,6 +101,7 @@ export const setPageList = (sendEmailSuccess: boolean) => [
     },
     {
         inputType: 'password',
+        placeholder: '비밀번호',
         key: 'password',
         errorSentence: '조건에 맞지 않은 비밀번호입니다',
         explain: '새로운 비밀번호를 입력해 주세요',
@@ -106,12 +109,14 @@ export const setPageList = (sendEmailSuccess: boolean) => [
     },
     {
         inputType: 'password',
+        placeholder: '비밀번호',
         key: 'passwordCheck',
         errorSentence: '비밀번호가 일치하지 않습니다',
         explain: '비밀번호를 한 번 더 입력해 주세요'
     },
     {
         inputType: '',
+        placeholder: '',
         key: '',
         icon: 'BlueSuccess',
         explain: '비밀번호 재설정이 완료되었습니다'

@@ -6,6 +6,7 @@ import { getButtonList } from '@/container/common/ModalContainer/ResetModalConta
 
 type PageType = {
     inputType: string,
+    placeholder: string,
     key: string,
     errorSentence?: string,
     explain: string,
@@ -87,6 +88,7 @@ const RestModal: FC<ResetModalProps> = ({ page, setPage, pageList, buttonList, t
             {pageList[page].inputType && 
             <ModalInput
                 type={pageList[page].inputType}
+                placeholder={pageList[page].placeholder}
                 textCenter={pageList[page].inputType === 'password' ||
                 pageList[page].inputType === 'verification'}
                 value={resetInfo}
@@ -94,7 +96,8 @@ const RestModal: FC<ResetModalProps> = ({ page, setPage, pageList, buttonList, t
                 id={pageList[page].key}
             />}
             <ModalButtonList buttonList={correctedButtonList[page]} color={color} />
-            {pageList[page].moreExplain && <S.MoreExplainSentence>
+            {pageList[page].moreExplain &&
+            <S.MoreExplainSentence>
                 {pageList[page].moreExplain}
             </S.MoreExplainSentence>}
         </ModalContent>

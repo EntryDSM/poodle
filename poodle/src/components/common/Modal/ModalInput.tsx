@@ -3,6 +3,7 @@ import * as S from '@/styles/common/Modal';
 
 type ModalInputProps = {
     type: string,
+    placeholder: string,
     textCenter: boolean,
     value: any,
     setValue: any,
@@ -10,13 +11,7 @@ type ModalInputProps = {
     submit?: () => void,
 }
 
-const typeValue: any = {
-    'email': '이메일',
-    'password': '비밀번호',
-    'verification': '인증번호'
-};
-
-const ModalInput: FC<ModalInputProps> = ({ type, value, setValue, textCenter, id, submit }) => {
+const ModalInput: FC<ModalInputProps> = ({ type, placeholder, value, setValue, textCenter, id, submit }) => {
     const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setValue({
             ...value,
@@ -32,7 +27,7 @@ const ModalInput: FC<ModalInputProps> = ({ type, value, setValue, textCenter, id
                 <S.StyledInput
                     type={type}
                     value={value[id]}
-                    placeholder={typeValue[type]}
+                    placeholder={placeholder}
                     onChange={onChange}
                     textCenter={textCenter}
                     onKeyPress={onKeyPress}
