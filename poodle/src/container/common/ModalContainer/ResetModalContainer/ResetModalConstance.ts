@@ -1,14 +1,14 @@
 export const getButtonList = (
-    submit1: any,
-    next1: any,
-    reSubmit2: any,
-    verification2: any,
-    next2: any,
-    prev3: any,
-    next3: any,
-    prev4: any, 
-    next4: any,
-    check5: any
+    submit1: () => void,
+    next1: () => void,
+    reSubmit2: () => void,
+    verification2: () => void,
+    next2: () => void,
+    prev3: () => void,
+    next3: () => void,
+    prev4: () => void, 
+    next4: () => void,
+    check5: () => void,
 ) => [
     [
         {

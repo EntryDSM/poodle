@@ -26,12 +26,34 @@ type ResetModalProps = {
 }
 
 const RestModal: FC<ResetModalProps> = ({ page, setPage, pageList, buttonList, title, contour, error, color }) => {
-    const [resetInfo, setResetInfo] = useState({
-        email: '',
-        code: '',
-        password: '',
-        passwordCheck: ''
-    });
+    const [email, setEmail] = useState<string>('');
+    const [code, setCode] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [passwordCheck, setPasswordCheck] = useState<string>('');
+    const getValue = (id: string): string => {
+        switch (id) {
+            case 'email':
+                return email;
+            case 'password':
+                return password;
+            case 'passwordCheck':
+                return passwordCheck;
+            default:
+                return '';
+        }
+    }
+    const getSetValue = (id: string): React.Dispatch<React.SetStateAction<string>> => {
+        switch (id) {
+            case 'email':
+                return setEmail;
+            case 'password':
+                return setPassword;
+            case 'passwordCheck':
+                return setPasswordCheck;
+            default:
+                return () => {};
+        }
+    }
     const submit1 = useCallback(() => {
         buttonList[0][0].onClick();
     }, [page]);
@@ -89,10 +111,12 @@ const RestModal: FC<ResetModalProps> = ({ page, setPage, pageList, buttonList, t
             <ModalInput
                 type={pageList[page].inputType}
                 placeholder={pageList[page].placeholder}
-                textCenter={pageList[page].inputType === 'password' ||
-                pageList[page].inputType === 'verification'}
-                value={resetInfo}
-                setValue={setResetInfo}
+                textCenter={
+                    pageList[page].inputType === 'password' ||
+                    pageList[page].inputType === 'verification'
+                }
+                value={getValue(pageList[page].key)}
+                setValue={getSetValue(pageList[page].key)}
                 id={pageList[page].key}
             />}
             <ModalButtonList buttonList={correctedButtonList[page]} color={color} />
