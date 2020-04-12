@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import * as S from '@/styles/common/Modal';
 
 type ModalBoxProps = {
@@ -7,8 +7,11 @@ type ModalBoxProps = {
 }
 
 const ModalBox: FC<ModalBoxProps> = ({ children, modalOff }) => {
+    const preventBubling = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.stopPropagation();
+    }, []);
     return (
-        <S.ModalBox onClick={(e: any) => e.stopPropagation()}>
+        <S.ModalBox onClick={preventBubling}>
             <S.ModalHeader>
                 <S.CloseButton onClick={modalOff}>
                     <S.CloseButtonImage />
