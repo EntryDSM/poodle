@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import LoginModal from '@/components/common/Modal/LoginModal/LoginModal';
+import LoginModal from '@/components/default/common/Modal/LoginModal/LoginModal';
 import { MAINCOLOR } from '@/lib/utils/style/color';
 
 const LoginModalContainer: FC<{}> = () => {

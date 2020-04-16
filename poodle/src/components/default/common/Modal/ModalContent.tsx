@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import * as S from '@/styles/common/Modal';
-import { ModalContentProps } from './';
-import { BlueSuccess, BlueCheck, RedError, YellowCheck } from '@/assets/common/Modal';
+import { ModalContentProps } from '.';
+import { BlueSuccess, BlueCheck, RedError, YellowCheck } from '@/assets/Modal';
 
 enum IMAGE_LIST {
     BlueSuccess = 'BlueSuccess',

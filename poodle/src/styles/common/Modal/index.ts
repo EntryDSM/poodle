@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import ClearButton from '@/assets/common/Modal/Button_clear@3x.png';
+import ClearButton from '@/assets/Modal/Button_clear@3x.png';
 
 export const ModalWrapper = styled.div`
     width: 100%;

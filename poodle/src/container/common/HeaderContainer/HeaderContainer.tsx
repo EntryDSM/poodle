@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/core/redux/reducer';
 import { LOGIN, login, loginFailure } from '@/core/redux/actions/header';
 
-import { Header } from '@/components/common';
+import { Header } from '@/components/default/Header';
 import ModalContainer from '../ModalContainer/ModalContainer';
 import { modalOn, modalOff, LOGINMODAL } from '@/core/redux/actions/modal';
 

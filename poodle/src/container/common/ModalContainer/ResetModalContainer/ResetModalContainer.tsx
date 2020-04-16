@@ -1,5 +1,5 @@
 import React, { useState, useCallback, FC } from 'react';
-import ResetModal from '@/components/common/Modal/ResetModal/ResetModal';
+import ResetModal from '@/components/default/common/Modal/ResetModal/ResetModal';
 import { setPageList, getButtonList } from './ResetModalConstance';
 
 const ResetModalContainer: FC<{}> = () => {

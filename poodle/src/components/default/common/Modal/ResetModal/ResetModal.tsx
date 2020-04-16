@@ -1,6 +1,6 @@
 import React, { useCallback, FC, useState } from 'react';
 import * as S from '@/styles/common/Modal';
-import { ModalContent, ModalInput, ModalButtonList, ModalContentProps } from '../';
+import { ModalContent, ModalInput, ModalButtonList, ModalContentProps } from '..';
 import { ButtonType } from '../ModalButtonList';
 import { getButtonList } from '@/container/common/ModalContainer/ResetModalContainer/ResetModalConstance';
 

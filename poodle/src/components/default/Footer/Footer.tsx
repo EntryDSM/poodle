@@ -4,11 +4,11 @@ import {
     FooterText,
     FooterTitle, 
     FooterImgButtonDiv,
-} from '../../../styles/Footer';
+} from '@/styles/Footer';
 import { 
     facebook, 
     github 
-} from '../../../assets/Footer';
+} from '@/assets/Footer';
 import { 
     FooterImgLink, 
     FooterLink 

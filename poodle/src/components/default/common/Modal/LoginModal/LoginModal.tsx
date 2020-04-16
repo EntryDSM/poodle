@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import * as S from '@/styles/common/Modal';
 import { ModalContent, ModalInput, ModalButtonList, ModalContentProps,
     openModal
-} from '../';
+} from '..';
 import { RESETMODAL } from '@/core/redux/actions/modal';
 
 type LoginModalProps = ModalContentProps & {

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ModalContent, ModalButtonList } from '../';
+import { ModalContent, ModalButtonList } from '..';
 import { BLUE } from '@/lib/utils/style/color';
 
 const BlueCheckModal: FC<{}> = () => {

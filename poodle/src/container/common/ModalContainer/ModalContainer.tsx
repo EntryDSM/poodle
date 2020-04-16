@@ -11,9 +11,9 @@ import {
     ResetModalContainer,
     ErrorModalContainer
 } from './';
-import Modal from '@/components/common/Modal/Modal';
-import ModalBox from '@/components/common/Modal/ModalBox';
-import { YellowCheckModal, BlueCheckModal, RedErrorModal, WarningModal } from '@/components/common/Modal';
+import Modal from '@/components/default/common/Modal/Modal';
+import ModalBox from '@/components/default/common/Modal/ModalBox';
+import { YellowCheckModal, BlueCheckModal, RedErrorModal, WarningModal } from '@/components/default/common/Modal';
 
 const ModalContainer: FC<{}> = () => {
     const dispatch = useDispatch();

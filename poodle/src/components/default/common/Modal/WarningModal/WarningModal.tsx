@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ModalContent, ModalButtonList } from '../';
+import { ModalContent, ModalButtonList } from '..';
 import * as S from '@/styles/common/Modal';
 import { RED } from '@/lib/utils/style/color';
 
