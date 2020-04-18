@@ -1,50 +1,13 @@
 import styled from 'styled-components';
-import { ResponsiveWrapper } from '../common'
+import { Container, Wrapper } from '../common'
 import { check, checkedImage, rightArrow, validRightArrow, inputCheck } from '../../assets/Join';
 
-export const Footer = styled.div`
-    width: 100%;
-    height: 203px;
-    background: red;
-`;
-
-export const JoinWrapper = styled.div`
-    width: 100%;
-    height: auto;
+export const JoinWrapper = styled(Wrapper)`
     box-sizing: border-box;
 `;
 
-export const JoinContainer = styled(ResponsiveWrapper)`
-    
-`;
-
-export const JoinHeader = styled.header`
-    border-bottom: 1px solid #1F8091;
-    padding: 6.25rem 0 2.5rem 3.125rem;
-`;
-
-export const SubTitle = styled.p`
-    height: 1.375rem;
-    line-height: 1.375rem;
-    font-family: NanumSquareL;
-    font-size: 1.25rem;
-    font-weight: 300;
-`;
-
-export const Title = styled.h1`
-    height: 2.5rem;
-    line-height: 2.4rem;
-    font-family: NanumSquareR;
-    font-size: 2.25rem;
-    font-weight: 400;
-    margin: 0.5rem 0 0.75rem 0;
-`;
-
-export const Horizon = styled.hr`
-    width: 23.8125rem;
-    height: 0.1875rem;
-    background-color: #62d3e8;
-    border: none;
+export const JoinContainer = styled(Container)`
+    padding: 0;
 `;
 
 export const AgreeInfoWrapper = styled.div`
@@ -58,12 +21,19 @@ export const AgreeInfo = styled.p`
     color: #272343;
     line-height: 1.3125rem;
     letter-spacing: 0.29px;
+    font-size: 16px;
+    font-family: NanumSquareR;
+    letter-spacing: 0.29px;
+    color: #272343;
 `;
 
 export const AgreeInfoTitle =styled.span`
     display: inline-block;
     margin-top: 1rem;
     color: #46b2c6;
+    font-family: NanumSquareB;
+    font-size: 17px;
+    letter-spacing: 0.31px;
 `;
 
 export const JoinAgreeWrapper = styled.div`
