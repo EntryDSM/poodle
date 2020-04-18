@@ -1,21 +1,23 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { ResponsiveWrapper } from '../index';
+import { Container } from '../index';
 import Logo from '@/assets/Header/Logo.png';
 
 export const HeaderWrapper = styled.header`
+    position:fixed;
+    left:0px;
+    top:0px;
     width: 100%;
+    min-width: 1270px;
     height: 3.75rem;
     box-shadow: 0 0.25rem 0.375rem 0 rgba(0, 0, 0, 0.12);
     background-color: #ffffff;
 `;
 
-export const HeaderContent = styled(ResponsiveWrapper)`
+export const HeaderContent = styled(Container)`
     height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-sizing: border-box;
 `
 
 export const GNBWrapper = styled.div`
@@ -23,23 +25,13 @@ export const GNBWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     height: 1.125rem;
-    > a:last-child {
+    > span:last-child {
         margin-left: 3.75rem;
-        @media screen and (max-width: 1269px) {
-            margin-left: 0.5rem;
-        }
     }
 `;
 
 export const LogoWrapper = styled.h1`
     height: 1.8125rem;
-`;
-
-export const LinkPointer = styled(Link)`
-    display: block;
-    text-decoration: none;
-    cursor: pointer;
-    color: #000000;
 `;
 
 export const LogoImage = styled.span`
@@ -48,6 +40,7 @@ export const LogoImage = styled.span`
     height: 1.8125rem;
     object-fit: contain;
     display: block;
+    cursor: pointer;
 `;
 
 export const GNB = styled.span`
@@ -56,4 +49,5 @@ export const GNB = styled.span`
     height: 18px;
     font-size: 16px;
     line-height: 20px;
+    cursor: pointer;
 `;
