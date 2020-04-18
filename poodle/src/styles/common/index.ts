@@ -45,13 +45,14 @@ export const Global = createGlobalStyle`
     }
 `;
 
-export const ResponsiveWrapper = styled.div`
-    padding: 0 3.125rem;
+export const Wrapper = styled.div`
+    margin-top: 60px;
+    min-width: 1270px;
+`;
+
+export const Container = styled.main`
     width: 1270px;
     margin: 0 auto;
-    @media screen and (max-width: 1269px) {
-        width: 100%;
-        margin: 0;
-        padding: 0 0.75rem;
-    }
+    padding: 0 50px;
+    box-sizing: border-box;
 `;
