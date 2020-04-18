@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
+import ContentHeader from '@/components/default/common/ContentHeader';
 import JoinInput from './JoinInput';
-import * as S from '../../styles/Join';
+import * as S from '@/styles/Join';
 import { 
     AGREEMENT_TITLE1,
     AGREEMENT_TITLE2,
@@ -13,18 +14,15 @@ function Join() {
     const [checked, setChecked] = useState(false);
     const agreeJoin = useCallback(() => setChecked(!checked), [checked]);
     return (
-        <>
         <S.JoinWrapper>
             <S.JoinContainer>
-                <S.JoinHeader>
-                    <S.SubTitle>
-                        대덕소프트웨어마이스터고등학교
-                    </S.SubTitle>
-                    <S.Title>
-                        2021 지원자 계정 생성하기
-                    </S.Title>
-                    <S.Horizon />
-                </S.JoinHeader>
+                <ContentHeader
+                    padding='100px 0 40px 50px'
+                    subTitle='대덕소프트웨어마이스터고등학교'
+                    title='2021 지원자 계정 생성하기'
+                    underLineLength={347}
+                    border='border-bottom 1px solid #1F8091;'
+                />
                 <S.AgreeInfoWrapper>
                     <S.AgreeInfo>
                         {AGREEMENT_1}
@@ -104,8 +102,6 @@ function Join() {
                 </S.JoinFooter>
             </S.JoinContainer>
         </S.JoinWrapper>
-        <S.Footer />
-        </>
     );
 }
 

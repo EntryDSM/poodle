@@ -4,10 +4,7 @@ import Join from '../../components/Join/Join';
 
 function JoinContainer() {
     return (
-        <>
-            <HeaderContainer/>
-            <Join />
-        </>
+        <Join />
     );
 }
 
