@@ -1,19 +1,23 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import {
+  JoinContainer,
   HeaderContainer,
-  JoinContainer
 } from './container';
 import { Global } from './styles/common'
+import { 
+  Footer,
+} from './components';
 
 function App() {
   return (
     <BrowserRouter>
+      <HeaderContainer />
       <Global/>
       <Switch>
-        {/* <Route path="/" component={HeaderContainer} /> */}
         <Route path="/join" component={JoinContainer} />
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

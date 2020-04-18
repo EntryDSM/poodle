@@ -1,0 +1,1 @@
+export { Footer as Footer } from './default/Footer'
