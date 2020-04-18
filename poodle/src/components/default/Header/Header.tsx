@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import * as S from '@/styles/common/Header';
+import { useRedirect } from '@/lib/utils/function';
 
 export type HeaderProps = {
     isLogin: boolean,
@@ -13,30 +14,29 @@ export type HeaderProps = {
 };
 
 const Header: FC<HeaderProps> = ({ isLogin,  user, loginError, loginLoading, login, logout }: HeaderProps) => {
+    const redirectToLink = useRedirect();
+    const goToHome = useCallback(() => {
+        redirectToLink('/');
+    }, []);
+    const goToMypage = useCallback(() => {
+        redirectToLink('/mypage');
+    }, []);
     return (
         <S.HeaderWrapper>
             <S.HeaderContent>
                 <S.LogoWrapper>
-                    <S.LinkPointer to="/">
-                        <S.LogoImage />
-                    </S.LinkPointer>
+                        <S.LogoImage onClick={goToHome} />
                 </S.LogoWrapper>
                 <S.GNBWrapper>
                     {loginLoading && <p>로그인중...</p>}
                     {loginError && <p>{loginError}</p>}
                     {!loginError && !loginLoading && isLogin && user &&
                     <>
-                        <S.LinkPointer to="/mypage">
-                            <S.GNB>마이페이지</S.GNB>
-                        </S.LinkPointer>
-                            <S.LinkPointer to="/logout">
-                            <S.GNB onClick={logout}>{user.userName}</S.GNB>
-                        </S.LinkPointer>    
+                        <S.GNB onClick={goToMypage}>마이페이지</S.GNB>
+                        <S.GNB onClick={logout}>{user.userName}</S.GNB>
                     </>}
                     {!loginLoading && !loginError && !isLogin &&
-                        <S.LinkPointer to="/login">
-                            <S.GNB onClick={login}>로그인</S.GNB>
-                        </S.LinkPointer>
+                        <S.GNB onClick={login}>로그인</S.GNB>
                     }
                 </S.GNBWrapper>
             </S.HeaderContent>
