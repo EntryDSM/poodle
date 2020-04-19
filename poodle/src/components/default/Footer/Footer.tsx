@@ -25,21 +25,23 @@ const Footer: FC = () => {
     return (
         <FooterDiv>
             <div>
-                <FooterTitle>Entry</FooterTitle>
-                <FooterText margin="20">{ENTRY_TITLE}</FooterText>
-                <FooterText>{TERMS}</FooterText>
-                <FooterText>{SCHOOL_ADDRESS}</FooterText>
-                <FooterText>{SCHOOL_PHONE_NUMBER}</FooterText>
-                <FooterText>{BUSINESS_NUMBER}</FooterText>
-            </div>
-            <div>
-                <FooterLink link="">Entry 소개</FooterLink>
-                <FooterLink link="">시스템 소개</FooterLink>
-                <FooterLink link="">개발자 소개</FooterLink>
-                <FooterImgButtonDiv>
-                    <FooterImgLink link="" img={github} alt="github로"/>
-                    <FooterImgLink link="" img={facebook} alt="facebook으로"/>
-                </FooterImgButtonDiv>
+                <div>
+                    <FooterTitle>Entry</FooterTitle>
+                    <FooterText margin="20">{ENTRY_TITLE}</FooterText>
+                    <FooterText>{TERMS}</FooterText>
+                    <FooterText>{SCHOOL_ADDRESS}</FooterText>
+                    <FooterText>{SCHOOL_PHONE_NUMBER}</FooterText>
+                    <FooterText>{BUSINESS_NUMBER}</FooterText>
+                </div>
+                <div>
+                    <FooterLink link="">Entry 소개</FooterLink>
+                    <FooterLink link="">시스템 소개</FooterLink>
+                    <FooterLink link="">개발자 소개</FooterLink>
+                    <FooterImgButtonDiv>
+                        <FooterImgLink link="" img={github} alt="github로"/>
+                        <FooterImgLink link="" img={facebook} alt="facebook으로"/>
+                    </FooterImgButtonDiv>
+                </div>
             </div>
         </FooterDiv>
     )
