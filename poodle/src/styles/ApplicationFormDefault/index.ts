@@ -31,7 +31,6 @@ export const ButtonDiv = styled.div`
 
 export const RightArrow = styled.div`
     position: relative;
-    content: "";
     display: inline-block;
     width: 10px;
     height: 10px;
@@ -43,7 +42,6 @@ export const RightArrow = styled.div`
 
 export const LeftArrow = styled.div`
     position: relative;
-    content: "";
     display: inline-block;
     width: 10px;
     height: 10px;

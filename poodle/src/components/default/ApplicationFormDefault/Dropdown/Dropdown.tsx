@@ -67,7 +67,10 @@ const Dropdown: FC<Props> = ({
                         getUncheckedMenu(menuList)
                         .map((menu:menuList)=> {
                             return (
-                                <DropdownElement onClick={()=> elementClickHandler(menuList,menu)}>
+                                <DropdownElement 
+                                    onClick={()=> elementClickHandler(menuList,menu)}
+                                    key={menu.VALUE}
+                                >
                                     <p>
                                         {menu.VALUE}
                                     </p>
