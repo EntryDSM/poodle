@@ -7,6 +7,8 @@ interface Props {
     isCenter?: boolean,
     type?: string,
     valueChangeHandler: Function,
+    isEmpty: boolean,
+    value?: string,
 }
 
 const Input: FC<Props> = ({ 
@@ -14,7 +16,8 @@ const Input: FC<Props> = ({
     placeholder, 
     isCenter, 
     type,
-    valueChangeHandler
+    valueChangeHandler,
+    isEmpty
 }) => {
     const inputChangeHandler = (event:React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
@@ -23,7 +26,7 @@ const Input: FC<Props> = ({
     return (
         <DefaultInput 
             width={width} 
-            isEmpty={false}
+            isEmpty={isEmpty}
             placeholder={placeholder}
             isCenter={isCenter}
             type={type}

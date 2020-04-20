@@ -5,16 +5,34 @@ import DefaultPagination from './DefaultPagination';
 
 interface Props {
     page: string,
+    currentPageClickHandler: Function,
+    nextPageClickHandler: Function,
 }
 
 const DefaultNavigator:FC<Props> = ({ 
-    page 
+    page,
+    currentPageClickHandler,
+    nextPageClickHandler,
 }) => {
+    const currentButtonClickHandler = 
+        (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            currentPageClickHandler();
+    }
+    const nextButtonClickHandler = 
+        (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            nextPageClickHandler();
+    }
     return (
         <DefaultNavigatorDiv>
-            <DefaultArrowButton isLeft={true}>이전</DefaultArrowButton>
+            <DefaultArrowButton 
+                isLeft={true}
+                onClick={currentButtonClickHandler} 
+            >이전</DefaultArrowButton>
             <DefaultPagination page={page}/>
-            <DefaultArrowButton isLeft={false}>다음</DefaultArrowButton>
+            <DefaultArrowButton 
+                isLeft={false}
+                onClick={nextButtonClickHandler}
+            >다음</DefaultArrowButton>
         </DefaultNavigatorDiv>
     )
 }

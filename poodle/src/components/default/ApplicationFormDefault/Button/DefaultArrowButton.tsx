@@ -1,20 +1,22 @@
 import React, { FC } from 'react';
 import {
-     DefaultArrowButtonDiv, 
+    DefaultArrowButtonDiv, 
     LeftArrow, 
     RightArrow 
 } from '../../../../styles/ApplicationFormDefault';
 
 interface Props {
     isLeft: boolean,
+    onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
 const DefaultArrowButton: FC<Props> = ({ 
     isLeft, 
-    children 
+    children,
+    onClick 
 }) => {
     return (
-        <DefaultArrowButtonDiv>
+        <DefaultArrowButtonDiv onClick={onClick}>
             {
                 isLeft ?
                     <div>
