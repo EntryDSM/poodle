@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import {
+  MainContainer,
   JoinContainer,
   HeaderContainer,
 } from './container';
@@ -15,6 +16,7 @@ function App() {
       <HeaderContainer />
       <Global/>
       <Switch>
+        <Route exact path="/" component={MainContainer} />
         <Route path="/join" component={JoinContainer} />
       </Switch>
       <Footer />
