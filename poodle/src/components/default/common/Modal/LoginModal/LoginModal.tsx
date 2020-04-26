@@ -1,8 +1,13 @@
 import React, { useState, useCallback, FC } from 'react';
 import { useDispatch } from 'react-redux';
+import { useRedirect } from '../../../../../lib/utils/function';
 import * as S from '@/styles/common/Modal';
-import { ModalContent, ModalInput, ModalButtonList, ModalContentProps,
-    openModal
+import { ModalContent,
+    ModalInput,
+    ModalButtonList,
+    ModalContentProps,
+    openModal,
+    clearModal
 } from '..';
 import { RESETMODAL } from '@/core/redux/actions/modal';
 
@@ -12,6 +17,7 @@ type LoginModalProps = ModalContentProps & {
 
 const LoginModal: FC<LoginModalProps> = ({ title, contour, errorSentence, color, onClick }) => {
     const dispatch = useDispatch();
+    const redirectToLink = useRedirect();
     const openResetModal = useCallback(() => {
         openModal(RESETMODAL, dispatch);
     }, [dispatch]);
@@ -25,6 +31,10 @@ const LoginModal: FC<LoginModalProps> = ({ title, contour, errorSentence, color,
             console.log('로그인 !!')
         }
     }, [email, password]);
+    const goToJoin = useCallback(() => {
+        redirectToLink('/join');
+        clearModal(dispatch);
+    }, []);
     return (
         <ModalContent
             title={title}
@@ -58,7 +68,7 @@ const LoginModal: FC<LoginModalProps> = ({ title, contour, errorSentence, color,
                     onClick: onSubmit
                 }]}
             />
-            <S.ETCSentence>
+            <S.ETCSentence onClick={goToJoin}>
                 아직 계정이 없으신가요?
             </S.ETCSentence>
             <S.ETCSentence onClick={openResetModal}>

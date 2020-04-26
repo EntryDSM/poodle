@@ -2,9 +2,12 @@ import styled, { css } from 'styled-components';
 import ClearButton from '@/assets/Modal/Button_clear@3x.png';
 
 export const ModalWrapper = styled.div`
+    z-index: 1;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     background-color: rgba(0, 0, 0, 0.25);
 `;
 
