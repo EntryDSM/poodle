@@ -30,7 +30,7 @@ const RestModal: FC<ResetModalProps> = ({ page, setPage, pageList, buttonList, t
     const [code, setCode] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [passwordCheck, setPasswordCheck] = useState<string>('');
-    const getValue = (id: string): string => {
+    const getResetValue = useCallback((id: string): string => {
         switch (id) {
             case 'email':
                 return email;
@@ -38,11 +38,13 @@ const RestModal: FC<ResetModalProps> = ({ page, setPage, pageList, buttonList, t
                 return password;
             case 'passwordCheck':
                 return passwordCheck;
+            case 'code':
+                return code;
             default:
                 return '';
         }
-    }
-    const getSetValue = (id: string): React.Dispatch<React.SetStateAction<string>> => {
+    }, [email, code, password, passwordCheck]);
+    const getSetResetValue = useCallback((id: string): React.Dispatch<React.SetStateAction<string>> => {
         switch (id) {
             case 'email':
                 return setEmail;
@@ -50,10 +52,12 @@ const RestModal: FC<ResetModalProps> = ({ page, setPage, pageList, buttonList, t
                 return setPassword;
             case 'passwordCheck':
                 return setPasswordCheck;
+            case 'code':
+                return setCode;
             default:
                 return () => {};
         }
-    }
+    }, [])
     const submit1 = useCallback(() => {
         buttonList[0][0].onClick();
     }, [page]);
@@ -67,7 +71,6 @@ const RestModal: FC<ResetModalProps> = ({ page, setPage, pageList, buttonList, t
         buttonList[1][1].onClick();
     }, [page]);
     const next2 = useCallback(() => {
-        console.log(buttonList);
         buttonList[1][2].onClick();
     }, [page]);
     const prev3 = useCallback(() => {
@@ -115,8 +118,8 @@ const RestModal: FC<ResetModalProps> = ({ page, setPage, pageList, buttonList, t
                     pageList[page].inputType === 'password' ||
                     pageList[page].inputType === 'verification'
                 }
-                value={getValue(pageList[page].key)}
-                setValue={getSetValue(pageList[page].key)}
+                value={getResetValue(pageList[page].key)}
+                setValue={getSetResetValue(pageList[page].key)}
                 id={pageList[page].key}
             />}
             <ModalButtonList buttonList={correctedButtonList[page]} color={color} />
