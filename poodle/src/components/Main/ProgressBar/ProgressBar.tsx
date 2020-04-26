@@ -9,7 +9,7 @@ const ProgressBar: React.FC<{}> = () => {
         <S.ProgressBarWrapper>
             <S.ProgressBox>
                 {
-                    progressInfo.map(data => <ProgressItem key={data.id} data={data} />)
+                    progressInfo.map(data => <ProgressItem key={data.id} id={data.id} title={data.title} isProgressing={data.isProgressing}  />)
                 }
             </S.ProgressBox>
         </S.ProgressBarWrapper>
@@ -18,20 +18,22 @@ const ProgressBar: React.FC<{}> = () => {
 
 export default ProgressBar;
 
-const ProgressItem: React.FC<{ data: { id: number; title: string; ing: boolean } }> = ({ data }) => {
+const ProgressItem: React.FC<{ id: number; title: string; isProgressing: boolean }> = ({
+    id, title, isProgressing
+}) => {
     return (
         <>
             <S.ProgressItemWrapper>
                 <Link to='원서작성'>
-                    <S.ProgressTitle ing={data.ing}>
-                        {data.title}
+                    <S.ProgressTitle isProgressing={isProgressing}>
+                        {title}
                     </S.ProgressTitle>
                 </Link>
                 <Link to='원서작성'>
-                    <S.StatusImage ing={data.ing} />
+                    <S.StatusImage isProgressing={isProgressing} />
                 </Link>
             </S.ProgressItemWrapper>
-            {data.id !== 5 && <S.VerticalLine />}
+            {id !== 5 && <S.VerticalLine />}
         </>
     );
 };

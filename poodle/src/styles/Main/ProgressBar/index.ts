@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { 
     AllFinish,
     Finish,
-    Ing,
+    isProgressing,
     XIcon
 } from '@/assets/Main/ProgressBar';
 
@@ -31,20 +31,20 @@ export const ProgressItemWrapper = styled.div`
     }
 `;
 
-export const ProgressTitle = styled.span<{ ing: boolean }>`
+export const ProgressTitle = styled.span<{ isProgressing: boolean }>`
     height: 26px;
     font-family: NanumSquareB;
     font-size: 24px;
     line-height: 24px;
     letter-spacing: 0.6px;
-    color: ${({ ing }) => ing ? '#46b2c6' : '#7e7e7e'};
+    color: ${({ isProgressing }) => isProgressing ? '#46b2c6' : '#7e7e7e'};
     display: inline-block;
     padding-top: 5px;
 `;
 
-export const StatusImage = styled.img.attrs<{ ing: boolean }>((props) => ({
-    src: props.ing && XIcon
-}))<{ ing: boolean }>`
+export const StatusImage = styled.img.attrs<{ isProgressing: boolean }>((props) => ({
+    src: props.isProgressing && isProgressing
+}))<{ isProgressing: boolean }>`
     width: 60px;
     height: 60px;
     object-fit: contain;
