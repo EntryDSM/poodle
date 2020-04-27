@@ -10,7 +10,15 @@ import {
     ConnectIntroduction, 
     ConnectChoiceType,
     ConnectInfo, 
+    MainContainer,
+    JoinContainer,
+    HeaderContainer,
   } from './container';
+import { 
+  Footer,
+  ApplyStatus,
+  Error
+} from './components';
 
 function App() {
   return (
@@ -20,6 +28,10 @@ function App() {
           <Route path="/Introduction" render={() => <ConnectIntroduction/>}/>
           <Route path="/Type" render={() => <ConnectChoiceType/>}/>
           <Route path="/Info" render={() => <ConnectInfo/>}/>
+          <Route exact path="/" component={MainContainer} />
+          <Route path="/applystatus" component={ApplyStatus} />
+          <Route path="/join" component={JoinContainer} />
+          <Route component={Error} />
       </Switch>
       <Footer/>
     </BrowserRouter>
@@ -27,3 +39,4 @@ function App() {
 }
 
 export default App;
+ 
