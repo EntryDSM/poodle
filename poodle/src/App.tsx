@@ -1,11 +1,19 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import {
-  MainContainer,
-  JoinContainer,
-  HeaderContainer,
-} from './container';
-import { Global } from './styles/common'
+import { 
+  BrowserRouter, 
+  Route, 
+  Switch 
+} from 'react-router-dom';
+  import GlobalStyle from './styles/globalStyle';
+  import { Footer } from './components/default/Footer';
+  import { 
+    ConnectIntroduction, 
+    ConnectChoiceType,
+    ConnectInfo, 
+    MainContainer,
+    JoinContainer,
+    HeaderContainer,
+  } from './container';
 import { 
   Footer,
   ApplyStatus,
@@ -15,15 +23,17 @@ import {
 function App() {
   return (
     <BrowserRouter>
-      <HeaderContainer />
-      <Global/>
+      <GlobalStyle/>
       <Switch>
-        <Route exact path="/" component={MainContainer} />
-        <Route path="/applystatus" component={ApplyStatus} />
-        <Route path="/join" component={JoinContainer} />
-        <Route component={Error} />
+          <Route path="/Introduction" render={() => <ConnectIntroduction/>}/>
+          <Route path="/Type" render={() => <ConnectChoiceType/>}/>
+          <Route path="/Info" render={() => <ConnectInfo/>}/>
+          <Route exact path="/" component={MainContainer} />
+          <Route path="/applystatus" component={ApplyStatus} />
+          <Route path="/join" component={JoinContainer} />
+          <Route component={Error} />
       </Switch>
-      <Footer />
+      <Footer/>
     </BrowserRouter>
   );
 }
