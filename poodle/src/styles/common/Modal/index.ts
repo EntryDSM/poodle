@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import ClearButton from '@/assets/Modal/Button_clear@3x.png';
 
 export const ModalWrapper = styled.div`
-    z-index: 1;
+    z-index: 3;
     top: 0;
     left: 0;
     width: 100%;

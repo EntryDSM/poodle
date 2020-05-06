@@ -46,7 +46,6 @@ export const Global = createGlobalStyle`
 `;
 
 export const Wrapper = styled.div`
-    margin-top: 60px;
     min-width: 1270px;
 `;
 

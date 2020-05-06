@@ -22,7 +22,7 @@ export const AgreeInfo = styled.p`
     line-height: 1.3125rem;
     letter-spacing: 0.29px;
     font-size: 16px;
-    font-family: NanumSquareR;
+    font-family: NanumSquare;
     letter-spacing: 0.29px;
     color: #272343;
 `;
@@ -31,7 +31,7 @@ export const AgreeInfoTitle =styled.span`
     display: inline-block;
     margin-top: 1rem;
     color: #46b2c6;
-    font-family: NanumSquareB;
+    font-family: NanumSquare;
     font-size: 17px;
     letter-spacing: 0.31px;
 `;
@@ -64,7 +64,7 @@ export const CheckButton = styled.button<CheckButtonProps>`
 
 export const JoinAgreeSentence = styled.p<CheckButtonProps>`
     height: 1.125rem;
-    font-family: NanumSquareR;
+    font-family: NanumSquare;
     font-size: 1rem;
     color: #${props => props.checked ? '000000' : '606060'};
     line-height: 1.438rem;
@@ -94,6 +94,7 @@ export const InfoContent = styled.div`
 `;
 
 export const InfoTitle = styled.p`
+    font-family: NanumSquare;
     width: 15.6875rem;
     height: 1.125rem;
     text-align: center;
@@ -134,7 +135,7 @@ export const StyledButton = styled.button`
     border: solid 1px #afafaf;
     background-color: #fcfcfc;
     color: #606060;    
-    font-family: NanumSquareR;
+    font-family: NanumSquare;
     font-size: 0.875rem;
     line-height: 1.2;
     margin-left: 1rem;
@@ -158,7 +159,7 @@ type ExplainSentenceProps = {
 
 export const ExplainSentence = styled.p<ExplainSentenceProps>`
     height: 0.8125rem;
-    font-family: NanumSquareR;
+    font-family: NanumSquare;
     font-size: 0.75rem;
     line-height: 1.08;
     color: #606060;
@@ -168,7 +169,7 @@ export const ExplainSentence = styled.p<ExplainSentenceProps>`
 export const Timer = styled.span`
     width: 3.125rem;
     height: 1.25rem;
-    font-family: NanumSquareB;
+    font-family: NanumSquare;
     font-size: 1.125rem;
     line-height: 1.2;
     text-align: left;
@@ -198,7 +199,7 @@ export const JoinButton = styled.button`
 `;
     
 export const ButtonTitle = styled.span`
-    font-family: NanumSquareB;
+    font-family: NanumSquare;
     font-size: 18px;
     line-height: 1.17;
     color: #62d3e8;
