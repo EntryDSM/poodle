@@ -9,8 +9,11 @@ import { Global } from './styles/common'
 import { 
   Footer,
   ApplyStatus,
+  Mypage,
+  Document,
   Error
 } from './components';
+import './';
 
 function App() {
   return (
@@ -21,6 +24,8 @@ function App() {
         <Route exact path="/" component={MainContainer} />
         <Route path="/applystatus" component={ApplyStatus} />
         <Route path="/join" component={JoinContainer} />
+        <Route exact path="/mypage" component={Mypage} />
+        <Route path="/mypage/document" component={Document} />
         <Route component={Error} />
       </Switch>
       <Footer />
