@@ -33,4 +33,5 @@ export const UnderLine = styled.hr<{ length: number }>`
     height: 3px;
     border: none;
     background-color: #62d3e8;
+    margin: 0;
 `;
