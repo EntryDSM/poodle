@@ -35,13 +35,14 @@ const Mypage: React.FC = () => {
                 />
                 <S.MyInfoWrapper>
                     {
-                        Object.entries(dummyData).map((data, index) => (
-                            <MyInfoItem 
-                                title={MyInfoTitle[index]}
-                                infoValue={data[1]}
-                                key={index}
-                            />
-                        ))
+                        [
+                            { label: "이름", value: dummyData.name },
+                            { label: "성별", value: dummyData.gender },
+                            { label: "최종제출", value: dummyData.finallySubmit },
+                            { label: "전형료 납부", value: dummyData.payMoney },
+                            { label: "우편물 수령", value: dummyData.recieveEmail },
+                            { label: "특기사항", value: dummyData.specialThing },
+                        ].map(props => <MyInfoItem {...props} />)
                     }
                 </S.MyInfoWrapper>
                 <S.ExplainSentence>
@@ -55,20 +56,20 @@ const Mypage: React.FC = () => {
 
 export default Mypage;
 
-const MyInfoItem: React.FC<{ title: string, infoValue: string}> = ({ title, infoValue }) => {
+const MyInfoItem: React.FC<{ label: string, value: string}> = ({ label, value }) => {
 
     return (
         <S.MyInfoBox>
             <S.MyInfoContent>
                 <S.MyInfoTitle>
-                    {title}
+                    {label}
                 </S.MyInfoTitle>
                 <S.MyInfoValue>
-                    {infoValue}
+                    {value}
                 </S.MyInfoValue>
             </S.MyInfoContent>
             {
-                title === '최종제출' &&
+                label === '최종제출' &&
                 <S.DocumentLink to="/mypage/document">
                     제출서류
                 </S.DocumentLink>
