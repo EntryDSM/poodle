@@ -42,7 +42,7 @@ const Mypage: React.FC = () => {
                             { label: "전형료 납부", value: dummyData.payMoney },
                             { label: "우편물 수령", value: dummyData.recieveEmail },
                             { label: "특기사항", value: dummyData.specialThing },
-                        ].map(props => <MyInfoItem {...props} />)
+                        ].map((props, idx) => <MyInfoItem key={idx} {...props} />)
                     }
                 </S.MyInfoWrapper>
                 <S.ExplainSentence>
