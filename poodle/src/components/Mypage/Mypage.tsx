@@ -21,7 +21,7 @@ const dummyData = {
     specialThing: '검정고시'
 }
 
-const Mypage: React.FC<{}> = () => {
+const Mypage: React.FC = () => {
 
     return (
         <S.Wrapper>
