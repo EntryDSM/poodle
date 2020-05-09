@@ -38,7 +38,7 @@ const Mypage: React.FC = () => {
                         [
                             { label: "이름", value: dummyData.name },
                             { label: "성별", value: dummyData.gender },
-                            { label: "최종제출", value: dummyData.finallySubmit },
+                            { label: "최종제출", value: dummyData.finallySubmit, endAdornment: <S.DocumentLink to="/mypage/document">제출서류</S.DocumentLink> },
                             { label: "전형료 납부", value: dummyData.payMoney },
                             { label: "우편물 수령", value: dummyData.recieveEmail },
                             { label: "특기사항", value: dummyData.specialThing },
@@ -56,7 +56,7 @@ const Mypage: React.FC = () => {
 
 export default Mypage;
 
-const MyInfoItem: React.FC<{ label: string, value: string}> = ({ label, value }) => {
+const MyInfoItem: React.FC<{ label: string, value: string, endAdornment?: React.ReactNode }> = ({ label, value, endAdornment }) => {
 
     return (
         <S.MyInfoBox>
@@ -68,12 +68,7 @@ const MyInfoItem: React.FC<{ label: string, value: string}> = ({ label, value })
                     {value}
                 </S.MyInfoValue>
             </S.MyInfoContent>
-            {
-                label === '최종제출' &&
-                <S.DocumentLink to="/mypage/document">
-                    제출서류
-                </S.DocumentLink>
-            }
+            {endAdornment}
         </S.MyInfoBox>
     );
 };
