@@ -14,13 +14,12 @@ const ProgressBar: React.FC<{}> = () => {
         <S.ProgressBarWrapper>
             <S.ProgressBox>
                 {
-                    Object.entries(dummyData).map((data, index) => (
-                        <ProgressItem 
-                            key={index}
-                            title={data[0]}
-                            isfinished={data[1]}
-                        />
-                    ))
+                    [
+                        { label: "전형구분", isfinished: false, endAdornment: <S.Line /> },
+                        { label: "인적사항", isfinished: false, endAdornment: <S.Line /> },
+                        { label: "성적입력", isfinished: false, endAdornment: <S.Line /> },
+                        { label: "자기소개서", isfinished: true },
+                    ].map((props) => <ProgressItem key={props.label} {...props} />)
                 }
             </S.ProgressBox>
         </S.ProgressBarWrapper>
@@ -29,17 +28,16 @@ const ProgressBar: React.FC<{}> = () => {
 
 export default ProgressBar;
 
-const ProgressItem: React.FC<{ title: string, isfinished: boolean }> = ({ title, isfinished }) => {
-
+const ProgressItem: React.FC<{ label: string, isfinished: boolean, endAdornment?: React.ReactNode }> = ({ label, isfinished, endAdornment }) => {
     return (
         <>
             <S.ProgressItemBox>
                 <S.ProgressImageLink to={{ pathname: "전형구분", state: { isfinished: isfinished } }} />
                 <S.ProgressTitleLink to="전형구분">
-                    {title}
+                    {label}
                 </S.ProgressTitleLink>
             </S.ProgressItemBox>
-            {title !== '자기소개서' && <S.Line />}
+            {endAdornment}
         </>
     );
 };
