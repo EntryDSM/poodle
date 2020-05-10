@@ -42,7 +42,7 @@ const Mypage: React.FC = () => {
                             { label: "전형료 납부", value: dummyData.payMoney },
                             { label: "우편물 수령", value: dummyData.recieveEmail },
                             { label: "특기사항", value: dummyData.specialThing },
-                        ].map((props, idx) => <MyInfoItem key={idx} {...props} />)
+                        ].map((props) => <MyInfoItem key={props.label} {...props} />)
                     }
                 </S.MyInfoWrapper>
                 <S.ExplainSentence>
@@ -57,7 +57,6 @@ const Mypage: React.FC = () => {
 export default Mypage;
 
 const MyInfoItem: React.FC<{ label: string, value: string, endAdornment?: React.ReactNode }> = ({ label, value, endAdornment }) => {
-
     return (
         <S.MyInfoBox>
             <S.MyInfoContent>
