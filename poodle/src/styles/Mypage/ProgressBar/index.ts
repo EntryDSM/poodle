@@ -22,13 +22,16 @@ export const ProgressItemBox = styled.div`
     align-items: center;
 `;
 
-export const ProgressImageLink = styled(Link)<{ isfinished: string }>`
+export const ProgressImageLink = styled(Link)`
     text-decoration: none;
     width: 80px;
     height: 80px;
     background-size: contain;
     margin-bottom: 24px;
-    background-image: url(${({ isfinished }) => isfinished === 'true' ? finishIcon : notFinishIcon});
+    background-image: url(${notFinishIcon});
+    &.finished {
+        background-image: url(${finishIcon});
+    }
 `;
 
 export const ProgressTitleLink = styled(Link)`
@@ -41,9 +44,9 @@ export const ProgressTitleLink = styled(Link)`
     text-align: center;
     color: #afafaf;
     letter-spacing: -2px;
-    `;
+`;
     
-    export const Line = styled.hr`
+export const Line = styled.hr`
     width: 200px;
     height: 3px;
     border: none;

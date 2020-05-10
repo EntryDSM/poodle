@@ -32,7 +32,7 @@ const ProgressItem: React.FC<{ label: string, isfinished: boolean, endAdornment?
     return (
         <>
             <S.ProgressItemBox>
-                <S.ProgressImageLink to={{ pathname: "전형구분", state: { isfinished: isfinished } }} />
+                <S.ProgressImageLink className={isfinished ? 'finished' : ''} to="전형구분" />
                 <S.ProgressTitleLink to="전형구분">
                     {label}
                 </S.ProgressTitleLink>
