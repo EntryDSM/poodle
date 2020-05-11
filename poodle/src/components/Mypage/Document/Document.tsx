@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import * as S from '@/styles/Mypage/SubmitDocument'
+import * as S from '@/styles/Mypage/Document'
 import ContentHeader from '@/components/default/common/ContentHeader/';
 
 const Document: React.FC<{}> = () => {
