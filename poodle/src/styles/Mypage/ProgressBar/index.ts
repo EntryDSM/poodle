@@ -52,4 +52,7 @@ export const Line = styled.hr`
     border: none;
     background-color: #AFAFAF;
     margin: 40px 10px 0;
+    &:last-of-type {
+        display: none;
+    }
 `;

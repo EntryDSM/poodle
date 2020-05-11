@@ -15,9 +15,9 @@ const ProgressBar: React.FC<{}> = () => {
             <S.ProgressBox>
                 {
                     [
-                        { label: "전형구분", isfinished: false, endAdornment: <S.Line /> },
-                        { label: "인적사항", isfinished: false, endAdornment: <S.Line /> },
-                        { label: "성적입력", isfinished: false, endAdornment: <S.Line /> },
+                        { label: "전형구분", isfinished: false },
+                        { label: "인적사항", isfinished: false },
+                        { label: "성적입력", isfinished: false },
                         { label: "자기소개서", isfinished: true },
                     ].map((props) => <ProgressItem key={props.label} {...props} />)
                 }
@@ -31,10 +31,9 @@ export default ProgressBar;
 type ProgressItemProps =  {
     label: string,
     isfinished: boolean,
-    endAdornment?: React.ReactNode 
 };
 
-const ProgressItem: React.FC<ProgressItemProps> = ({ label, isfinished, endAdornment }) => {
+const ProgressItem: React.FC<ProgressItemProps> = ({ label, isfinished }) => {
     return (
         <>
             <S.ProgressItemBox>
@@ -43,7 +42,7 @@ const ProgressItem: React.FC<ProgressItemProps> = ({ label, isfinished, endAdorn
                     {label}
                 </S.ProgressTitleLink>
             </S.ProgressItemBox>
-            {endAdornment}
+            <S.Line />
         </>
     );
 };
