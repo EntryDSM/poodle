@@ -28,7 +28,13 @@ const ProgressBar: React.FC<{}> = () => {
 
 export default ProgressBar;
 
-const ProgressItem: React.FC<{ label: string, isfinished: boolean, endAdornment?: React.ReactNode }> = ({ label, isfinished, endAdornment }) => {
+type ProgressItemProps =  {
+    label: string,
+    isfinished: boolean,
+    endAdornment?: React.ReactNode 
+};
+
+const ProgressItem: React.FC<ProgressItemProps> = ({ label, isfinished, endAdornment }) => {
     return (
         <>
             <S.ProgressItemBox>
