@@ -4,12 +4,12 @@ import { Checkbox } from '../../default/ApplicationFormDefault';
 import { DefaultRow } from '..';
 
 interface Props {
-    describe?: string,
+    description?: string,
     valueChangeHandler: (isQualificationExam:boolean) => void,
 }
 
 const QualificationExam: FC<Props> = ({ 
-    describe, 
+    description, 
     valueChangeHandler,
 }) => {
     return (
@@ -19,7 +19,7 @@ const QualificationExam: FC<Props> = ({
                     <Checkbox valueChangeHandler={valueChangeHandler}/>
                 </div>
                 <div>
-                    <p>{describe}</p>
+                    <p>{description}</p>
                 </div>
             </TypeElementContent>
         </DefaultRow>
