@@ -1,9 +1,13 @@
-import React, { useState, FC } from 'react';
+import React, { 
+    useState, 
+    FC,
+} from 'react';
 import { TypeElementContent } from '../../../styles/ChoiceType';
 import { 
     Radio, 
     Dropdown, 
-    DropdownRadio 
+    DropdownRadio,
+    RadioGroupProvider,
 } from '../../default/ApplicationFormDefault';
 import { DefaultRow } from '..';
 
@@ -44,22 +48,21 @@ const ChoiceTypeRow: FC<Props> = ({
         <DefaultRow title="전형 선택">
             <TypeElementContent>
                 <div>
-                    <Radio 
-                        valueChangeHandler={RadioClickHandler}
-                        radioName="type" 
-                        value="일반전형"
-                    >일반전형</Radio>
-                    <Radio 
-                        valueChangeHandler={RadioClickHandler}
-                        radioName="type" 
-                        value="마이스터 인재전형"
-                    >마이스터 인재전형</Radio>
-                    <DropdownRadio 
-                        valueChangeHandler={valueChangeHandler}
-                        radioName="type" 
-                        value={getCheckedMenu(otherTypeList).VALUE}  
-                        ableChange={ableRadioClickHandler}
-                    />
+                    <RadioGroupProvider 
+                        onChange={RadioClickHandler}
+                        name="type"
+                    >
+                            <Radio 
+                                value="일반전형"
+                            >일반전형</Radio>
+                            <Radio  
+                                value="마이스터 인재전형"
+                            >마이스터 인재전형</Radio>
+                            <DropdownRadio
+                                value={getCheckedMenu(otherTypeList).VALUE}  
+                                ableChange={ableRadioClickHandler}
+                            />
+                    </RadioGroupProvider>
                     <div className="checkbox">
                         <Dropdown 
                             menuList={otherTypeList} 

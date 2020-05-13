@@ -1,6 +1,11 @@
-import React, { FC } from 'react';
+import React, { 
+    FC,
+} from 'react';
 import { TypeElementContent } from '../../../styles/ChoiceType';
-import { Radio } from '../../default/ApplicationFormDefault';
+import { 
+    Radio,
+    RadioGroupProvider,
+} from '../../default/ApplicationFormDefault';
 import { DefaultRow } from '..';
 
 interface Props {
@@ -14,16 +19,17 @@ const ChoiceDistrict:FC<Props> = ({
         <DefaultRow title="지역 선택">
             <TypeElementContent>
                 <div>
-                    <Radio 
-                        radioName="district"
-                        value="대전"
-                        valueChangeHandler={valueChangeHandler}
-                    >대전</Radio>
-                    <Radio
-                        radioName="district"
-                        value="전국"
-                        valueChangeHandler={valueChangeHandler}
-                    >전국</Radio>
+                    <RadioGroupProvider 
+                        onChange={valueChangeHandler}
+                        name="district"
+                    >
+                        <Radio 
+                            value="대전"
+                        >대전</Radio>
+                        <Radio
+                            value="전국"
+                        >전국</Radio>
+                    </RadioGroupProvider>
                 </div>
             </TypeElementContent>
         </DefaultRow>

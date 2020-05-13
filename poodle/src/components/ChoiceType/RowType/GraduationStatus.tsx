@@ -1,6 +1,11 @@
-import React, { FC } from 'react';
+import React, { 
+    FC,
+} from 'react';
 import { TypeElementContent } from '../../../styles/ChoiceType';
-import { Radio } from '../../default/ApplicationFormDefault';
+import { 
+    Radio,
+    RadioGroupProvider,
+} from '../../default/ApplicationFormDefault';
 import { DefaultRow } from '..';
 
 interface Props {
@@ -14,16 +19,17 @@ const GraduationStatus: FC<Props> = ({
         <DefaultRow title="졸업 구분">
             <TypeElementContent>
                 <div>
-                    <Radio 
-                        radioName="graduation"
-                        value="졸업예정자"
-                        valueChangeHandler={valueChangeHandler}    
-                    >졸업예정자</Radio>
-                    <Radio 
-                        radioName="graduation"
-                        value="졸업자"
-                        valueChangeHandler={valueChangeHandler}   
-                    >졸업자</Radio>
+                    <RadioGroupProvider
+                        onChange={valueChangeHandler}
+                        name="graduation"
+                    >
+                        <Radio
+                            value="졸업예정자"
+                        >졸업예정자</Radio>
+                        <Radio
+                            value="졸업자"
+                        >졸업자</Radio>
+                    </RadioGroupProvider>
                 </div>
             </TypeElementContent>
         </DefaultRow>

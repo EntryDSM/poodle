@@ -1,31 +1,35 @@
-import React, { FC } from 'react';
+import React, { 
+    FC,
+    useContext,
+} from 'react';
 import { RadioDiv } from '../../../../styles/ApplicationFormDefault';
+import RadioGroupContext from './RadioGroup';
 
 interface Props {
-    radioName: string,
-    valueChangeHandler: Function,
     value: string,
     ableChange: Function,
 }
 
 const DropdownRadio:FC<Props> = ({ 
     children, 
-    radioName,
-    valueChangeHandler, 
     value,
     ableChange,
 }) => {
+    const { 
+        onChange,
+        name,
+    } = useContext(RadioGroupContext);
     const radioChangeHandler = (
         event:React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const isAble = event.target.checked;
-        ableChange(isAble);
-        valueChangeHandler(value);
-    }
+        ) => {
+            const isAble = event.target.checked;
+            onChange(value);
+            ableChange(isAble);
+        }
     return (
         <RadioDiv className="checkboxRadio">
             <input 
-                name={radioName} 
+                name={name} 
                 type="radio" 
                 onChange={radioChangeHandler}
             />

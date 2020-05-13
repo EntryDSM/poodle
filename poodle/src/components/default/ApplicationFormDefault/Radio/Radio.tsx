@@ -1,28 +1,36 @@
-import React, { FC } from 'react';
+import React, { 
+    FC,
+    useContext,
+} from 'react';
 import { RadioDiv } from '../../../../styles/ApplicationFormDefault';
+import RadioGroupContext from './RadioGroup';
 
 interface Props {
     children?: string,
-    radioName: string,
-    valueChangeHandler: Function,
-    value: string
+    value: string,
 }
 
 const Radio:FC<Props> = ({ 
     children, 
-    radioName, 
-    valueChangeHandler, 
-    value 
+    value,
 }) => {
+    const { 
+        onChange,
+        name,
+    } = useContext(RadioGroupContext);
     const radioChangeHandler = (
         event:React.ChangeEvent<HTMLInputElement>
     ) => {
-        valueChangeHandler(value);
+        onChange(value);
     }
     return (
         <RadioDiv>
-            <input name={radioName} type="radio" onChange={radioChangeHandler}/>
-            <div></div>
+            <input 
+                type="radio" 
+                onChange={radioChangeHandler}
+                name={name}
+            />
+            <div/>
             {children}
         </RadioDiv>
     )
