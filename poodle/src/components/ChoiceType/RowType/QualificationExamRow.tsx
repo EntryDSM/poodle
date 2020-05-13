@@ -16,7 +16,7 @@ const QualificationExam: FC<Props> = ({
         <DefaultRow title="검정고시 지원 여부">
             <TypeElementContent>
                 <div>
-                    <Checkbox valueChangeHandler={valueChangeHandler}/>
+                    <Checkbox onChange={valueChangeHandler}/>
                 </div>
                 <div>
                     <p>{description}</p>

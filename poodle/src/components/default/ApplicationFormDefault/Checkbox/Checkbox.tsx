@@ -1,24 +1,30 @@
-import React, { FC, useCallback } from 'react';
+import React, { 
+    FC, 
+    useCallback 
+} from 'react';
 import { CheckboxDiv } from '../../../../styles/ApplicationFormDefault';
 
 interface Props {
     children?: string
-    valueChangeHandler: (value: boolean) => void
+    onChange: (value: boolean) => void,
 }
 
 const Checkbox: FC<Props> = ({ 
         children, 
-        valueChangeHandler,
+        onChange,
     }) => {
     const checkboxClickHandler = useCallback((
         event:React.ChangeEvent<HTMLInputElement>
     ) => {
         const checkboxValue:boolean = event.target.checked;
-        valueChangeHandler(checkboxValue);
-    },[valueChangeHandler])
+        onChange(checkboxValue);
+    },[onChange])
     return (
         <CheckboxDiv>
-            <input type="checkbox" onChange={checkboxClickHandler}/>
+            <input 
+                type="checkbox" 
+                onChange={checkboxClickHandler}
+            />
             <div/>
             <p>{children}</p>
         </CheckboxDiv>

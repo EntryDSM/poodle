@@ -19,10 +19,10 @@ const Specialty: FC<Props> = ({
             <TypeElementContent>
                 <div>
                     <Checkbox
-                        valueChangeHandler={nationalMeritChangeHandler}
+                        onChange={nationalMeritChangeHandler}
                     >국가 유공자</Checkbox>
                     <Checkbox
-                        valueChangeHandler={specialAdmissionChangeHandler}
+                        onChange={specialAdmissionChangeHandler}
                     >특례 입학 대상자</Checkbox>
                 </div>
                 <div>
