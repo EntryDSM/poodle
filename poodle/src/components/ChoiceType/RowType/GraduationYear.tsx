@@ -1,32 +1,34 @@
-import React, { FC, useState } from 'react';
+import React, { 
+    FC, 
+    useEffect,
+} from 'react';
 import { TypeElementContent } from '../../../styles/ChoiceType';
 import { Dropdown } from '../../default/ApplicationFormDefault';
 import { DefaultRow } from '..';
+import graduationYearConstance from './constance/GraduationYearConstance';
 
 interface Props {
     describe: string,
     valueChangeHandler: (value: string) => void,
+    graduationYear: string,
 }
 
 const GraduationYear: FC<Props> = ({ 
     describe, 
-    valueChangeHandler 
+    valueChangeHandler,
+    graduationYear,
 }) => {
-    const [graduationYearList, setYearList] = useState([
-        { VALUE: "2020", isChecked: true, },
-        { VALUE: "2019", isChecked: false, },
-        { VALUE: "2018", isChecked: false, },
-        { VALUE: "2017", isChecked: false, },
-        { VALUE: "2016", isChecked: false, },
-    ]);
+    useEffect(()=> {
+        valueChangeHandler("2020");
+    },[])
     return (
         <DefaultRow title="졸업 연도">
             <TypeElementContent>
                 <div> 
                     <Dropdown 
-                        valueChangeHandler={valueChangeHandler}
-                        setList={setYearList} 
-                        menuList={graduationYearList}
+                        onChange={valueChangeHandler}
+                        menuList={graduationYearConstance}
+                        savedValue={graduationYear}
                     />
                 </div>
                 <div>

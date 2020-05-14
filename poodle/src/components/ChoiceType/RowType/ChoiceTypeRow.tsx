@@ -10,33 +10,18 @@ import {
     RadioGroupProvider,
 } from '../../default/ApplicationFormDefault';
 import { DefaultRow } from '..';
+import typeConstance from './constance/TypeConstance';
 
 interface Props {
     valueChangeHandler: (type:string) => void,
-}
-
-interface menuList {
-    VALUE: string, 
-    isChecked: boolean,
+    applyType: string,
 }
 
 const ChoiceTypeRow: FC<Props> = ({ 
     valueChangeHandler,
+    applyType,
 }) => {
     const [isAble, ableChange] = useState(false);
-    const [otherTypeList, setTypeList] = useState([
-        { VALUE: "사회통합전형", isChecked: true, },
-        { VALUE: "기초생활수급자", isChecked: false, },
-        { VALUE: "한부모가족", isChecked: false, },
-        { VALUE: "차상위계층", isChecked: false, },
-        { VALUE: "소년소녀가장", isChecked: false, },
-        { VALUE: "북한이탈주민", isChecked: false, },
-        { VALUE: "다문화가정", isChecked: false, },
-    ]);
-    const getCheckedMenu = (menuList:menuList[]) => {
-        const checkedMenu = menuList.filter(menu => menu.isChecked);
-        return checkedMenu[0];
-    }
     const ableRadioClickHandler = (isAble: boolean) => {
         ableChange(isAble);
     }
@@ -59,17 +44,17 @@ const ChoiceTypeRow: FC<Props> = ({
                                 value="마이스터 인재전형"
                             >마이스터 인재전형</Radio>
                             <DropdownRadio
-                                value={getCheckedMenu(otherTypeList).VALUE}  
+                                value={applyType}  
                                 ableChange={ableRadioClickHandler}
                             />
                     </RadioGroupProvider>
                     <div className="checkbox">
                         <Dropdown 
-                            menuList={otherTypeList} 
-                            setList={setTypeList} 
+                            menuList={typeConstance}
                             width="180px"
-                            valueChangeHandler={valueChangeHandler}
+                            onChange={valueChangeHandler}
                             isAble={isAble}
+                            savedValue={applyType}
                         />
                     </div>
                 </div>
