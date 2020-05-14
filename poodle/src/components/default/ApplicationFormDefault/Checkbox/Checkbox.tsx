@@ -7,11 +7,13 @@ import { CheckboxDiv } from '../../../../styles/ApplicationFormDefault';
 interface Props {
     children?: string
     onChange: (value: boolean) => void,
+    checked: boolean,
 }
 
 const Checkbox: FC<Props> = ({ 
         children, 
         onChange,
+        checked,
     }) => {
     const checkboxClickHandler = useCallback((
         event:React.ChangeEvent<HTMLInputElement>
@@ -24,6 +26,7 @@ const Checkbox: FC<Props> = ({
             <input 
                 type="checkbox" 
                 onChange={checkboxClickHandler}
+                checked={checked}
             />
             <div/>
             <p>{children}</p>
