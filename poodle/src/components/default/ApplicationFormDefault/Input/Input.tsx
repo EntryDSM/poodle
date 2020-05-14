@@ -9,6 +9,7 @@ interface Props {
     valueChangeHandler: Function,
     isEmpty: boolean,
     value?: string,
+    height?: string,
 }
 
 const Input: FC<Props> = ({ 
@@ -17,7 +18,9 @@ const Input: FC<Props> = ({
     isCenter, 
     type,
     valueChangeHandler,
-    isEmpty
+    isEmpty,
+    height,
+    value,
 }) => {
     const inputChangeHandler = (event:React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
@@ -31,6 +34,8 @@ const Input: FC<Props> = ({
             isCenter={isCenter}
             type={type}
             onChange={inputChangeHandler}
+            height={height}
+            value={value}
             required
         />
     )
