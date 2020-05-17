@@ -27,8 +27,8 @@ const GraduationYear: FC<Props> = ({
                 <div> 
                     <Dropdown 
                         onChange={valueChangeHandler}
-                        menuList={graduationYearConstance}
-                        savedValue={graduationYear}
+                        options={graduationYearConstance}
+                        value={graduationYear}
                     />
                 </div>
                 <div>

@@ -21,7 +21,6 @@ const GraduationStatus: FC<Props> = ({
                 <div>
                     <RadioGroupProvider
                         onChange={valueChangeHandler}
-                        name="graduation"
                     >
                         <Radio
                             value="졸업예정자"

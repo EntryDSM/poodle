@@ -13,7 +13,7 @@ import { DefaultRow } from '..';
 import typeConstance from './constance/TypeConstance';
 
 interface Props {
-    valueChangeHandler: (type:string) => void,
+    valueChangeHandler: (value:string) => void,
     applyType: string,
 }
 
@@ -35,7 +35,6 @@ const ChoiceTypeRow: FC<Props> = ({
                 <div>
                     <RadioGroupProvider 
                         onChange={RadioClickHandler}
-                        name="type"
                     >
                             <Radio 
                                 value="일반전형"
@@ -50,11 +49,11 @@ const ChoiceTypeRow: FC<Props> = ({
                     </RadioGroupProvider>
                     <div className="checkbox">
                         <Dropdown 
-                            menuList={typeConstance}
+                            options={typeConstance}
                             width="180px"
                             onChange={valueChangeHandler}
                             isAble={isAble}
-                            savedValue={applyType}
+                            value={applyType}
                         />
                     </div>
                 </div>

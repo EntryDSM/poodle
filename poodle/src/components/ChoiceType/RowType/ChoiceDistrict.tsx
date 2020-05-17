@@ -21,7 +21,6 @@ const ChoiceDistrict:FC<Props> = ({
                 <div>
                     <RadioGroupProvider 
                         onChange={valueChangeHandler}
-                        name="district"
                     >
                         <Radio 
                             value="대전"
