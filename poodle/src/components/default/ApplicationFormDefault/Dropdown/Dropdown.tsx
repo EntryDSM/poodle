@@ -1,5 +1,4 @@
-import React, { 
-    FC, 
+import React, {
     useCallback,
     useState, 
     useEffect,
@@ -10,47 +9,48 @@ import {
     DropdownCurrentElement 
 } from '../../../../styles/ApplicationFormDefault';
 
-interface menuList {
-    VALUE: string, 
+interface options<T> {
+    VALUE: T, 
     LABEL: string,
 }
 
-interface Props {
+interface Props<T> {
     width?: string,
-    menuList: menuList[],
-    isAble?: boolean,
-    onChange: (value: string) => void,
-    savedValue?: string,
+    options: options<T>[],
+    isAble? : boolean,
+    onChange: (value: T) => void,
+    value: T,
+    children?: React.ReactNode,
 }
 
-const Dropdown: FC<Props> = ({ 
-    menuList, 
-    isAble= true,
-    width = "160px",
-    onChange,
+function Dropdown<T>({
+    width="160px",
+    options,
+    isAble=true,
+    value,
     children,
-    savedValue,
-}) => {
-    const [checkedMenu, checkedMenuChange] = useState(menuList[0]);
+    onChange,
+}:Props<T>){
+    const [checkedMenu, checkedMenuChange] = useState(options[0]);
     useEffect(()=> {
-        checkedMenuChange(getSavedData(savedValue));
-    },[savedValue])
+        checkedMenuChange(getSavedData(value));
+    },[value])
     const getUncheckedMenu = useCallback((
-        menuList:menuList[],
-        checkedMenu: menuList,
-    ): menuList[] => {
-        const unCheckedMenu = menuList.filter(menu => menu.LABEL != checkedMenu.LABEL);
+        options:options<T>[],
+        checkedMenu: options<T>,
+    ): options<T>[] => {
+        const unCheckedMenu = options.filter(menu => menu.LABEL != checkedMenu.LABEL);
         return unCheckedMenu;
     },[])
-    const getSavedData = useCallback((savedValue)=> {
-        if(savedValue.length <= 0){   
-            return menuList[0];
+    const getSavedData = useCallback((value)=> {
+        const savedMenu = options.filter(menu => menu.VALUE == value);
+        if(savedMenu.length <= 0){   
+            return options[0];
         }
-        const savedMenu = menuList.filter(menu => menu.VALUE == savedValue);
         return savedMenu[0];
     },[])
     const elementClickHandler = useCallback((
-        clickedMenu:menuList,
+        clickedMenu:options<T>,
     ) => {
         checkedMenuChange(clickedMenu);
         onChange(clickedMenu.VALUE);
@@ -62,12 +62,12 @@ const Dropdown: FC<Props> = ({
                 <DropdownCurrentElement isAble={!isAble}>{checkedMenu.LABEL}</DropdownCurrentElement>
                 <div className="DropdownWrapper">
                     {
-                        getUncheckedMenu(menuList,checkedMenu)
-                        .map((menu:menuList)=> {
+                        getUncheckedMenu(options,checkedMenu)
+                        .map((menu:options<T>)=> {
                             return (
                                 <DropdownElement 
                                     onClick={()=> elementClickHandler(menu)}
-                                    key={menu.VALUE}
+                                    key={menu.LABEL}
                                 >
                                     <p>
                                         {menu.LABEL}
