@@ -28,9 +28,9 @@ const DropdownRadio:FC<Props> = ({
         }
     return (
         <RadioDiv className="checkboxRadio">
-            <input 
-                name={name} 
+            <input
                 type="radio" 
+                name={name}
                 onChange={radioChangeHandler}
             />
             <div></div>

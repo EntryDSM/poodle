@@ -1,34 +1,43 @@
 import React, { 
-    createContext, 
-    FC,
+    createContext,
 } from "react";
+import crypto from 'crypto';
 
 interface ContextValue {
     onChange: Function,
     name: string,
 }
 
-interface Props {
-    onChange: Function,
+interface Props<T> {
+    onChange: (value: T) => void,
     children: React.ReactNode,
-    name: string,
 }
 
-const contextValue: ContextValue = {
+const defaultContext = {
     onChange: ()=>{},
     name: "",
 }
 
-const RadioGroupContext = createContext(contextValue);
 
-const RadioGroupProvider: FC<Props> = ({
+const RadioGroupContext = createContext<ContextValue>(defaultContext);
+
+function getHashName(name: string){
+    const hashName = crypto.createHash('sha1').update(name).digest('hex');
+    return hashName;
+}
+
+function getRandomString(){
+    return Math.random().toString().substr(2, 5);
+}
+
+function RadioGroupProvider<T>({
     children,
     onChange,
-    name,
-}) => {
+}: Props<T>){
+    const hashedName = getHashName(getRandomString());
     const contextValue = {
         onChange: onChange,
-        name: name,
+        name: hashedName,
     }
     return (
         <RadioGroupContext.Provider value={contextValue}>

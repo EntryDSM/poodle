@@ -1,23 +1,25 @@
-import React, { 
-    FC,
+import React, {
     useContext,
 } from 'react';
 import { RadioDiv } from '../../../../styles/ApplicationFormDefault';
 import RadioGroupContext from './RadioGroup';
 
-interface Props {
+interface Props<T> {
     children?: string,
-    value: string,
+    value: T,
 }
 
-const Radio:FC<Props> = ({ 
+function Radio<T>({ 
     children, 
     value,
-}) => {
+}: Props<T>){
     const { 
         onChange,
         name,
     } = useContext(RadioGroupContext);
+    if (!onChange) {
+        throw Error("radio must grouped by radio group");
+    }
     const radioChangeHandler = (
         event:React.ChangeEvent<HTMLInputElement>
     ) => {
