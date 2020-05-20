@@ -1,8 +1,8 @@
 import React, { 
     createContext,
     useContext,
+    useMemo,
 } from "react";
-import crypto from 'crypto';
 
 interface ContextValue<T> {
     onChange: (value: T) => void,
@@ -13,12 +13,14 @@ interface ContextValue<T> {
 interface Props<T> {
     onChange: (value: T) => void,
     children: React.ReactNode,
-    value: string,
+    value: T,
 }
 
-function getHashName(name: string){
-    const hashName = crypto.createHash('sha1').update(name).digest('hex');
-    return hashName;
+let name = 0;
+
+const getName = () => {
+    name++;
+    return name.toString();
 }
 
 const RadioGroupContext = createContext<ContextValue<any> | null>(null);
@@ -31,16 +33,12 @@ function useRadioGroupContext<T>() {
   return context as ContextValue<T>
 }
 
-function getRandomString(){
-    return Math.random().toString().substr(2, 5);
-}
-
 function RadioGroupProvider<T>({
     children,
     onChange,
     value,
 }: Props<T>){
-    const hashedName = getHashName(getRandomString());
+    const hashedName = useMemo(()=> getName(),[]);
     const contextValue = {
         onChange: onChange,
         name: hashedName,
