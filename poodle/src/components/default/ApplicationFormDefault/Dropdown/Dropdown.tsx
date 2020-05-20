@@ -21,6 +21,7 @@ interface Props<T> {
     onChange: (value: T) => void,
     value: T,
     children?: React.ReactNode,
+    dropdownChange?: (value: T) => void,
 }
 
 function Dropdown<T>({
@@ -30,10 +31,15 @@ function Dropdown<T>({
     value,
     children,
     onChange,
+    dropdownChange
 }:Props<T>){
     const [checkedMenu, checkedMenuChange] = useState(options[0]);
     useEffect(()=> {
-        checkedMenuChange(getSavedData(value));
+        const savedData = getSavedData(value);
+        checkedMenuChange(savedData);
+        if(dropdownChange){
+            dropdownChange(savedData.VALUE);
+        }
     },[value])
     const getUncheckedMenu = useCallback((
         options:options<T>[],
@@ -54,6 +60,9 @@ function Dropdown<T>({
     ) => {
         checkedMenuChange(clickedMenu);
         onChange(clickedMenu.VALUE);
+        if(dropdownChange){
+            dropdownChange(clickedMenu.VALUE);
+        }
     },[])
     return (
         <DropdownDiv width={width} isAble={!isAble}>
