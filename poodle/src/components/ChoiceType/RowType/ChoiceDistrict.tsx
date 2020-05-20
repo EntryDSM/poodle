@@ -9,11 +9,13 @@ import {
 import { DefaultRow } from '..';
 
 interface Props {
-    valueChangeHandler: (value: string) => void
+    valueChangeHandler: (value: string) => void,
+    district: string,
 }
 
 const ChoiceDistrict:FC<Props> = ({ 
-    valueChangeHandler 
+    valueChangeHandler,
+    district,
 }) => {
     return (
         <DefaultRow title="지역 선택">
@@ -21,6 +23,7 @@ const ChoiceDistrict:FC<Props> = ({
                 <div>
                     <RadioGroupProvider 
                         onChange={valueChangeHandler}
+                        value={district}
                     >
                         <Radio 
                             value="대전"

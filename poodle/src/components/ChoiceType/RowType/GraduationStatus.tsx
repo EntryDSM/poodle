@@ -9,11 +9,13 @@ import {
 import { DefaultRow } from '..';
 
 interface Props {
-    valueChangeHandler: (value: string) => void 
+    valueChangeHandler: (value: string) => void,
+    graduationStatus: string,
 }
 
 const GraduationStatus: FC<Props> = ({ 
-    valueChangeHandler 
+    valueChangeHandler,
+    graduationStatus,
 }) => {
     return (
         <DefaultRow title="졸업 구분">
@@ -21,6 +23,7 @@ const GraduationStatus: FC<Props> = ({
                 <div>
                     <RadioGroupProvider
                         onChange={valueChangeHandler}
+                        value={graduationStatus}
                     >
                         <Radio
                             value="졸업예정자"
