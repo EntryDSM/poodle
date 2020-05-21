@@ -1,50 +1,46 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { RadioDiv } from '../../../../styles/ApplicationFormDefault';
 import useRadioGroupContext from './RadioGroup';
 
-interface Props<T> {
-    value: T,
-    ableChange: Function,
+interface Props {
+    value: string,
+    dropdownAbleChange: Function,
     children?: React.ReactNode,
     options: { LABEL: string, VALUE: string }[],
-    // state를 부모 component에 두기는 싫고, 그렇다고 context에 넣을수도 없는 상황이라
-    // 1시간의 고뇌끝에 넣은 Props입니다.. merge시 주석 삭제하겠습니다.
 }
 
-interface ContextValue<T> {
-    onChange: (value: T) => void,
+interface ContextValue {
+    onChange: (value: string) => void,
     name: string,
-    savedValue: T,
+    savedValue: string,
 }
 
-function DropdownRadio<T>({ 
+const isChecked = (
+    valueList:{ LABEL: string, VALUE: string }[], 
+    savedValue: string
+) => {
+    const convertedValue = savedValue as unknown as string;
+    return valueList.some((value)=> value.VALUE === convertedValue);
+}
+
+const DropdownRadio:FC<Props> = ({ 
     children, 
     value,
-    ableChange,
+    dropdownAbleChange,
     options,
-}: Props<T>){
-    const context = useRadioGroupContext<T>();
+}) => {
+    const context = useRadioGroupContext<string>();
     const { 
         onChange,
         name,
         savedValue,
-    }:ContextValue<T> = context;
-    const isChecked = (valueList:{ LABEL: string, VALUE: string }[], savedValue:T) => {
-        let flag = false;
-        valueList.map((value)=> {
-            const convertedValue = savedValue as unknown as string;
-            if(value.VALUE === convertedValue){
-                flag = true;
-            }
-        })
-        return flag;
-    }
+    }:ContextValue = context;
     const radioChangeHandler = (
         event:React.ChangeEvent<HTMLInputElement>
         ) => {
             const isAble = event.target.checked;
             onChange(value);
-            ableChange(isAble);
+            dropdownAbleChange(isAble);
         }
     return (
         <RadioDiv className="checkboxRadio">
@@ -54,7 +50,7 @@ function DropdownRadio<T>({
                 onChange={radioChangeHandler}
                 checked={isChecked(options, savedValue)}
             />
-            <div/>
+            <div className="surfaceRadio"/>
             {children}
         </RadioDiv>
     )
