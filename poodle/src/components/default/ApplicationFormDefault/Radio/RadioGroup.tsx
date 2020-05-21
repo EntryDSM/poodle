@@ -28,7 +28,7 @@ const RadioGroupContext = createContext<ContextValue<any> | null>(null);
 function useRadioGroupContext<T>() {
   const context = useContext(RadioGroupContext);
   if (!context) {
-    throw Error
+    throw new Error("radio group context must be provided");
   }
   return context as ContextValue<T>
 }

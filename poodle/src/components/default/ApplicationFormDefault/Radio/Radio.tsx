@@ -1,6 +1,4 @@
-import React, {
-    useContext,
-} from 'react';
+import React from 'react';
 import { RadioDiv } from '../../../../styles/ApplicationFormDefault';
 import useRadioGroupContext from './RadioGroup';
 
@@ -25,9 +23,6 @@ function Radio<T>({
         name,
         savedValue,
     }:ContextValue<T> = context;
-    if (!onChange) {
-        throw Error("radio must grouped by radio group");
-    }
     const radioChangeHandler = (
         event:React.ChangeEvent<HTMLInputElement>
     ) => {
@@ -48,7 +43,7 @@ function Radio<T>({
                 name={name}
                 checked={isChecked(value,savedValue)}
             />
-            <div/>
+            <div className="surfaceRadio"/>
             {children}
         </RadioDiv>
     )
