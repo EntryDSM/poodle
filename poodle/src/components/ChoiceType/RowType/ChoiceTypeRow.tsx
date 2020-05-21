@@ -21,16 +21,14 @@ const ChoiceTypeRow: FC<Props> = ({
     valueChangeHandler,
     applyType,
 }) => {
-    const [isAble, ableChange] = useState(false);
-    const [nowDropdown, dropdownChange] = useState<any>("")
-    // dropdown에 연결된 radio를 클릭했을 때, 값이 dropdown에 표시된 값으로 변경되어야 해서 추가된 state입니다.
-    // merge시 주석 지우겠습니다.
-    const ableRadioClickHandler = (isAble: boolean) => {
-        ableChange(isAble);
+    const [isDropdownAble, dropdownAbleChange] = useState(false);
+    const [nowDropdown, dropdownChange] = useState<any>("");
+    const ableRadioClickHandler = (isDropdownAble: boolean) => {
+        dropdownAbleChange(isDropdownAble);
     }
     const RadioClickHandler = (value: string) => {
         valueChangeHandler(value);
-        ableChange(false);
+        dropdownAbleChange(false);
     }
     return (
         <DefaultRow title="전형 선택">
@@ -48,7 +46,7 @@ const ChoiceTypeRow: FC<Props> = ({
                             >마이스터 인재전형</Radio>
                             <DropdownRadio
                                 value={nowDropdown}  
-                                ableChange={ableRadioClickHandler}
+                                dropdownAbleChange={ableRadioClickHandler}
                                 options={typeConstance}
                             />
                     </RadioGroupProvider>
@@ -56,7 +54,7 @@ const ChoiceTypeRow: FC<Props> = ({
                         options={typeConstance}
                         width="180px"
                         onChange={valueChangeHandler}
-                        isAble={isAble}
+                        isAble={isDropdownAble}
                         value={applyType}
                         dropdownChange={dropdownChange}
                     />
