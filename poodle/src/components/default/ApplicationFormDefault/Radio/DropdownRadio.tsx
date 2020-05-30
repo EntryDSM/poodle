@@ -1,35 +1,56 @@
 import React, { FC } from 'react';
 import { RadioDiv } from '../../../../styles/ApplicationFormDefault';
+import useRadioGroupContext from './RadioGroup';
 
 interface Props {
-    radioName: string,
-    valueChangeHandler: Function,
     value: string,
-    ableChange: Function,
+    dropdownAbleChange: Function,
+    children?: React.ReactNode,
+    options: { LABEL: string, VALUE: string }[],
+}
+
+interface ContextValue {
+    onChange: (value: string) => void,
+    name: string,
+    savedValue: string,
+}
+
+const isChecked = (
+    valueList:{ LABEL: string, VALUE: string }[], 
+    savedValue: string
+) => {
+    const convertedValue = savedValue as unknown as string;
+    return valueList.some((value)=> value.VALUE === convertedValue);
 }
 
 const DropdownRadio:FC<Props> = ({ 
     children, 
-    radioName,
-    valueChangeHandler, 
     value,
-    ableChange,
+    dropdownAbleChange,
+    options,
 }) => {
+    const context = useRadioGroupContext<string>();
+    const { 
+        onChange,
+        name,
+        savedValue,
+    }:ContextValue = context;
     const radioChangeHandler = (
         event:React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const isAble = event.target.checked;
-        ableChange(isAble);
-        valueChangeHandler(value);
-    }
+        ) => {
+            const isAble = event.target.checked;
+            onChange(value);
+            dropdownAbleChange(isAble);
+        }
     return (
         <RadioDiv className="checkboxRadio">
-            <input 
-                name={radioName} 
+            <input
                 type="radio" 
+                name={name}
                 onChange={radioChangeHandler}
+                checked={isChecked(options, savedValue)}
             />
-            <div></div>
+            <div className="surfaceRadio"/>
             {children}
         </RadioDiv>
     )
