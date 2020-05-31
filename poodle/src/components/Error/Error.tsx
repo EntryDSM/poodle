@@ -10,7 +10,7 @@ const Error: React.FC<{}> = () => {
                 <ContentHeader
                     padding='180px 0 92px'
                     title='404 NOT FOUND'
-                    underLineLength={310}
+                    underLineLength={313}
                     titleFontSize={46}
             />
             <S.ContentBlock>

@@ -12,7 +12,7 @@ const Main: React.FC<{}> = () => {
             padding='160px 0 220px'
             subTitle='대덕소프트웨어마이스터고등학교'
             title='2021 신입생 모집'
-            underLineLength={294}
+            underLineLength={315}
             titleFontSize={46}
           />
           <S.Article>

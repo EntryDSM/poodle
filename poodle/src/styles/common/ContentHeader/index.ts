@@ -20,7 +20,7 @@ export const SubTitle = styled.p`
 `;
 
 export const Title = styled.h1<{ fontSize?: number }>`
-    font-family: NanumSquareR;
+    font-family: NanumSquare;
     font-size: ${({ fontSize }) => fontSize ? fontSize : 36}px;
     line-height: ${({ fontSize }) => fontSize ? fontSize : 36}px;
     font-weight: 400;
@@ -33,4 +33,5 @@ export const UnderLine = styled.hr<{ length: number }>`
     height: 3px;
     border: none;
     background-color: #62d3e8;
+    margin: 0;
 `;

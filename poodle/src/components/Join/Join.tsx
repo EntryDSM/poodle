@@ -20,7 +20,7 @@ function Join() {
                     padding='100px 0 40px 50px'
                     subTitle='대덕소프트웨어마이스터고등학교'
                     title='2021 지원자 계정 생성하기'
-                    underLineLength={347}
+                    underLineLength={370}
                     border='border-bottom 1px solid #1F8091;'
                 />
                 <S.AgreeInfoWrapper>
