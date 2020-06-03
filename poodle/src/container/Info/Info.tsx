@@ -153,6 +153,7 @@ const Info: FC<Props> = ({
                             />
                             <UserGenderRow 
                                 valueChangeHandler={setGender}
+                                value={gender}
                             />   
                             <UserBirthDayRow
                                 valueChangeHandler={setBirthday}

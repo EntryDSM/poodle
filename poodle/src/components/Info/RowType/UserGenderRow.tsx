@@ -3,30 +3,40 @@ import React, {
     useCallback,
 } from 'react';
 import { DefaultRowWithPicture } from '../';
-import { Radio } from '../../default/ApplicationFormDefault';
+import { 
+    Radio,
+    RadioGroupProvider, 
+} from '../../default/ApplicationFormDefault';
 import { InfoElementContent } from '../../../styles/Info';
 
 interface Props {
-    valueChangeHandler:(value: string) => void
+    valueChangeHandler:(value: string) => void,
+    value: string,
 }
 
 const UserGenderRow: FC<Props> = ({
-    valueChangeHandler
+    valueChangeHandler,
+    value,
 }) => {
     const radioClickHandler = 
     useCallback((value: string) => {
         valueChangeHandler(value);
-    },[])
+    },[valueChangeHandler])
     return (
         <DefaultRowWithPicture title="성별">
             <InfoElementContent>
                 <div>
-                    <Radio 
-                        value="female"
-                    >남자</Radio>
-                    <Radio 
-                        value="male"
-                    >여자</Radio>
+                    <RadioGroupProvider
+                        onChange={radioClickHandler}
+                        value={value}
+                    >
+                        <Radio 
+                            value="female"
+                        >남자</Radio>
+                        <Radio 
+                            value="male"
+                        >여자</Radio>
+                    </RadioGroupProvider>
                 </div>
             </InfoElementContent>
         </DefaultRowWithPicture>
