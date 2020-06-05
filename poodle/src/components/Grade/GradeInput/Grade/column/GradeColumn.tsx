@@ -10,14 +10,15 @@ type GradeType = "A" | "B" | "C" | "D" | "E" | "X";
 
 interface Props {
     onChange: Function,
+    key: number,
 }
 
 const GradeColumn: FC<Props> = ({
+    key,
 }) => {
     const gradeList:GradeType[] = ['A','B','C','D','E',"X"];
     const [grade, gradeChange] = useState<GradeType>('A');
     const gradeClickHandler = (grade: GradeType) => {
-        console.log(grade);
         gradeChange(grade);
     }
     return (
@@ -35,6 +36,7 @@ const GradeColumn: FC<Props> = ({
                         {
                             gradeList.map((grade)=> 
                                 <li
+                                    key={`${key}${grade}`}
                                     onClick={() => gradeClickHandler(grade)}
                                 >
                                     {grade}

@@ -14,11 +14,26 @@ const GradeRow: FC = ({
             <SubjectColumn>
                 {children}
             </SubjectColumn>
-            <GradeColumn onChange={()=>{}}/>
-            <GradeColumn onChange={()=>{}}/>
-            <GradeColumn onChange={()=>{}}/>
-            <GradeColumn onChange={()=>{}}/>
-            <GradeColumn onChange={()=>{}}/>
+            <GradeColumn 
+                onChange={()=>{}}
+                key={1}
+            />
+            <GradeColumn 
+                onChange={()=>{}}
+                key={2}
+            />
+            <GradeColumn 
+                onChange={()=>{}}
+                key={3}
+            />
+            <GradeColumn 
+                onChange={()=>{}}
+                key={4}
+            />
+            <GradeColumn 
+                onChange={()=>{}}
+                key={5}
+            />
         </GradeScoreRow>
     )
 }
