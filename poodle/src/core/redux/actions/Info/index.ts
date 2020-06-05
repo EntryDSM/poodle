@@ -1,14 +1,14 @@
-export const NAME = "Info/NAME";
-export const GENDER = "Info/GENDER";
-export const BIRTHDAY = "Info/BIRTHDAY";
-export const NUMBER = "Info/NUMBER";
-export const MIDDLESCHOOL = "Info/MIDDLESCHOOL";
-export const PROTECTOR_NAME = "Info/PROTECTOR_NAME";
-export const PICTURE = "Info/PICTURE";
-export const SCHOOL_PHONE_NUM = "Info/SCHOOL_PHONE_NUM";
-export const PROTECTOR_PHONE_NUM = "Info/SCHOOL_PHONE_NUM";
-export const PHONE_NUM = "Info/PHONE_NUM";
-export const ADDRESS = "Info/ADDRESS";
+export const NAME = "Info/NAME" as const;
+export const GENDER = "Info/GENDER" as const;
+export const BIRTHDAY = "Info/BIRTHDAY" as const;
+export const NUMBER = "Info/NUMBER" as const;
+export const MIDDLESCHOOL = "Info/MIDDLESCHOOL" as const;
+export const PROTECTOR_NAME = "Info/PROTECTOR_NAME" as const;
+export const PICTURE = "Info/PICTURE" as const;
+export const SCHOOL_PHONE_NUM = "Info/SCHOOL_PHONE_NUM" as const;
+export const PROTECTOR_PHONE_NUM = "Info/SCHOOL_PHONE_NUM" as const;
+export const PHONE_NUM = "Info/PHONE_NUM" as const;
+export const ADDRESS = "Info/ADDRESS" as const;
 
 export interface SetName {
     type: typeof NAME,
