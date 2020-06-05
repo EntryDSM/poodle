@@ -1,72 +1,44 @@
-export const YEAR = [
-    { VALUE: "2020", LABEL: "2020", },
-    { VALUE: "2019", LABEL: "2019", },
-    { VALUE: "2018", LABEL: "2018", },
-    { VALUE: "2017", LABEL: "2017", },
-    { VALUE: "2016", LABEL: "2016", },
-    { VALUE: "2015", LABEL: "2015", },
-    { VALUE: "2014", LABEL: "2014", },
-    { VALUE: "2013", LABEL: "2013", },
-    { VALUE: "2012", LABEL: "2012", },
-    { VALUE: "2011", LABEL: "2011", },
-    { VALUE: "2010", LABEL: "2010", },
-    { VALUE: "2009", LABEL: "2009", },
-    { VALUE: "2008", LABEL: "2008", },
-    { VALUE: "2007", LABEL: "2007", },
-    { VALUE: "2006", LABEL: "2006", },
-    { VALUE: "2005", LABEL: "2005", },
-    { VALUE: "2004", LABEL: "2004", },
-    { VALUE: "2003", LABEL: "2003", },
-    { VALUE: "2002", LABEL: "2002", },
-    { VALUE: "2001", LABEL: "2001", },
-    { VALUE: "2000", LABEL: "2000", },
-];
+export const getYEAR = (
+    startYear: number, 
+    lastYear: number
+): { VALUE: string, LABEL: string }[] => {
+    let buf = [];
+    for(let YEAR = startYear;YEAR <= lastYear;YEAR++){
+        const stringedYEAR = YEAR.toString();
+        buf.push({
+            VALUE: stringedYEAR,
+            LABEL: stringedYEAR,
+        })
+    }
+    return buf;
+}
 
-export const MONTH = [
-    { VALUE: "12", LABEL: "12", },
-    { VALUE: "11", LABEL: "11", },
-    { VALUE: "10", LABEL: "10", },
-    { VALUE : "9", LABEL: "9", },
-    { VALUE : "8", LABEL: "8", },
-    { VALUE : "7", LABEL: "7", },
-    { VALUE : "6", LABEL: "6", },
-    { VALUE : "5", LABEL: "5", },
-    { VALUE : "4", LABEL: "4", },
-    { VALUE : "3", LABEL: "3", },
-    { VALUE : "2", LABEL: "2", },
-    { VALUE : "1", LABEL: "1", },
-]
+export const getMONTH = (
+    startMonth: number, 
+    lastMonth: number
+): { VALUE: string, LABEL: string }[] => {
+    let buf = [];
+    for(let MONTH = startMonth;MONTH <= lastMonth;MONTH++){
+        const stringedMONTH = MONTH.toString();
+        buf.push({
+            VALUE: stringedMONTH,
+            LABEL: stringedMONTH,
+        })
+    }
+    return buf;
+}
 
-export const DAY = [
-    { VALUE: "31", LABEL: "31", },
-    { VALUE: "30", LABEL: "30", },
-    { VALUE: "29", LABEL: "29", },
-    { VALUE: "28", LABEL: "28", },
-    { VALUE: "27", LABEL: "27", },
-    { VALUE: "26", LABEL: "26", },
-    { VALUE: "25", LABEL: "25", },
-    { VALUE: "24", LABEL: "24", },
-    { VALUE: "23", LABEL: "23", },
-    { VALUE: "22", LABEL: "22", },
-    { VALUE: "21", LABEL: "21", },
-    { VALUE: "20", LABEL: "20", },
-    { VALUE: "19", LABEL: "19", },
-    { VALUE: "18", LABEL: "18", },
-    { VALUE: "17", LABEL: "17", },
-    { VALUE: "16", LABEL: "16", },
-    { VALUE: "15", LABEL: "15", },
-    { VALUE: "14", LABEL: "14", },
-    { VALUE: "13", LABEL: "13", },
-    { VALUE: "12", LABEL: "12", },
-    { VALUE: "11", LABEL: "11", },
-    { VALUE: "10", LABEL: "10", },
-    { VALUE: "9", LABEL: "9" },
-    { VALUE: "8", LABEL: "8" },
-    { VALUE: "7", LABEL: "7" },
-    { VALUE: "6", LABEL: "6" },
-    { VALUE: "5", LABEL: "5" },
-    { VALUE: "4", LABEL: "4" },
-    { VALUE: "3", LABEL: "3" },
-    { VALUE: "2", LABEL: "2" },
-    { VALUE: "1", LABEL: "1" },
-]
+export const getDAY = (
+    startDay: number, 
+    lastDay: number
+): { VALUE: string, LABEL: string }[] => {
+    let buf = [];
+    for(let DAY = startDay;DAY <= lastDay;DAY++){
+        const stringedDAY = DAY.toString();
+        buf.push({
+            VALUE: stringedDAY,
+            LABEL: stringedDAY,
+        })
+    }
+    return buf;
+}

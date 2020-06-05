@@ -8,9 +8,9 @@ import { DefaultRowWithPicture } from '../';
 import { Dropdown } from '../../default/ApplicationFormDefault';
 import { InfoElementContent } from '../../../styles/Info';
 import { 
-    DAY, 
-    MONTH, 
-    YEAR 
+    getDAY, 
+    getMONTH, 
+    getYEAR 
 } from './constance/UserBirthDayConstance';
 
 interface options {
@@ -21,6 +21,10 @@ interface options {
 interface Props {
     valueChangeHandler:(value: string) => void,
 }
+
+const DAY = getDAY(1,31);
+const MONTH = getMONTH(1,12);
+const YEAR = getYEAR(2000,2020);
 
 const UserBirthDayRow: FC<Props> = ({
     valueChangeHandler,
