@@ -1,12 +1,13 @@
 import React, { 
-    FC, 
-    useCallback,
+    FC,
     useState,
     useEffect,
 } from 'react';
 import { DefaultRowWithPicture } from '../';
 import { Input } from '../../default/ApplicationFormDefault';
 import { InfoElementContent } from '../../../styles/Info';
+import { isEmptyCheck } from '../../../lib/utils/function';
+
 
 interface Props {
     valueChangeHandler:(value: string) => void
@@ -20,13 +21,6 @@ const UserNameRow: FC<Props> = ({
     isError,
 }) => {
     const [isEmpty, emptyChange] = useState<boolean>(false);
-    const isEmptyCheck = 
-    useCallback((text: string)=> {
-        if(text.length > 0){
-            return false;
-        }
-        return true;
-    },[])
     useEffect(()=> {
         if(isError && isEmptyCheck(name)){
             emptyChange(true);

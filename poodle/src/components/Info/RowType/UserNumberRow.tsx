@@ -2,11 +2,12 @@ import React, {
     FC, 
     useState, 
     useEffect,
-    useCallback,
 } from 'react';
 import { DefaultRowWithPicture } from '..';
 import { Input } from '../../default/ApplicationFormDefault';
 import { InfoElementContent } from '../../../styles/Info';
+import { isEmptyCheck } from '../../../lib/utils/function';
+
 
 interface Props {
     valueChangeHandler:(value: string) => void,
@@ -29,13 +30,6 @@ const UserNumberRow: FC<Props> = ({
             valueChangeHandler(value);
         }
     },[grade, classNum, number, valueChangeHandler])
-    const isEmptyCheck = 
-    useCallback((text: string)=> {
-        if(text.length > 0){
-            return false;
-        }
-        return true;
-    },[])
     useEffect(()=> {
         if(isError && isEmptyCheck(userNumber)){
             emptyChange(true);

@@ -1,12 +1,12 @@
 import React, { 
     FC,
-    useCallback,
     useState, 
     useEffect,
 } from 'react';
 import { DefaultRow } from '..';
 import { Input } from '../../default/ApplicationFormDefault';
 import { InfoElementContent } from '../../../styles/Info';
+import { isEmptyCheck } from '../../../lib/utils/function';
 
 interface Props {
     describe: string,
@@ -22,13 +22,6 @@ const UserSchoolPhoneNumRow: FC<Props> = ({
     isError,
 }) => {
     const [isEmpty, emptyChange] = useState<boolean>(false);
-    const isEmptyCheck = 
-    useCallback((text: string)=> {
-        if(text.length > 0){
-            return false;
-        }
-        return true;
-    },[])
     useEffect(()=> {
         if(isError && isEmptyCheck(schoolPhoneNum)){
             emptyChange(true);

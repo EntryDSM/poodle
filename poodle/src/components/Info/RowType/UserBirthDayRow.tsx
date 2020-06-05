@@ -28,8 +28,6 @@ const UserBirthDayRow: FC<Props> = ({
     const [checkedDay, _checkedDayChange] = useState(DAY[0].VALUE);
     const [checkedMonth, _checkedMonthChange] = useState(MONTH[0].VALUE);
     const [checkedYear, _checkedYearChange] = useState(YEAR[0].VALUE);
-    // checked 날짜들 state 바뀔때 마다 변경해줘야 함.
-    // 그래야 autoSave 돌릴 수 있음.
     const getCheckedMenu = useCallback((
         options:options[]
     ): options => {
@@ -60,7 +58,7 @@ const UserBirthDayRow: FC<Props> = ({
             <InfoElementContent>
                 <div>
                     <Dropdown 
-                        onChange={checkedDayChange} 
+                        onChange={checkedYearChange} 
                         options={YEAR}
                         width="110px"
                         value={checkedYear}
