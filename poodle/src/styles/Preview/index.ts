@@ -24,33 +24,3 @@ export const PreviewPdfDiv = styled.div`
     overflow: hidden;
     margin-bottom: 40px;
 `
-
-export const PreviewPdf = styled.div`
-    background-color: #535759;
-    display: flex;
-    justify-content: center;
-    box-sizing: border-box;
-    width: 100%;
-    height: 932px;
-    overflow: scroll;
-    padding: 20px;
-    > div > div {
-        margin: 20px;
-    }
-`
-
-export const PreviewHeader = styled.div`
-    width: 100%;
-    height: 50px;
-    background-color: ${PREVIEW_HEADER_COLOR};
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    > p {
-        color: white;
-        font-size: 16px;
-        width: 200px;
-        text-align: center;
-        margin: 20px;
-    }
-`
