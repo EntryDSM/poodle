@@ -6,8 +6,14 @@ import {
 import { 
     GradeScoreRow 
 } from '../../../../styles/Grade';
-const GradeRow: FC = ({
+
+interface Props {
+    uniqueKey: string,
+}
+
+const GradeRow: FC<Props> = ({
     children,
+    uniqueKey,
 }) => {
     return (
         <GradeScoreRow>
@@ -16,23 +22,23 @@ const GradeRow: FC = ({
             </SubjectColumn>
             <GradeColumn 
                 onChange={()=>{}}
-                key={1}
+                uniqueKey={`${uniqueKey}${1}`}
             />
             <GradeColumn 
                 onChange={()=>{}}
-                key={2}
+                uniqueKey={`${uniqueKey}${2}`}
             />
             <GradeColumn 
                 onChange={()=>{}}
-                key={3}
+                uniqueKey={`${uniqueKey}${3}`}
             />
             <GradeColumn 
                 onChange={()=>{}}
-                key={4}
+                uniqueKey={`${uniqueKey}${4}`}
             />
             <GradeColumn 
                 onChange={()=>{}}
-                key={5}
+                uniqueKey={`${uniqueKey}${5}`}
             />
         </GradeScoreRow>
     )
