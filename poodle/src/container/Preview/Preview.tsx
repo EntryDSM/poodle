@@ -8,14 +8,13 @@ import {
     Title,
     DefaultlNavigation,
 } from '../../components/default/ApplicationFormDefault';
-import { DUMMY_PDF } from '../../components/Preview/pdf'
 
 const Preview: FC = () => {
     return (
         <PreviewDiv>
             <PreviewMain>
                 <Title margin="55px">미리보기</Title>
-                <PreviewFile pdfFile={DUMMY_PDF}/>
+                <PreviewFile src="/example.pdf"/>
                 <DefaultlNavigation
                     page="preview"
                     currentPageClickHandler={()=> {}}
