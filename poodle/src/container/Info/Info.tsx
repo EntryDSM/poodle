@@ -16,18 +16,9 @@ import {
     DefaultlNavigation,
 } from '../../components/default/ApplicationFormDefault';
 import { 
-    UserNameRow,
-    UserGenderRow,
-    UserBirthDayRow,
-    UserNumberRow,
-    UserMiddleSchool,
-    UserImg, 
-    UserProtector,
-    UserProtectorPhoneNumRow,
-    UserSchoolPhoneNumRow,
-    UserPhoneNumRow,
-    UserAddressRow,
-} from '../../components/Info';
+    DefaultAnotherRows,
+    DefaultPictureRows,
+} from '../../components/Info/Rows';
 import { 
     mapStateToProps,
     mapDispatchToProps,
@@ -144,61 +135,31 @@ const Info: FC<Props> = ({
             <InfoBody>
                 <Title margin="80px">인적사항</Title>
                 <li>
-                    <div className="picture">
-                        <div>
-                            <UserNameRow 
-                                valueChangeHandler={setName}
-                                name={name}
-                                isError={isError}
-                            />
-                            <UserGenderRow 
-                                valueChangeHandler={setGender}
-                                value={gender}
-                            />   
-                            <UserBirthDayRow
-                                valueChangeHandler={setBirthday}
-                            /> 
-                            <UserNumberRow
-                                valueChangeHandler={setNumber}
-                                userNumber={number}
-                                isError={isError}
-                            />
-                            <UserMiddleSchool
-                                valueChangeHandler={setMiddleSchool}
-                                middleSchool={middleSchool}
-                                isError={isError}
-                            />
-                        </div>
-                        <UserImg
-                            valueChangeHandler={setPicture}
-                        />
-                    </div>
-                    <UserProtector
-                        valueChangeHandler={setProtectorName}
+                    <DefaultPictureRows
+                        name={name}
+                        picture={picture}
+                        gender={gender}
+                        number={number}
+                        middleSchool={middleSchool}
+                        setName={setName}
+                        setBirthday={setBirthday}
+                        setGender={setGender}
+                        setMiddleSchool={setMiddleSchool}
+                        setNumber={setNumber}
+                        setPicture={setPicture}
+                        isError={isError}
+                    />
+                    <DefaultAnotherRows
                         protectorName={protectorName}
-                        isError={isError}
-                    />
-                    <UserSchoolPhoneNumRow 
-                        describe="*‘-’문자를 제외한 숫자만 입력해주세요."
-                        valueChangeHandler={setSchoolPhoneNum}
-                        schoolPhoneNum={schoolPhoneNum}
-                        isError={isError}
-                    />    
-                    <UserProtectorPhoneNumRow 
-                        describe="*‘-’문자를 제외한 숫자만 입력해주세요."
-                        valueChangeHandler={setProtectorPhoneNum}
                         protectorPhoneNum={protectorPhoneNum}
-                        isError={isError}
-                    />
-                    <UserPhoneNumRow
-                        describe="*‘-’문자를 제외한 숫자만 입력해주세요."
-                        valueChangeHandler={setPhoneNum}
+                        schoolPhoneNum={schoolPhoneNum}
                         phoneNum={phoneNum}
-                        isError={isError}
-                    />
-                    <UserAddressRow
-                        valueChangeHandler={setAddress}
                         address={address}
+                        setAddress={setAddress}
+                        setPhoneNum={setPhoneNum}
+                        setProtectorName={setProtectorName}
+                        setProtectorPhoneNum={setProtectorPhoneNum}
+                        setSchoolPhoneNum={setSchoolPhoneNum}
                         isError={isError}
                     />
                 </li>
