@@ -16,16 +16,16 @@ import {
     DefaultlNavigation,
 } from '../../components/default/ApplicationFormDefault';
 import { 
-    DefaultAnotherRows,
-    DefaultPictureRows,
-} from '../../components/Info/Rows';
-import { 
     mapStateToProps,
     mapDispatchToProps,
 } from './ConnectInfo';
 import {
     Popup,
 } from '../../components/default/Popup'
+import { 
+    QualificationPage,
+    DefaultPage,
+} from '../../components/Info/Page';
 
 type Props = ReturnType<typeof mapStateToProps> &
 ReturnType<typeof mapDispatchToProps> &
@@ -34,31 +34,10 @@ RouteComponentProps;
 type MapStateToProps = 
     ReturnType<typeof mapStateToProps>;
 
-const Info: FC<Props> = ({
-    address,
-    number,
-    name,
-    birthday,
-    gender,
-    middleSchool,
-    protectorName,
-    picture,
-    schoolPhoneNum,
-    protectorPhoneNum,
-    phoneNum,
-    setAddress,
-    setName,
-    setBirthday,
-    setGender,
-    setMiddleSchool,
-    setNumber,
-    setProtectorName,
-    setProtectorPhoneNum,
-    setPhoneNum,
-    setPicture,
-    setSchoolPhoneNum,
-    history,
-}) => {
+const isQualificate = true;
+// 서버 통신으로 대체될 예정
+
+const Info: FC<Props> = (props) => {
     const [isError, errorChange] = useState<boolean>(false);
     const [errorModal, errorModalChange] = useState<boolean>(false);
     const isTextAble = useCallback((
@@ -122,10 +101,9 @@ const Info: FC<Props> = ({
             errorModalChange(isError);
             errorModalStateChangeLater(!isError)
         } else {
-            history.push('/grade');
+            props.history.push('/grade');
         }
     },[
-        history,
         isStateAble,
         errorModalStateChangeLater,
     ])
@@ -134,41 +112,36 @@ const Info: FC<Props> = ({
             <Popup isError={errorModal}/>
             <InfoBody>
                 <Title margin="80px">인적사항</Title>
-                <li>
-                    <DefaultPictureRows
-                        name={name}
-                        picture={picture}
-                        gender={gender}
-                        number={number}
-                        middleSchool={middleSchool}
-                        setName={setName}
-                        setBirthday={setBirthday}
-                        setGender={setGender}
-                        setMiddleSchool={setMiddleSchool}
-                        setNumber={setNumber}
-                        setPicture={setPicture}
+                {
+                    isQualificate ?
+                    <QualificationPage
+                        {...props}
+                        isError={isError}
+                    /> :
+                    <DefaultPage
+                        {...props}
                         isError={isError}
                     />
-                    <DefaultAnotherRows
-                        protectorName={protectorName}
-                        protectorPhoneNum={protectorPhoneNum}
-                        schoolPhoneNum={schoolPhoneNum}
-                        phoneNum={phoneNum}
-                        address={address}
-                        setAddress={setAddress}
-                        setPhoneNum={setPhoneNum}
-                        setProtectorName={setProtectorName}
-                        setProtectorPhoneNum={setProtectorPhoneNum}
-                        setSchoolPhoneNum={setSchoolPhoneNum}
-                        isError={isError}
-                    />
-                </li>
+                }
                 <DefaultlNavigation 
                     page="info"
                     currentPageClickHandler={()=> {
-                        history.push('/Type')
+                        props.history.push('/Type')
                     }}
                     nextPageClickHandler={()=> {
+                        const {
+                            address,
+                            name,
+                            birthday,
+                            gender,
+                            middleSchool,
+                            protectorName,
+                            picture,
+                            schoolPhoneNum,
+                            protectorPhoneNum,
+                            phoneNum,
+                            number,
+                        } = props;
                         goNextPage({
                             address,
                             name,
