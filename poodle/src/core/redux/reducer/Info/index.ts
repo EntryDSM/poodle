@@ -49,67 +49,67 @@ const InfoState = (
         case NAME: {
             return {
                 ...state,
-                name: action.payload,
+                name: action.payload.name,
             };
         }
         case GENDER: {
             return {
                 ...state,
-                gender: action.payload,
+                gender: action.payload.gender,
             };
         }
         case BIRTHDAY: {
             return {
                 ...state,
-                birthday: action.payload,
+                birthday: action.payload.birthday,
             };
         }
         case NUMBER: {
             return {
                 ...state,
-                number: action.payload,
+                number: action.payload.number,
             };
         }
         case MIDDLESCHOOL: {
             return {
                 ...state,
-                middleSchool: action.payload,
+                middleSchool: action.payload.schoolName,
             };
         }
         case PROTECTOR_NAME: {
             return {
                 ...state,
-                protectorName: action.payload,
+                protectorName: action.payload.protectorName,
             };
         }
         case PROTECTOR_PHONE_NUM: {
             return {
                 ...state,
-                protectorPhoneNum: action.payload,
+                protectorPhoneNum: action.payload.protectorPhoneNum,
             };
         }
         case SCHOOL_PHONE_NUM: {
             return {
                 ...state,
-                schoolPhoneNum: action.payload,
+                schoolPhoneNum: action.payload.schoolPhoneNum,
             };
         }
         case PHONE_NUM: {
             return {
                 ...state,
-                phoneNum: action.payload,
+                phoneNum: action.payload.phoneNum,
             };
         }
         case PICTURE: {
             return {
                 ...state,
-                picture: action.payload,
+                picture: action.payload.picture,
             };
         }
         case ADDRESS: {
             return {
                 ...state,
-                address: action.payload,
+                address: action.payload.address ,
             }
         }
         default: {

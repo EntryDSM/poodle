@@ -6,63 +6,63 @@ export const MIDDLESCHOOL = "Info/MIDDLESCHOOL" as const;
 export const PROTECTOR_NAME = "Info/PROTECTOR_NAME" as const;
 export const PICTURE = "Info/PICTURE" as const;
 export const SCHOOL_PHONE_NUM = "Info/SCHOOL_PHONE_NUM" as const;
-export const PROTECTOR_PHONE_NUM = "Info/SCHOOL_PHONE_NUM" as const;
+export const PROTECTOR_PHONE_NUM = "Info/PROTECTOR_PHONE_NUM" as const;
 export const PHONE_NUM = "Info/PHONE_NUM" as const;
 export const ADDRESS = "Info/ADDRESS" as const;
 
 export interface SetName {
     type: typeof NAME,
-    payload: string,
+    payload: { name : string },
 }
 
 export interface SetGender {
     type: typeof GENDER,
-    payload: string,
+    payload: { gender : string },
 }
 
 export interface SetBirthday {
     type: typeof BIRTHDAY,
-    payload: string,
+    payload: { birthday: string },
 }
 
 export interface SetNumber {
     type: typeof NUMBER,
-    payload: string,
+    payload: { number: string },
 }
 
 export interface SetMiddleSchool {
     type: typeof MIDDLESCHOOL,
-    payload: string,
+    payload: { schoolName : string },
 }
 
 export interface SetProtectorName {
     type: typeof PROTECTOR_NAME,
-    payload: string,
+    payload: { protectorName: string },
 }
 
 export interface SetPicture {
     type: typeof PICTURE,
-    payload: File,
+    payload: { picture: File },
 }
 
 export interface SetSchoolPhoneNum {
     type: typeof SCHOOL_PHONE_NUM,
-    payload: string,
+    payload: { schoolPhoneNum: string},
 }
 
 export interface SetProtectorPhoneNum {
     type: typeof PROTECTOR_PHONE_NUM,
-    payload: string,
+    payload: { protectorPhoneNum: string },
 }
 
 export interface SetPhoneNum {
     type: typeof PHONE_NUM,
-    payload: string,
+    payload: { phoneNum : string },
 }
 
 export interface SetAddress {
     type: typeof ADDRESS,
-    payload: string,
+    payload: { address: string },
 }
 export type InfoActionType = 
     | SetName
@@ -78,78 +78,78 @@ export type InfoActionType =
     | SetPicture;
 
 export const setName = (
-    name: string,
-): SetName => ({
+    payload :{ name: string },
+): InfoActionType => ({
     type: NAME,
-    payload: name
+    payload,
 });
 
 export const setNumber = (
-    number: string,
-): SetNumber => ({
+    payload : { number: string, }
+): InfoActionType => ({
     type: NUMBER,
-    payload: number,
+    payload,
 })
 
 export const setAddress = (
-    address: string,
-): SetAddress => ({
+    payload : { address: string, }
+): InfoActionType => ({
     type: ADDRESS,
-    payload: address,
+    payload,
 });
 
 export const setBirthday = (
-    birthday: string,
-): SetBirthday => ({
+    payload : { birthday: string, }
+): InfoActionType => ({
     type: BIRTHDAY,
-    payload: birthday
+    payload,
 });
 
 export const setGender = (
-    gender: string,
-): SetGender => ({
+    payload : { gender: string, }
+): InfoActionType => ({
     type: GENDER,
-    payload: gender,
+    payload,
 });
 
 export const setPhoneNum = (
-    phonenumber: string,
-): SetPhoneNum => ({
+    payload : { phoneNum: string, }
+): InfoActionType => ({
     type: PHONE_NUM,
-    payload: phonenumber,
+    payload,
 });
 
 export const setSchoolPhoneNum = (
-    schoolPhoneNum : string,
-): SetSchoolPhoneNum => ({
+    payload : { schoolPhoneNum : string, }
+): InfoActionType => ({
     type: SCHOOL_PHONE_NUM,
-    payload: schoolPhoneNum,
+    payload,
 });
 
 export const setMiddleSchool = (
-    schoolName: string,
-): SetMiddleSchool => ({
+    payload : { schoolName: string, }
+): InfoActionType => ({
     type: MIDDLESCHOOL,
-    payload: schoolName,
+    payload,
 });
 
 export const setProtectorPhoneNum = (
-    protectorPhonenum: string,
-): SetProtectorPhoneNum => ({
+    payload : { protectorPhoneNum: string, }
+): InfoActionType => ({
     type: PROTECTOR_PHONE_NUM,
-    payload: protectorPhonenum,
+    payload,
 });
 
 export const setProtectorName = (
-    protectorName: string,
-): SetProtectorName => ({
+    payload : { protectorName: string, }
+): InfoActionType => ({
     type: PROTECTOR_NAME,
-    payload: protectorName,
+    payload,
 });
 
 export const setPicture = (
-    picture: File,
-): SetPicture => ({
+    payload : { picture: File, }
+): InfoActionType => ({
     type: PICTURE,
-    payload: picture,
+    payload,
 })
