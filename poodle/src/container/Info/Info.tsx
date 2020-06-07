@@ -78,7 +78,7 @@ const Info: FC<Props> = ({
         }
         return false;
     },[]);
-    const isFileAble = useCallback((file: File)=> {
+    const isFileAble = useCallback((file: File | null)=> {
         if(file){
             return true;
         } 

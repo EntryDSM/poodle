@@ -32,37 +32,37 @@ export const mapStateToProps = (state: RootState) => ({
 export const mapDispatchToProps = (dispatch:Function) => ({
     setAddress: (
         address: string,
-    ) => dispatch(setAddress(address)),
+    ) => dispatch(setAddress({ address })),
     setBirthday: (
         birthday: string,
-    ) => dispatch(setBirthday(birthday)),
+    ) => dispatch(setBirthday({ birthday })),
     setGender: (
         gender: string,
-    ) => dispatch(setGender(gender)),
+    ) => dispatch(setGender({ gender })),
     setName: (
         name: string,
-    ) => dispatch(setName(name)),
+    ) => dispatch(setName({ name })),
     setNumber: (
         number: string,
-    ) => dispatch(setNumber(number)),
+    ) => dispatch(setNumber({ number })),
     setPicture: (
         picture: File,
-    ) => dispatch(setPicture(picture)),
+    ) => dispatch(setPicture({ picture })),
     setMiddleSchool: (
-        middleschool: string,
-    ) => dispatch(setMiddleSchool(middleschool)),
+        schoolName: string,
+    ) => dispatch(setMiddleSchool({ schoolName })),
     setSchoolPhoneNum: (
         schoolPhoneNum: string,
-    ) => dispatch(setSchoolPhoneNum(schoolPhoneNum)),
+    ) => dispatch(setSchoolPhoneNum({ schoolPhoneNum })),
     setProtectorPhoneNum: (
         protectorPhoneNum: string,
-    ) => dispatch(setProtectorPhoneNum(protectorPhoneNum)),
+    ) => dispatch(setProtectorPhoneNum({ protectorPhoneNum })),
     setPhoneNum: (
         phoneNum: string,
-    ) => dispatch(setPhoneNum(phoneNum)),
+    ) => dispatch(setPhoneNum({ phoneNum })),
     setProtectorName: (
         protectorName: string,
-    ) => dispatch(setProtectorName(protectorName)),
+    ) => dispatch(setProtectorName({ protectorName })),
 })
 
 export default connect(
