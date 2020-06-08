@@ -26,6 +26,8 @@ import {
     QualificationPage,
     DefaultPage,
 } from '../../components/Info/Page';
+import SchoolSearchModal from '../../components/default/common/Modal/SchoolSearchModal';
+import AddressSearchModal from '../../components/default/common/Modal/AddressSearchModal';
 
 type Props = ReturnType<typeof mapStateToProps> &
 ReturnType<typeof mapDispatchToProps> &
@@ -34,7 +36,7 @@ RouteComponentProps;
 type MapStateToProps = 
     ReturnType<typeof mapStateToProps>;
 
-const isQualificate = true;
+const isQualificate = false;
 // 서버 통신으로 대체될 예정
 
 const Info: FC<Props> = (props) => {
@@ -69,6 +71,19 @@ const Info: FC<Props> = (props) => {
             phoneNum,
         }: MapStateToProps
     ): boolean=> {
+        if(isQualificate){
+            return !(
+                isTextAble(address) &&
+                isTextAble(name) &&
+                isTextAble(birthday) &&
+                isTextAble(protectorName) &&
+                isTextAble(protectorName) &&
+                isTextAble(phoneNum) &&
+                isTextAble(gender) &&
+                isTextAble(protectorPhoneNum) &&
+                isFileAble(picture)
+            )
+        }
         return !(
             isTextAble(address) &&
             isTextAble(name) &&
@@ -106,6 +121,7 @@ const Info: FC<Props> = (props) => {
     },[
         isStateAble,
         errorModalStateChangeLater,
+        props.history
     ])
     return (
         <InfoDiv>
@@ -158,6 +174,8 @@ const Info: FC<Props> = (props) => {
                     }}
                 />
             </InfoBody>
+            <SchoolSearchModal/>
+            {/* <AddressSearchModal/> */}
         </InfoDiv>
     )
 }
