@@ -19,7 +19,7 @@ const UserProtectorPhoneNumRow: FC<Props> = ({
     describe,
     valueChangeHandler,
     protectorPhoneNum,
-    isError
+    isError,
 }) => {
     const [isEmpty, emptyChange] = useState<boolean>(false);
     useEffect(()=> {
@@ -36,6 +36,8 @@ const UserProtectorPhoneNumRow: FC<Props> = ({
                     valueChangeHandler={valueChangeHandler}
                     width="250px"
                     isEmpty={isEmpty}
+                    type="number"
+                    value={protectorPhoneNum}
                 />
                 <div>
                     <p>{describe}</p>

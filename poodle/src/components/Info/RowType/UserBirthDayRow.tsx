@@ -20,6 +20,7 @@ interface options {
 
 interface Props {
     valueChangeHandler:(value: string) => void,
+    birthday: string,
 }
 
 const DAY = getDAY(1,31);
@@ -28,6 +29,7 @@ const YEAR = getYEAR(2000,2020);
 
 const UserBirthDayRow: FC<Props> = ({
     valueChangeHandler,
+    birthday,
 }) => {
     const [checkedDay, _checkedDayChange] = useState(DAY[0].VALUE);
     const [checkedMonth, _checkedMonthChange] = useState(MONTH[0].VALUE);
@@ -47,6 +49,14 @@ const UserBirthDayRow: FC<Props> = ({
     const checkedYearChange = useCallback((value: string)=> {
         _checkedYearChange(value);
     },[])
+    const updateSavedData = useCallback((birthday: string) => {
+        if(birthday.length > 0){
+            const buf = birthday.split("-");
+            checkedDayChange(buf[2]);
+            checkedMonthChange(buf[1]);
+            checkedYearChange(buf[0]);
+        }
+    },[])
     useEffect(()=> {
         const birthdayText = `${checkedYear}-${checkedMonth}-${checkedDay}`;
         valueChangeHandler(birthdayText);
@@ -57,6 +67,9 @@ const UserBirthDayRow: FC<Props> = ({
         valueChangeHandler,
         getCheckedMenu,
     ])
+    useEffect(()=> {
+        updateSavedData(birthday);
+    },[])
     return (
         <DefaultRowWithPicture title="생년월일">
             <InfoElementContent>

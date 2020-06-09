@@ -34,6 +34,7 @@ const UserProtectorRow: FC<Props> = ({
                     valueChangeHandler={valueChangeHandler}
                     width="160px"
                     isEmpty={isEmpty}
+                    value={protectorName}
                 />
             </InfoElementContent>
         </DefaultRow>

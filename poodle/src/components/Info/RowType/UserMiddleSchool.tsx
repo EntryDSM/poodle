@@ -12,12 +12,14 @@ interface Props {
     valueChangeHandler:(value: string) => void,
     middleSchool: string,
     isError: boolean,
+    schoolSearchModalAbleChange: (value: boolean) => void,
 }
 
 const UserMiddleSchool: FC<Props> = ({
     valueChangeHandler,
     middleSchool,
     isError,
+    schoolSearchModalAbleChange,
 }) => {
     const [isEmpty, emptyChange] = useState<boolean>(false);
     useEffect(()=> {
@@ -36,8 +38,9 @@ const UserMiddleSchool: FC<Props> = ({
                         width="250px"
                         isEmpty={isEmpty}
                         value={middleSchool}
+                        disable={true}
                     />
-                    <DefaultButton>검색</DefaultButton>
+                    <DefaultButton onClick={() => {schoolSearchModalAbleChange(true)}}>검색</DefaultButton>
                 </div>
             </InfoElementContent>
         </DefaultRowWithPicture>

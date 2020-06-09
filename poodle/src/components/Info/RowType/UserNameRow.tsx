@@ -35,6 +35,7 @@ const UserNameRow: FC<Props> = ({
                     width="160px"
                     valueChangeHandler={valueChangeHandler}
                     isEmpty={isEmpty}
+                    value={name}
                 />
             </InfoElementContent>
         </DefaultRowWithPicture>

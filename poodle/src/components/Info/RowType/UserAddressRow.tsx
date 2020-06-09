@@ -15,12 +15,18 @@ interface Props {
     valueChangeHandler:(value: string) => void,
     address: string,
     isError: boolean,
+    addressSearchModalAbleChange: (value: boolean) => void,
+    detailAddress: string,
+    postNum: string,
 }
 
 const UserAddressRow: FC<Props> = ({
         valueChangeHandler,
         address,
         isError,
+        addressSearchModalAbleChange,
+        detailAddress,
+        postNum,
 }) => {
     const [isEmpty, emptyChange] = useState<boolean>(false);
     const isEmptyCheck = 
@@ -46,20 +52,25 @@ const UserAddressRow: FC<Props> = ({
                             width="160px"
                             valueChangeHandler={()=>{}}  
                             isEmpty={isEmpty}  
+                            value={postNum}
+                            disable={true}
                         />
                         
                         <Input 
                             width="301px"
                             valueChangeHandler={()=>{}}    
                             isEmpty={isEmpty} 
+                            value={address}
+                            disable={true}
                         />
-                        <DefaultButton>검색</DefaultButton>
+                        <DefaultButton onClick={()=> addressSearchModalAbleChange(true)}>검색</DefaultButton>
                     </div>
                     <div>
                         <Input 
                             width="580px"
-                            valueChangeHandler={()=>{}}    
+                            valueChangeHandler={valueChangeHandler}    
                             isEmpty={isEmpty} 
+                            value={detailAddress}
                         />
                     </div>
                 </InfoAddressRowContent>
