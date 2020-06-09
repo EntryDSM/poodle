@@ -14,6 +14,7 @@ interface Props {
     name: string,
     gender: string,
     picture: File | null,
+    birthday: string,
     protectorName: string
     setName: dispatchFuncType,
     setBirthday: dispatchFuncType,
@@ -28,6 +29,7 @@ const QuliificationPicture: FC<Props> = ({
     gender,
     picture,
     protectorName,
+    birthday,
     setName,
     setBirthday,
     setGender,
@@ -49,6 +51,7 @@ const QuliificationPicture: FC<Props> = ({
                 />   
                 <UserBirthDayRow
                     valueChangeHandler={setBirthday}
+                    birthday={birthday}
                 />
                 <UserProtector
                     valueChangeHandler={setProtector}

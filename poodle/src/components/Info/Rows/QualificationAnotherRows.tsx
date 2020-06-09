@@ -5,7 +5,8 @@ import {
     UserAddressRow,
 } from '../RowType';
 
-type dispatchFuncType = (value: string) => void
+type dispatchFuncType = (value: string) => void;
+type modalChangeFuncType = (value: boolean) => void;
 
 interface Props {
     protectorPhoneNum: string,
@@ -15,6 +16,9 @@ interface Props {
     setProtectorPhoneNum: dispatchFuncType,
     setPhoneNum: dispatchFuncType,
     isError: boolean,
+    addressSearchModalAbleChange: modalChangeFuncType,
+    detailAddress: string,
+    postNum: string,
 }
 
 const QualificationAnotherRows: FC<Props> = ({
@@ -25,6 +29,9 @@ const QualificationAnotherRows: FC<Props> = ({
     setProtectorPhoneNum,
     setPhoneNum,
     isError,
+    addressSearchModalAbleChange,
+    postNum,
+    detailAddress,
 }) => {
     return (
         <>
@@ -42,8 +49,11 @@ const QualificationAnotherRows: FC<Props> = ({
             />
             <UserAddressRow
                 valueChangeHandler={setAddress}
+                postNum={postNum}
+                detailAddress={detailAddress}
                 address={address}
                 isError={isError}
+                addressSearchModalAbleChange={addressSearchModalAbleChange}
             />
         </>
     )

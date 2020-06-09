@@ -14,12 +14,10 @@ import {
     mapDispatchToProps,
 } from '../../../container/Info/ConnectInfo';
 
-
-type MapStateToProps = 
-    ReturnType<typeof mapStateToProps>;
-
 interface DefaultProps {
     isError: boolean;
+    addressSearchModalAbleChange: (value: boolean) => void;
+    schoolSearchModalAbleChange: (value: boolean) => void;
 }
 
 type Props = ReturnType<typeof mapStateToProps> &
@@ -40,7 +38,8 @@ const DefaultPage: FC<Props> = ({
     schoolPhoneNum,
     protectorPhoneNum,
     phoneNum,
-    setAddress,
+    postNum,
+    detailAddress,
     setName,
     setBirthday,
     setGender,
@@ -52,6 +51,9 @@ const DefaultPage: FC<Props> = ({
     setPicture,
     setSchoolPhoneNum,
     isError,
+    addressSearchModalAbleChange,
+    schoolSearchModalAbleChange,
+    setDetailAddress,
 }) => {
 
     return (
@@ -63,6 +65,7 @@ const DefaultPage: FC<Props> = ({
                     gender={gender}
                     number={number}
                     middleSchool={middleSchool}
+                    birthday={birthday}
                     setName={setName}
                     setBirthday={setBirthday}
                     setGender={setGender}
@@ -70,6 +73,7 @@ const DefaultPage: FC<Props> = ({
                     setNumber={setNumber}
                     setPicture={setPicture}
                     isError={isError}
+                    schoolSearchModalAbleChange={schoolSearchModalAbleChange}
                 />
                 <DefaultAnotherRows
                     protectorName={protectorName}
@@ -77,12 +81,15 @@ const DefaultPage: FC<Props> = ({
                     schoolPhoneNum={schoolPhoneNum}
                     phoneNum={phoneNum}
                     address={address}
-                    setAddress={setAddress}
+                    setAddress={setDetailAddress}
                     setPhoneNum={setPhoneNum}
                     setProtectorName={setProtectorName}
                     setProtectorPhoneNum={setProtectorPhoneNum}
                     setSchoolPhoneNum={setSchoolPhoneNum}
                     isError={isError}
+                    postNum={postNum}
+                    detailAddress={detailAddress}
+                    addressSearchModalAbleChange={addressSearchModalAbleChange}
                 />
             </li>
         </>

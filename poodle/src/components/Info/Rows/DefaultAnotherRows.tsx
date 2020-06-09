@@ -7,7 +7,8 @@ import {
     UserAddressRow,
 } from '../RowType';
 
-type dispatchFuncType = (value: string) => void
+type dispatchFuncType = (value: string) => void;
+type modalChangeFuncType = (value: boolean) => void;
 
 interface Props {
     protectorName: string,
@@ -21,6 +22,9 @@ interface Props {
     setProtectorPhoneNum: dispatchFuncType,
     setPhoneNum: dispatchFuncType,
     isError: boolean,
+    addressSearchModalAbleChange: modalChangeFuncType;
+    detailAddress: string,
+    postNum: string,
 }
 
 const DefaultAnotherRows: FC<Props> = ({
@@ -29,12 +33,15 @@ const DefaultAnotherRows: FC<Props> = ({
     schoolPhoneNum,
     address,
     phoneNum,
+    detailAddress,
+    postNum,
     setAddress,
     setProtectorName,
     setProtectorPhoneNum,
     setSchoolPhoneNum,
     setPhoneNum,
     isError,
+    addressSearchModalAbleChange,
 }) => {
     return (
         <>
@@ -65,6 +72,9 @@ const DefaultAnotherRows: FC<Props> = ({
                 valueChangeHandler={setAddress}
                 address={address}
                 isError={isError}
+                addressSearchModalAbleChange={addressSearchModalAbleChange}
+                detailAddress={detailAddress}
+                postNum={postNum}
             />
         </>
     )

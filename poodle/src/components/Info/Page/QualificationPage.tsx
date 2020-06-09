@@ -16,6 +16,7 @@ import {
 
 interface DefaultProps {
     isError: boolean;
+    addressSearchModalAbleChange: (value: boolean) => void;
 }
 
 type Props = ReturnType<typeof mapStateToProps> &
@@ -33,7 +34,7 @@ const QualificationPage: FC<Props> = ({
     phoneNum,
     protectorName,
     birthday,
-    setAddress,
+    setDetailAddress,
     setName,
     setBirthday,
     setGender,
@@ -42,34 +43,39 @@ const QualificationPage: FC<Props> = ({
     setPicture,
     setProtectorName,
     isError,
+    addressSearchModalAbleChange,
+    postNum,
+    detailAddress,
 }) => {
 
     return (
-        <>
-            <li>
-                <QualificationPictureRows
-                    name={name}
-                    picture={picture}
-                    gender={gender}
-                    protectorName={protectorName}
-                    setName={setName}
-                    setBirthday={setBirthday}
-                    setGender={setGender}
-                    setPicture={setPicture}
-                    setProtector={setProtectorName}
-                    isError={isError}
-                />
-                <QualificationAnotherRows
-                    protectorPhoneNum={protectorPhoneNum}
-                    phoneNum={phoneNum}
-                    address={address}
-                    setAddress={setAddress}
-                    setPhoneNum={setPhoneNum}
-                    setProtectorPhoneNum={setProtectorPhoneNum}
-                    isError={isError}
-                />
-            </li>
-        </>
+        <li>
+            <QualificationPictureRows
+                name={name}
+                picture={picture}
+                gender={gender}
+                protectorName={protectorName}
+                birthday={birthday}
+                setName={setName}
+                setBirthday={setBirthday}
+                setGender={setGender}
+                setPicture={setPicture}
+                setProtector={setProtectorName}
+                isError={isError}
+            />
+            <QualificationAnotherRows
+                protectorPhoneNum={protectorPhoneNum}
+                phoneNum={phoneNum}
+                address={address}
+                setAddress={setDetailAddress}
+                setPhoneNum={setPhoneNum}
+                setProtectorPhoneNum={setProtectorPhoneNum}
+                isError={isError}
+                addressSearchModalAbleChange={addressSearchModalAbleChange}
+                postNum={postNum}
+                detailAddress={detailAddress}
+            />
+        </li>
     )
 }
 

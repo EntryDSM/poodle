@@ -10,12 +10,14 @@ import {
 
 type dispatchFuncType = (value: string) => void;
 type dispatchPicturFuncType = (value: File) => void;
+type modalChangeFuncType = (value: boolean) => void;
 
 interface Props {
     name: string,
     gender: string,
     number: string,
     middleSchool: string,
+    birthday: string,
     picture: File | null,
     setName: dispatchFuncType,
     setBirthday: dispatchFuncType,
@@ -24,6 +26,7 @@ interface Props {
     setNumber: dispatchFuncType,
     setPicture: dispatchPicturFuncType,
     isError: boolean,
+    schoolSearchModalAbleChange: modalChangeFuncType,
 }
 
 const DefaultPictureRow: FC<Props> = ({
@@ -33,12 +36,14 @@ const DefaultPictureRow: FC<Props> = ({
     middleSchool,
     picture,
     setName,
+    birthday,
     setBirthday,
     setGender,
     setMiddleSchool,
     setNumber,
     setPicture,
     isError,
+    schoolSearchModalAbleChange,
 }) => {
     return (
         <div className="picture">
@@ -54,6 +59,7 @@ const DefaultPictureRow: FC<Props> = ({
                 />   
                 <UserBirthDayRow
                     valueChangeHandler={setBirthday}
+                    birthday={birthday}
                 /> 
                 <UserNumberRow
                     valueChangeHandler={setNumber}
@@ -64,6 +70,7 @@ const DefaultPictureRow: FC<Props> = ({
                     valueChangeHandler={setMiddleSchool}
                     middleSchool={middleSchool}
                     isError={isError}
+                    schoolSearchModalAbleChange={schoolSearchModalAbleChange}
                 />
             </div>
             <UserImg
