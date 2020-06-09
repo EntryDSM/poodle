@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import ClearButton from '@/assets/Modal/Button_clear@3x.png';
-
+import SearchButton from '@/assets/Modal/button-search.png';
 export const ModalWrapper = styled.div`
     z-index: 3;
     top: 0;
@@ -297,3 +297,110 @@ export const WarningFocus = styled.span`
     font-family: NanumSquareB;
     color: #ff6969;
 `;
+
+export const SearchModalBox = styled(ModalBox)`
+    width: 31.5rem;
+    height: 37.5rem;
+`
+
+export const SearchModalHeader = styled(ModalHeader)`
+    justify-content: space-between;
+    margin: 0;
+    height: auto;
+`
+
+export const SearchModalTitle = styled.p`
+    font-size: 1.25rem;
+    color: #606060;
+    margin: 24px 32px;
+`
+
+export const SearchModalInputDiv = styled.div`
+    width: 100%;
+    padding: 24px 32px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+`
+
+type InputType = {
+    width?: string,
+    leftMargin?: string,
+}
+
+export const SearchModalInput = styled.div<InputType>`
+    position: relative;
+    width: ${props => props.width ? props.width : "436px"};
+    height: 40px;
+    border: 1px solid #afafaf;
+    border-radius: 4px;
+    margin-left: ${props => props.leftMargin ? props.leftMargin : "0px"};
+    > input {
+        width: 100%;
+        height: 40px;
+        border: none;
+        background-color: #ffffff;
+        padding: 11px 16px;
+        font-size: 16px;
+        color: #606060;
+        box-sizing: border-box;
+    }
+    > img {
+        background-image: url(${SearchButton});
+        position: absolute;
+        margin: auto;
+        top: 50%;
+        right: 1%;
+        transform: translate(-50%, -50%);
+        width: 16px;
+        height: 16px;
+        border: none;
+        background-size: contain;
+        background-repeat: no-repeat;
+        object-fit: contain;
+    }
+`
+
+export const SearchModalResult = styled.div`
+    overflow-y: scroll;
+    width: 436px;
+    height: 400px;
+    padding: 24px 32px;
+    padding-top: 0px;
+`
+
+export const SearchModalContent = styled.div`
+    border-bottom: 1px solid #c9c9c9;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    > div {
+        display: flex;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+        > div > p{
+            margin: 5px;
+        }
+    }
+    > p {
+        color: #606060;
+    }
+`
+export const SearchModalCategory = styled.p`
+    font-size: 0.625rem;
+    font-weight: 200;
+`
+
+export const SearchModalContentText = styled.p`
+    font-size: 0.625rem;
+    font-weight: 100;
+    &.school {
+        font-size: 0.875rem;
+        font-weight: 300;
+    }
+`
