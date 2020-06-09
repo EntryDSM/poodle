@@ -1,4 +1,7 @@
-import React, { FC } from 'react';
+import React, {
+    FC,
+    useCallback, 
+} from 'react';
 import {
     SearchModalContentText,
     SearchModalContent,
@@ -9,16 +12,21 @@ interface Props {
     loadNameAddress: string,
     address: string,
     postNumber: string,
+    onClick: (address: string, postNum: string) => void
 }
 
 const SchoolSearchContent: FC<Props> = ({
     loadNameAddress,
     address,
     postNumber,
+    onClick,
 }) => {
+    const clickContentHandler = useCallback(() => {
+        onClick(address, postNumber);
+    }, [])
     return (
         <SearchModalContent>
-            <div>
+            <div onClick={clickContentHandler}>
                 <div>
                     <SearchModalCategory>도로명</SearchModalCategory>
                     <SearchModalCategory>주소</SearchModalCategory>

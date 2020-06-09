@@ -21,7 +21,6 @@ const SchoolSearchContent: FC<Props> = ({
 }) => {
     const clickContentHandler = useCallback(()=> {
         onClick(schoolName);
-        console.log("isClick")
     }, [])
     return (
         <SearchModalContent>

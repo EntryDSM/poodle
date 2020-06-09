@@ -16,63 +16,11 @@ interface OptionType {
     LABEL: string,
 }
 
-const dummyData = [
-    {
-        schoolName: "구미중학교", 
-        address: "경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트", 
-        
-    },
-    {
-        schoolName: "구미중학교", 
-        address: "경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트", 
-        
-    },
-    {
-        schoolName: "구미중학교", 
-        address: "경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트", 
-        
-    },
-    {
-        schoolName: "구미중학교", 
-        address: "경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트", 
-        
-    },
-    {
-        schoolName: "구미중학교", 
-        address: "경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트", 
-        
-    },
-    {
-        schoolName: "구미중학교", 
-        address: "경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트", 
-        
-    },
-    {
-        schoolName: "구미중학교", 
-        address: "경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트", 
-        
-    },
-    {
-        schoolName: "구미중학교", 
-        address: "경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트", 
-        
-    },
+interface Props {
+    onModalChange: (value: boolean) => void,
+}
 
-    {
-        schoolName: "구미중학교", 
-        address: "경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트", 
-        
-    },
-    {
-        schoolName: "구미중학교", 
-        address: "경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트", 
-        
-    },
-    {
-        schoolName: "구미중학교", 
-        address: "경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트", 
-        
-    },
+const dummyData = [
     {
         schoolName: "구미중학교", 
         address: "경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트", 
@@ -88,11 +36,12 @@ const dummyOption: OptionType[] = [
     { LABEL: "sth1", VALUE: "sth4" },
 ]
 
-const SchoolSearchModal: FC = () => {
+const SchoolSearchModal: FC<Props> = ({ onModalChange }) => {
     const dispatch = useDispatch();
     const middleSchoolNameChange = (schoolName: string) => {
         const action = setMiddleSchool({ schoolName });
         dispatch(action);
+        onModalChange(false);
     }
     return (
         <ModalWrapper>
