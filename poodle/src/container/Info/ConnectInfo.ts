@@ -13,6 +13,8 @@ import {
     setProtectorPhoneNum,
     setPhoneNum,
     setProtectorName,
+    setDetailAddress,
+    setPostNum,
 } from '../../core/redux/actions/Info';
 
 export const mapStateToProps = (state: RootState) => ({
@@ -27,6 +29,8 @@ export const mapStateToProps = (state: RootState) => ({
     protectorPhoneNum: state.InfoState.protectorPhoneNum,
     phoneNum: state.InfoState.phoneNum,
     protectorName: state.InfoState.protectorName,
+    detailAddress: state.InfoState.detailAddress,
+    postNum: state.InfoState.postNum,
 });
 
 export const mapDispatchToProps = (dispatch:Function) => ({
@@ -63,6 +67,12 @@ export const mapDispatchToProps = (dispatch:Function) => ({
     setProtectorName: (
         protectorName: string,
     ) => dispatch(setProtectorName({ protectorName })),
+    setDetailAddress: (
+        detailAddress: string,
+    ) => dispatch(setDetailAddress({ detailAddress })),
+    setPostNum: (
+        postNum: string,
+    ) => dispatch(setPostNum({ postNum })),
 })
 
 export default connect(

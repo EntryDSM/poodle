@@ -37,11 +37,12 @@ type MapStateToProps =
     ReturnType<typeof mapStateToProps>;
 
 const isQualificate = false;
-// 서버 통신으로 대체될 예정
 
 const Info: FC<Props> = (props) => {
     const [isError, errorChange] = useState<boolean>(false);
     const [errorModal, errorModalChange] = useState<boolean>(false);
+    const [schoolSearchModalAble, schoolSearchModalAbleChange] = useState<boolean>(false);
+    const [addressSearchModalAble, addressSearchModalAbleChange] = useState<boolean>(false);
     const isTextAble = useCallback((
         text: string,
     ) => {
@@ -69,11 +70,15 @@ const Info: FC<Props> = (props) => {
             schoolPhoneNum,
             protectorPhoneNum,
             phoneNum,
+            postNum,
+            detailAddress,
         }: MapStateToProps
     ): boolean=> {
         if(isQualificate){
             return !(
                 isTextAble(address) &&
+                isTextAble(postNum) &&
+                isTextAble(detailAddress)&&
                 isTextAble(name) &&
                 isTextAble(birthday) &&
                 isTextAble(protectorName) &&
@@ -85,6 +90,8 @@ const Info: FC<Props> = (props) => {
             )
         }
         return !(
+            isTextAble(postNum) &&
+            isTextAble(detailAddress) &&
             isTextAble(address) &&
             isTextAble(name) &&
             isTextAble(birthday) &&
@@ -123,6 +130,23 @@ const Info: FC<Props> = (props) => {
         errorModalStateChangeLater,
         props.history
     ])
+
+    const modalReturner = (
+        addressSearchModalAble: boolean, 
+        schoolSearchModalAble: boolean,
+    ): React.ReactNode | null => {
+        if(addressSearchModalAble){
+            return <AddressSearchModal
+                onModalChange={addressSearchModalAbleChange}
+            />
+        } else if(schoolSearchModalAble){
+            return <SchoolSearchModal
+                onModalChange={schoolSearchModalAbleChange}
+            />
+        } else {
+            return null;
+        }
+    }
     return (
         <InfoDiv>
             <Popup isError={errorModal}/>
@@ -133,10 +157,13 @@ const Info: FC<Props> = (props) => {
                     <QualificationPage
                         {...props}
                         isError={isError}
+                        addressSearchModalAbleChange={addressSearchModalAbleChange}
                     /> :
                     <DefaultPage
                         {...props}
                         isError={isError}
+                        addressSearchModalAbleChange={addressSearchModalAbleChange}
+                        schoolSearchModalAbleChange={schoolSearchModalAbleChange}
                     />
                 }
                 <DefaultlNavigation 
@@ -157,6 +184,8 @@ const Info: FC<Props> = (props) => {
                             protectorPhoneNum,
                             phoneNum,
                             number,
+                            postNum,
+                            detailAddress
                         } = props;
                         goNextPage({
                             address,
@@ -170,12 +199,15 @@ const Info: FC<Props> = (props) => {
                             protectorPhoneNum,
                             phoneNum,
                             number,
+                            postNum,
+                            detailAddress,
                         })
                     }}
                 />
             </InfoBody>
-            <SchoolSearchModal/>
-            {/* <AddressSearchModal/> */}
+            {
+                modalReturner(addressSearchModalAble, schoolSearchModalAble)
+            }
         </InfoDiv>
     )
 }
