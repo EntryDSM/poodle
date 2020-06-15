@@ -10,22 +10,23 @@ import {
     GradeType,
     SubjectType,
     ScoreType
-} from '../../../core/redux/actions/Grade';
+} from '../../../../core/redux/actions/Grade';
 import {
     GradeSubTitle, 
     GradeHeaderDiv,
-} from '../../../styles/Grade';
-import { GRADESEMESTERLIST } from '../constance';
+} from '../../../../styles/Grade';
+import { GradeSetAllScore } from '../GradeHeader';
+import { GRADESEMESTERLIST } from '../../constance';
 const scoreList:ScoreType[] = ["A","B","C","D","E","X"];
 const subjectList:SubjectType[] = ["korean","math","history","science","society","tech","english"];
 
 const GradeHeader: FC = () => {
     const dispatch = useDispatch();
-    const setAllScore = (score: ScoreType) => {
+    const setAllScore = useCallback((score: ScoreType) => {
         const newGradeList = getGradeAllScoreChange(score);
         const action = setGrade({ grade: newGradeList });
         dispatch(action);
-    }
+    },[])
     const getGradeAllScoreChange = (score: ScoreType) => {
         const gradeList: GradeType[] = [];
         subjectList.map((subject: SubjectType)=> {
@@ -42,6 +43,11 @@ const GradeHeader: FC = () => {
         })
         return gradeList;
     }
+    const setAllScoreComp = useCallback((scoreList: ScoreType[])=> {
+        scoreList.map((score)=> {
+            return <GradeSetAllScore onClick={() => setAllScore(score)}>{score}</GradeSetAllScore>
+        })
+    },[])
     
     return (
         <GradeHeaderDiv>
@@ -51,9 +57,7 @@ const GradeHeader: FC = () => {
                 <div>
                     전체 성적 초기화
                     {
-                        scoreList.map((score)=> {
-                            return <p onClick={() => setAllScore(score)}>{score}</p>
-                        })
+                        setAllScoreComp(scoreList)
                     }
                 </div>
             </GradeHeaderDiv>
