@@ -6,14 +6,15 @@ import {
 import { 
     GradeScoreRow 
 } from '../../../../styles/Grade';
+import { SubjectType } from '@/core/redux/actions/Grade';
 
 interface Props {
-    uniqueKey: string,
+    subject: SubjectType,
 }
 
 const GradeRow: FC<Props> = ({
     children,
-    uniqueKey,
+    subject,
 }) => {
     return (
         <GradeScoreRow>
@@ -22,23 +23,33 @@ const GradeRow: FC<Props> = ({
             </SubjectColumn>
             <GradeColumn 
                 onChange={()=>{}}
-                uniqueKey={`${uniqueKey}${1}`}
+                subject={subject}
+                semester={1}
+                grade={1}
             />
             <GradeColumn 
                 onChange={()=>{}}
-                uniqueKey={`${uniqueKey}${2}`}
+                subject={subject}
+                semester={2}
+                grade={1}
             />
             <GradeColumn 
                 onChange={()=>{}}
-                uniqueKey={`${uniqueKey}${3}`}
+                subject={subject}
+                semester={1}
+                grade={2}
             />
             <GradeColumn 
                 onChange={()=>{}}
-                uniqueKey={`${uniqueKey}${4}`}
+                subject={subject}
+                semester={2}
+                grade={2}
             />
             <GradeColumn 
                 onChange={()=>{}}
-                uniqueKey={`${uniqueKey}${5}`}
+                subject={subject}
+                semester={1}
+                grade={3}
             />
         </GradeScoreRow>
     )
