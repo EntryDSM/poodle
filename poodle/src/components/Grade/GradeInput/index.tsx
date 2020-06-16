@@ -3,15 +3,20 @@ import GradeScore from './Grade';
 import SchoolYear from './SchoolYear';
 import { 
     GradeTable,
-    GradeSubTitle, 
 } from '../../../styles/Grade';
+import GradeHeader from './GradeHeader';
+import { 
+    mapStateToProps,
+    mapDispatchToProps,
+} from '../../../container/Grade/ConnectionGrade';
 
-const GradeInput: FC = () => {
+type Props = ReturnType<typeof mapStateToProps> &
+ReturnType<typeof mapDispatchToProps>;
+
+const GradeInput: FC<Props> = () => {
     return (
         <>
-            <GradeSubTitle>
-                성적 입력
-            </GradeSubTitle>
+            <GradeHeader/>
             <GradeTable>
                 <tbody>
                     <SchoolYear/>
