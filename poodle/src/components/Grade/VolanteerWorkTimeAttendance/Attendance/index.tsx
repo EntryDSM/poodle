@@ -1,11 +1,6 @@
 import React, { FC } from 'react';
 import { AttendanceRowDiv } from '../../../../styles/Grade';
-import {
-  PerceptionColumn,
-  LeaveLateColumn,
-  CutClassColumn,
-  AbsentColumn,
-} from './column';
+import AttendanceColumn from './column/AttendanceColumn';
 
 type dispatchFuncType = (value: string) => void;
 
@@ -42,44 +37,32 @@ const Attendance: FC<Props> = ({
           출석 정보
         </div>
       </td>
-      <td className="element">
-        <div>
-          <AbsentColumn
-            valueChangeHandler={setAbsentDay}
-            value={absentDay}
-            isError={isError}
-          />
-        </div>
-      </td>
-      <td className="element">
-        <div>
-          <LeaveLateColumn
-            valueChangeHandler={setLeaveLateDay}
-            value={leaveLateDay}
-            isError={isError}
-          />
-        </div>
-      </td>
+      <AttendanceColumn
+        valueChangeHandler={setAbsentDay}
+        value={absentDay}
+        isError={isError}
+        describe="전체 무단(미인정) 결석 일수"
+      />
+      <AttendanceColumn
+        valueChangeHandler={setPerceptionDay}
+        value={perceptionDay}
+        isError={isError}
+        describe="전체 무단 지각 일수"
+      />
     </tr>
     <tr>
-      <td className="element">
-        <div>
-          <PerceptionColumn
-            valueChangeHandler={setPerceptionDay}
-            value={perceptionDay}
-            isError={isError}
-          />
-        </div>
-      </td>
-      <td className="element">
-        <div>
-          <CutClassColumn
-            valueChangeHandler={setCutClassDay}
-            value={cutClassDay}
-            isError={isError}
-          />
-        </div>
-      </td>
+    <AttendanceColumn
+        valueChangeHandler={setCutClassDay}
+        value={cutClassDay}
+        isError={isError}
+        describe="전체 무단 결과 일수"
+      />
+      <AttendanceColumn
+        valueChangeHandler={setLeaveLateDay}
+        value={leaveLateDay}
+        isError={isError}
+        describe="전체 무단 조퇴 일수"
+      />
     </tr>
   </AttendanceRowDiv>
 );
