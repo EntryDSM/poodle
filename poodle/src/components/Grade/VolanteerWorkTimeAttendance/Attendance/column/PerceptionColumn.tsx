@@ -1,22 +1,49 @@
-import React, { FC } from 'react';
+import React, {
+  FC,
+  useState,
+  useEffect,
+} from 'react';
 import { Input } from '../../../../default/ApplicationFormDefault/Input';
+import { isEmptyCheck } from '../../../../../lib/utils/function';
 
-const PerceptionColumn: FC = () => {
-    return (
-        <div>
-            전체 무단(미인정) 지각 일수
-            <div>
-                <Input 
-                    width="76px" 
-                    height="36px" 
-                    valueChangeHandler={()=>{}} 
-                    isEmpty={false}
-                    isCenter={true}
-                    type="number"
-                />일
-            </div>
-        </div>
-    )
+type dispatchFuncType = (value: string) => void
+
+interface Props {
+    valueChangeHandler: dispatchFuncType,
+    value: string,
+    isError: boolean,
 }
+
+const PerceptionColumn: FC<Props> = ({
+  valueChangeHandler,
+  value,
+  isError,
+}) => {
+  const [isEmpty, emptyChange] = useState<boolean>(false);
+  useEffect(() => {
+    if (isError && isEmptyCheck(value)) {
+      emptyChange(true);
+    } else {
+      emptyChange(false);
+    }
+  }, [isError, value]);
+  return (
+    <div>
+      전체 무단(미인정) 지각 일수
+      <div>
+        <Input
+          width="76px"
+          height="36px"
+          valueChangeHandler={valueChangeHandler}
+          value={value}
+          isEmpty={isEmpty}
+          isCenter
+          type="number"
+        />
+        일
+      </div>
+    </div>
+  );
+};
 
 export default PerceptionColumn;
