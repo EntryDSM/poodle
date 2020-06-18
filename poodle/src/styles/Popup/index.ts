@@ -1,5 +1,20 @@
 import styled, { css, keyframes } from 'styled-components';
 
+export const PopupAnimation = keyframes`
+    from{
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+    }
+    95% {
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
+`;
+
 export const PopupDiv = styled.div<{ isError: boolean }>`
     width: 300px;
     height: 50px;
@@ -40,20 +55,7 @@ export const PopupImg = styled.div`
     }
 `;
 
-export const PopupAnimation = keyframes`
-    from{
-        opacity: 0;
-    }
-    5% {
-        opacity: 1;
-    }
-    95% {
-        opacity: 1;
-    }
-    to{
-        opacity: 0;
-    }
-`;
+
 export const PopupBody = styled.div`
     background-color: #ffc4c4;
     width: 250px;
