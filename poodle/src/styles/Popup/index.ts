@@ -7,7 +7,7 @@ export const PopupDiv = styled.div<{ isError: boolean }>`
     top: 80px;
     position: absolute;
     display: ${(props) => (props.isError ? 'flex' : 'none')};
-    animation: ${() => css`${PopupAnimation} 5s linear 1`};
+    animation: ${PopupAnimation} 5s linear 1;
     animation-fill-mode:forwards;
     position: fixed;
 `;
