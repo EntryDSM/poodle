@@ -14,7 +14,7 @@ export interface GradeType {
     subject: SubjectType,
     grade: number,
     semester: number,
-    score: 'A' | 'B' | 'C' | 'D' | 'E' | 'X',
+    score: ScoreType,
 }
 
 export interface SetServiceTime {
