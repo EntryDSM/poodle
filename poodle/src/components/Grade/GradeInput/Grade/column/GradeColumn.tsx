@@ -1,6 +1,7 @@
 import React, { 
     FC,
     useState,
+    useCallback,
 } from 'react';
 import {
     GradeButtonList,
@@ -18,9 +19,11 @@ const GradeColumn: FC<Props> = ({
 }) => {
     const gradeList:GradeType[] = ['A','B','C','D','E',"X"];
     const [grade, gradeChange] = useState<GradeType>('A');
-    const gradeClickHandler = (grade: GradeType) => {
+    const gradeClickHandler = useCallback((
+        grade: GradeType
+    ) => {
         gradeChange(grade);
-    }
+    },[]);
     return (
         <td 
             colSpan={1}
