@@ -1,8 +1,9 @@
 import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOGIN_RESET,
-  HeaderAction
+  HeaderAction,
+  LOGOUT,
+  LOGIN_ERROR_RESET
 } from '../../actions/header';
 
 type HeaderState = {
@@ -45,18 +46,10 @@ export default function header(
     case LOGIN_FAILURE:
       return {
         ...state,
-        user: {
-          accessToken: '',
-          refreshToken: ''
-        },
-        error: {
-          ...action.payload,
-          response: ''
-        }
+        error: action.payload
       };
-    case LOGIN_RESET:
+    case LOGOUT:
       return {
-        ...state,
         isLogin: false,
         user: {
           accessToken: '',
@@ -68,6 +61,15 @@ export default function header(
           }
         }
       };
+    case LOGIN_ERROR_RESET:
+      return {
+        ...state,
+        error: {
+          response: {
+            code: 0
+          }
+        }
+      }
     default:
       return state;
   }
