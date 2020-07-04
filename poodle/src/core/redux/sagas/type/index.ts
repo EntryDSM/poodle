@@ -1,17 +1,17 @@
-import { debounce, put, takeLatest } from "redux-saga/effects";
+import { debounce, put, takeLatest } from 'redux-saga/effects';
+import { typeStateToRequest } from '@/lib/api/ApplicationApplyApi';
+import { USERTYPE_URL } from '@/lib/api/ServerUrl';
+import { createSaveSaga } from '@/lib/utils/saga';
 import {
   APPLYTYPE,
   DISTRICT,
   GRADUATION_STATUS,
   GRADUATION_YEAR,
   ADDITIONALTYPE,
-} from "../../actions/ChoiceType";
-import { QUALIFICATION, setQualification } from "../../actions/Qualification";
-import { typeStateToRequest } from "@/lib/api/ApplicationApplyApi";
-import { RootState } from "../../reducer";
-import { State } from "../../reducer/ChoiceType";
-import { USERTYPE_URL } from "@/lib/api/ServerUrl";
-import { createSaveSaga } from "@/lib/utils/saga";
+} from '../../actions/ChoiceType';
+import { QUALIFICATION, setQualification } from '../../actions/Qualification';
+import { RootState } from '../../reducer';
+import { State } from '../../reducer/ChoiceType';
 
 const actionArray = [
   APPLYTYPE,
@@ -20,38 +20,32 @@ const actionArray = [
   GRADUATION_STATUS,
   ADDITIONALTYPE,
 ];
-const PAGENAME = "ChoiceType";
-const ACTIONNAME = "TYPE";
+const PAGENAME = 'ChoiceType';
+const ACTIONNAME = 'TYPE';
 const DELAY_TIME = 3000;
 
-const getStateFunc = (state: RootState): State => {
-  return state.ChoiceTypeState;
-};
+const getStateFunc = (state: RootState): State => state.ChoiceTypeState;
 
 const saveSaga = createSaveSaga(
   typeStateToRequest,
   USERTYPE_URL,
   ACTIONNAME,
   PAGENAME,
-  getStateFunc
+  getStateFunc,
 );
 
-const isGED = (status: string) => {
-  return status === "ged" ? true : false;
-};
+const isGED = (status: string) => (status === 'ged');
 
-const booleanToStringBoolean = (flag: boolean) => {
-  return flag ? "true" : "false";
-};
+const booleanToStringBoolean = (flag: boolean) => (flag ? 'true' : 'false');
 
 function* statusChangeSaga(action: any) {
   const status = isGED(action.payload.status);
   window.localStorage.setItem(
-    "isQualificationExam",
-    booleanToStringBoolean(status)
+    'isQualificationExam',
+    booleanToStringBoolean(status),
   );
   yield put(
-    setQualification({ isQualification: isGED(action.payload.status) })
+    setQualification({ isQualification: isGED(action.payload.status) }),
   );
 }
 

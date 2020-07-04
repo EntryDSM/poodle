@@ -1,4 +1,11 @@
-import { debounce, select, call } from "redux-saga/effects";
+import { debounce, select, call } from 'redux-saga/effects';
+import {
+  infoStateToRequest,
+  infoStateToGedRequest,
+} from '@/lib/api/ApplicationApplyApi';
+import { USERINFO_URL } from '@/lib/api/ServerUrl';
+import { createSaveSaga, createProxySaga } from '@/lib/utils/saga';
+import { RootState } from '../../reducer';
 import {
   NAME,
   GENDER,
@@ -15,14 +22,7 @@ import {
   BIRTHDAY,
   GRADE_NUMBER,
   CLASS_NUMBER,
-} from "../../actions/Info";
-import {
-  infoStateToRequest,
-  infoStateToGedRequest,
-} from "@/lib/api/ApplicationApplyApi";
-import { RootState } from "../../reducer";
-import { USERINFO_URL } from "@/lib/api/ServerUrl";
-import { createSaveSaga, createProxySaga } from "@/lib/utils/saga";
+} from '../../actions/Info';
 
 const actionArray = [
   NAME,
@@ -39,20 +39,18 @@ const actionArray = [
   BIRTHDAY,
 ];
 const numberActionArray = [CLASS_NUMBER, GRADE_NUMBER, NUMBER];
-const PAGENAME = "Info";
-const ACTIONNAME = "INFO";
+const PAGENAME = 'Info';
+const ACTIONNAME = 'INFO';
 const DELAY_TIME = 3000;
 
-const getStateFunc = (state: RootState): RootState["InfoState"] => {
-  return state.InfoState;
-};
+const getStateFunc = (state: RootState): RootState['InfoState'] => state.InfoState;
 
 const defaultSaveSaga = createSaveSaga(
   infoStateToRequest,
   USERINFO_URL,
   ACTIONNAME,
   PAGENAME,
-  getStateFunc
+  getStateFunc,
 );
 
 const gedSaveSaga = createSaveSaga(
@@ -60,7 +58,7 @@ const gedSaveSaga = createSaveSaga(
   USERINFO_URL,
   ACTIONNAME,
   PAGENAME,
-  getStateFunc
+  getStateFunc,
 );
 
 const proxySaga = createProxySaga(gedSaveSaga, defaultSaveSaga);
@@ -73,11 +71,11 @@ function* numberChangeSaga() {
   yield call(proxySaga);
 }
 
-function isNumberStateAble(state: RootState["InfoState"]) {
+function isNumberStateAble(state: RootState['InfoState']) {
   if (
-    isTextAble(state.number) &&
-    isTextAble(state.gradeNumber) &&
-    isTextAble(state.classNumber)
+    isTextAble(state.number)
+    && isTextAble(state.gradeNumber)
+    && isTextAble(state.classNumber)
   ) {
     return true;
   }
@@ -85,7 +83,7 @@ function isNumberStateAble(state: RootState["InfoState"]) {
 }
 
 function isTextAble(text: string) {
-  return text.length > 0 ? true : false;
+  return text.length > 0;
 }
 
 export default function* typeSaga() {
