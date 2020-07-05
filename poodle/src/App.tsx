@@ -27,6 +27,7 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyle/>
+      <HeaderContainer />
       <Switch>
           <Route exact path="/" component={MainContainer} />
           <Route path="/applystatus" component={ApplyStatus} />
