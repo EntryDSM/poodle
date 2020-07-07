@@ -3,7 +3,7 @@ import { Container } from '../index';
 import Logo from '@/assets/Header/Logo.png';
 
 export const HeaderWrapper = styled.header`
-    z-index: 2;
+    z-index: 10;
     position: sticky;
     left:0px;
     top:0px;

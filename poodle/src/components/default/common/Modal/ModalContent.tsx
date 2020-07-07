@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState, useRef } from 'react';
 import * as S from '@/styles/common/Modal';
 import { ModalContentProps } from '.';
 import { BlueSuccess, BlueCheck, RedError, YellowCheck } from '@/assets/Modal';
@@ -10,26 +10,55 @@ enum IMAGE_LIST {
     YellowCheck = 'YellowCheck'
 }
 
-const ModalContent: FC<ModalContentProps> = ({ children, title, contour, errorSentence, normal, explain, color, icon }) => {
+const ModalContent: FC<ModalContentProps> = ({
+    children,
+    title,
+    contour,
+    errorSentence,
+    normal,
+    explain,
+    color,
+    icon
+}) => {
+    const [isEffect, setIsEffect] = useState(false);
+    const [hasContour, setHasContour] = useState(contour);
+    const [hasError, setHasError] = useState(false);
+    const timout = useRef(0);
+    useEffect(() => {
+        if (errorSentence) {
+            setIsEffect(true);
+            setHasContour(true);
+            timout.current = setTimeout(() => {
+                setIsEffect(false);
+                setHasError(true);
+                setHasContour(false);
+            }, [1000]);
+        }
+        return () => {
+            clearTimeout(timout.current);
+            setIsEffect(false);
+            setHasContour(contour);
+            setHasError(false);
+            console.log(1);
+        };
+    }, [errorSentence]);
     return (
         <S.ModalContentWrapper>
             <S.Title>{title}</S.Title>
             <S.SubTitle
-                contour={contour}
-                error={errorSentence}
+                contour={hasContour}
+                error={hasError}
                 color={color}
+                effect={isEffect}
             >
-                {errorSentence && errorSentence}
+                {hasError && errorSentence}
                 {normal && normal}
             </S.SubTitle>
             {icon && <S.IconImage src={BlueSuccess} />}
-            {explain && 
-            <S.ExplainSentence>
-                {explain}
-            </S.ExplainSentence>}
+            {explain && <S.ExplainSentence>{explain}</S.ExplainSentence>}
             {children}
         </S.ModalContentWrapper>
     );
-}
+};
 
 export default ModalContent;
