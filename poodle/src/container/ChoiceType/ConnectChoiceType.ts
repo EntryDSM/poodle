@@ -1,4 +1,8 @@
 import { connect } from 'react-redux';
+import {
+  setQualification,
+} from '@/core/redux/actions/Qualification';
+import { AdditionalType } from '@/core/redux/actions/ChoiceType';
 import ChoiceType from './ChoiceType';
 import { RootState } from '../../core/redux/reducer';
 import { State } from '../../core/redux/reducer/ChoiceType';
@@ -10,13 +14,9 @@ import {
   setAdditionalType,
   setAll,
 } from '../../core/redux/actions/ChoiceType';
-import {
-  setQualification,
-} from '@/core/redux/actions/Qualification';
-import { AdditionalType } from '@/core/redux/actions/ChoiceType';
 
 export const mapStateToProps = (state: RootState) => ({
-  qualifacationExam: state.QualificattionState.isQualification,
+  qualificationExam: state.QualificationState.isQualification,
   applyType: state.ChoiceTypeState.applyType,
   district: state.ChoiceTypeState.district,
   graduationStatus: state.ChoiceTypeState.graduationStatus,
@@ -45,7 +45,7 @@ export const mapDispatchToProps = (dispatch:Function) => ({
   ) => dispatch(setAdditionalType({ additionalType })),
   setAll: (
     all: State,
-  ) => dispatch(setAll({ all }))
+  ) => dispatch(setAll({ all })),
 });
 
 export default connect(
