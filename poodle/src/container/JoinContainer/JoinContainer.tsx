@@ -1,76 +1,11 @@
-import React, { useCallback } from 'react';
+import React from 'react';
+import { HeaderContainer } from '../';
 import Join from '../../components/Join/Join';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/core/redux/reducer';
-import {
-  sendEmail,
-  verifyCode,
-  joinValueReset,
-  join,
-} from '@/core/redux/actions/join';
 
 function JoinContainer() {
-  const dispatch = useDispatch();
-  const {
-    sendEmailValue,
-    verifyCodeValue,
-    joinValue,
-  } = useSelector(({ join, loading }: RootState) => ({
-    sendEmailValue: {
-      success: join.sendEmailSuccess,
-      error: join.sendEmailError,
-      loading: loading['join/SEND_EMAIL'],
-    },
-    verifyCodeValue: {
-      success: join.verifyCodeSuccess,
-      error: join.verifyCodeError,
-      loading: loading['join/VERIFY_CODE'],
-    },
-    joinValue: {
-      success: join.joinSuccess,
-      error: join.joinError,
-      loading: loading['join/JOIN'],
-    },
-  }));
-
-  const sendEmailHandler = useCallback((email: string) => {
-    dispatch(sendEmail(email));
-  }, []);
-
-  const verifyCodeHandler = useCallback(
-    (data: { email: string; code: string }) => {
-      dispatch(verifyCode(data));
-    },
-    []
-  );
-
-  const joinValueResetHandler = useCallback(
-    () => dispatch(joinValueReset()),
-    []
-  );
-
-  const joinHandler = useCallback(
-    (data: { email: string; password: string }) => {
-      dispatch(join(data));
-    },
-    []
-  );
-  if (
-    !sendEmailValue.error.response ||
-    !verifyCodeValue.error.response
-  )
-    return <h1>Error!</h1>;
-  return (
-    <Join
-      sendEmail={sendEmailHandler}
-      sendEmailValue={sendEmailValue}
-      verifyCode={verifyCodeHandler}
-      verifyCodeValue={verifyCodeValue}
-      joinValueReset={joinValueResetHandler}
-      join={joinHandler}
-      joinValue={joinValue}
-    />
-  );
+    return (
+        <Join />
+    );
 }
 
 export default JoinContainer;
