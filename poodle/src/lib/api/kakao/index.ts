@@ -1,18 +1,19 @@
 import axios from 'axios';
-import { KAKAO_ADDRESS_URL } from '../ServerUrl';
 import { kakaoSearchedAddressType } from '../ApiType';
 
 const getSearchedAddressApi = async (searchParams: string) => {
+  const TOKEN = process.env.REACT_KAKAO_HEADER_TOKEN;
+  const KAKAO_ADDRESS_URL = process.env.REACT_KAKAO_API_URL as string;
   const header = {
     headers: {
-      Authorization: 'KakaoAK 2c8f36e27e83eb36b73d5d4aea7a7068',
+      Authorization: TOKEN,
     },
     params: {
       query: searchParams,
     },
   };
   const response = await axios.get(KAKAO_ADDRESS_URL, header);
-  const data:kakaoSearchedAddressType[] = response.data.documents;
+  const data: kakaoSearchedAddressType[] = response.data.documents;
   return data;
 };
 
