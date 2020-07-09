@@ -6,20 +6,23 @@ import {
   setPerceptionDay,
   setServiceTime,
   setLeaveLateDay,
+  setAll,
   setGrade,
   setScore,
   GradeType,
 } from '../../core/redux/actions/Grade';
+import { State } from '../../core/redux/reducer/Grade';
 import Grade from './Grade';
 
 export const mapStateToProps = (state: RootState) => ({
   serviceTime: state.GradeState.serviceTime,
   absentDay: state.GradeState.absentDay,
-  cutClassDay: state.GradeState.cutclassDay,
+  cutclassDay: state.GradeState.cutclassDay,
   perceptionDay: state.GradeState.perceptionDay,
   leaveLateDay: state.GradeState.leaveLateDay,
   grade: state.GradeState.grade,
   score: state.GradeState.score,
+  isQualification: state.QualificattionState.isQualification,
 });
 
 export const mapDispatchToProps = (dispatch:Function) => ({
@@ -44,6 +47,9 @@ export const mapDispatchToProps = (dispatch:Function) => ({
   setScore: (
     score: string,
   ) => dispatch(setScore({ score })),
+  setAll: (
+    all: State,
+  ) => dispatch(setAll({ all }))
 });
 
 export default connect(
