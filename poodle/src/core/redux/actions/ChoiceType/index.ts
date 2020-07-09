@@ -1,93 +1,118 @@
-export const QUALIFACATION_EXAM = "ChoiceType/QUALIFACATION_EXAM";
-export const APPLYTYPE = "ChoiceType/APPLYTYPE";
-export const DISTRICT = "ChoiceType/DISTRICT";
-export const GRADUATION_YEAR = "ChoiceType/GRADUATIONSTATUS_YEAR";
-export const GRADUATION_STATUS = "ChoiceType/GRADUATION_STATUS";
-export const NATIONAL_MERIT = "ChoiceType/NATIONAL_MERIT";
-export const SPECIAL_ADMISSION = "ChoiceType/SPECIAL_ADMISSION";
+import { State } from '../../reducer/ChoiceType';
 
-export interface SetQualifacationExam {
-    type: typeof QUALIFACATION_EXAM,
-    payload: boolean,
-}
+export const APPLYTYPE = 'ChoiceType/APPLYTYPE' as const;
+export const DISTRICT = 'ChoiceType/DISTRICT' as const;
+export const GRADUATION_YEAR = 'ChoiceType/GRADUATIONSTATUS_YEAR' as const;
+export const GRADUATION_STATUS = 'ChoiceType/GRADUATION_STATUS' as const;
+export const TYPE_SUCCESS = 'ChoiceType/TYPE_SUCCESS' as const;
+export const TYPE_FAILURE = 'ChoiceType/TYPE_FAILURE' as const;
+export const ALL = 'ChoiceType/ALL' as const;
+export const ADDITIONALTYPE = 'ChoiceType/ADDITIONALTYPE' as const;
+
+export type AdditionalType = 'NATIONAL_MERIT' | 'PRIVILEGED_ADMISSION' | 'NOT_APPLICABLE';
+export type GraduationStatusType = 'ungraduated' | 'graduated' | 'ged';
 
 export interface SetApplyType {
     type: typeof APPLYTYPE,
-    payload: string,
+    payload: { type : string },
 }
 
 export interface SetDistrict {
     type: typeof DISTRICT,
-    payload: string,
+    payload: { district : string },
 }
 
 export interface SetGraduationStatus {
     type: typeof GRADUATION_STATUS,
-    payload: string,
+    payload: { status : GraduationStatusType },
 }
 
 export interface SetGraduationYear {
     type: typeof GRADUATION_YEAR,
-    payload: string,
+    payload: { year : string },
 }
 
-export interface SetNationalMerit {
-    type: typeof NATIONAL_MERIT,
-    payload: boolean,
+export interface TypeSuccess {
+  type: typeof TYPE_SUCCESS,
+  payload: { data: Object }
 }
 
-export interface SetSpecialAdmission {
-    type: typeof SPECIAL_ADMISSION,
-    payload: boolean,
+export interface TypeFailure {
+  type: typeof TYPE_FAILURE,
+  payload: { error: Error },
+  error: boolean,
 }
 
-export type ChoiceTypeActionType = 
-    | SetQualifacationExam
+export interface SetAll {
+  type: typeof ALL,
+  payload: { all: State },
+}
+
+export interface SetAdditionalType {
+  type: typeof ADDITIONALTYPE,
+  payload: { additionalType: AdditionalType }
+}
+
+export type ChoiceTypeActionType =
     | SetApplyType
     | SetDistrict
     | SetGraduationStatus
     | SetGraduationYear
-    | SetNationalMerit
-    | SetSpecialAdmission;
+    | TypeSuccess
+    | TypeFailure
+    | SetAll
+    | SetAdditionalType;
 
-export const setQualifacationExam = (
-    isQualifacationExam:boolean
-):ChoiceTypeActionType => ({ 
-    type: QUALIFACATION_EXAM , 
-    payload: isQualifacationExam 
-});
 export const setApplyType = (
-    type:string
-):ChoiceTypeActionType => ({ 
-    type: APPLYTYPE,  
-    payload: type 
+  payload : { type:string },
+):ChoiceTypeActionType => ({
+  type: APPLYTYPE,
+  payload,
 });
 export const setDistrict = (
-    district:string
-):ChoiceTypeActionType => ({ 
-    type: DISTRICT, 
-    payload: district 
+  payload : { district:string },
+):ChoiceTypeActionType => ({
+  type: DISTRICT,
+  payload,
 });
 export const setGraduationStatus = (
-    status:string
-):ChoiceTypeActionType => ({ 
-    type: GRADUATION_STATUS,
-    payload: status 
+  payload : { status:GraduationStatusType },
+):ChoiceTypeActionType => ({
+  type: GRADUATION_STATUS,
+  payload,
 });
 export const setGraduationYear = (
-    year:string
-):ChoiceTypeActionType => ({ 
-    type: GRADUATION_YEAR, 
-    payload: year });
-export const setNationalMerit = (
-    isNationalMerit: boolean
-):ChoiceTypeActionType => ({     
-    type: NATIONAL_MERIT,
-    payload: isNationalMerit, 
+  payload : { year:string },
+):ChoiceTypeActionType => ({
+  type: GRADUATION_YEAR,
+  payload,
 });
-export const setSpecialAdmission = (
-    isSpecialAdmission: boolean,
-) => ({
-    type: SPECIAL_ADMISSION,
-    payload: isSpecialAdmission,
-})
+
+export const typeSuccess = (
+  payload: { data: Object },
+):ChoiceTypeActionType => ({
+  type: TYPE_SUCCESS,
+  payload,
+});
+
+export const typeFailure = (
+  payload: { error: Error },
+):ChoiceTypeActionType => ({
+  type: TYPE_FAILURE,
+  payload,
+  error: true,
+});
+
+export const setAll = (
+  payload: { all: State },
+):ChoiceTypeActionType => ({
+  type: ALL,
+  payload,
+});
+
+export const setAdditionalType = (
+  payload: { additionalType: AdditionalType },
+): ChoiceTypeActionType => ({
+  type: ADDITIONALTYPE,
+  payload,
+});
