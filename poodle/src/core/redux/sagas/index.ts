@@ -7,8 +7,8 @@ import GradeSaga from './grade';
 
 export default function* rootSaga() {
   yield all([
-    infoSaga(), 
-    typeSaga(), 
+    infoSaga(),
+    typeSaga(),
     headerSaga(),
     introductionSaga(),
     GradeSaga(),

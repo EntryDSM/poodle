@@ -3,15 +3,9 @@ import {
   selfIntroductionStateToRequest,
   studyPlanStateToRequest,
 } from '@/lib/api/ApplicationApplyApi';
-import {
-  SELF_INTRODUCTION_URL,
-  STUDY_PLAN_URL,
-} from '@/lib/api/ServerUrl';
+import { SELF_INTRODUCTION_URL, STUDY_PLAN_URL } from '@/lib/api/ServerUrl';
 import { createSaveSaga } from '@/lib/utils/saga';
-import {
-  STUDY_PLAN,
-  SELF_INTRODUCTION,
-} from '../../actions/Introduction';
+import { STUDY_PLAN, SELF_INTRODUCTION } from '../../actions/Introduction';
 import { RootState } from '../../reducer';
 
 const PAGENAME = 'Introduction';
@@ -19,7 +13,8 @@ const INTRODUCTION_ACTIONNAME = 'INTRODUCTION';
 const STUDY_PLAN_ACTIONNAME = 'STUDY_PLAN';
 const DELAY_TIME = 3000;
 
-const getStateFunc = (state: RootState): RootState['IntroductionState'] => state.IntroductionState;
+const getStateFunc = (state: RootState): RootState['IntroductionState'] =>
+  state.IntroductionState;
 
 const introductionSaveSaga = createSaveSaga(
   selfIntroductionStateToRequest,

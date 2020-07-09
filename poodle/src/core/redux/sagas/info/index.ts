@@ -43,7 +43,8 @@ const PAGENAME = 'Info';
 const ACTIONNAME = 'INFO';
 const DELAY_TIME = 3000;
 
-const getStateFunc = (state: RootState): RootState['InfoState'] => state.InfoState;
+const getStateFunc = (state: RootState): RootState['InfoState'] =>
+  state.InfoState;
 
 const defaultSaveSaga = createSaveSaga(
   infoStateToRequest,
@@ -73,9 +74,9 @@ function* numberChangeSaga() {
 
 function isNumberStateAble(state: RootState['InfoState']) {
   if (
-    isTextAble(state.number)
-    && isTextAble(state.gradeNumber)
-    && isTextAble(state.classNumber)
+    isTextAble(state.number) &&
+    isTextAble(state.gradeNumber) &&
+    isTextAble(state.classNumber)
   ) {
     return true;
   }

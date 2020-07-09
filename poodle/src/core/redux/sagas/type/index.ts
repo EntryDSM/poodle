@@ -34,7 +34,7 @@ const saveSaga = createSaveSaga(
   getStateFunc,
 );
 
-const isGED = (status: string) => (status === 'ged');
+const isGED = (status: string) => status === 'ged';
 
 const booleanToStringBoolean = (flag: boolean) => (flag ? 'true' : 'false');
 

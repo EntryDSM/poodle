@@ -1,12 +1,10 @@
-import {
-  debounce,
-} from 'redux-saga/effects';
+import { debounce } from 'redux-saga/effects';
 import { GRADE_URL } from '@/lib/api/ServerUrl';
+import { createSaveSaga, createProxySaga } from '@/lib/utils/saga';
 import {
-  createSaveSaga,
-  createProxySaga,
-} from '@/lib/utils/saga';
-import { gradeStateToRequest, gradeStateToGedRequest } from '@/lib/api/ApplicationApplyApi';
+  gradeStateToRequest,
+  gradeStateToGedRequest,
+} from '@/lib/api/ApplicationApplyApi';
 import { RootState } from '../../reducer';
 import {
   SERVICE_TIME,
@@ -22,7 +20,8 @@ const PAGENAME = 'Grade';
 const ACTIONNAME = 'GRADE';
 const DELAY_TIME = 3000;
 
-const getStateFunc = (state: RootState): RootState['GradeState'] => state.GradeState;
+const getStateFunc = (state: RootState): RootState['GradeState'] =>
+  state.GradeState;
 
 const defaultSaveSaga = createSaveSaga(
   gradeStateToRequest,
