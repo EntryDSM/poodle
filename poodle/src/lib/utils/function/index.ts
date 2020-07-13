@@ -3,9 +3,9 @@ import { useCallback } from 'react';
 
 export const useRedirect = () => {
     const history = useHistory();
-    const redirectToLink = (link: string) => {
+    const redirectToLink = useCallback((link: string) => {
         history.push(link);
-    };
+    }, [history]);
     return redirectToLink;
 }
 export const isEmptyCheck = (text: string)=> {
