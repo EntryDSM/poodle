@@ -43,7 +43,6 @@ function JoinInput({
   const isPasswordType = label === 'password' || label === 'passwordCheck';
   const onChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(isFocused[label]);
       if (!isFocused[label]) return;
       inputDispatch(setValue(e.target.value));
     },
@@ -66,7 +65,7 @@ function JoinInput({
   return (
     <S.StyledJoinInput
       type={isPasswordType ? 'password' : 'text'}
-      maxLength={label === 'code' ? 5 : null}
+      maxLength={label === 'code' ? 5 : undefined}
       maxSize={maxSize}
       middleSize={middleSize}
       disabled={isDisabled}
