@@ -38,10 +38,9 @@ function JoinInput({
   isFocused,
   inputDispatch,
   inputFocused,
-  setInputFocused,
+  setInputFocused
 }: JoinInputProps) {
-  const isPasswordType =
-    label === 'password' || label === 'passwordCheck';
+  const isPasswordType = label === 'password' || label === 'passwordCheck';
   const onChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       console.log(isFocused[label]);
@@ -54,20 +53,20 @@ function JoinInput({
     if (setInputFocused)
       setInputFocused({
         ...inputFocused,
-        [label]: true,
+        [label]: true
       });
   }, [inputFocused]);
   const onBlur = useCallback(() => {
     if (setInputFocused)
       setInputFocused({
         ...inputFocused,
-        [label]: false,
+        [label]: false
       });
   }, [inputFocused]);
   return (
     <S.StyledJoinInput
       type={isPasswordType ? 'password' : 'text'}
-      maxLength={label === 'code' ? 5 : undefined}
+      maxLength={label === 'code' ? 5 : null}
       maxSize={maxSize}
       middleSize={middleSize}
       disabled={isDisabled}
