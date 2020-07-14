@@ -1,6 +1,4 @@
-import React, {
-  FC, useState, useCallback, useEffect, useMemo,
-} from 'react';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import {
   getDataToServer,
@@ -24,8 +22,9 @@ import {
   Specialty,
 } from '../../components/ChoiceType/RowType';
 import { mapStateToProps, mapDispatchToProps } from './ConnectChoiceType';
-import { isTextAble } from '../../lib/utils/function';
+import { isEmptyCheck } from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
+import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -35,7 +34,7 @@ type MapStateToProps = ReturnType<typeof mapStateToProps>;
 
 const TOAST_DIV_ID = 'toastDiv';
 
-const ChoiceType: FC<Props> = (props) => {
+const ChoiceType: FC<Props> = props => {
   const {
     qualificationExam,
     applyType,
@@ -60,14 +59,14 @@ const ChoiceType: FC<Props> = (props) => {
       graduationStatus,
       graduationYear,
     }: MapStateToProps): boolean => {
-      if (qualifacationExam) {
-        return !(isTextAble(applyType) && isTextAble(district));
+      if (qualificationExam) {
+        return !(isEmptyCheck(applyType) && isEmptyCheck(district));
       }
       return !(
-        isTextAble(graduationStatus)
-        && isTextAble(applyType)
-        && isTextAble(district)
-        && isTextAble(graduationYear)
+        isEmptyCheck(graduationStatus) &&
+        isEmptyCheck(applyType) &&
+        isEmptyCheck(district) &&
+        isEmptyCheck(graduationYear)
       );
     },
     [],
@@ -107,7 +106,7 @@ const ChoiceType: FC<Props> = (props) => {
     } else {
       setGraduationYear('2020');
     }
-    setGraduationStatus(status);
+    setGraduationStatus(status as GraduationStatusType);
   }, []);
   useEffect(() => {
     getTypeAndSetState();
@@ -116,7 +115,7 @@ const ChoiceType: FC<Props> = (props) => {
     <TypeDiv>
       <div id={TOAST_DIV_ID} />
       <TypeMain>
-        <Title margin="80px">전형 구분 선택</Title>
+        <Title margin='80px'>전형 구분 선택</Title>
         <li>
           <ChoiceTypeRow
             valueChangeHandler={setApplyType}
@@ -135,26 +134,26 @@ const ChoiceType: FC<Props> = (props) => {
           ) : (
             <>
               <GraduationYear
-                describe="*졸업자의 경우 졸업연도를 선택해주세요."
+                describe='*졸업자의 경우 졸업연도를 선택해주세요.'
                 valueChangeHandler={setGraduationYear}
                 graduationYear={graduationYear}
               />
             </>
           )}
           <Specialty
-            describe="*해당하는 특기사항에 체크해주세요."
+            describe='*해당하는 특기사항에 체크해주세요.'
             additionalType={additionalType}
             additionalTypeChange={setAdditionalType}
           />
         </li>
         <DefaultlNavigation
-          page="choiceType"
+          page='choiceType'
           currentPageClickHandler={() => {
             history.push('/');
           }}
           nextPageClickHandler={() => {
             goNextPage({
-              qualifacationExam,
+              qualificationExam,
               applyType,
               district,
               graduationStatus,

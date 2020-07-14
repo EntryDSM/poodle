@@ -1,29 +1,29 @@
-import React, { FC, useState, useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { withRouter, RouteComponentProps } from "react-router";
-import { GradeDiv, GradeMain } from "../../styles/Grade";
+import React, { FC, useState, useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router';
+import { GradeDiv, GradeMain } from '../../styles/Grade';
 import {
   Title,
   DefaultlNavigation,
-} from "../../components/default/ApplicationFormDefault";
+} from '../../components/default/ApplicationFormDefault';
 import {
   VolanteerWorkTimeAttend,
   NonTransferSemester,
   GradeInput,
   QualificationScore,
-} from "../../components/Grade";
-import { mapDispatchToProps, mapStateToProps } from "./ConnectionGrade";
-import { isTextAble } from "../../lib/utils/function";
+} from '../../components/Grade';
+import { mapDispatchToProps, mapStateToProps } from './ConnectionGrade';
+import { isEmptyCheck } from '../../lib/utils/function';
 import {
   gradeResponseToState,
   gradeStateToRequest,
   gradeStateToGedRequest,
-  getFunc,
-  setFunc,
+  getDataToServer,
+  setDataToServer,
   errorTypeCheck,
-} from "../../lib/api/ApplicationApplyApi";
-import { gradeServerType, gedGradeServerType } from "@/lib/api/ApiType";
-import { GRADE_URL } from "@/lib/api/ServerUrl";
+} from '../../lib/api/ApplicationApplyApi';
+import { gradeServerType, gedGradeServerType } from '@/lib/api/ApiType';
+import { GRADE_URL } from '@/lib/api/ServerUrl';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -31,7 +31,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 type MapStateToProps = ReturnType<typeof mapStateToProps>;
 
-const Grade: FC<Props> = (props) => {
+const Grade: FC<Props> = props => {
   const dispatch = useDispatch();
   const [isError, errorChange] = useState<boolean>(false);
   const [errorModal, errorModalChange] = useState<boolean>(false);
@@ -40,24 +40,24 @@ const Grade: FC<Props> = (props) => {
       serviceTime,
       leaveLateDay,
       perceptionDay,
-      cutclassDay,
+      cutClassDay,
       absentDay,
       score,
     }: MapStateToProps) => {
       if (props.isQualification) {
-        return isTextAble(score);
+        return isEmptyCheck(score);
       }
       return (
-        isTextAble(serviceTime) &&
-        isTextAble(leaveLateDay) &&
-        isTextAble(absentDay) &&
-        isTextAble(cutclassDay) &&
-        isTextAble(perceptionDay)
+        isEmptyCheck(serviceTime) &&
+        isEmptyCheck(leaveLateDay) &&
+        isEmptyCheck(absentDay) &&
+        isEmptyCheck(cutClassDay) &&
+        isEmptyCheck(perceptionDay)
       );
     },
-    []
+    [],
   );
-  const errorModalStateChangeLater = useCallback((state) => {
+  const errorModalStateChangeLater = useCallback(state => {
     setTimeout(() => {
       errorModalChange(state);
     }, 5000);
@@ -78,22 +78,22 @@ const Grade: FC<Props> = (props) => {
         }
       }
     },
-    [props]
+    [props],
   );
   const setGrade = useCallback(async (props: any) => {
     if (props.isQualification) {
       const request = gradeStateToGedRequest(props);
-      return await setFunc<gedGradeServerType>(GRADE_URL, request);
+      return await setDataToServer<gedGradeServerType>(GRADE_URL, request);
     }
     console.log(props);
     const request = gradeStateToRequest(props);
-    return await setFunc<gradeServerType>(GRADE_URL, request);
+    return await setDataToServer<gradeServerType>(GRADE_URL, request);
   }, []);
   const moveCurrentPage = useCallback(() => {
-    props.history.push("/info");
+    props.history.push('/info');
   }, []);
   const moveNextPage = useCallback(() => {
-    props.history.push("/introduction");
+    props.history.push('/introduction');
   }, []);
   const testServer = () => {
     const response: gradeServerType = {
@@ -102,13 +102,13 @@ const Grade: FC<Props> = (props) => {
       period_cut_count: 1,
       early_leave_count: 1,
       late_count: 1,
-      korean: "AAAAA",
-      social: "AAAAA",
-      history: "AAAAA",
-      math: "AAAAA",
-      science: "AAAAA",
-      tech_and_home: "AAAAA",
-      english: "AAAAA",
+      korean: 'AAAAA',
+      social: 'AAAAA',
+      history: 'AAAAA',
+      math: 'AAAAA',
+      science: 'AAAAA',
+      tech_and_home: 'AAAAA',
+      english: 'AAAAA',
       ged_average_score: 30,
     };
     return response;
@@ -120,7 +120,7 @@ const Grade: FC<Props> = (props) => {
   return (
     <GradeDiv>
       <GradeMain>
-        <Title margin="100px">성적 입력</Title>
+        <Title margin='100px'>성적 입력</Title>
         {props.isQualification ? (
           <QualificationScore {...props} isError={isError} />
         ) : (
@@ -131,7 +131,7 @@ const Grade: FC<Props> = (props) => {
           </>
         )}
         <DefaultlNavigation
-          page="grade"
+          page='grade'
           currentPageClickHandler={moveCurrentPage}
           nextPageClickHandler={() => goNextPage(props)}
         />

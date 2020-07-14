@@ -22,7 +22,7 @@ import {
 import { setQualification } from '@/core/redux/actions/Qualification';
 
 export const mapStateToProps = (state: RootState) => ({
-  isQualification: state.QualificattionState.isQualification,
+  isQualification: state.QualificationState.isQualification,
   address: state.InfoState.address,
   birthday: state.InfoState.birthday,
   gender: state.InfoState.gender,
@@ -40,58 +40,30 @@ export const mapStateToProps = (state: RootState) => ({
   classNumber: state.InfoState.classNumber,
 });
 
-export const mapDispatchToProps = (dispatch:Function) => ({
-  setAddress: (
-    address: string,
-  ) => dispatch(setAddress({ address })),
-  setBirthday: (
-    birthday: string,
-  ) => dispatch(setBirthday({ birthday })),
-  setGender: (
-    gender: string,
-  ) => dispatch(setGender({ gender })),
-  setName: (
-    name: string,
-  ) => dispatch(setName({ name })),
-  setNumber: (
-    number: string,
-  ) => dispatch(setNumber({ number })),
-  setPicture: (
-    picture: string,
-  ) => dispatch(setPicture({ picture })),
-  setMiddleSchool: (
-    schoolName: string,
-  ) => dispatch(setMiddleSchool({ schoolName })),
-  setSchoolPhoneNum: (
-    schoolPhoneNum: string,
-  ) => dispatch(setSchoolPhoneNum({ schoolPhoneNum })),
-  setProtectorPhoneNum: (
-    protectorPhoneNum: string,
-  ) => dispatch(setProtectorPhoneNum({ protectorPhoneNum })),
-  setPhoneNum: (
-    phoneNum: string,
-  ) => dispatch(setPhoneNum({ phoneNum })),
-  setProtectorName: (
-    protectorName: string,
-  ) => dispatch(setProtectorName({ protectorName })),
-  setDetailAddress: (
-    detailAddress: string,
-  ) => dispatch(setDetailAddress({ detailAddress })),
-  setPostNum: (
-    postNum: string,
-  ) => dispatch(setPostNum({ postNum })),
-  setAll: (
-    all: RootState["InfoState"],
-  ) => dispatch(setAll({ all })),
-  setGradeNumber: (
-    gradeNumber: string,
-  ) => dispatch(setGradeNumber({ gradeNumber })),
-  setClassNumber: (
-    classNumber: string,
-  ) => dispatch(setClassNumber({ classNumber })),
+export const mapDispatchToProps = (dispatch: Function) => ({
+  setAddress: (address: string) => dispatch(setAddress({ address })),
+  setBirthday: (birthday: string) => dispatch(setBirthday({ birthday })),
+  setGender: (gender: string) => dispatch(setGender({ gender })),
+  setName: (name: string) => dispatch(setName({ name })),
+  setNumber: (number: string) => dispatch(setNumber({ number })),
+  setPicture: (picture: string) => dispatch(setPicture({ picture })),
+  setMiddleSchool: (schoolName: string) =>
+    dispatch(setMiddleSchool({ schoolName })),
+  setSchoolPhoneNum: (schoolPhoneNum: string) =>
+    dispatch(setSchoolPhoneNum({ schoolPhoneNum })),
+  setProtectorPhoneNum: (protectorPhoneNum: string) =>
+    dispatch(setProtectorPhoneNum({ protectorPhoneNum })),
+  setPhoneNum: (phoneNum: string) => dispatch(setPhoneNum({ phoneNum })),
+  setProtectorName: (protectorName: string) =>
+    dispatch(setProtectorName({ protectorName })),
+  setDetailAddress: (detailAddress: string) =>
+    dispatch(setDetailAddress({ detailAddress })),
+  setPostNum: (postNum: string) => dispatch(setPostNum({ postNum })),
+  setAll: (all: RootState['InfoState']) => dispatch(setAll({ all })),
+  setGradeNumber: (gradeNumber: string) =>
+    dispatch(setGradeNumber({ gradeNumber })),
+  setClassNumber: (classNumber: string) =>
+    dispatch(setClassNumber({ classNumber })),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Info);
+export default connect(mapStateToProps, mapDispatchToProps)(Info);
