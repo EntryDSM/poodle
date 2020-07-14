@@ -1,16 +1,16 @@
 import React, { useState, useCallback, FC, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { useRedirect } from '../../../../../lib/utils/function';
 import * as S from '@/styles/common/Modal';
+import { RESETMODAL } from '@/core/redux/actions/modal';
+import { useRedirect } from '../../../../../lib/utils/function';
 import {
   ModalContent,
   ModalInput,
   ModalButtonList,
   ModalContentProps,
   openModal,
-  clearModal
+  clearModal,
 } from '..';
-import { RESETMODAL } from '@/core/redux/actions/modal';
 import { loginErrorReset } from '@/core/redux/actions/header';
 
 type LoginModalProps = ModalContentProps & {
@@ -26,7 +26,7 @@ const LoginModal: FC<LoginModalProps> = ({
   errorSentence,
   color,
   onClick,
-  user
+  user,
 }) => {
   const dispatch = useDispatch();
   const redirectToLink = useRedirect();
@@ -88,8 +88,8 @@ const LoginModal: FC<LoginModalProps> = ({
             id: 1,
             title,
             size: 'max',
-            onClick: onSubmit
-          }
+            onClick: onSubmit,
+          },
         ]}
       />
       <S.ETCSentence onClick={goToJoin}>아직 계정이 없으신가요?</S.ETCSentence>

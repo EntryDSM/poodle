@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import ClearButton from '@/assets/Modal/Button_clear@3x.png';
 import SearchButton from '@/assets/Modal/button-search.png';
+
 export const ModalWrapper = styled.div`
   z-index: 3;
   top: 0;
