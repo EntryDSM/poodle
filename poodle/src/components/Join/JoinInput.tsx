@@ -2,9 +2,10 @@ import React from 'react';
 import * as S from '../../styles/Join';
 
 type JoinInputProps = {
-    maxSize?: boolean,
-    middleSize?: boolean
-}
+  maxSize?: boolean;
+  middleSize?: boolean;
+};
+
 
 function JoinInput({
   maxSize,

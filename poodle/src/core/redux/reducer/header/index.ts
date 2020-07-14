@@ -3,7 +3,7 @@ import {
   LOGIN_FAILURE,
   HeaderAction,
   LOGOUT,
-  LOGIN_ERROR_RESET
+  LOGIN_ERROR_RESET,
 } from '../../actions/header';
 
 type HeaderState = {
@@ -23,53 +23,53 @@ const initialState: HeaderState = {
   isLogin: false,
   user: {
     accessToken: '',
-    refreshToken: ''
+    refreshToken: '',
   },
   error: {
     response: {
-      code: 0
-    }
-  }
+      code: 0,
+    },
+  },
 };
 
 export default function header(
   state: HeaderState = initialState,
-  action: HeaderAction
+  action: HeaderAction,
 ) {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return {
         ...state,
         isLogin: true,
-        user: action.payload
+        user: action.payload,
       };
     case LOGIN_FAILURE:
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
       };
     case LOGOUT:
       return {
         isLogin: false,
         user: {
           accessToken: '',
-          refreshToken: ''
+          refreshToken: '',
         },
         error: {
           response: {
-            code: 0
-          }
-        }
+            code: 0,
+          },
+        },
       };
     case LOGIN_ERROR_RESET:
       return {
         ...state,
         error: {
           response: {
-            code: 0
-          }
-        }
-      }
+            code: 0,
+          },
+        },
+      };
     default:
       return state;
   }

@@ -2,17 +2,19 @@ import React, { FC } from 'react';
 import { FooterButton } from '../../../styles/Footer';
 
 interface Props {
-    link: string,
+  link: string;
 }
 
 const FooterLink: FC<Props> = ({ link, children }) => {
-    const redirectToLink = (link: string) => {
-        window.open(link,"_blank");
-    }
-    const clickHandler = (link: string) => {
-        redirectToLink(link);
-    }
-    return <FooterButton onClick={()=> clickHandler(link)}>{children}</FooterButton>
-}
+  const redirectToLink = (link: string) => {
+    window.open(link, '_blank');
+  };
+  const clickHandler = (link: string) => {
+    redirectToLink(link);
+  };
+  return (
+    <FooterButton onClick={() => clickHandler(link)}>{children}</FooterButton>
+  );
+};
 
-export default FooterLink
+export default FooterLink;

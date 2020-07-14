@@ -1,19 +1,19 @@
 export const LOGIN = 'header/LOGIN' as const;
 export const LOGIN_SUCCESS = 'header/LOGIN_SUCCESS' as const;
 export const LOGIN_FAILURE = 'header/LOGIN_FAILURE' as const;
-export const LOGOUT = 'header/LOGOUT' as const; 
+export const LOGOUT = 'header/LOGOUT' as const;
 export const LOGIN_ERROR_RESET = 'header/LOGIN_ERROR_RESET' as const;
 
 export const login = (payload: { email: string; password: string }) => ({
   type: LOGIN,
-  payload
+  payload,
 });
 export const loginSuccess = (user: {
   accessToken: string;
   refreshToken: string;
 }) => ({
   type: LOGIN_SUCCESS,
-  payload: user
+  payload: user,
 });
 export const loginFailure = (e: {
   response: {
@@ -22,15 +22,15 @@ export const loginFailure = (e: {
 }) => ({
   type: LOGIN_FAILURE,
   payload: e,
-  error: true
+  error: true,
 });
 
 export const logout = () => ({
-  type: LOGOUT
-})
+  type: LOGOUT,
+});
 
 export const loginErrorReset = () => ({
-  type: LOGIN_ERROR_RESET
+  type: LOGIN_ERROR_RESET,
 });
 
 export type HeaderAction =
