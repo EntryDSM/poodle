@@ -1,5 +1,4 @@
 import { RootState } from '@/core/redux/reducer';
-import { AxiosError } from 'axios';
 import { GradeType, SubjectType, ScoreType } from '@/core/redux/actions/Grade';
 import client from './client';
 import {
@@ -10,7 +9,7 @@ import {
   studyPlanServerType,
   SubjectsType,
   gedInfoServerType,
-  gedGradeServerType
+  gedGradeServerType,
 } from './ApiType';
 import { GRADESEMESTERLIST } from '../../components/Grade/constance';
 
@@ -25,7 +24,7 @@ export const errorTypeCheck = (error: ErrorType): void => {
 };
 
 export const getDataToServer = async <ResponseType>(
-  url: string
+  url: string,
 ): Promise<ResponseType> => {
   const response: ResponseType = await client.get(url);
   return response;
@@ -33,29 +32,29 @@ export const getDataToServer = async <ResponseType>(
 
 export const setDataToServer = async <RequestType>(
   url: string,
-  payload: RequestType
+  payload: RequestType,
 ) => {
   const response = await client.patch(url, payload);
   return response;
 };
 
 export const typeStateToRequest = (
-  state: RootState['ChoiceTypeState']
+  state: RootState['ChoiceTypeState'],
 ): userTypeServerType => {
   const {
-    qualifacationExam,
+    qualificationExam,
     graduationStatus,
     graduationYear,
     district,
     applyType,
-    additionalType
+    additionalType,
   } = state;
   return {
-    grade_type: getGradeType(qualifacationExam, graduationStatus),
+    grade_type: getGradeType(qualificationExam, graduationStatus),
     apply_type: applyType,
     is_daejeon: isDaejeon(district),
     additional_type: additionalType,
-    graduate_year: graduationYear
+    graduate_year: graduationYear,
   };
 };
 
@@ -64,14 +63,14 @@ export const typeResponseToState = ({
   grade_type,
   additional_type,
   apply_type,
-  graduate_year
+  graduate_year,
 }: userTypeServerType): RootState['ChoiceTypeState'] => ({
-  qualifacationExam: isGED(grade_type),
+  qualificationExam: isGED(grade_type),
   applyType: apply_type,
   district: getDistrictStringToisDaejeon(is_daejeon),
   graduationStatus: grade_type,
   graduationYear: graduate_year,
-  additionalType: additional_type
+  additionalType: additional_type,
 });
 
 const isGED = (grade_type: string) => {
@@ -101,7 +100,7 @@ const getDistrictStringToisDaejeon = (is_daejeon: boolean) => {
 };
 
 export const infoStateToRequest = (
-  state: RootState['InfoState']
+  state: RootState['InfoState'],
 ): userInfoServerType => ({
   name: state.name,
   sex: state.gender,
@@ -115,11 +114,11 @@ export const infoStateToRequest = (
   birth_date: infoDateStringToStateDateString(state.birthday),
   address: state.address,
   detail_address: state.detailAddress,
-  post_code: state.postNum
+  post_code: state.postNum,
 });
 
 export const infoStateToGedRequest = (
-  state: RootState['InfoState']
+  state: RootState['InfoState'],
 ): gedInfoServerType => ({
   applicant_tel: state.name,
   parent_tel: state.protectorPhoneNum,
@@ -129,7 +128,7 @@ export const infoStateToGedRequest = (
   parent_name: state.protectorName,
   name: state.name,
   sex: state.gender,
-  birth_date: state.birthday
+  birth_date: state.birthday,
 });
 
 const infoDateStringToStateDateString = (str: string) => {
@@ -161,7 +160,7 @@ const checkSingleTextAddZero = (text: string) => {
 };
 
 export const infoResponseToState = (
-  response: userInfoServerType
+  response: userInfoServerType,
 ): RootState['InfoState'] => ({
   name: response.name,
   gender: response.sex,
@@ -177,7 +176,7 @@ export const infoResponseToState = (
   detailAddress: response.detail_address,
   picture: response.photo,
   gradeNumber: infoStringToGradeNumber(response.student_number),
-  classNumber: infoStringToClassNumber(response.student_number)
+  classNumber: infoStringToClassNumber(response.student_number),
 });
 
 const infoRequestDateStringToStateDateString = (requestDateString: string) => {
@@ -216,15 +215,15 @@ const infoStringToNumber = (str: string) => {
 
 const gradeArrayToString = (
   gradeList: GradeType[],
-  subject: SubjectType
+  subject: SubjectType,
 ): string => {
   const filteredGradeList = gradeList.filter(
-    grade => grade.subject === subject
+    grade => grade.subject === subject,
   );
   const sortedGradeList = gradeSort(filteredGradeList);
   const stringedGradeList = sortedGradeList.reduce(
     (str: string, grade: GradeType) => str + grade.score,
-    ''
+    '',
   );
   return stringedGradeList;
 };
@@ -242,23 +241,23 @@ const responseToSubjects = (response: gradeServerType) => {
     society: response.social,
     history: response.history,
     tech: response.tech_and_home,
-    english: response.english
+    english: response.english,
   };
   return subjects;
 };
 
 export const gradeResponseToState = (
-  response: gradeServerType
+  response: gradeServerType,
 ): RootState['GradeState'] => {
   const subjects = responseToSubjects(response);
   return {
     serviceTime: response.volanteer_time.toString(),
     absentDay: response.full_cut_count.toString(),
     perceptionDay: response.late_count.toString(),
-    cutclassDay: response.period_cut_count.toString(),
+    cutClassDay: response.period_cut_count.toString(),
     leaveLateDay: response.early_leave_count.toString(),
     grade: responseGradeToStateGrade(subjects),
-    score: response.ged_average_score.toString()
+    score: response.ged_average_score.toString(),
   };
 };
 
@@ -280,7 +279,7 @@ const convertStringToArray = (gradeString: string) => {
 };
 const stringArrayToGradeArray = (
   splitedStringArray: string[],
-  subject: SubjectType
+  subject: SubjectType,
 ) => {
   const buf = [];
   for (let i = 0; i < splitedStringArray.length; i++) {
@@ -290,7 +289,7 @@ const stringArrayToGradeArray = (
       grade,
       semester,
       score: typeChangeScore,
-      subject
+      subject,
     };
     buf.push(newGrade);
   }
@@ -315,11 +314,11 @@ const gradeSortCompareFunc = (current: GradeType, next: GradeType) => {
 };
 
 export const gradeStateToRequest = (
-  state: RootState['GradeState']
+  state: RootState['GradeState'],
 ): gradeServerType => ({
   volanteer_time: Number(state.serviceTime),
   full_cut_count: Number(state.absentDay),
-  period_cut_count: Number(state.cutclassDay),
+  period_cut_count: Number(state.cutClassDay),
   early_leave_count: Number(state.leaveLateDay),
   late_count: Number(state.perceptionDay),
   korean: gradeArrayToString(state.grade, 'korean'),
@@ -329,35 +328,35 @@ export const gradeStateToRequest = (
   science: gradeArrayToString(state.grade, 'science'),
   tech_and_home: gradeArrayToString(state.grade, 'tech'),
   english: gradeArrayToString(state.grade, 'english'),
-  ged_average_score: Number(state.score)
+  ged_average_score: Number(state.score),
 });
 
 export const gradeStateToGedRequest = (
-  state: RootState['GradeState']
+  state: RootState['GradeState'],
 ): gedGradeServerType => ({
-  ged_average_score: Number(state.score)
+  ged_average_score: Number(state.score),
 });
 
 export const selfIntroductionStateToRequest = (
-  state: RootState['IntroductionState']
+  state: RootState['IntroductionState'],
 ): selfIntroductionServerType => ({
-  self_introduction: state.selfIntroduction
+  self_introduction: state.selfIntroduction,
 });
 
 export const studyPlanStateToRequest = (
-  state: RootState['IntroductionState']
+  state: RootState['IntroductionState'],
 ): studyPlanServerType => ({
-  study_plan: state.studyPlan
+  study_plan: state.studyPlan,
 });
 
 export const selfIntroductionResponseToState = (
-  response: selfIntroductionServerType
+  response: selfIntroductionServerType,
 ): { selfIntroduction: string } => ({
-  selfIntroduction: response.self_introduction
+  selfIntroduction: response.self_introduction,
 });
 
 export const studyPlanResponseToState = (
-  response: studyPlanServerType
+  response: studyPlanServerType,
 ): { studyPlan: string } => ({
-  studyPlan: response.study_plan
+  studyPlan: response.study_plan,
 });
