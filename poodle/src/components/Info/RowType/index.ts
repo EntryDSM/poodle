@@ -13,19 +13,19 @@ import UserPhoneNumRow from './UserPhoneNumRow';
 import UserAddressRow from './UserAddressRow';
 import QualificationUserImg from './QualificationUserImg';
 
-export { 
-    DefaultRow, 
-    DefaultRowWithPicture, 
-    UserNameRow, 
-    UserGenderRow,
-    UserBirthDayRow,
-    UserNumberRow,
-    UserMiddleSchool,
-    UserImg,
-    UserProtector,
-    UserProtectorPhoneNumRow,
-    UserSchoolPhoneNumRow,
-    UserPhoneNumRow,
-    UserAddressRow,
-    QualificationUserImg 
+export {
+  DefaultRow,
+  DefaultRowWithPicture,
+  UserNameRow,
+  UserGenderRow,
+  UserBirthDayRow,
+  UserNumberRow,
+  UserMiddleSchool,
+  UserImg,
+  UserProtector,
+  UserProtectorPhoneNumRow,
+  UserSchoolPhoneNumRow,
+  UserPhoneNumRow,
+  UserAddressRow,
+  QualificationUserImg,
 };
