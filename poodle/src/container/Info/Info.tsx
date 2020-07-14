@@ -20,7 +20,7 @@ import {
 } from '../../components/default/ApplicationFormDefault';
 import { mapStateToProps, mapDispatchToProps } from './ConnectInfo';
 import { QualificationPage, DefaultPage } from '../../components/Info/Page';
-import { isTextAble } from '../../lib/utils/function';
+import { isEmptyCheck } from '../../lib/utils/function';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -58,37 +58,37 @@ const Info: FC<Props> = props => {
     }: MapStateToProps): boolean => {
       if (props.isQualification) {
         return (
-          isTextAble(address) &&
-          isTextAble(postNum) &&
-          isTextAble(detailAddress) &&
-          isTextAble(name) &&
-          isTextAble(birthday) &&
-          isTextAble(protectorName) &&
-          isTextAble(protectorName) &&
-          isTextAble(phoneNum) &&
-          isTextAble(gender) &&
-          isTextAble(protectorPhoneNum) &&
-          isTextAble(picture)
+          isEmptyCheck(address) &&
+          isEmptyCheck(postNum) &&
+          isEmptyCheck(detailAddress) &&
+          isEmptyCheck(name) &&
+          isEmptyCheck(birthday) &&
+          isEmptyCheck(protectorName) &&
+          isEmptyCheck(protectorName) &&
+          isEmptyCheck(phoneNum) &&
+          isEmptyCheck(gender) &&
+          isEmptyCheck(protectorPhoneNum) &&
+          isEmptyCheck(picture)
         );
       }
       return (
-        isTextAble(postNum) &&
-        isTextAble(detailAddress) &&
-        isTextAble(address) &&
-        isTextAble(name) &&
-        isTextAble(birthday) &&
-        isTextAble(middleSchool) &&
-        isTextAble(protectorName) &&
-        isTextAble(schoolPhoneNum) &&
-        isTextAble(protectorName) &&
-        isTextAble(phoneNum) &&
-        isTextAble(gender) &&
-        isTextAble(protectorPhoneNum) &&
-        isTextAble(number) &&
-        isTextAble(picture)
+        isEmptyCheck(postNum) &&
+        isEmptyCheck(detailAddress) &&
+        isEmptyCheck(address) &&
+        isEmptyCheck(name) &&
+        isEmptyCheck(birthday) &&
+        isEmptyCheck(middleSchool) &&
+        isEmptyCheck(protectorName) &&
+        isEmptyCheck(schoolPhoneNum) &&
+        isEmptyCheck(protectorName) &&
+        isEmptyCheck(phoneNum) &&
+        isEmptyCheck(gender) &&
+        isEmptyCheck(protectorPhoneNum) &&
+        isEmptyCheck(number) &&
+        isEmptyCheck(picture)
       );
     },
-    [isTextAble, isFileAble],
+    [isEmptyCheck, isFileAble],
   );
 
   const errorModalStateChangeLater = useCallback(state => {
