@@ -74,16 +74,16 @@ function* numberChangeSaga() {
 
 function isNumberStateAble(state: RootState['InfoState']) {
   if (
-    isTextAble(state.number) &&
-    isTextAble(state.gradeNumber) &&
-    isTextAble(state.classNumber)
+    isEmptyCheck(state.number) &&
+    isEmptyCheck(state.gradeNumber) &&
+    isEmptyCheck(state.classNumber)
   ) {
     return true;
   }
   return false;
 }
 
-function isTextAble(text: string) {
+function isEmptyCheck(text: string) {
   return text.length > 0;
 }
 

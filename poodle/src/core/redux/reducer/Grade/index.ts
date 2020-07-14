@@ -8,22 +8,25 @@ import {
   SCORE,
   GradeActionType,
   GradeType,
+  GRADE_FAILURE,
+  GRADE_SUCCESS,
+  ALL,
 } from '../../actions/Grade';
 
 export interface State {
-    serviceTime: string,
-    absentDay: string,
-    cutclassDay: string,
-    leaveLateDay: string,
-    perceptionDay: string,
-    grade: GradeType[],
-    score: string,
+  serviceTime: string;
+  absentDay: string;
+  cutClassDay: string;
+  leaveLateDay: string;
+  perceptionDay: string;
+  grade: GradeType[];
+  score: string;
 }
 
 export const initialState: State = {
   serviceTime: '',
   absentDay: '',
-  cutclassDay: '',
+  cutClassDay: '',
   leaveLateDay: '',
   perceptionDay: '',
   grade: [],
@@ -50,7 +53,7 @@ const GradeState = (
     case CUTCLASS_DAY: {
       return {
         ...state,
-        cutclassDay: action.payload.cutClassDay,
+        cutClassDay: action.payload.cutClassDay,
       };
     }
     case LEAVELATE_DAY: {
@@ -76,6 +79,15 @@ const GradeState = (
         ...state,
         score: action.payload.score,
       };
+    }
+    case GRADE_SUCCESS: {
+      return state;
+    }
+    case GRADE_FAILURE: {
+      return state;
+    }
+    case ALL: {
+      return action.payload.all;
     }
     default: {
       return state;
