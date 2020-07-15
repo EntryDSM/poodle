@@ -60,12 +60,12 @@ const ChoiceType: FC<Props> = props => {
       graduationYear,
     }: MapStateToProps): boolean => {
       if (qualificationExam) {
-        return !(isEmptyCheck(applyType) && isEmptyCheck(district));
+        return isEmptyCheck(applyType) || isEmptyCheck(district);
       }
-      return !(
-        isEmptyCheck(graduationStatus) &&
-        isEmptyCheck(applyType) &&
-        isEmptyCheck(district) &&
+      return (
+        isEmptyCheck(graduationStatus) ||
+        isEmptyCheck(applyType) ||
+        isEmptyCheck(district) ||
         isEmptyCheck(graduationYear)
       );
     },

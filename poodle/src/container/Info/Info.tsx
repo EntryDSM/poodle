@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState, useEffect } from 'react';
+import React, { FC, useCallback, useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import {
@@ -21,6 +21,7 @@ import {
 import { mapStateToProps, mapDispatchToProps } from './ConnectInfo';
 import { QualificationPage, DefaultPage } from '../../components/Info/Page';
 import { isEmptyCheck } from '../../lib/utils/function';
+import ToastController from '../common/ToastContainer';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -28,10 +29,12 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 type MapStateToProps = ReturnType<typeof mapStateToProps>;
 
+const TOAST_DIV_ID = 'toastDiv';
+
 const Info: FC<Props> = props => {
+  const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const dispatch = useDispatch();
   const [isError, errorChange] = useState<boolean>(false);
-  const [errorModal, errorModalChange] = useState<boolean>(false);
 
   const isFileAble = useCallback((file: File | null) => {
     if (file) {
@@ -58,52 +61,45 @@ const Info: FC<Props> = props => {
     }: MapStateToProps): boolean => {
       if (props.isQualification) {
         return (
-          isEmptyCheck(address) &&
-          isEmptyCheck(postNum) &&
-          isEmptyCheck(detailAddress) &&
-          isEmptyCheck(name) &&
-          isEmptyCheck(birthday) &&
-          isEmptyCheck(protectorName) &&
-          isEmptyCheck(protectorName) &&
-          isEmptyCheck(phoneNum) &&
-          isEmptyCheck(gender) &&
-          isEmptyCheck(protectorPhoneNum) &&
+          isEmptyCheck(address) ||
+          isEmptyCheck(postNum) ||
+          isEmptyCheck(detailAddress) ||
+          isEmptyCheck(name) ||
+          isEmptyCheck(birthday) ||
+          isEmptyCheck(protectorName) ||
+          isEmptyCheck(protectorName) ||
+          isEmptyCheck(phoneNum) ||
+          isEmptyCheck(gender) ||
+          isEmptyCheck(protectorPhoneNum) ||
           isEmptyCheck(picture)
         );
       }
       return (
-        isEmptyCheck(postNum) &&
-        isEmptyCheck(detailAddress) &&
-        isEmptyCheck(address) &&
-        isEmptyCheck(name) &&
-        isEmptyCheck(birthday) &&
-        isEmptyCheck(middleSchool) &&
-        isEmptyCheck(protectorName) &&
-        isEmptyCheck(schoolPhoneNum) &&
-        isEmptyCheck(protectorName) &&
-        isEmptyCheck(phoneNum) &&
-        isEmptyCheck(gender) &&
-        isEmptyCheck(protectorPhoneNum) &&
-        isEmptyCheck(number) &&
+        isEmptyCheck(postNum) ||
+        isEmptyCheck(detailAddress) ||
+        isEmptyCheck(address) ||
+        isEmptyCheck(name) ||
+        isEmptyCheck(birthday) ||
+        isEmptyCheck(middleSchool) ||
+        isEmptyCheck(protectorName) ||
+        isEmptyCheck(schoolPhoneNum) ||
+        isEmptyCheck(protectorName) ||
+        isEmptyCheck(phoneNum) ||
+        isEmptyCheck(gender) ||
+        isEmptyCheck(protectorPhoneNum) ||
+        isEmptyCheck(number) ||
         isEmptyCheck(picture)
       );
     },
     [isEmptyCheck, isFileAble],
   );
 
-  const errorModalStateChangeLater = useCallback(state => {
-    setTimeout(() => {
-      errorModalChange(state);
-    }, 5000);
-  }, []);
-
   const goNextPage = useCallback(
     async (state: MapStateToProps) => {
-      const isAble = isStateAble(state);
-      if (!isAble) {
-        errorChange(true);
-        errorModalChange(true);
-        errorModalStateChangeLater(false);
+      const isError = isStateAble(state);
+      if (isError) {
+        errorChange(isError);
+        modalController.createNewToast('ERROR');
       } else {
         try {
           await setInfo(state);
@@ -113,7 +109,7 @@ const Info: FC<Props> = props => {
         }
       }
     },
-    [isStateAble, errorModalStateChangeLater, props],
+    [isStateAble, props],
   );
 
   const setInfo = useCallback(async (props: any) => {
@@ -152,7 +148,7 @@ const Info: FC<Props> = props => {
   }, []);
   return (
     <InfoDiv>
-      <div id='popup' />
+      <div id={TOAST_DIV_ID} />
       <InfoBody>
         <Title margin='80px'>인적사항</Title>
         {props.isQualification ? (
