@@ -6,8 +6,8 @@ type SaveSagaType = ReturnType<typeof createSaveSaga>;
 
 const getQualificationStateFunc = (
   state: RootState,
-): RootState['QualificattionState'] => {
-  return state.QualificattionState;
+): RootState['QualificationState'] => {
+  return state.QualificationState;
 };
 
 const createProxySaga = (
@@ -15,7 +15,7 @@ const createProxySaga = (
   defaultSaveSaga: SaveSagaType,
 ) => {
   return function* () {
-    const isQualification: RootState['QualificattionState'] = yield select(
+    const isQualification: RootState['QualificationState'] = yield select(
       getQualificationStateFunc,
     );
     if (isQualification.isQualification) {
