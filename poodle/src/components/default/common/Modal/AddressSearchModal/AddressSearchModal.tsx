@@ -1,7 +1,6 @@
 import React, { FC, useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  ModalWrapper,
   SearchModalInput,
   SearchModalInputDiv,
   SearchModalResult,
@@ -16,19 +15,13 @@ interface Props {
   modalOff: () => void;
 }
 
-const dummyData = [
-  {
-    schoolName: '구미중학교',
-    address: '경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트',
-  },
-];
-
 const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
   const dispatch = useDispatch();
   const [searchedAddresses, searchedAddressChange] = useState<
     kakaoSearchedAddressType[]
   >([]);
-  const [params, paramsChange] = useState('');
+  const [params, paramsChange] = useState<string>('');
+  const [isFirst, firstChange] = useState<boolean>(true);
   const addressChange = (address: string, postNum: string) => {
     const addressAction = setAddress({ address });
     const postNumAction = setPostNum({ postNum });
@@ -46,12 +39,21 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
     },
     [],
   );
+  const paramsInputKeyPressHandler = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key == 'Enter') {
+        searchAddress();
+      }
+    },
+    [params],
+  );
   const searchAddress = useCallback(async () => {
     const response = await getSearchedAddress(params);
     searchedAddressChange(response);
+    firstChange(false);
   }, [params]);
   const isHaveAddress = useCallback((response: kakaoSearchedAddressType) => {
-    if (!response.road_address) {
+    if (!response.road_address || !response.road_address.zone_no) {
       return false;
     }
     return true;
@@ -96,13 +98,14 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
   const checkAddressCompisEmptyAndSetErr = useCallback(
     (addresses: kakaoSearchedAddressType[]) => {
       const addressComponents = setAddressComponent(addresses);
-      console.log(addressComponents);
-      if (isListEmpty(addressComponents)) {
+      if (isFirst) {
+        return '검색어를 입력해 주세요.';
+      } else if (isListEmpty(addressComponents)) {
         return '검색된 결과가 없습니다.';
       }
       return addressComponents;
     },
-    [],
+    [isFirst],
   );
   return (
     <SearchModalBox title='우편 번호 검색' onModalChange={modalOff}>
@@ -112,6 +115,7 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
             placeholder='주소를 입력해 주세요.'
             value={params}
             onChange={paramInputChangeHandler}
+            onKeyPress={paramsInputKeyPressHandler}
           />
           <img onClick={searchAddress} />
         </SearchModalInput>
