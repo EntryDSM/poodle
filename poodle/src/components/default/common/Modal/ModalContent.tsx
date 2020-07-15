@@ -39,7 +39,6 @@ const ModalContent: FC<ModalContentProps> = ({
       setIsEffect(false);
       setHasContour(contour);
       setHasError(false);
-      console.log(1);
     };
   }, [errorSentence]);
   return (

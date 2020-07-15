@@ -96,7 +96,6 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
   const checkAddressCompisEmptyAndSetErr = useCallback(
     (addresses: kakaoSearchedAddressType[]) => {
       const addressComponents = setAddressComponent(addresses);
-      console.log(addressComponents);
       if (isListEmpty(addressComponents)) {
         return '검색된 결과가 없습니다.';
       }

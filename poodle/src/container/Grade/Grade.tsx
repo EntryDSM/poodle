@@ -85,7 +85,6 @@ const Grade: FC<Props> = props => {
       const request = gradeStateToGedRequest(props);
       return await setDataToServer<gedGradeServerType>(GRADE_URL, request);
     }
-    console.log(props);
     const request = gradeStateToRequest(props);
     return await setDataToServer<gradeServerType>(GRADE_URL, request);
   }, []);
