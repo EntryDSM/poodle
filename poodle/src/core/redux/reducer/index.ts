@@ -7,8 +7,10 @@ import IntroductionState from './Introduction';
 import InfoState from './Info';
 import GradeState from './Grade';
 import QualificationState from './Qualification';
+import join from './join';
 
 const rootReducer = combineReducers({
+  join,
   header,
   loading,
   modal,
