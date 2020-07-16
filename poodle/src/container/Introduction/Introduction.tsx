@@ -106,7 +106,6 @@ const Introduction: FC<Props> = ({
       study_plan: 'asdfasdfasdf',
     };
     const state = studyPlanResponseToState(response);
-    console.log(state);
     setStudyPlan(state.studyPlan);
   }, []);
   useEffect(() => {
