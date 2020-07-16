@@ -50,7 +50,6 @@ const Grade: FC<Props> = props => {
       if (props.isQualification) {
         return isEmptyCheck(score);
       }
-      console.log(isEmptyCheck(serviceTime));
       return (
         isEmptyCheck(serviceTime) ||
         isEmptyCheck(leaveLateDay) ||
