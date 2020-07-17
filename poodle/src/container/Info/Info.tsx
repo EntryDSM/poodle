@@ -112,7 +112,7 @@ const Info: FC<Props> = props => {
     [isStateAble, props],
   );
 
-  const setInfo = useCallback(async (props: any) => {
+  const setInfo = useCallback(async (props: MapStateToProps) => {
     if (props.isQualification) {
       const request = infoStateToGedRequest(props);
       return await setDataToServer<gedInfoServerType>(USERINFO_URL, request);

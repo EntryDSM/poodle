@@ -77,7 +77,7 @@ const Grade: FC<Props> = props => {
     },
     [props],
   );
-  const setGrade = useCallback(async (props: any) => {
+  const setGrade = useCallback(async (props: MapStateToProps) => {
     if (props.isQualification) {
       const request = gradeStateToGedRequest(props);
       return await setDataToServer<gedGradeServerType>(GRADE_URL, request);

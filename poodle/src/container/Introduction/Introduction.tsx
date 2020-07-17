@@ -48,37 +48,40 @@ const Introduction: FC<Props> = ({
       isEmptyCheck(selfIntroduction) || isEmptyCheck(studyPlan),
     [],
   );
-  const goNextPage = useCallback(async (state: MapStateToProps) => {
-    const isError = isStateAble(state);
-    if (isError) {
-      modalController.createNewToast('ERROR');
-      return;
-    }
-    try {
-      const props = {
-        setSelfIntroduction,
-        setStudyPlan,
-        selfIntroduction,
-        studyPlan,
-        history,
-      };
-      await setIntroductionToServer(props);
-      await setStudyPlanToServer(props);
-      props.history.push('/preview');
-    } catch (error) {
-      errorTypeCheck(error);
-    }
-  }, []);
+  const goNextPage = useCallback(
+    async (state: MapStateToProps) => {
+      const isError = isStateAble(state);
+      if (isError) {
+        modalController.createNewToast('ERROR');
+        return;
+      }
+      try {
+        const props: MapStateToProps = {
+          selfIntroduction,
+          studyPlan,
+        };
+        await setIntroductionToServer(props);
+        await setStudyPlanToServer(props);
+        history.push('/preview');
+      } catch (error) {
+        errorTypeCheck(error);
+      }
+    },
+    [history],
+  );
 
-  const setIntroductionToServer = useCallback(async (props: any) => {
-    const request = selfIntroductionStateToRequest(props);
-    return await setDataToServer<selfIntroductionServerType>(
-      INTRODUCTION_URL,
-      request,
-    );
-  }, []);
+  const setIntroductionToServer = useCallback(
+    async (props: MapStateToProps) => {
+      const request = selfIntroductionStateToRequest(props);
+      return await setDataToServer<selfIntroductionServerType>(
+        INTRODUCTION_URL,
+        request,
+      );
+    },
+    [],
+  );
 
-  const setStudyPlanToServer = useCallback(async (props: any) => {
+  const setStudyPlanToServer = useCallback(async (props: MapStateToProps) => {
     const request = studyPlanStateToRequest(props);
     return await setDataToServer<studyPlanServerType>(
       INTRODUCTION_URL,
