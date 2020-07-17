@@ -4,10 +4,12 @@ import { DefaultAnotherRows, DefaultPictureRows } from '../Rows';
 import {
   mapStateToProps,
   mapDispatchToProps,
-} from '../../../container/Info/ConnectInfo';
+} from '@/container/Info/ConnectInfo';
 
 interface DefaultProps {
   isError: boolean;
+  addressSearchModalAbleChange: (value: boolean) => void;
+  schoolSearchModalAbleChange: (value: boolean) => void;
 }
 
 type Props = ReturnType<typeof mapStateToProps> &
@@ -29,8 +31,6 @@ const DefaultPage: FC<Props> = ({
   phoneNum,
   postNum,
   detailAddress,
-  classNumber,
-  gradeNumber,
   setName,
   setBirthday,
   setGender,
@@ -42,11 +42,11 @@ const DefaultPage: FC<Props> = ({
   setPicture,
   setSchoolPhoneNum,
   isError,
+  addressSearchModalAbleChange,
+  schoolSearchModalAbleChange,
   setDetailAddress,
-  setGradeNumber,
-  setClassNumber,
-}) => (
-  <>
+}) => {
+  return (
     <li>
       <DefaultPictureRows
         name={name}
@@ -55,8 +55,6 @@ const DefaultPage: FC<Props> = ({
         number={number}
         middleSchool={middleSchool}
         birthday={birthday}
-        gradeNumber={gradeNumber}
-        classNumber={classNumber}
         setName={setName}
         setBirthday={setBirthday}
         setGender={setGender}
@@ -64,8 +62,7 @@ const DefaultPage: FC<Props> = ({
         setNumber={setNumber}
         setPicture={setPicture}
         isError={isError}
-        setClassNumber={setClassNumber}
-        setGradeNumber={setGradeNumber}
+        schoolSearchModalAbleChange={schoolSearchModalAbleChange}
       />
       <DefaultAnotherRows
         protectorName={protectorName}
@@ -81,9 +78,10 @@ const DefaultPage: FC<Props> = ({
         isError={isError}
         postNum={postNum}
         detailAddress={detailAddress}
+        addressSearchModalAbleChange={addressSearchModalAbleChange}
       />
     </li>
-  </>
-);
+  );
+};
 
 export default withRouter(DefaultPage);

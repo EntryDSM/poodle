@@ -26,10 +26,7 @@ const UserAddressRow: FC<Props> = ({
   const [isEmpty, emptyChange] = useState<boolean>(false);
   const dispatch = useDispatch();
   const isEmptyCheck = useCallback((text: string) => {
-    if (text.length > 0) {
-      return false;
-    }
-    return true;
+    return text.length > 0;
   }, []);
   useEffect(() => {
     if (isError && isEmptyCheck(address)) {

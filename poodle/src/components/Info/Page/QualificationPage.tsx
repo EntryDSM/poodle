@@ -4,10 +4,11 @@ import { QualificationAnotherRows, QualificationPictureRows } from '../Rows';
 import {
   mapStateToProps,
   mapDispatchToProps,
-} from '../../../container/Info/ConnectInfo';
+} from '@/container/Info/ConnectInfo';
 
 interface DefaultProps {
   isError: boolean;
+  addressSearchModalAbleChange: (value: boolean) => void;
 }
 
 type Props = ReturnType<typeof mapStateToProps> &
@@ -33,35 +34,39 @@ const QualificationPage: FC<Props> = ({
   setPicture,
   setProtectorName,
   isError,
+  addressSearchModalAbleChange,
   postNum,
   detailAddress,
-}) => (
-  <li>
-    <QualificationPictureRows
-      name={name}
-      picture={picture}
-      gender={gender}
-      protectorName={protectorName}
-      birthday={birthday}
-      setName={setName}
-      setBirthday={setBirthday}
-      setGender={setGender}
-      setPicture={setPicture}
-      setProtector={setProtectorName}
-      isError={isError}
-    />
-    <QualificationAnotherRows
-      protectorPhoneNum={protectorPhoneNum}
-      phoneNum={phoneNum}
-      address={address}
-      setAddress={setDetailAddress}
-      setPhoneNum={setPhoneNum}
-      setProtectorPhoneNum={setProtectorPhoneNum}
-      isError={isError}
-      postNum={postNum}
-      detailAddress={detailAddress}
-    />
-  </li>
-);
+}) => {
+  return (
+    <li>
+      <QualificationPictureRows
+        name={name}
+        picture={picture}
+        gender={gender}
+        protectorName={protectorName}
+        birthday={birthday}
+        setName={setName}
+        setBirthday={setBirthday}
+        setGender={setGender}
+        setPicture={setPicture}
+        setProtector={setProtectorName}
+        isError={isError}
+      />
+      <QualificationAnotherRows
+        protectorPhoneNum={protectorPhoneNum}
+        phoneNum={phoneNum}
+        address={address}
+        setAddress={setDetailAddress}
+        setPhoneNum={setPhoneNum}
+        setProtectorPhoneNum={setProtectorPhoneNum}
+        isError={isError}
+        addressSearchModalAbleChange={addressSearchModalAbleChange}
+        postNum={postNum}
+        detailAddress={detailAddress}
+      />
+    </li>
+  );
+};
 
 export default withRouter(QualificationPage);
