@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { useState, FC, useCallback, useEffect } from 'react';
 import { TypeElementContent } from '../../../styles/ChoiceType';
 import {
   Radio,
@@ -8,6 +8,7 @@ import {
 } from '../../default/ApplicationFormDefault';
 import { DefaultRow } from '..';
 import typeConstance from './constance/TypeConstance';
+import {} from '@/styles/ChoiceType';
 
 interface Props {
   valueChangeHandler: (value: string) => void;
@@ -15,22 +16,32 @@ interface Props {
 }
 
 const ChoiceTypeRow: FC<Props> = ({ valueChangeHandler, applyType }) => {
-  const [isDropdownAble, dropdownAbleChange] = useState(false);
-  const [nowDropdown, dropdownChange] = useState<any>('');
-  const ableRadioClickHandler = (isDropdownAble: boolean) => {
+  const [isDropdownAble, dropdownAbleChange] = useState<boolean>(false);
+  const [nowDropdown, dropdownChange] = useState<string>('');
+  const ableRadioClickHandler = useCallback((isDropdownAble: boolean) => {
     dropdownAbleChange(isDropdownAble);
-  };
-  const RadioClickHandler = (value: string) => {
+  }, []);
+  const RadioClickHandler = useCallback((value: string) => {
     valueChangeHandler(value);
     dropdownAbleChange(false);
-  };
+  }, []);
+  const setDropdownAble = useCallback((applyType: string) => {
+    if (applyType === 'COMMON' || applyType === 'MEISTER' || applyType === '') {
+      return false;
+    }
+    return true;
+  }, []);
+  useEffect(() => {
+    const dropdownAble = setDropdownAble(applyType);
+    dropdownAbleChange(dropdownAble);
+  }, [applyType]);
   return (
     <DefaultRow title='전형 선택'>
       <TypeElementContent>
         <div>
           <RadioGroupProvider onChange={RadioClickHandler} value={applyType}>
-            <Radio value='일반전형'>일반전형</Radio>
-            <Radio value='마이스터 인재전형'>마이스터 인재전형</Radio>
+            <Radio value='COMMON'>일반 전형</Radio>
+            <Radio value='MEISTER'>마이스터 인재 전형</Radio>
             <DropdownRadio
               value={nowDropdown}
               dropdownAbleChange={ableRadioClickHandler}
