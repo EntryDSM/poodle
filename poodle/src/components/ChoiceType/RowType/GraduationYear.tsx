@@ -15,9 +15,6 @@ const GraduationYear: FC<Props> = ({
   valueChangeHandler,
   graduationYear,
 }) => {
-  useEffect(() => {
-    valueChangeHandler('2020');
-  }, []);
   return (
     <DefaultRow title='졸업 연도'>
       <TypeElementContent>
