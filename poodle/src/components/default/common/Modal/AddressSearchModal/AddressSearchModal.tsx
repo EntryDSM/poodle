@@ -53,10 +53,7 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
     firstChange(false);
   }, [params]);
   const isHaveAddress = useCallback((response: kakaoSearchedAddressType) => {
-    if (!response.road_address || !response.road_address.zone_no) {
-      return false;
-    }
-    return true;
+    return !(response.road_address && response.road_address.zone_no);
   }, []);
   const responseToAddress = useCallback(
     (response: kakaoSearchedAddressType) => {
