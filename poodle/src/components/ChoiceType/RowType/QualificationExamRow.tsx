@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from 'react';
-import { TypeElementContent } from '../../../styles/ChoiceType';
+import { TypeElementContent } from '@/styles/ChoiceType';
 import { Checkbox } from '../../default/ApplicationFormDefault';
 import { DefaultRow } from '..';
 

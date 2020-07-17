@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
-import { Input } from '../../../../default/ApplicationFormDefault/Input';
-import { isEmptyCheck } from '../../../../../lib/utils/function';
+import { Input } from '@/components/default/ApplicationFormDefault/Input';
+import { isEmptyCheck } from '@/lib/utils/function';
 
 type dispatchFuncType = (value: string) => void;
 

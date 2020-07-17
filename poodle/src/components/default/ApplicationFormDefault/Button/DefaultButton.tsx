@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ButtonDiv } from '../../../../styles/ApplicationFormDefault';
+import { ButtonDiv } from '@/styles/ApplicationFormDefault';
 
 interface Props {
   children: React.ReactNode;

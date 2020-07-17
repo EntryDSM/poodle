@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { AttendanceRowDiv } from '../../../../styles/Grade';
+import { AttendanceRowDiv } from '@/styles/Grade';
 import AttendanceColumn from './column/AttendanceColumn';
 
 type dispatchFuncType = (value: string) => void;

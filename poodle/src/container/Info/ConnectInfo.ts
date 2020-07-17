@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Info from './Info';
-import { RootState } from '../../core/redux/reducer';
+import { RootState } from '@/core/redux/reducer';
 import {
   setAddress,
   setBirthday,
@@ -18,8 +18,7 @@ import {
   setAll,
   setClassNumber,
   setGradeNumber,
-} from '../../core/redux/actions/Info';
-import { setQualification } from '@/core/redux/actions/Qualification';
+} from '@/core/redux/actions/Info';
 
 export const mapStateToProps = (state: RootState) => ({
   isQualification: state.QualificationState.isQualification,

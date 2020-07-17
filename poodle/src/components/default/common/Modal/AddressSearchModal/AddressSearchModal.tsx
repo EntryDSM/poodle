@@ -1,13 +1,12 @@
 import React, { FC, useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  ModalWrapper,
   SearchModalInput,
   SearchModalInputDiv,
   SearchModalResult,
 } from '@/styles/common/Modal';
 import SearchModalBox from '../SearchModalBox';
-import { setAddress, setPostNum } from '../../../../../core/redux/actions/Info';
+import { setAddress, setPostNum } from '@/core/redux/actions/Info';
 import AddressSearchContent from './AddressSearchContent';
 import getSearchedAddressApi from '@/lib/api/kakao';
 import { kakaoSearchedAddressType } from '@/lib/api/ApiType';

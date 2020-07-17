@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { FooterButton } from '../../../styles/Footer';
+import { FooterButton } from '@/styles/Footer';
 
 interface Props {
   link: string;

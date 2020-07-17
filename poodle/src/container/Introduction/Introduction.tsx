@@ -17,15 +17,15 @@ import { SELF_INTRODUCTION_URL, STUDY_PLAN_URL } from '@/lib/api/ServerUrl';
 import {
   Title,
   DefaultlNavigation,
-} from '../../components/default/ApplicationFormDefault';
-import { IntroductionDiv, IntroductionMain } from '../../styles/Introduction';
-import { IntroductionInputTemplete } from '../../components/Introduction';
+} from '@/components/default/ApplicationFormDefault';
+import { IntroductionDiv, IntroductionMain } from '@/styles/Introduction';
+import { IntroductionInputTemplete } from '@/components/Introduction';
 import {
   SELF_INTRODUCTION_DESCRIBE,
   STUDY_PLAN_DESCRIBE,
-} from '../../components/Introduction/constance';
+} from '@/components/Introduction/constance';
 import { mapDispatchToProps, mapStateToProps } from './ConnectIntroduction';
-import { isEmptyCheck } from '../../lib/utils/function';
+import { isEmptyCheck } from '@/lib/utils/function';
 
 type Props = ReturnType<typeof mapDispatchToProps> &
   ReturnType<typeof mapStateToProps> &

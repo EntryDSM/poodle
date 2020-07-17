@@ -4,12 +4,12 @@ import {
   GradeSubTitle,
   SchoolYearRow,
   SemesterRow,
-} from '../../../styles/Grade';
+} from '@/styles/Grade';
 import { GradeColumn, SemesterColumn } from './column';
 import {
   mapStateToProps,
   mapDispatchToProps,
-} from '../../../container/Grade/ConnectionGrade';
+} from '@/container/Grade/ConnectionGrade';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
