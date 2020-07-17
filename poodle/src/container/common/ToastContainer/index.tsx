@@ -37,7 +37,7 @@ class ToastController {
     this.parentId = parentId;
   }
   isToastOver() {
-    return this.toastInfos.length > 5 ? true : false;
+    return this.toastInfos.length > 5;
   }
   createNewToast(type: ToastType) {
     if (this.isToastOver()) return;
