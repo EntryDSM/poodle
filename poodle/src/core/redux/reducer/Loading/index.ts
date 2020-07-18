@@ -2,9 +2,9 @@ import {
   START_LOADING,
   FINISH_LOADING,
   LoadingAction,
-} from '../../actions/loading';
-import { LOGIN } from '../../actions/header';
-import { SEND_EMAIL, VERIFY_CODE, JOIN } from '../../actions/join';
+} from '../../actions/Loading';
+import { LOGIN } from '../../actions/Header';
+import { SEND_EMAIL, VERIFY_CODE, JOIN } from '../../actions/Join';
 
 type LoadingState = {
   [LOGIN]: boolean;
