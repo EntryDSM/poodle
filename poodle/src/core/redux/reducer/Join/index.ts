@@ -9,7 +9,7 @@ import {
   JOIN_VALUE_RESET,
   JOIN_SUCCESS,
   JOIN_FAILURE,
-} from '../../actions/join';
+} from '../../actions/Join';
 import ErrorType from '@/lib/utils/type/ErrorType';
 
 type JoinState = {
