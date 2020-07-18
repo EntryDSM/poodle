@@ -1,10 +1,13 @@
-import { debounce, select, call } from 'redux-saga/effects';
+import { debounce, select, call, takeLatest } from 'redux-saga/effects';
 import {
   infoStateToRequest,
-  infoStateToGedRequest,
+  infoStateToGedRequest,, infoResponseToState
 } from '@/lib/api/ApplicationApplyApi';
+import {
+  userInfoServerType,
+} from '@/lib/api/ApiType';
 import { USERINFO_URL } from '@/lib/api/ServerUrl';
-import { createSaveSaga, createProxySaga } from '@/lib/utils/saga';
+import { createSaveSaga, createProxySaga, createGetSaga } from '@/lib/utils/saga';
 import { RootState } from '../../reducer';
 import {
   NAME,
@@ -22,6 +25,8 @@ import {
   BIRTHDAY,
   GRADE_NUMBER,
   CLASS_NUMBER,
+  ALL,
+  GET_INFO,
 } from '../../actions/Info';
 
 const actionArray = [
@@ -62,6 +67,12 @@ const gedSaveSaga = createSaveSaga(
   getStateFunc,
 );
 
+const getInfoSaga = createGetSaga<userInfoServerType>(
+  USERINFO_URL,
+  infoResponseToState,
+  ALL,
+)
+
 const proxySaga = createProxySaga(gedSaveSaga, defaultSaveSaga);
 
 function* numberChangeSaga() {
@@ -90,4 +101,5 @@ function isEmptyCheck(text: string) {
 export default function* typeSaga() {
   yield debounce(DELAY_TIME, actionArray, proxySaga);
   yield debounce(DELAY_TIME, numberActionArray, numberChangeSaga);
+  yield takeLatest(GET_INFO,getInfoSaga)
 }

@@ -1,5 +1,5 @@
 import { State } from '@/core/redux/reducer/Info';
-import { SetGrade } from '../Grade';
+import ErrorType from '@/lib/utils/type/ErrorType';
 
 export const NAME = 'Info/NAME' as const;
 export const GENDER = 'Info/GENDER' as const;
@@ -19,6 +19,7 @@ export const ADDRESS_DETAIL = 'Info/ADDRESS_DETAIL' as const;
 export const INFO_SUCCESS = 'Info/INFO_SUCCESS' as const;
 export const INFO_FAILURE = 'Info/INFO_FAILURE' as const;
 export const ALL = 'Info/ALL' as const;
+export const GET_INFO = 'Info/GET_INFO' as const;
 
 export interface SetName {
   type: typeof NAME;
@@ -96,18 +97,20 @@ export interface SetDetailAddress {
 }
 export interface InfoSuccess {
   type: typeof INFO_SUCCESS;
-  payload: { data: State };
 }
 
 export interface InfoFailure {
   type: typeof INFO_FAILURE;
-  payload: { error: Error };
-  error: boolean;
+  payload: { error: ErrorType };
 }
 
 export interface SetAll {
   type: typeof ALL;
   payload: { all: State };
+}
+
+export interface GetInfo {
+  type: typeof GET_INFO;
 }
 
 export type InfoActionType =
@@ -128,7 +131,8 @@ export type InfoActionType =
   | SetDetailAddress
   | InfoFailure
   | InfoSuccess
-  | SetAll;
+  | SetAll
+  | GetInfo;
 
 export const setName = (payload: { name: string }): InfoActionType => ({
   type: NAME,
@@ -219,21 +223,20 @@ export const setPostNum = (payload: { postNum: string }): InfoActionType => ({
   payload,
 });
 
-export const InfoSuccess = (payload: { data: State }): InfoActionType => ({
+export const infoSuccess = (): InfoActionType => ({
   type: INFO_SUCCESS,
-  payload,
 });
 
-export const InfoFailure = (
-  payload: { error: Error },
-  error: boolean,
-): InfoActionType => ({
+export const infoFailure = (payload: { error: ErrorType }): InfoActionType => ({
   type: INFO_FAILURE,
   payload,
-  error,
 });
 
 export const setAll = (payload: { all: State }): InfoActionType => ({
   type: ALL,
   payload,
+});
+
+export const getInfo = () => (): InfoActionType => ({
+  type: GET_INFO,
 });

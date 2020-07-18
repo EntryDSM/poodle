@@ -1,4 +1,5 @@
 import { State } from '../../reducer/ChoiceType';
+import ErrorType from '@/lib/utils/type/ErrorType';
 
 export const APPLYTYPE = 'ChoiceType/APPLYTYPE' as const;
 export const DISTRICT = 'ChoiceType/DISTRICT' as const;
@@ -8,6 +9,7 @@ export const TYPE_SUCCESS = 'ChoiceType/TYPE_SUCCESS' as const;
 export const TYPE_FAILURE = 'ChoiceType/TYPE_FAILURE' as const;
 export const ALL = 'ChoiceType/ALL' as const;
 export const ADDITIONALTYPE = 'ChoiceType/ADDITIONALTYPE' as const;
+export const GET_TYPE = 'ChoiceType/GET_TYPE' as const;
 
 export type AdditionalType =
   | 'NATIONAL_MERIT'
@@ -37,13 +39,11 @@ export interface SetGraduationYear {
 
 export interface TypeSuccess {
   type: typeof TYPE_SUCCESS;
-  payload: { data: Object };
 }
 
 export interface TypeFailure {
   type: typeof TYPE_FAILURE;
-  payload: { error: Error };
-  error: boolean;
+  payload: { error: ErrorType };
 }
 
 export interface SetAll {
@@ -56,6 +56,10 @@ export interface SetAdditionalType {
   payload: { additionalType: AdditionalType };
 }
 
+export interface GetType {
+  type: typeof GET_TYPE;
+}
+
 export type ChoiceTypeActionType =
   | SetApplyType
   | SetDistrict
@@ -64,7 +68,8 @@ export type ChoiceTypeActionType =
   | TypeSuccess
   | TypeFailure
   | SetAll
-  | SetAdditionalType;
+  | SetAdditionalType
+  | GetType;
 
 export const setApplyType = (payload: {
   type: string;
@@ -91,19 +96,15 @@ export const setGraduationYear = (payload: {
   payload,
 });
 
-export const typeSuccess = (payload: {
-  data: Object;
-}): ChoiceTypeActionType => ({
+export const typeSuccess = (): ChoiceTypeActionType => ({
   type: TYPE_SUCCESS,
-  payload,
 });
 
 export const typeFailure = (payload: {
-  error: Error;
+  error: ErrorType;
 }): ChoiceTypeActionType => ({
   type: TYPE_FAILURE,
   payload,
-  error: true,
 });
 
 export const setAll = (payload: { all: State }): ChoiceTypeActionType => ({
@@ -116,4 +117,8 @@ export const setAdditionalType = (payload: {
 }): ChoiceTypeActionType => ({
   type: ADDITIONALTYPE,
   payload,
+});
+
+export const getType = (): ChoiceTypeActionType => ({
+  type: GET_TYPE,
 });

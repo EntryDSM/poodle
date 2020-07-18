@@ -1,4 +1,5 @@
 import { State } from '../../reducer/Grade';
+import ErrorType from '@/lib/utils/type/ErrorType';
 
 export const SERVICE_TIME = 'Grade/SERVICE_TIME' as const;
 export const ABSENT_DAY = 'Grade/ABSENT_DAY' as const;
@@ -10,6 +11,7 @@ export const SCORE = 'Grade/SCORE' as const;
 export const GRADE_SUCCESS = 'Grade/GRADE_SUCCESS' as const;
 export const GRADE_FAILURE = 'Grade/GRADE_FAILURE' as const;
 export const ALL = 'Grade/ALL' as const;
+export const GET_GRADE = 'Grade/GET_GRADE' as const;
 export type ScoreType = 'A' | 'B' | 'C' | 'D' | 'E' | 'X';
 
 export type SubjectType =
@@ -65,18 +67,20 @@ export interface SetScore {
 
 export interface GradeSuccess {
   type: typeof GRADE_SUCCESS;
-  payload: { data: Object };
 }
 
 export interface GradeFailure {
   type: typeof GRADE_FAILURE;
-  payload: { error: Error };
-  error: boolean;
+  payload: { error: ErrorType };
 }
 
 export interface SetAll {
   type: typeof ALL;
   payload: { all: State };
+}
+
+export interface GetGrade {
+  type: typeof GET_GRADE;
 }
 
 export type GradeActionType =
@@ -89,7 +93,8 @@ export type GradeActionType =
   | SetScore
   | GradeSuccess
   | GradeFailure
-  | SetAll;
+  | SetAll
+  | GetGrade;
 
 export const setServiceTime = (payload: {
   serviceTime: string;
@@ -132,18 +137,22 @@ export const setScore = (payload: { score: string }): GradeActionType => ({
   payload,
 });
 
-export const gradeSuccess = (payload: { data: Object }): GradeActionType => ({
+export const gradeSuccess = (): GradeActionType => ({
   type: GRADE_SUCCESS,
-  payload,
 });
 
-export const gradeFailure = (payload: { error: Error }): GradeActionType => ({
+export const gradeFailure = (payload: {
+  error: ErrorType;
+}): GradeActionType => ({
   type: GRADE_FAILURE,
   payload,
-  error: true,
 });
 
 export const setAll = (payload: { all: State }): GradeActionType => ({
   type: ALL,
   payload,
+});
+
+export const getGrade = (): GradeActionType => ({
+  type: GET_GRADE,
 });

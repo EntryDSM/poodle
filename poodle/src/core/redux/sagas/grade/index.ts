@@ -1,9 +1,9 @@
-import { debounce } from 'redux-saga/effects';
+import { debounce, takeLatest } from 'redux-saga/effects';
 import { GRADE_URL } from '@/lib/api/ServerUrl';
-import { createSaveSaga, createProxySaga } from '@/lib/utils/saga';
+import { createSaveSaga, createProxySaga, createGetSaga } from '@/lib/utils/saga';
 import {
   gradeStateToRequest,
-  gradeStateToGedRequest,
+  gradeStateToGedRequest,, gradeResponseToState
 } from '@/lib/api/ApplicationApplyApi';
 import { RootState } from '../../reducer';
 import {
@@ -14,7 +14,10 @@ import {
   PERCEPTION_DAY,
   GRADE,
   SCORE,
+  GET_GRADE,
+  ALL,
 } from '../../actions/Grade';
+import { gradeServerType } from '@/lib/api/ApiType';
 
 const PAGENAME = 'Grade';
 const ACTIONNAME = 'GRADE';
@@ -39,6 +42,12 @@ const gedSaveSaga = createSaveSaga(
   getStateFunc,
 );
 
+const getGradeSaga = createGetSaga<gradeServerType>(
+  GRADE_URL,
+  gradeResponseToState,
+  ALL,
+);
+
 const proxySaga = createProxySaga(gedSaveSaga, defaultSaveSaga);
 
 const actionArray = [
@@ -53,4 +62,5 @@ const actionArray = [
 
 export default function* gradeSaga() {
   yield debounce(DELAY_TIME, actionArray, proxySaga);
+  yield takeLatest(GET_GRADE,getGradeSaga)
 }
