@@ -1,4 +1,4 @@
-import { SEND_EMAIL, VERIFY_CODE, JOIN } from '../../actions/join';
+import { SEND_EMAIL, VERIFY_CODE, JOIN } from '../../actions/Join';
 import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga from '@/lib/utils/saga/createRequestSaga';
 import * as joinCtrl from '@/lib/api/join';
