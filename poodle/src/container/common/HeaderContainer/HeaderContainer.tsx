@@ -1,14 +1,14 @@
 import React, { useCallback, FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/core/redux/reducer';
-import { LOGIN, logout } from '@/core/redux/actions/header';
+import { LOGIN, logout } from '@/core/redux/actions/Header';
 import ModalContainer from '../ModalContainer/ModalContainer';
 import { Header } from '@/components/default/Header';
-import { modalOn, LOGINMODAL } from '@/core/redux/actions/modal';
+import { modalOn, LOGINMODAL } from '@/core/redux/actions/Modal';
 
 const HeaderContainer: FC<{}> = () => {
   const { isLogin, loginLoading, loginError, user } = useSelector(
-    ({ header, loading }: RootState) => ({
+    ({ Header: header, Loading: loading }: RootState) => ({
       isLogin: header.isLogin,
       loginLoading: loading[LOGIN],
       loginError: header.error,
@@ -16,7 +16,6 @@ const HeaderContainer: FC<{}> = () => {
     }),
   );
   const dispatch = useDispatch();
-
   const loginHandler = useCallback(() => {
     dispatch(modalOn(LOGINMODAL));
   }, [dispatch]);
@@ -27,7 +26,7 @@ const HeaderContainer: FC<{}> = () => {
 
   return (
     <>
-      <ModalContainer onClick={() => {}} />
+      <ModalContainer />
       <Header
         isLogin={isLogin}
         user={user}
