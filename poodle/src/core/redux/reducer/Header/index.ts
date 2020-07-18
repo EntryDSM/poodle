@@ -4,7 +4,7 @@ import {
   HeaderAction,
   LOGOUT,
   LOGIN_ERROR_RESET,
-} from '../../actions/header';
+} from '../../actions/Header';
 
 type HeaderState = {
   isLogin: boolean;
