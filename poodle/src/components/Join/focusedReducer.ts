@@ -2,7 +2,7 @@ export const focusedInitialState = {
   email: false,
   code: false,
   password: false,
-  passwordCheck: false
+  passwordCheck: false,
 };
 const SET_FOCUSED_EMAIL = 'join/SET_FOCUSED_EMAIL' as const;
 const SET_FOCUSED_CODE = 'join/SET_FOCUSED_CODE' as const;
@@ -12,22 +12,22 @@ const RESET_FOCUSED_STATE = 'join/RESET_FOCUSED_STATE' as const;
 
 export const setFocusedEmail = (payload: boolean) => ({
   type: SET_FOCUSED_EMAIL,
-  payload
+  payload,
 });
 export const setFocusedCode = (payload: boolean) => ({
   type: SET_FOCUSED_CODE,
-  payload
+  payload,
 });
 export const setFocusedPassword = (payload: boolean) => ({
   type: SET_FOCUSED_PASSWORD,
-  payload
+  payload,
 });
 export const setFocusedPasswordCheck = (payload: boolean) => ({
   type: SET_FOCUSED_PASSWORD_CHECK,
-  payload
+  payload,
 });
 export const resetFocusedState = () => ({
-  type: RESET_FOCUSED_STATE
+  type: RESET_FOCUSED_STATE,
 });
 
 export type FocusedAction =
@@ -46,33 +46,33 @@ export type FocusedInitialState = {
 
 export const focusedReducer = (
   state: FocusedInitialState = focusedInitialState,
-  action: FocusedAction
+  action: FocusedAction,
 ) => {
   switch (action.type) {
     case SET_FOCUSED_EMAIL:
       return {
         ...state,
-        email: action.payload
+        email: action.payload,
       };
     case SET_FOCUSED_CODE:
       return {
         ...state,
         email: false,
-        code: action.payload
+        code: action.payload,
       };
     case SET_FOCUSED_PASSWORD:
       return {
         ...state,
         email: false,
         code: false,
-        password: action.payload
+        password: action.payload,
       };
     case SET_FOCUSED_PASSWORD_CHECK:
       return {
         ...state,
         email: false,
         code: false,
-        passwordCheck: action.payload
+        passwordCheck: action.payload,
       };
     case RESET_FOCUSED_STATE:
       return focusedInitialState;

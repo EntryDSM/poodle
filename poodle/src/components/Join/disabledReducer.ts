@@ -2,7 +2,7 @@ export const disabledInitialState = {
   email: true,
   code: true,
   password: true,
-  passwordCheck: true
+  passwordCheck: true,
 };
 const SET_DISABLED_EMAIL = 'join/SET_DISABLED_EMAIL' as const;
 const SET_DISABLED_CODE = 'join/SET_DISABLED_CODE' as const;
@@ -12,22 +12,22 @@ const RESET_DISABLED_STATE = 'join/RESET_DISABLED_STATE' as const;
 
 export const setDisabledEmail = (payload: boolean) => ({
   type: SET_DISABLED_EMAIL,
-  payload
+  payload,
 });
 export const setDisabledCode = (payload: boolean) => ({
   type: SET_DISABLED_CODE,
-  payload
+  payload,
 });
 export const setDisabledPassword = (payload: boolean) => ({
   type: SET_DISABLED_PASSWORD,
-  payload
+  payload,
 });
 export const setDisabledPasswordCheck = (payload: boolean) => ({
   type: SET_DISABLED_PASSWORD_CHECK,
-  payload
+  payload,
 });
 export const resetDisabledState = () => ({
-  type: RESET_DISABLED_STATE
+  type: RESET_DISABLED_STATE,
 });
 
 export type DisabledAction =
@@ -46,30 +46,30 @@ export type DisabledtInitialState = {
 
 export const disabledReducer = (
   state: DisabledtInitialState = disabledInitialState,
-  action: DisabledAction
+  action: DisabledAction,
 ) => {
   switch (action.type) {
     case SET_DISABLED_EMAIL:
       return {
         ...state,
-        email: action.payload
+        email: action.payload,
       };
     case SET_DISABLED_CODE:
       return {
         ...state,
         email: true,
-        code: action.payload
+        code: action.payload,
       };
     case SET_DISABLED_PASSWORD:
       return {
         ...state,
         code: true,
-        password: action.payload
+        password: action.payload,
       };
     case SET_DISABLED_PASSWORD_CHECK:
       return {
         ...state,
-        passwordCheck: action.payload
+        passwordCheck: action.payload,
       };
     case RESET_DISABLED_STATE:
       return disabledInitialState;

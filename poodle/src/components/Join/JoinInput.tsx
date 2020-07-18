@@ -43,7 +43,6 @@ function JoinInput({
   const isPasswordType = label === 'password' || label === 'passwordCheck';
   const onChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(isFocused[label]);
       if (!isFocused[label]) return;
       inputDispatch(setValue(e.target.value));
     },
