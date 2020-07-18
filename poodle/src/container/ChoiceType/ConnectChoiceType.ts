@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { setQualification } from '@/core/redux/actions/Qualification';
-import { AdditionalType } from '@/core/redux/actions/ChoiceType';
+import { AdditionalType, getType } from '@/core/redux/actions/ChoiceType';
 import ChoiceType from './ChoiceType';
 import { RootState } from '../../core/redux/reducer';
-import { State } from '../../core/redux/reducer/ChoiceType';
+import ErrorType from '@/lib/utils/type/ErrorType';
 import {
   setApplyType,
   setDistrict,
@@ -11,6 +11,8 @@ import {
   setGraduationYear,
   setAdditionalType,
   setAll,
+  typeFailure,
+  typeSuccess,
 } from '../../core/redux/actions/ChoiceType';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 
@@ -33,7 +35,10 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setGraduationYear: (year: string) => dispatch(setGraduationYear({ year })),
   setAdditionalType: (additionalType: AdditionalType) =>
     dispatch(setAdditionalType({ additionalType })),
-  setAll: (all: State) => dispatch(setAll({ all })),
+  setAll: (all: RootState['ChoiceTypeState']) => dispatch(setAll({ all })),
+  setTypeFailure: (error: ErrorType) => dispatch(typeFailure({ error })),
+  setTypeSuccess: () => dispatch(typeSuccess()),
+  getType: () => dispatch(getType()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChoiceType);

@@ -1,13 +1,9 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import {
-  getDataToServer,
-  typeResponseToState,
   setDataToServer,
   typeStateToRequest,
-  errorTypeCheck,
 } from '@/lib/api/ApplicationApplyApi';
-import { userTypeServerType } from '@/lib/api/ApiType';
 import { USERTYPE_URL } from '@/lib/api/ServerUrl';
 import {
   Title,
@@ -25,6 +21,7 @@ import { mapStateToProps, mapDispatchToProps } from './ConnectChoiceType';
 import { isEmptyCheck } from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
+import ErrorType from '@/lib/utils/type/ErrorType';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -47,8 +44,10 @@ const ChoiceType: FC<Props> = props => {
     setGraduationStatus,
     setGraduationYear,
     setAdditionalType,
-    setAll,
+    setTypeFailure,
+    setTypeSuccess,
     history,
+    getType,
   } = props;
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
@@ -81,25 +80,20 @@ const ChoiceType: FC<Props> = props => {
       const request = typeStateToRequest(props);
       try {
         await setDataToServer(USERTYPE_URL, request);
+        setTypeSuccess();
         history.push('/Info');
-      } catch (error) {
-        errorTypeCheck(error);
+      } catch (errorResponse) {
+        const error: ErrorType = {
+          message: '',
+          response: {
+            status: errorResponse.response.status,
+          },
+        };
+        setTypeFailure(error);
       }
     },
     [props, isStateAble, history, modalController],
   );
-  const getTypeAndSetState = useCallback(async () => {
-    // const response = await getDataToServer<userTypeServerType>(USERTYPE_URL);
-    const testResponse: userTypeServerType = {
-      grade_type: '',
-      is_daejeon: false,
-      apply_type: '',
-      additional_type: 'NOT_APPLICABLE',
-      graduate_year: '2021',
-    };
-    const state = typeResponseToState(testResponse);
-    setAll(state);
-  }, []);
   const graduationStatusChangeHandler = useCallback((status: string) => {
     if (status === 'ungraduated') {
       setGraduationYear('2021');
@@ -109,7 +103,7 @@ const ChoiceType: FC<Props> = props => {
     setGraduationStatus(status as GraduationStatusType);
   }, []);
   useEffect(() => {
-    getTypeAndSetState();
+    getType();
   }, []);
   return (
     <TypeDiv>
