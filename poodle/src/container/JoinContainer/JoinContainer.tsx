@@ -7,12 +7,12 @@ import {
   verifyCode,
   joinValueReset,
   join,
-} from '@/core/redux/actions/join';
+} from '@/core/redux/actions/Join';
 
 function JoinContainer() {
   const dispatch = useDispatch();
   const { sendEmailValue, verifyCodeValue, joinValue } = useSelector(
-    ({ join, loading }: RootState) => ({
+    ({ Join: join, Loading: loading }: RootState) => ({
       sendEmailValue: {
         success: join.sendEmailSuccess,
         error: join.sendEmailError,
