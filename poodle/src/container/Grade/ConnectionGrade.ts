@@ -10,9 +10,13 @@ import {
   setGrade,
   setScore,
   GradeType,
+  gradeFailure,
+  gradeSuccess,
+  getGrade,
 } from '../../core/redux/actions/Grade';
 import { State } from '../../core/redux/reducer/Grade';
 import Grade from './Grade';
+import ErrorType from '@/lib/utils/type/ErrorType';
 
 export const mapStateToProps = (state: RootState) => ({
   serviceTime: state.GradeState.serviceTime,
@@ -38,6 +42,9 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setGrade: (grade: GradeType[]) => dispatch(setGrade({ grade })),
   setScore: (score: string) => dispatch(setScore({ score })),
   setAll: (all: State) => dispatch(setAll({ all })),
+  setGradeFailure: (error: ErrorType) => dispatch(gradeFailure({ error })),
+  setGradeSuccess: () => dispatch(gradeSuccess()),
+  getGrade: () => dispatch(getGrade()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Grade);

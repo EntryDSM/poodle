@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Info from './Info';
 import { RootState } from '../../core/redux/reducer';
+import ErrorType from '@/lib/utils/type/ErrorType';
 import {
   setAddress,
   setBirthday,
@@ -18,8 +19,10 @@ import {
   setAll,
   setClassNumber,
   setGradeNumber,
+  infoFailure,
+  infoSuccess,
+  getInfo,
 } from '../../core/redux/actions/Info';
-import { setQualification } from '@/core/redux/actions/Qualification';
 
 export const mapStateToProps = (state: RootState) => ({
   isQualification: state.QualificationState.isQualification,
@@ -64,6 +67,9 @@ export const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(setGradeNumber({ gradeNumber })),
   setClassNumber: (classNumber: string) =>
     dispatch(setClassNumber({ classNumber })),
+  infoFailure: (error: ErrorType) => dispatch(infoFailure({ error })),
+  infoSuccess: () => dispatch(infoSuccess()),
+  getInfo: () => dispatch(getInfo()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Info);

@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 import Introduction from './Introduction';
 import { RootState } from '../../core/redux/reducer';
 import {
+  getSelfIntroduction,
+  getStudyPlan,
   setSelfIntoduction,
   setStudyPlan,
 } from '../../core/redux/actions/Introduction';
@@ -15,6 +17,8 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setSelfIntroduction: (selfIntroduction: string) =>
     dispatch(setSelfIntoduction({ selfIntroduction })),
   setStudyPlan: (studyPlan: string) => dispatch(setStudyPlan({ studyPlan })),
+  getStudyPlan: () => dispatch(getStudyPlan()),
+  getSelfIntroduction: () => dispatch(getSelfIntroduction()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Introduction);

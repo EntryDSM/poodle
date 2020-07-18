@@ -8,10 +8,6 @@ import {
   selfIntroductionStateToRequest,
   studyPlanStateToRequest,
   setDataToServer,
-  getDataToServer,
-  errorTypeCheck,
-  selfIntroductionResponseToState,
-  studyPlanResponseToState,
 } from '@/lib/api/ApplicationApplyApi';
 import { SELF_INTRODUCTION_URL, STUDY_PLAN_URL } from '@/lib/api/ServerUrl';
 import {
@@ -36,6 +32,8 @@ type MapStateToProps = ReturnType<typeof mapStateToProps>;
 const Introduction: FC<Props> = ({
   setSelfIntroduction,
   setStudyPlan,
+  getStudyPlan,
+  getSelfIntroduction,
   selfIntroduction,
   studyPlan,
   history,
@@ -63,9 +61,7 @@ const Introduction: FC<Props> = ({
         await setIntroductionToServer(props);
         await setStudyPlanToServer(props);
         props.history.push('/preview');
-      } catch (error) {
-        errorTypeCheck(error);
-      }
+      } catch (error) {}
     }
   }, []);
 
@@ -90,25 +86,9 @@ const Introduction: FC<Props> = ({
   const goCurrentPage = useCallback(() => {
     history.push('/grade');
   }, []);
-  const getIntroductionAndSetState = useCallback(async () => {
-    // const introductionResponse = await getDataToServer<selfIntroductionServerType>(SELF_INTRODUCTION_URL);
-    const response: selfIntroductionServerType = {
-      self_introduction: 'asjldkfjalsdjfkajs',
-    };
-    const state = selfIntroductionResponseToState(response);
-    setSelfIntroduction(state.selfIntroduction);
-  }, []);
-  const getStudyplanAndSetState = useCallback(async () => {
-    // const studyPlanResponse = await getDataToServer<studyPlanServerType>(STUDY_PLAN_URL);
-    const response: studyPlanServerType = {
-      study_plan: 'asdfasdfasdf',
-    };
-    const state = studyPlanResponseToState(response);
-    setStudyPlan(state.studyPlan);
-  }, []);
   useEffect(() => {
-    getIntroductionAndSetState();
-    getStudyplanAndSetState();
+    getStudyPlan();
+    getSelfIntroduction();
   }, []);
   return (
     <IntroductionDiv>

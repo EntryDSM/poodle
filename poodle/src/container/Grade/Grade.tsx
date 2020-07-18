@@ -1,5 +1,4 @@
 import React, { FC, useState, useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { GradeDiv, GradeMain } from '../../styles/Grade';
 import {
@@ -15,15 +14,13 @@ import {
 import { mapDispatchToProps, mapStateToProps } from './ConnectionGrade';
 import { isEmptyCheck } from '../../lib/utils/function';
 import {
-  gradeResponseToState,
   gradeStateToRequest,
   gradeStateToGedRequest,
-  getDataToServer,
   setDataToServer,
-  errorTypeCheck,
 } from '../../lib/api/ApplicationApplyApi';
 import { gradeServerType, gedGradeServerType } from '@/lib/api/ApiType';
 import { GRADE_URL } from '@/lib/api/ServerUrl';
+import ErrorType from '@/lib/utils/type/ErrorType';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -32,9 +29,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 type MapStateToProps = ReturnType<typeof mapStateToProps>;
 
 const Grade: FC<Props> = props => {
-  const dispatch = useDispatch();
   const [isError, errorChange] = useState<boolean>(false);
-  const [errorModal, errorModalChange] = useState<boolean>(false);
   const isStateAble = useCallback(
     ({
       serviceTime,
@@ -57,24 +52,23 @@ const Grade: FC<Props> = props => {
     },
     [],
   );
-  const errorModalStateChangeLater = useCallback(state => {
-    setTimeout(() => {
-      errorModalChange(state);
-    }, 5000);
-  }, []);
   const goNextPage = useCallback(
     async (state: MapStateToProps) => {
       const isAble = isStateAble(state);
       if (!isAble) {
         errorChange(!isAble);
-        errorModalChange(!isAble);
-        errorModalStateChangeLater(isAble);
       } else {
         try {
           await setGrade(props);
           moveNextPage();
-        } catch (error) {
-          errorTypeCheck(error);
+        } catch (errorResponse) {
+          const error: ErrorType = {
+            message: '',
+            response: {
+              status: errorResponse.response.status,
+            },
+          };
+          props.setGradeFailure(error);
         }
       }
     },
@@ -85,7 +79,6 @@ const Grade: FC<Props> = props => {
       const request = gradeStateToGedRequest(props);
       return await setDataToServer<gedGradeServerType>(GRADE_URL, request);
     }
-    console.log(props);
     const request = gradeStateToRequest(props);
     return await setDataToServer<gradeServerType>(GRADE_URL, request);
   }, []);
@@ -95,27 +88,8 @@ const Grade: FC<Props> = props => {
   const moveNextPage = useCallback(() => {
     props.history.push('/introduction');
   }, []);
-  const testServer = () => {
-    const response: gradeServerType = {
-      volanteer_time: 1,
-      full_cut_count: 1,
-      period_cut_count: 1,
-      early_leave_count: 1,
-      late_count: 1,
-      korean: 'AAAAA',
-      social: 'AAAAA',
-      history: 'AAAAA',
-      math: 'AAAAA',
-      science: 'AAAAA',
-      tech_and_home: 'AAAAA',
-      english: 'AAAAA',
-      ged_average_score: 30,
-    };
-    return response;
-  };
   useEffect(() => {
-    const stateBuf = gradeResponseToState(testServer());
-    dispatch(props.setAll(stateBuf));
+    props.getGrade();
   }, []);
   return (
     <GradeDiv>

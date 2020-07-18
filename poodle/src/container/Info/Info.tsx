@@ -2,12 +2,9 @@ import React, { FC, useCallback, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import {
-  getDataToServer,
-  infoResponseToState,
   setDataToServer,
   infoStateToRequest,
   infoStateToGedRequest,
-  errorTypeCheck,
 } from '@/lib/api/ApplicationApplyApi';
 import ModalContainer from '@/container/common/ModalContainer/ModalContainer';
 import { userInfoServerType, gedInfoServerType } from '@/lib/api/ApiType';
@@ -21,6 +18,7 @@ import {
 import { mapStateToProps, mapDispatchToProps } from './ConnectInfo';
 import { QualificationPage, DefaultPage } from '../../components/Info/Page';
 import { isEmptyCheck } from '../../lib/utils/function';
+import ErrorType from '@/lib/utils/type/ErrorType';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -108,8 +106,14 @@ const Info: FC<Props> = props => {
         try {
           await setInfo(state);
           props.history.push('/grade');
-        } catch (error) {
-          errorTypeCheck(error);
+        } catch (errorResponse) {
+          const error: ErrorType = {
+            message: '',
+            response: {
+              status: errorResponse.response.status,
+            },
+          };
+          props.infoFailure(error);
         }
       }
     },
@@ -127,28 +131,8 @@ const Info: FC<Props> = props => {
   const modalOffDispatch = useCallback(() => {
     dispatch(modalOff(REDERRORMODAL));
   }, [dispatch]);
-  const getInfoAndSetState = useCallback(async () => {
-    // const response = await getDataToServer<userInfoServerType>(USERINFO_URL);
-    const response: userInfoServerType = {
-      name: '오준상',
-      sex: 'male',
-      birth_date: '2020-06-27',
-      student_number: '30122',
-      school_name: '어디 중학교',
-      parent_name: '배덕희',
-      school_tel: '01073030413',
-      applicant_tel: '01073030413',
-      parent_tel: '01022341231',
-      address: '어딘가',
-      photo: '',
-      post_code: '34111',
-      detail_address: '어디어딘가',
-    };
-    const state = infoResponseToState(response);
-    props.setAll(state);
-  }, []);
   useEffect(() => {
-    getInfoAndSetState();
+    props.getInfo();
   }, []);
   return (
     <InfoDiv>
