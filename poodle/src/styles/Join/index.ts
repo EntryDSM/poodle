@@ -6,7 +6,7 @@ import {
   rightArrow,
   validRightArrow,
   inputCheck,
-} from '../../assets/Join';
+} from '@/assets/Join';
 
 export const JoinWrapper = styled(Wrapper)`
   box-sizing: border-box;

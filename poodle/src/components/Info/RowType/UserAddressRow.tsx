@@ -74,4 +74,4 @@ const UserAddressRow: FC<Props> = ({
   );
 };
 
-export default UserAddressRow;
+export default UserAddress

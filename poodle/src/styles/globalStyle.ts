@@ -84,7 +84,7 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
     position: unset !important;
   }
   #toastDiv {
-    position: absolute;
+    position: fixed;
     right: 20px;
     top: 80px;
   }

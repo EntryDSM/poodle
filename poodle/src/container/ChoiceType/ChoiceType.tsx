@@ -12,17 +12,17 @@ import { USERTYPE_URL } from '@/lib/api/ServerUrl';
 import {
   Title,
   DefaultlNavigation,
-} from '../../components/default/ApplicationFormDefault';
-import { TypeDiv, TypeMain } from '../../styles/ChoiceType';
+} from '@/components/default/ApplicationFormDefault';
+import { TypeDiv, TypeMain } from '@/styles/ChoiceType';
 import {
   ChoiceTypeRow,
   ChoiceDistrict,
   GraduationStatus,
   GraduationYear,
   Specialty,
-} from '../../components/ChoiceType/RowType';
+} from '@/components/ChoiceType/RowType';
 import { mapStateToProps, mapDispatchToProps } from './ConnectChoiceType';
-import { isEmptyCheck } from '../../lib/utils/function';
+import { isEmptyCheck } from '@/lib/utils/function';
 import ToastController from '../common/ToastContainer';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 

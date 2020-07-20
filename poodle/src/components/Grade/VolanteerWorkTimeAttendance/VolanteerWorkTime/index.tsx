@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
-import { VolanteerWorkTimeRow } from '../../../../styles/Grade';
-import { Input } from '../../../default/ApplicationFormDefault/Input';
-import { isEmptyCheck } from '../../../../lib/utils/function';
+import { VolanteerWorkTimeRow } from '@/styles/Grade';
+import { Input } from '@/components/default/ApplicationFormDefault/Input';
+import { isEmptyCheck } from '@/lib/utils/function';
 
 interface Props {
   serviceTime: string;

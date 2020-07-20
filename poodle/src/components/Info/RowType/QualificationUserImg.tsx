@@ -37,6 +37,7 @@ const QualificationUserImg: FC<Props> = ({ valueChangeHandler, img }) => {
   const getFileName = useCallback((file: File) => {
     return file.name;
   }, []);
+
   return (
     <QuilificationUserPicture>
       <label>
@@ -47,6 +48,7 @@ const QualificationUserImg: FC<Props> = ({ valueChangeHandler, img }) => {
         />
         {img ? (
           <img src={img} alt='사진' />
+
         ) : (
           <div>
             <p>증명사진을 첨부해주세요</p>

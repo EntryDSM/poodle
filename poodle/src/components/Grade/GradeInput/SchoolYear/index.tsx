@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { GradeSemesterRow, GradeSchoolYearRow } from '../../../../styles/Grade';
+import { GradeSemesterRow, GradeSchoolYearRow } from '@/styles/Grade';
 import { SchoolYearColumn, SemesterColumn } from './column';
 
 const SchoolYearRow: FC = () => (

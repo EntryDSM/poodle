@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { SubjectType } from '@/core/redux/actions/Grade';
 import { GradeColumn, SubjectColumn } from './column';
-import { GradeScoreRow } from '../../../../styles/Grade';
+import { GradeScoreRow } from '@/styles/Grade';
 
 interface Props {
   subject: SubjectType;

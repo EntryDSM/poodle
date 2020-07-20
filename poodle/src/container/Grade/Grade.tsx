@@ -1,19 +1,19 @@
 import React, { FC, useState, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router';
-import { GradeDiv, GradeMain } from '../../styles/Grade';
+import { GradeDiv, GradeMain } from '@/styles/Grade';
 import {
   Title,
   DefaultlNavigation,
-} from '../../components/default/ApplicationFormDefault';
+} from '@/components/default/ApplicationFormDefault';
 import {
   VolanteerWorkTimeAttend,
   NonTransferSemester,
   GradeInput,
   QualificationScore,
-} from '../../components/Grade';
+} from '@/components/Grade';
 import { mapDispatchToProps, mapStateToProps } from './ConnectionGrade';
-import { isEmptyCheck } from '../../lib/utils/function';
+import { isEmptyCheck } from '@/lib/utils/function';
 import {
   gradeResponseToState,
   gradeStateToRequest,
@@ -21,7 +21,7 @@ import {
   getDataToServer,
   setDataToServer,
   errorTypeCheck,
-} from '../../lib/api/ApplicationApplyApi';
+} from '@/lib/api/ApplicationApplyApi';
 import { gradeServerType, gedGradeServerType } from '@/lib/api/ApiType';
 import { GRADE_URL } from '@/lib/api/ServerUrl';
 

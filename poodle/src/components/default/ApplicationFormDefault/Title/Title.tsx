@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TitleDiv } from '../../../../styles/ApplicationFormDefault';
+import { TitleDiv } from '@/styles/ApplicationFormDefault';
 
 interface Props {
   children: string;

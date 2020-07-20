@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { DefaultInput } from '../../../../styles/ApplicationFormDefault';
+import { DefaultInput } from '@/styles/ApplicationFormDefault';
 
 interface Props {
   width: string;

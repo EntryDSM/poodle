@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { RootState } from '../../core/redux/reducer';
+import { RootState } from '@/core/redux/reducer';
 import {
   setAbsentDay,
   setCutClassDay,
@@ -10,8 +10,8 @@ import {
   setGrade,
   setScore,
   GradeType,
-} from '../../core/redux/actions/Grade';
-import { State } from '../../core/redux/reducer/Grade';
+} from '@/core/redux/actions/Grade';
+import { State } from '@/core/redux/reducer/Grade';
 import Grade from './Grade';
 
 export const mapStateToProps = (state: RootState) => ({
