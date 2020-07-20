@@ -1,14 +1,14 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router';
-import { PreviewFile } from '../../components/Preview';
-import { PreviewDiv, PreviewMain } from '../../styles/Preview';
+import { PreviewFile } from '@/components/Preview';
+import { PreviewDiv, PreviewMain } from '@/styles/Preview';
 import {
   Title,
   DefaultlNavigation,
-} from '../../components/default/ApplicationFormDefault';
+} from '@/components/default/ApplicationFormDefault';
 import ModalContainer from '../common/ModalContainer/ModalContainer';
-import { modalOn, BLUECHECKMODAL } from '../../core/redux/actions/modal';
+import { modalOn, BLUECHECKMODAL } from '@/core/redux/actions/modal';
 
 type Props = RouteComponentProps;
 

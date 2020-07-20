@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { RadioDiv } from '../../../../styles/ApplicationFormDefault';
+import { RadioDiv } from '@/styles/ApplicationFormDefault';
 import useRadioGroupContext from './RadioGroup';
 
 interface Props {

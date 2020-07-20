@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from 'react';
-import { CheckboxDiv } from '../../../../styles/ApplicationFormDefault';
+import { CheckboxDiv } from '@/styles/ApplicationFormDefault';
 
 interface Props {
   children?: string;

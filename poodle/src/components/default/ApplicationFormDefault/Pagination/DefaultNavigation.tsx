@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { DefaultNavigatorDiv } from '../../../../styles/ApplicationFormDefault';
+import { DefaultNavigatorDiv } from '@/styles/ApplicationFormDefault';
 import { DefaultArrowButton } from '../Button';
 import DefaultPagination from './DefaultPagination';
 

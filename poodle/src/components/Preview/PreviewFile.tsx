@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { PreviewPdfDiv } from '../../styles/Preview';
+import { PreviewPdfDiv } from '@/styles/Preview';
 
 interface Props {
   src: string;

@@ -3,8 +3,8 @@ import { DefaultRowWithPicture } from '..';
 import {
   Radio,
   RadioGroupProvider,
-} from '../../default/ApplicationFormDefault';
-import { InfoElementContent } from '../../../styles/Info';
+} from '@/components/default/ApplicationFormDefault';
+import { InfoElementContent } from '@/styles/Info';
 
 interface Props {
   valueChangeHandler: (value: string) => void;

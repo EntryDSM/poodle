@@ -1,13 +1,13 @@
 import React, { FC, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GradeButtonList } from '@/styles/Grade';
-import { ReducerType } from '../../../../../core/redux/store';
+import { ReducerType } from '.@/core/redux/store';
 import {
   setGrade,
   GradeType,
   SubjectType,
   ScoreType,
-} from '../../../../../core/redux/actions/Grade';
+} from '@/core/redux/actions/Grade';
 
 interface Props {
   subject: SubjectType;

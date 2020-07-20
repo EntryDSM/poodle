@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { TypeElementContent } from '../../../styles/ChoiceType';
+import { TypeElementContent } from '@/styles/ChoiceType';
+
 import {
   Radio,
   RadioGroupProvider,
@@ -14,6 +15,7 @@ interface Props {
 const GraduationStatus: FC<Props> = ({
   valueChangeHandler,
   graduationStatus,
+
 }) => (
   <DefaultRow title='졸업 구분'>
     <TypeElementContent>
