@@ -1,22 +1,42 @@
-import React, { FC } from 'react';
-import { InfoPicture } from '@/styles/Info';
+import React, { FC, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { InfoPicture } from '../../../styles/Info';
+import { modalOn, REDERRORMODAL } from '@/core/redux/actions/modal';
 
 interface Props {
-  valueChangeHandler: (value: File) => void;
-  img: File | null;
+  valueChangeHandler: (value: string) => void;
+  img: string;
 }
 
+const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000';
+
 const UserImg: FC<Props> = ({ valueChangeHandler, img }) => {
-  const inputChangeHandler = (event: React.ChangeEvent) => {
+  const dispatch = useDispatch();
+  const inputChangeHandler = useCallback((event: React.ChangeEvent) => {
     const target = event.target as HTMLInputElement;
     const files = target.files;
-    if (files) {
-      valueChangeHandler(files[0]);
+    if (!files) return;
+    const file = files[0];
+    if (!isFileTypeAble(file)) {
+      dispatch(modalOn(REDERRORMODAL));
+      return;
     }
-  };
-  const fileToURL = (file: File) => {
-    return URL.createObjectURL(file);
-  };
+    const url = URL.createObjectURL(file);
+    valueChangeHandler(url);
+  }, []);
+  const isFileTypeAble = useCallback((file: File) => {
+    const acceptFileTypes: string[] = ACCEPT_FILE_TYPE.split(',');
+    const fileName = getFileName(file);
+    for (let acceptFileType in acceptFileTypes) {
+      if (fileName.includes(acceptFileType)) {
+        return true;
+      }
+    }
+    return false;
+  }, []);
+  const getFileName = useCallback((file: File) => {
+    return file.name;
+  }, []);
   return (
     <InfoPicture>
       <label>
@@ -26,7 +46,7 @@ const UserImg: FC<Props> = ({ valueChangeHandler, img }) => {
           accept='.gif, .jpg, .png, .jpeg, .jpeg2000'
         />
         {img ? (
-          <img src={fileToURL(img)} alt='사진' />
+          <img src={img} alt='사진' />
         ) : (
           <div>
             <p>증명사진을 첨부해주세요</p>

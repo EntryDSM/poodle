@@ -1,16 +1,17 @@
 import React, { FC, useCallback, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { modalOn, ADDRESS_SEARCH_MODAL } from '@/core/redux/actions/modal';
 import { DefaultRow } from '..';
+import { Input, DefaultButton } from '../../default/ApplicationFormDefault';
 import {
-  Input,
-  DefaultButton,
-} from '@/components/default/ApplicationFormDefault';
-import { InfoElementContent, InfoAddressRowContent } from '@/styles/Info';
+  InfoElementContent,
+  InfoAddressRowContent,
+} from '../../../styles/Info';
 
 interface Props {
   valueChangeHandler: (value: string) => void;
   address: string;
   isError: boolean;
-  addressSearchModalAbleChange: (value: boolean) => void;
   detailAddress: string;
   postNum: string;
 }
@@ -19,16 +20,13 @@ const UserAddressRow: FC<Props> = ({
   valueChangeHandler,
   address,
   isError,
-  addressSearchModalAbleChange,
   detailAddress,
   postNum,
 }) => {
   const [isEmpty, emptyChange] = useState<boolean>(false);
+  const dispatch = useDispatch();
   const isEmptyCheck = useCallback((text: string) => {
-    if (text.length > 0) {
-      return false;
-    }
-    return true;
+    return text.length > 0;
   }, []);
   useEffect(() => {
     if (isError && isEmptyCheck(address)) {
@@ -37,6 +35,9 @@ const UserAddressRow: FC<Props> = ({
       emptyChange(false);
     }
   }, [isError, address]);
+  const addressSearchModalOn = useCallback(() => {
+    dispatch(modalOn(ADDRESS_SEARCH_MODAL));
+  }, [dispatch]);
   return (
     <DefaultRow title='주소'>
       <InfoElementContent>
@@ -47,7 +48,7 @@ const UserAddressRow: FC<Props> = ({
               valueChangeHandler={() => {}}
               isEmpty={isEmpty}
               value={postNum}
-              disable={true}
+              disable
             />
 
             <Input
@@ -55,11 +56,9 @@ const UserAddressRow: FC<Props> = ({
               valueChangeHandler={() => {}}
               isEmpty={isEmpty}
               value={address}
-              disable={true}
+              disable
             />
-            <DefaultButton onClick={() => addressSearchModalAbleChange(true)}>
-              검색
-            </DefaultButton>
+            <DefaultButton onClick={addressSearchModalOn}>검색</DefaultButton>
           </div>
           <div>
             <Input
@@ -75,4 +74,4 @@ const UserAddressRow: FC<Props> = ({
   );
 };
 
-export default UserAddressRow;
+export default UserAddress

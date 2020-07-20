@@ -1,25 +1,23 @@
-import React, { FC, useState, useEffect } from 'react';
-import { DefaultRowWithPicture } from '../';
-import {
-  Input,
-  DefaultButton,
-} from '@/components/default/ApplicationFormDefault';
-import { InfoElementContent } from '@/styles/Info';
-import { isEmptyCheck } from '@/lib/utils/function';
+import React, { FC, useState, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { SCHOOL_SEARCH_MODAL, modalOn } from '@/core/redux/actions/modal';
+import { DefaultRowWithPicture } from '..';
+import { Input, DefaultButton } from '../../default/ApplicationFormDefault';
+import { InfoElementContent } from '../../../styles/Info';
+import { isEmptyCheck } from '../../../lib/utils/function';
 
 interface Props {
   valueChangeHandler: (value: string) => void;
   middleSchool: string;
   isError: boolean;
-  schoolSearchModalAbleChange: (value: boolean) => void;
 }
 
 const UserMiddleSchool: FC<Props> = ({
   valueChangeHandler,
   middleSchool,
   isError,
-  schoolSearchModalAbleChange,
 }) => {
+  const dispatch = useDispatch();
   const [isEmpty, emptyChange] = useState<boolean>(false);
   useEffect(() => {
     if (isError && isEmptyCheck(middleSchool)) {
@@ -28,6 +26,9 @@ const UserMiddleSchool: FC<Props> = ({
       emptyChange(false);
     }
   }, [isError, middleSchool]);
+  const schoolSearchModalOn = useCallback(() => {
+    dispatch(modalOn(SCHOOL_SEARCH_MODAL));
+  }, []);
   return (
     <DefaultRowWithPicture title='중학교명'>
       <InfoElementContent>
@@ -37,15 +38,9 @@ const UserMiddleSchool: FC<Props> = ({
             width='250px'
             isEmpty={isEmpty}
             value={middleSchool}
-            disable={true}
+            disable
           />
-          <DefaultButton
-            onClick={() => {
-              schoolSearchModalAbleChange(true);
-            }}
-          >
-            검색
-          </DefaultButton>
+          <DefaultButton onClick={schoolSearchModalOn}>검색</DefaultButton>
         </div>
       </InfoElementContent>
     </DefaultRowWithPicture>
