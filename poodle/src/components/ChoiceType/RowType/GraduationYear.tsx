@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { TypeElementContent } from '../../../styles/ChoiceType';
+import { TypeElementContent } from '@/styles/ChoiceType';
 import { Dropdown } from '../../default/ApplicationFormDefault';
 import { DefaultRow } from '..';
 import graduationYearConstance from './constance/GraduationYearConstance';

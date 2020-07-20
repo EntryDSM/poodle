@@ -3,7 +3,7 @@ import {
   DropdownDiv,
   DropdownElement,
   DropdownCurrentElement,
-} from '../../../../styles/ApplicationFormDefault';
+} from '@/styles/ApplicationFormDefault';
 
 interface options<T> {
   VALUE: T;

@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import { setQualification } from '@/core/redux/actions/Qualification';
 import { AdditionalType } from '@/core/redux/actions/ChoiceType';
 import ChoiceType from './ChoiceType';
-import { RootState } from '../../core/redux/reducer';
-import { State } from '../../core/redux/reducer/ChoiceType';
+import { RootState } from '@/core/redux/reducer';
+import { State } from '@/core/redux/reducer/ChoiceType';
 import {
   setApplyType,
   setDistrict,
@@ -11,7 +11,7 @@ import {
   setGraduationYear,
   setAdditionalType,
   setAll,
-} from '../../core/redux/actions/ChoiceType';
+} from '@/core/redux/actions/ChoiceType';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 
 export const mapStateToProps = (state: RootState) => ({

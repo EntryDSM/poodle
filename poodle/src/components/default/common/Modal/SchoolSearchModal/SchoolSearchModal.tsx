@@ -6,10 +6,10 @@ import {
   SearchModalInput,
   SearchModalInputDiv,
   SearchModalResult,
-} from '../../../../../styles/common/Modal';
+} from '@/styles/common/Modal';
 import SchoolSearchContent from './SchoolSearchContent';
-import { Dropdown } from '../../../ApplicationFormDefault';
-import { setMiddleSchool } from '../../../../../core/redux/actions/Info';
+import { Dropdown } from '@/components/default/ApplicationFormDefault';
+import { setMiddleSchool } from '@/core/redux/actions/Info';
 
 interface OptionType {
   VALUE: string;

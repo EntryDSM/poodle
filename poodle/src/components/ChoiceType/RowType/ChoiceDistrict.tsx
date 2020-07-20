@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import { TypeElementContent } from '../../../styles/ChoiceType';
+import { TypeElementContent } from '@/styles/ChoiceType';
 import {
   Radio,
   RadioGroupProvider,
 } from '../../default/ApplicationFormDefault';
+
 import { DefaultRow } from '..';
 
 interface Props {

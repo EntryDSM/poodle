@@ -11,7 +11,7 @@ import {
   gedInfoServerType,
   gedGradeServerType,
 } from './ApiType';
-import { GRADESEMESTERLIST } from '../../components/Grade/constance';
+import { GRADESEMESTERLIST } from '@/components/Grade/constance';
 
 type ErrorType = { response: { status: number } };
 

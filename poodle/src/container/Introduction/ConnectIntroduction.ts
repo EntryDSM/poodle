@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import Introduction from './Introduction';
-import { RootState } from '../../core/redux/reducer';
+import { RootState } from '@/core/redux/reducer';
 import {
   setSelfIntoduction,
   setStudyPlan,
-} from '../../core/redux/actions/Introduction';
+} from '@/core/redux/actions/Introduction';
 
 export const mapStateToProps = (state: RootState) => ({
   selfIntroduction: state.IntroductionState.selfIntroduction,

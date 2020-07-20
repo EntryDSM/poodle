@@ -5,8 +5,8 @@ import {
   GradeType,
   SubjectType,
   ScoreType,
-} from '../../../../core/redux/actions/Grade';
-import { GradeSubTitle, GradeHeaderDiv } from '../../../../styles/Grade';
+} from '@/core/redux/actions/Grade';
+import { GradeSubTitle, GradeHeaderDiv } from '@/styles/Grade';
 import { GradeSetAllScore } from '../GradeHeader';
 import { GRADESEMESTERLIST } from '../../constance';
 

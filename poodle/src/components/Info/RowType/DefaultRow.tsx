@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { InfoElement, InfoElementName } from '../../../styles/Info';
+import { InfoElement, InfoElementName } from '@/styles/Info';
 
 interface Props {
   title?: string;
