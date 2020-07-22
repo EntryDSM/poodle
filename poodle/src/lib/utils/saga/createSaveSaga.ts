@@ -1,5 +1,5 @@
 import { put, call, select } from 'redux-saga/effects';
-import { setFunc } from '@/lib/api/ApplicationApplyApi';
+import { setDataToServer } from '@/lib/api/ApplicationApplyApi';
 
 const createSaveSaga = (
   stateToRequest: (state: any) => any,
@@ -14,8 +14,7 @@ const createSaveSaga = (
     const state = yield select(getStateFunc);
     const request = stateToRequest(state);
     try {
-      console.log(request);
-      const response = yield call(setFunc, url, request);
+      const response = yield call(setDataToServer, url, request);
       yield put({
         type: SUCCESS,
         payload: response,

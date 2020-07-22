@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TypeElement, TypeElementName } from '../../../styles/ChoiceType';
+import { TypeElement, TypeElementName } from '@/styles/ChoiceType';
 
 interface Props {
   children: React.ReactNode;

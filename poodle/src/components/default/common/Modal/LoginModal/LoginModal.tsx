@@ -2,7 +2,7 @@ import React, { useState, useCallback, FC, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import * as S from '@/styles/common/Modal';
 import { RESETMODAL } from '@/core/redux/actions/modal';
-import { useRedirect } from '../../../../../lib/utils/function';
+import { useRedirect } from '@/lib/utils/function';
 import {
   ModalContent,
   ModalInput,

@@ -1,8 +1,5 @@
 import React, { FC } from 'react';
-import {
-  PaginationDiv,
-  PaginationPage,
-} from '../../../../styles/ApplicationFormDefault';
+import { PaginationDiv, PaginationPage } from '@/styles/ApplicationFormDefault';
 import { PAGE_LIST } from './constance/NavigationConstance';
 
 interface Props {

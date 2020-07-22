@@ -6,7 +6,7 @@ import {
   SearchModalResult,
 } from '@/styles/common/Modal';
 import SearchModalBox from '../SearchModalBox';
-import { setAddress, setPostNum } from '../../../../../core/redux/actions/Info';
+import { setAddress, setPostNum } from '@/core/redux/actions/Info';
 import AddressSearchContent from './AddressSearchContent';
 import getSearchedAddressApi from '@/lib/api/kakao';
 import { kakaoSearchedAddressType } from '@/lib/api/ApiType';
@@ -98,6 +98,7 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
       if (isFirst) {
         return '검색어를 입력해 주세요.';
       } else if (isListEmpty(addressComponents)) {
+
         return '검색된 결과가 없습니다.';
       }
       return addressComponents;

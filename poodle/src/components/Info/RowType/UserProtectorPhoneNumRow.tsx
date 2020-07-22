@@ -1,8 +1,8 @@
 import React, { FC, useState, useEffect } from 'react';
 import { DefaultRow } from '..';
-import { Input } from '../../default/ApplicationFormDefault';
-import { InfoElementContent } from '../../../styles/Info';
-import { isEmptyCheck } from '../../../lib/utils/function';
+import { Input } from '@/components/default/ApplicationFormDefault';
+import { InfoElementContent } from '@/styles/Info';
+import { isEmptyCheck } from '@/lib/utils/function';
 
 interface Props {
   describe: string;

@@ -3,7 +3,7 @@ import {
   DefaultArrowButtonDiv,
   LeftArrow,
   RightArrow,
-} from '../../../../styles/ApplicationFormDefault';
+} from '@/styles/ApplicationFormDefault';
 
 interface Props {
   isLeft: boolean;
