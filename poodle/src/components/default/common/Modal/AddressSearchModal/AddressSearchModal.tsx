@@ -1,13 +1,12 @@
 import React, { FC, useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  ModalWrapper,
   SearchModalInput,
   SearchModalInputDiv,
   SearchModalResult,
 } from '@/styles/common/Modal';
 import SearchModalBox from '../SearchModalBox';
-import { setAddress, setPostNum } from '../../../../../core/redux/actions/Info';
+import { setAddress, setPostNum } from '@/core/redux/actions/Info';
 import AddressSearchContent from './AddressSearchContent';
 import getSearchedAddressApi from '@/lib/api/kakao';
 import { kakaoSearchedAddressType } from '@/lib/api/ApiType';
@@ -96,7 +95,6 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
   const checkAddressCompisEmptyAndSetErr = useCallback(
     (addresses: kakaoSearchedAddressType[]) => {
       const addressComponents = setAddressComponent(addresses);
-      console.log(addressComponents);
       if (isListEmpty(addressComponents)) {
         return '검색된 결과가 없습니다.';
       }

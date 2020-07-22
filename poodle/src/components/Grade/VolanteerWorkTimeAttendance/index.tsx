@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import { GradeTable, GradeSubTitle } from '../../../styles/Grade';
+import { GradeTable, GradeSubTitle } from '@/styles/Grade';
 import VolanteerWorkTime from './VolanteerWorkTime';
 import Attendance from './Attendance';
 import {
   mapStateToProps,
   mapDispatchToProps,
-} from '../../../container/Grade/ConnectionGrade';
+} from '@/container/Grade/ConnectionGrade';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &

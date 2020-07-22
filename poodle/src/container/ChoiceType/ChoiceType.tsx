@@ -12,17 +12,17 @@ import { USERTYPE_URL } from '@/lib/api/ServerUrl';
 import {
   Title,
   DefaultlNavigation,
-} from '../../components/default/ApplicationFormDefault';
-import { TypeDiv, TypeMain } from '../../styles/ChoiceType';
+} from '@/components/default/ApplicationFormDefault';
+import { TypeDiv, TypeMain } from '@/styles/ChoiceType';
 import {
   ChoiceTypeRow,
   ChoiceDistrict,
   GraduationStatus,
   GraduationYear,
   Specialty,
-} from '../../components/ChoiceType/RowType';
+} from '@/components/ChoiceType/RowType';
 import { mapStateToProps, mapDispatchToProps } from './ConnectChoiceType';
-import { isEmptyCheck } from '../../lib/utils/function';
+import { isEmptyCheck } from '@/lib/utils/function';
 import ToastController from '../common/ToastContainer';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 
@@ -60,12 +60,12 @@ const ChoiceType: FC<Props> = props => {
       graduationYear,
     }: MapStateToProps): boolean => {
       if (qualificationExam) {
-        return !(isEmptyCheck(applyType) && isEmptyCheck(district));
+        return isEmptyCheck(applyType) || isEmptyCheck(district);
       }
-      return !(
-        isEmptyCheck(graduationStatus) &&
-        isEmptyCheck(applyType) &&
-        isEmptyCheck(district) &&
+      return (
+        isEmptyCheck(graduationStatus) ||
+        isEmptyCheck(applyType) ||
+        isEmptyCheck(district) ||
         isEmptyCheck(graduationYear)
       );
     },
@@ -78,16 +78,19 @@ const ChoiceType: FC<Props> = props => {
         modalController.createNewToast('ERROR');
         return;
       }
-      const request = typeStateToRequest(props);
-      try {
-        await setDataToServer(USERTYPE_URL, request);
-        history.push('/Info');
-      } catch (error) {
-        errorTypeCheck(error);
-      }
+      setType(props);
     },
     [props, isStateAble, history, modalController],
   );
+  const setType = useCallback(async (props: MapStateToProps) => {
+    const request = typeStateToRequest(props);
+    try {
+      await setDataToServer(USERTYPE_URL, request);
+      history.push('/Info');
+    } catch (error) {
+      errorTypeCheck(error);
+    }
+  }, []);
   const getTypeAndSetState = useCallback(async () => {
     // const response = await getDataToServer<userTypeServerType>(USERTYPE_URL);
     const testResponse: userTypeServerType = {

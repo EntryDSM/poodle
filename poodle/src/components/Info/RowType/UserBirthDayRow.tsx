@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
 import { DefaultRowWithPicture } from '..';
-import { Dropdown } from '../../default/ApplicationFormDefault';
-import { InfoElementContent } from '../../../styles/Info';
+import { Dropdown } from '@/components/default/ApplicationFormDefault';
+import { InfoElementContent } from '@/styles/Info';
 import { getDAY, getMONTH, getYEAR } from './constance/UserBirthDayConstance';
 
 interface options {

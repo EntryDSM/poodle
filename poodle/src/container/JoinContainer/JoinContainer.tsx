@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import Join from '../../components/Join/Join';
+import Join from '@/components/Join/Join';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/core/redux/reducer';
 import {

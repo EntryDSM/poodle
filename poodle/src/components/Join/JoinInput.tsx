@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import * as S from '../../styles/Join';
+import * as S from '@/styles/Join';
 import { InputAction } from './inputReducer';
 
 type JoinInputProps = {
@@ -78,4 +78,4 @@ function JoinInput({
   );
 }
 
-export default JoinInput;
+export default '';
