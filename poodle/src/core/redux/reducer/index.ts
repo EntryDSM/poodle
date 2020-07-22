@@ -1,17 +1,19 @@
 import { combineReducers } from 'redux';
-import header from './header';
-import loading from './loading';
-import modal from './modal';
+import Header from './Header';
+import Loading from './Loading';
+import Modal from './Modal';
 import ChoiceTypeState from './ChoiceType';
 import IntroductionState from './Introduction';
 import InfoState from './Info';
 import GradeState from './Grade';
 import QualificationState from './Qualification';
+import Join from './Join';
 
 const rootReducer = combineReducers({
-  header,
-  loading,
-  modal,
+  Join,
+  Header,
+  Loading,
+  Modal,
   ChoiceTypeState,
   IntroductionState,
   InfoState,

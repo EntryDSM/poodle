@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { Container, Wrapper } from '../common';
 import {
   check,
@@ -7,6 +7,7 @@ import {
   validRightArrow,
   inputCheck,
 } from '@/assets/Join';
+import { BlueSuccess } from '@/assets/Modal';
 
 export const JoinWrapper = styled(Wrapper)`
   box-sizing: border-box;
@@ -14,6 +15,11 @@ export const JoinWrapper = styled(Wrapper)`
 
 export const JoinContainer = styled(Container)`
   padding: 0;
+`;
+
+export const MainContentWrapper = styled.div`
+  border-top: 1px solid #1f8091;
+  border-bottom: 1px solid #1f8091;
 `;
 
 export const AgreeInfoWrapper = styled.div`
@@ -48,6 +54,40 @@ export const JoinAgreeWrapper = styled.div`
   padding: 1.875rem 3.125rem 1.875rem 0;
   display: flex;
   justify-content: flex-end;
+`;
+
+export const JoinSuccessWrapper = styled.main`
+  display: flex;
+  padding: 90px 50px 205px 50px;
+`;
+
+export const SuccessImage = styled.img.attrs({
+  src: BlueSuccess,
+})`
+  width: 159px;
+  height: 159px;
+  object-fit: contain;
+  margin-right: 100px;
+`;
+
+export const SuccessExplainBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const SuccessExplainTitle = styled.h1`
+  font-family: NanumSquareR;
+  font-size: 36px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  letter-spacing: -1.2px;
+`;
+
+export const SuccessExplainText = styled.p`
+  font-family: NanumSquareR;
+  font-size: 30px;
+  letter-spacing: -1.2px;
 `;
 
 type CheckButtonProps = {
@@ -98,19 +138,22 @@ export const InfoContent = styled.div`
   justify-content: space-between;
 `;
 
-export const InfoTitle = styled.p`
+export const InfoTitle = styled.p<{
+  isFocused?: boolean;
+}>`
   font-family: NanumSquare;
   width: 15.6875rem;
   height: 1.125rem;
   text-align: center;
   font-size: 1rem;
   line-height: 1.425;
-  color: #606060;
+  color: #${({ isFocused }) => (isFocused ? '000000' : '606060')};
 `;
 
 type StyledJoinInputProps = {
   maxSize?: boolean;
   middleSize?: boolean;
+  isFocused: boolean;
 };
 
 export const StyledJoinInput = styled.input<StyledJoinInputProps>`
@@ -119,28 +162,64 @@ export const StyledJoinInput = styled.input<StyledJoinInputProps>`
   margin-right: ${props => props.middleSize && '0.75rem'};
   height: 2.5rem;
   border-radius: 0.25rem;
-  border: solid 1px #afafaf;
-  background-color: #fcfcfc;
   outline: none;
   padding: 0.6875rem 1.125rem;
   box-sizing: border-box;
   font-size: 1rem;
-  color: #606060;
-  &:focus {
+  ${({ isFocused }) =>
+    isFocused
+      ? css`
+          color: #000000;
+          border: solid 1px #acd9e0;
+          background-color: #f7feff;
+        `
+      : css`
+          border: solid 1px #afafaf;
+          background-color: #fcfcfc;
+          color: #606060;
+        `}
+  :focus {
     color: #000000;
     border: solid 1px #acd9e0;
     background-color: #f7feff;
   }
 `;
 
-export const StyledButton = styled.button`
+const scale = keyframes`
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+`;
+
+type StyledButtonProps = {
+  isFocused: boolean;
+};
+
+export const StyledButton = styled.button<StyledButtonProps>`
   width: 4.875rem;
   height: 2.5rem;
   padding: 0.75rem 0;
   border-radius: 0.25rem;
-  border: solid 1px #afafaf;
-  background-color: #fcfcfc;
-  color: #606060;
+  animation: ${scale} 1s 1 linear alternate;
+  ${({ isFocused }) =>
+    isFocused
+      ? css`
+          border: solid 1px #acd9e0;
+          background-color: #f7feff;
+          color: #1d7f91;
+        `
+      : css`
+          border: solid 1px #afafaf;
+          background-color: #fcfcfc;
+          color: #606060;
+        `}
+
   font-family: NanumSquare;
   font-size: 0.875rem;
   line-height: 1.2;
@@ -156,6 +235,7 @@ export const ValidCheckImage = styled.img.attrs({
   height: 15px;
   object-fit: contain;
   margin-left: 1.125rem;
+  animation: ${scale} 1s 1 linear alternate;
 `;
 
 type ExplainSentenceProps = {
@@ -170,6 +250,7 @@ export const ExplainSentence = styled.p<ExplainSentenceProps>`
   line-height: 1.08;
   color: #606060;
   color: ${({ bold, error }) => (bold && '#000000') || (error && '#ff5c5c')};
+  animation: ${scale} 1s 1 linear alternate;
 `;
 
 export const Timer = styled.span`
@@ -184,36 +265,48 @@ export const Timer = styled.span`
 `;
 
 export const JoinFooter = styled.footer`
-  border-top: 1px solid #1f8091;
   padding: 2.5rem 3.125rem 2.5rem 0;
   display: flex;
   justify-content: flex-end;
 `;
 
-export const JoinButton = styled.button`
+export const JoinButton = styled.button<{ isAvailable: boolean }>`
   width: 9.375rem;
   height: 3.125rem;
   padding: 0 1.125rem;
   border-radius: 0.5rem;
-  border: solid 2px #62d3e8;
-  background-color: #f7feff;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
   outline: none;
+  ${({ isAvailable }) =>
+    isAvailable
+      ? css`
+          border: solid 2px #62d3e8;
+          background-color: #f7feff;
+        `
+      : css`
+          border: solid 2px #afafaf;
+          background-color: #fcfcfc;
+        `}
 `;
 
-export const ButtonTitle = styled.span`
+export const ButtonTitle = styled.span<{ isAvailable: boolean }>`
   font-family: NanumSquare;
   font-size: 18px;
   line-height: 1.17;
-  color: #62d3e8;
+  color: ${({ isAvailable }) => (isAvailable ? '#62d3e8' : '#afafaf')};
 `;
 
-export const JoinImage = styled.img.attrs({
-  src: rightArrow,
-})`
+export const JoinImage = styled.img.attrs(
+  ({ isAvailable }: { isAvailable: boolean }) => ({
+    src: isAvailable ? validRightArrow : rightArrow,
+  }),
+)<{
+  isAvailable: boolean;
+}>`
   width: 24px;
   height: 24px;
   object-fit: contain;

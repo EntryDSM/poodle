@@ -11,7 +11,7 @@ import {
   WARNINGMODAL,
   SCHOOL_SEARCH_MODAL,
   ADDRESS_SEARCH_MODAL,
-} from '../../actions/modal';
+} from '../../actions/Modal';
 
 type ModalState = {
   [LOGINMODAL]: boolean;

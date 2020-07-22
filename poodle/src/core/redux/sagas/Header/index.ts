@@ -1,4 +1,4 @@
-import { LOGIN } from '../../actions/header';
+import { LOGIN } from '../../actions/Header';
 import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga from '@/lib/utils/saga/createRequestSaga';
 

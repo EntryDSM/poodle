@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import * as S from '@/styles/Join';
+import { InputAction } from './inputReducer';
 
 type JoinInputProps = {
   maxSize?: boolean;
   middleSize?: boolean;
+  isDisabled?: boolean;
+  label: 'email' | 'code' | 'password' | 'passwordCheck';
+  value: {
+    email: string;
+    code: string;
+    password: string;
+    passwordCheck: string;
+  };
+  setValue: Function;
+  isFocused: {
+    email: boolean;
+    code: boolean;
+    password: boolean;
+    passwordCheck: boolean;
+  };
+  inputDispatch: React.Dispatch<InputAction>;
+  inputFocused?: {
+    password: boolean;
+    passwordCheck: boolean;
+  };
+  setInputFocused?: Function;
 };
 
 function JoinInput({
