@@ -1,4 +1,5 @@
 import { State } from '@/core/redux/reducer/Info';
+import ErrorType from '@/lib/utils/type/ErrorType';
 import { SetGrade } from '../Grade';
 
 export const NAME = 'Info/NAME' as const;
@@ -16,9 +17,15 @@ export const PHONE_NUM = 'Info/PHONE_NUM' as const;
 export const ADDRESS = 'Info/ADDRESS' as const;
 export const POST_NUM = 'Info/POST_NUM' as const;
 export const ADDRESS_DETAIL = 'Info/ADDRESS_DETAIL' as const;
+export const ALL = 'Info/ALL' as const;
+
 export const INFO_SUCCESS = 'Info/INFO_SUCCESS' as const;
 export const INFO_FAILURE = 'Info/INFO_FAILURE' as const;
-export const ALL = 'Info/ALL' as const;
+export const INFO_CALL = 'Info/INFO_CALL' as const;
+
+export const GET_INFO_SUCCESS = 'Info/GET_INFO_SUCCESS' as const;
+export const GET_INFO_FAILURE = 'Info/GET_INFO_FAILURE' as const;
+export const GET_INFO_CALL = 'Info/GET_INFO_CALL' as const;
 
 export interface SetName {
   type: typeof NAME;
@@ -96,13 +103,30 @@ export interface SetDetailAddress {
 }
 export interface InfoSuccess {
   type: typeof INFO_SUCCESS;
-  payload: { data: State };
+  payload: { response: State };
 }
 
 export interface InfoFailure {
   type: typeof INFO_FAILURE;
-  payload: { error: Error };
-  error: boolean;
+  payload: { error: ErrorType };
+}
+
+export interface InfoCall {
+  type: typeof INFO_CALL;
+}
+
+export interface GetInfoSuccess {
+  type: typeof GET_INFO_SUCCESS;
+  payload: { response: State };
+}
+
+export interface GetInfoFailure {
+  type: typeof GET_INFO_FAILURE;
+  payload: { error: ErrorType };
+}
+
+export interface GetInfoCall {
+  type: typeof GET_INFO_CALL;
 }
 
 export interface SetAll {
@@ -128,7 +152,11 @@ export type InfoActionType =
   | SetDetailAddress
   | InfoFailure
   | InfoSuccess
-  | SetAll;
+  | SetAll
+  | GetInfoCall
+  | GetInfoFailure
+  | GetInfoSuccess
+  | InfoCall;
 
 export const setName = (payload: { name: string }): InfoActionType => ({
   type: NAME,
@@ -219,18 +247,36 @@ export const setPostNum = (payload: { postNum: string }): InfoActionType => ({
   payload,
 });
 
-export const InfoSuccess = (payload: { data: State }): InfoActionType => ({
+export const infoSuccess = (payload: { response: State }): InfoActionType => ({
   type: INFO_SUCCESS,
   payload,
 });
 
-export const InfoFailure = (
-  payload: { error: Error },
-  error: boolean,
-): InfoActionType => ({
+export const infoFailure = (payload: { error: ErrorType }): InfoActionType => ({
   type: INFO_FAILURE,
   payload,
-  error,
+});
+
+export const infoCall = (): InfoActionType => ({
+  type: INFO_CALL,
+});
+
+export const getInfoSuccess = (payload: {
+  response: State;
+}): InfoActionType => ({
+  type: GET_INFO_SUCCESS,
+  payload,
+});
+
+export const getInfoFailure = (payload: {
+  error: ErrorType;
+}): InfoActionType => ({
+  type: GET_INFO_FAILURE,
+  payload,
+});
+
+export const getInfoCall = (): InfoActionType => ({
+  type: GET_INFO_CALL,
 });
 
 export const setAll = (payload: { all: State }): InfoActionType => ({
