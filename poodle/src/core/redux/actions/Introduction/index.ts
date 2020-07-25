@@ -132,7 +132,7 @@ export const selfIntroductionSuccess = (payload: {
   payload,
 });
 
-export const gegSelfIntroductionCall = (): IntroductionActionType => ({
+export const getSelfIntroductionCall = (): IntroductionActionType => ({
   type: GET_SELF_INTRODUCTION_CALL,
 });
 

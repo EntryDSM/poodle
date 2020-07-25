@@ -14,7 +14,7 @@ export const GET_TYPE_SUCCESS = 'ChoiceType/GET_TYPE_SUCCESS' as const;
 
 export const TYPE_SUCCESS = 'ChoiceType/TYPE_SUCCESS' as const;
 export const TYPE_FAILURE = 'ChoiceType/TYPE_FAILURE' as const;
-export const TYPE_CALL = 'ChoiceType/Type_TYPE_CALL' as const;
+export const TYPE_CALL = 'ChoiceType/TYPE_CALL' as const;
 
 export type AdditionalType =
   | 'NATIONAL_MERIT'
@@ -68,17 +68,17 @@ export interface TypeCall {
 }
 
 export interface GetTypeSuccess {
-  type: typeof TYPE_SUCCESS;
+  type: typeof GET_TYPE_SUCCESS;
   payload: { response: State };
 }
 
 export interface GetTypeFailure {
-  type: typeof TYPE_FAILURE;
+  type: typeof GET_TYPE_FAILURE;
   payload: { error: ErrorType };
 }
 
 export interface GetTypeCall {
-  type: typeof TYPE_CALL;
+  type: typeof GET_TYPE_CALL;
 }
 
 export type ChoiceTypeActionType =
@@ -157,5 +157,14 @@ export const getTypeFailure = (payload: {
   error: ErrorType;
 }): ChoiceTypeActionType => ({
   type: TYPE_FAILURE,
+  payload,
+});
+
+export const getTypeCall = (): ChoiceTypeActionType => ({
+  type: GET_TYPE_CALL,
+});
+
+export const typeCall = (payload: { state: State }): ChoiceTypeActionType => ({
+  type: TYPE_CALL,
   payload,
 });
