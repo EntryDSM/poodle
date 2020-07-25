@@ -4,12 +4,11 @@ import { setDataToServer } from '@/lib/api/ApplicationApplyApi';
 const createSaveSaga = (
   stateToRequest: (state: any) => any,
   url: string,
-  pageName: string,
-  actionName: string,
+  type: string,
   getStateFunc: (state: any) => any,
 ) => {
-  const SUCCESS = `${pageName}/${actionName}_SUCCESS`;
-  const FAILURE = `${pageName}/${actionName}_FAILURE`;
+  const SUCCESS = `${type}_SUCCESS`;
+  const FAILURE = `${type}_FAILURE`;
   return function* saveSaga() {
     const state = yield select(getStateFunc);
     const request = stateToRequest(state);
