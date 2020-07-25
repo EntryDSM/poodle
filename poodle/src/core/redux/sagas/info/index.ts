@@ -1,10 +1,16 @@
-import { debounce, select, call } from 'redux-saga/effects';
+import { debounce, select, call, takeLatest } from 'redux-saga/effects';
 import {
   infoStateToRequest,
   infoStateToGedRequest,
+  infoResponseToState,
 } from '@/lib/api/ApplicationApplyApi';
 import { USERINFO_URL } from '@/lib/api/ServerUrl';
-import { createSaveSaga, createProxySaga } from '@/lib/utils/saga';
+import {
+  createSaveSaga,
+  createProxySaga,
+  createGetSaga,
+  createMovePageSaga,
+} from '@/lib/utils/saga';
 import { RootState } from '../../reducer';
 import {
   NAME,
@@ -22,6 +28,8 @@ import {
   BIRTHDAY,
   GRADE_NUMBER,
   CLASS_NUMBER,
+  INFO_CALL,
+  GET_INFO_CALL,
 } from '../../actions/Info';
 
 const actionArray = [
@@ -49,20 +57,44 @@ const getStateFunc = (state: RootState): RootState['InfoState'] =>
 const defaultSaveSaga = createSaveSaga(
   infoStateToRequest,
   USERINFO_URL,
-  ACTIONNAME,
-  PAGENAME,
+  `${PAGENAME}/${ACTIONNAME}`,
   getStateFunc,
 );
 
 const gedSaveSaga = createSaveSaga(
   infoStateToGedRequest,
   USERINFO_URL,
-  ACTIONNAME,
-  PAGENAME,
+  `${PAGENAME}/${ACTIONNAME}`,
   getStateFunc,
 );
 
+const defaultSaveAndMovePageSaga = createMovePageSaga(
+  infoStateToRequest,
+  USERINFO_URL,
+  `${PAGENAME}/${ACTIONNAME}`,
+  getStateFunc,
+  'grade',
+);
+
+const gedSaveAndMovePageSaga = createMovePageSaga(
+  infoStateToGedRequest,
+  USERINFO_URL,
+  `${PAGENAME}/${ACTIONNAME}`,
+  getStateFunc,
+  'grade',
+);
+
 const proxySaga = createProxySaga(gedSaveSaga, defaultSaveSaga);
+const movePageProxySaga = createProxySaga(
+  gedSaveAndMovePageSaga,
+  defaultSaveAndMovePageSaga,
+);
+
+const getInfoSaga = createGetSaga(
+  USERINFO_URL,
+  `${PAGENAME}/GET_${ACTIONNAME}`,
+  infoResponseToState,
+);
 
 function* numberChangeSaga() {
   const state = yield select(getStateFunc);
@@ -90,4 +122,6 @@ function isEmptyCheck(text: string) {
 export default function* typeSaga() {
   yield debounce(DELAY_TIME, actionArray, proxySaga);
   yield debounce(DELAY_TIME, numberActionArray, numberChangeSaga);
+  yield takeLatest(GET_INFO_CALL, getInfoSaga);
+  yield takeLatest(INFO_CALL, movePageProxySaga);
 }
