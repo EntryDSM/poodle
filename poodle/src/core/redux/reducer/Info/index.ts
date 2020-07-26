@@ -1,3 +1,4 @@
+import ErrorType from '@/lib/utils/type/ErrorType';
 import {
   NAME,
   GENDER,
@@ -18,6 +19,8 @@ import {
   ALL,
   GRADE_NUMBER,
   CLASS_NUMBER,
+  GET_INFO_SUCCESS,
+  GET_INFO_FAILURE,
 } from '../../actions/Info';
 
 export interface State {
@@ -36,6 +39,7 @@ export interface State {
   detailAddress: string;
   classNumber: string;
   gradeNumber: string;
+  error: ErrorType | null;
 }
 
 const initialState: State = {
@@ -54,6 +58,7 @@ const initialState: State = {
   detailAddress: '',
   classNumber: '',
   gradeNumber: '',
+  error: null,
 };
 
 const InfoState = (
@@ -152,10 +157,22 @@ const InfoState = (
       };
     }
     case INFO_SUCCESS: {
-      return state;
+      return action.payload.response;
     }
     case INFO_FAILURE: {
-      return state;
+      return {
+        ...state,
+        error: action.payload.error,
+      };
+    }
+    case GET_INFO_FAILURE: {
+      return {
+        ...state,
+        error: action.payload.error,
+      };
+    }
+    case GET_INFO_SUCCESS: {
+      return action.payload.response;
     }
     case ALL: {
       return action.payload.all;

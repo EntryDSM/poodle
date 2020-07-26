@@ -1,3 +1,4 @@
+import ErrorType from '@/lib/utils/type/ErrorType';
 import {
   SELF_INTRODUCTION,
   STUDY_PLAN,
@@ -7,11 +8,13 @@ import {
 export interface State {
   selfIntroduction: string;
   studyPlan: string;
+  error: ErrorType | null;
 }
 
 const initialState: State = {
   selfIntroduction: '',
   studyPlan: '',
+  error: null,
 };
 
 const IntroductionState = (
