@@ -1,15 +1,6 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import {
-  getDataToServer,
-  typeResponseToState,
-  setDataToServer,
-  typeStateToRequest,
-  errorTypeCheck,
-} from '@/lib/api/ApplicationApplyApi';
-import { userTypeServerType } from '@/lib/api/ApiType';
-import { USERTYPE_URL } from '@/lib/api/ServerUrl';
-import {
   Title,
   DefaultlNavigation,
 } from '@/components/default/ApplicationFormDefault';
@@ -47,8 +38,9 @@ const ChoiceType: FC<Props> = props => {
     setGraduationStatus,
     setGraduationYear,
     setAdditionalType,
-    setAll,
     history,
+    error,
+    page,
   } = props;
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
@@ -78,31 +70,16 @@ const ChoiceType: FC<Props> = props => {
         modalController.createNewToast('ERROR');
         return;
       }
-      setType(props);
+      await props.setTypeToServer(props);
     },
     [props, isStateAble, history, modalController],
   );
-  const setType = useCallback(async (props: MapStateToProps) => {
-    const request = typeStateToRequest(props);
-    try {
-      await setDataToServer(USERTYPE_URL, request);
-      history.push('/Info');
-    } catch (error) {
-      errorTypeCheck(error);
-    }
-  }, []);
   const getTypeAndSetState = useCallback(async () => {
-    // const response = await getDataToServer<userTypeServerType>(USERTYPE_URL);
-    const testResponse: userTypeServerType = {
-      grade_type: '',
-      is_daejeon: false,
-      apply_type: '',
-      additional_type: 'NOT_APPLICABLE',
-      graduate_year: '2021',
-    };
-    const state = typeResponseToState(testResponse);
-    setAll(state);
+    props.getTypeToServer();
   }, []);
+  const moveNextPage = useCallback(() => {
+    history.push('/info');
+  }, [history]);
   const graduationStatusChangeHandler = useCallback((status: string) => {
     if (status === 'ungraduated') {
       setGraduationYear('2021');
@@ -114,6 +91,11 @@ const ChoiceType: FC<Props> = props => {
   useEffect(() => {
     getTypeAndSetState();
   }, []);
+  useEffect(() => {
+    if (page !== '') {
+      history.push(`/${page}`);
+    }
+  }, [page]);
   return (
     <TypeDiv>
       <div id={TOAST_DIV_ID} />
@@ -162,6 +144,8 @@ const ChoiceType: FC<Props> = props => {
               graduationStatus,
               graduationYear,
               additionalType,
+              error,
+              page,
             });
           }}
         />

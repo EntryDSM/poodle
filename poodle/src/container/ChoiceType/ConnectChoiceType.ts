@@ -11,6 +11,8 @@ import {
   setGraduationYear,
   setAdditionalType,
   setAll,
+  getTypeCall,
+  typeCall,
 } from '@/core/redux/actions/ChoiceType';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 
@@ -21,6 +23,8 @@ export const mapStateToProps = (state: RootState) => ({
   graduationStatus: state.ChoiceTypeState.graduationStatus,
   graduationYear: state.ChoiceTypeState.graduationYear,
   additionalType: state.ChoiceTypeState.additionalType,
+  error: state.ChoiceTypeState.error,
+  page: state.PageState.page,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
@@ -34,6 +38,8 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setAdditionalType: (additionalType: AdditionalType) =>
     dispatch(setAdditionalType({ additionalType })),
   setAll: (all: State) => dispatch(setAll({ all })),
+  getTypeToServer: () => dispatch(getTypeCall()),
+  setTypeToServer: (state: State) => dispatch(typeCall({ state })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChoiceType);
