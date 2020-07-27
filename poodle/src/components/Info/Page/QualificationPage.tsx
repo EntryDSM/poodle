@@ -34,7 +34,6 @@ const QualificationPage: FC<Props> = ({
   setPicture,
   setProtectorName,
   isError,
-  addressSearchModalAbleChange,
   postNum,
   detailAddress,
 }) => {
@@ -61,7 +60,6 @@ const QualificationPage: FC<Props> = ({
         setPhoneNum={setPhoneNum}
         setProtectorPhoneNum={setProtectorPhoneNum}
         isError={isError}
-        addressSearchModalAbleChange={addressSearchModalAbleChange}
         postNum={postNum}
         detailAddress={detailAddress}
       />

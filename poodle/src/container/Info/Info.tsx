@@ -12,7 +12,7 @@ import {
 import ModalContainer from '@/container/common/ModalContainer/ModalContainer';
 import { userInfoServerType, gedInfoServerType } from '@/lib/api/ApiType';
 import { USERINFO_URL } from '@/lib/api/ServerUrl';
-import { modalOff, REDERRORMODAL } from '@/core/redux/actions/modal';
+import { modalOff, REDERRORMODAL } from '@/core/redux/actions/Modal';
 import { InfoDiv, InfoBody } from '../../styles/Info';
 import {
   Title,
@@ -151,11 +151,11 @@ const Info: FC<Props> = props => {
       <div id={TOAST_DIV_ID} />
       <InfoBody>
         <Title margin='80px'>인적사항</Title>
-        {props.isQualification ? (
+        {/* {props.isQualification ? (
           <QualificationPage {...props} isError={isError} />
         ) : (
           <DefaultPage {...props} isError={isError} />
-        )}
+        )} */}
         <DefaultlNavigation
           page='info'
           currentPageClickHandler={() => {

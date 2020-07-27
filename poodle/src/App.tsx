@@ -1,48 +1,36 @@
 import React from 'react';
-import { 
-  BrowserRouter, 
-  Route, 
-  Switch 
-} from 'react-router-dom';
-  import GlobalStyle from './styles/globalStyle';
-  import { Footer } from './components/default/Footer';
-  import { 
-    ConnectIntroduction, 
-    ConnectChoiceType,
-    ConnectInfo, 
-    MainContainer,
-    JoinContainer,
-    HeaderContainer,
-  } from './container';
-import { 
-  Footer,
-  ApplyStatus,
-  Mypage,
-  Document,
-  Error
-} from './components';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import GlobalStyle from './styles/globalStyle';
+import {
+  ConnectIntroduction,
+  ConnectChoiceType,
+  ConnectInfo,
+  MainContainer,
+  JoinContainer,
+  HeaderContainer,
+} from './container';
+import { Footer, ApplyStatus, Mypage, Document, Error } from './components';
 import './';
 
 function App() {
   return (
     <BrowserRouter>
-      <GlobalStyle/>
+      <GlobalStyle />
       <HeaderContainer />
       <Switch>
-          <Route exact path="/" component={MainContainer} />
-          <Route path="/applystatus" component={ApplyStatus} />
-          <Route path="/join" component={JoinContainer} />
-          <Route exact path="/mypage" component={Mypage} />
-          <Route path="/mypage/document" component={Document} />
-          <Route path="/Introduction" render={() => <ConnectIntroduction/>}/>
-          <Route path="/Type" render={() => <ConnectChoiceType/>}/>
-          <Route path="/Info" render={() => <ConnectInfo/>}/>
-          <Route component={Error} />
+        <Route exact path='/' component={MainContainer} />
+        <Route path='/applystatus' component={ApplyStatus} />
+        <Route path='/join' component={JoinContainer} />
+        <Route exact path='/mypage' component={Mypage} />
+        <Route path='/mypage/document' component={Document} />
+        <Route path='/Introduction' render={() => <ConnectIntroduction />} />
+        <Route path='/Type' render={() => <ConnectChoiceType />} />
+        <Route path='/Info' render={() => <ConnectInfo />} />
+        <Route component={Error} />
       </Switch>
-      <Footer/>
+      <Footer />
     </BrowserRouter>
   );
 }
 
 export default App;
- 

@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { startLoading, finishLoading } from '@/core/redux/actions/loading';
+import { startLoading, finishLoading } from '@/core/redux/actions/Loading';
 import ErrorType from '../type/ErrorType';
 
 export default function createRequestSaga(type: any, request: any) {

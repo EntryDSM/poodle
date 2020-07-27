@@ -26,7 +26,7 @@ const HeaderContainer: FC<{}> = () => {
 
   return (
     <>
-      <ModalContainer />
+      <ModalContainer onClick={() => {}} />
       <Header
         isLogin={isLogin}
         user={user}

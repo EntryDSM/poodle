@@ -42,8 +42,10 @@ const DefaultPage: FC<Props> = ({
   setPicture,
   setSchoolPhoneNum,
   isError,
-  addressSearchModalAbleChange,
-  schoolSearchModalAbleChange,
+  setClassNumber,
+  setGradeNumber,
+  classNumber,
+  gradeNumber,
   setDetailAddress,
 }) => {
   return (
@@ -62,7 +64,10 @@ const DefaultPage: FC<Props> = ({
         setNumber={setNumber}
         setPicture={setPicture}
         isError={isError}
-        schoolSearchModalAbleChange={schoolSearchModalAbleChange}
+        gradeNumber={gradeNumber}
+        setGradeNumber={setGradeNumber}
+        classNumber={classNumber}
+        setClassNumber={setClassNumber}
       />
       <DefaultAnotherRows
         protectorName={protectorName}
@@ -78,7 +83,6 @@ const DefaultPage: FC<Props> = ({
         isError={isError}
         postNum={postNum}
         detailAddress={detailAddress}
-        addressSearchModalAbleChange={addressSearchModalAbleChange}
       />
     </li>
   );

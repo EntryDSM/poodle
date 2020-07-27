@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GradeButtonList } from '@/styles/Grade';
-import { ReducerType } from '.@/core/redux/store';
+import { ReducerType } from '@/core/redux/store';
 import {
   setGrade,
   GradeType,

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, FC, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import * as S from '@/styles/common/Modal';
-import { RESETMODAL } from '@/core/redux/actions/modal';
+import { RESETMODAL } from '@/core/redux/actions/Modal';
 import { useRedirect } from '@/lib/utils/function';
 import {
   ModalContent,
@@ -11,7 +11,7 @@ import {
   openModal,
   clearModal,
 } from '..';
-import { loginErrorReset } from '@/core/redux/actions/header';
+import { loginErrorReset } from '@/core/redux/actions/Header';
 
 type LoginModalProps = ModalContentProps & {
   onClick: (email: string, password: string) => void;

@@ -78,4 +78,4 @@ function JoinInput({
   );
 }
 
-export default '';
+export default JoinInput;

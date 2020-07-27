@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { QuilificationUserPicture } from '../../../styles/Info';
-import { modalOn, REDERRORMODAL } from '@/core/redux/actions/modal';
+import { modalOn, REDERRORMODAL } from '@/core/redux/actions/Modal';
 
 const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000';
 
@@ -48,7 +48,6 @@ const QualificationUserImg: FC<Props> = ({ valueChangeHandler, img }) => {
         />
         {img ? (
           <img src={img} alt='사진' />
-
         ) : (
           <div>
             <p>증명사진을 첨부해주세요</p>

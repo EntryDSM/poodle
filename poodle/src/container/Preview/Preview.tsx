@@ -8,7 +8,7 @@ import {
   DefaultlNavigation,
 } from '@/components/default/ApplicationFormDefault';
 import ModalContainer from '../common/ModalContainer/ModalContainer';
-import { modalOn, BLUECHECKMODAL } from '@/core/redux/actions/modal';
+import { modalOn, BLUECHECKMODAL } from '@/core/redux/actions/Modal';
 
 type Props = RouteComponentProps;
 

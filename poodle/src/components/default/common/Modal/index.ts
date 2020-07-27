@@ -1,4 +1,4 @@
-import { modalOn, modalOff, modalClear } from '@/core/redux/actions/modal';
+import { modalOn, modalOff, modalClear } from '@/core/redux/actions/Modal';
 
 export const openModal = (action: string, dispatch: any) => {
   dispatch(modalOn(action));

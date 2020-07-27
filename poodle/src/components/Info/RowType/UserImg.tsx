@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { InfoPicture } from '../../../styles/Info';
-import { modalOn, REDERRORMODAL } from '@/core/redux/actions/modal';
+import { modalOn, REDERRORMODAL } from '@/core/redux/actions/Modal';
 
 interface Props {
   valueChangeHandler: (value: string) => void;
