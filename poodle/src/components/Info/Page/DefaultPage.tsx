@@ -8,8 +8,6 @@ import {
 
 interface DefaultProps {
   isError: boolean;
-  addressSearchModalAbleChange: (value: boolean) => void;
-  schoolSearchModalAbleChange: (value: boolean) => void;
 }
 
 type Props = ReturnType<typeof mapStateToProps> &
@@ -47,6 +45,10 @@ const DefaultPage: FC<Props> = ({
   classNumber,
   gradeNumber,
   setDetailAddress,
+  setClassNumber,
+  setGradeNumber,
+  classNumber,
+  gradeNumber,
 }) => {
   return (
     <li>

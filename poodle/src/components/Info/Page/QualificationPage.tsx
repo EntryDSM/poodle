@@ -8,7 +8,6 @@ import {
 
 interface DefaultProps {
   isError: boolean;
-  addressSearchModalAbleChange: (value: boolean) => void;
 }
 
 type Props = ReturnType<typeof mapStateToProps> &
