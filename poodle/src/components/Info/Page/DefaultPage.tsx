@@ -45,10 +45,6 @@ const DefaultPage: FC<Props> = ({
   classNumber,
   gradeNumber,
   setDetailAddress,
-  setClassNumber,
-  setGradeNumber,
-  classNumber,
-  gradeNumber,
 }) => {
   return (
     <li>
