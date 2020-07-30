@@ -45,7 +45,9 @@ const ChoiceTypeRow: FC<Props> = ({ valueChangeHandler, applyType }) => {
               value={nowDropdown}
               dropdownAbleChange={ableRadioClickHandler}
               options={typeConstance}
-            />
+            >
+              사회 통합 전형
+            </DropdownRadio>
           </RadioGroupProvider>
           <Dropdown
             options={typeConstance}
