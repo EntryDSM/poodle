@@ -1,17 +1,17 @@
 import { all } from 'redux-saga/effects';
 import HeaderSaga from './Header';
-import typeSaga from './type';
-import infoSaga from './info';
-import introductionSaga from './introduction';
-import GradeSaga from './grade';
+import TypeSaga from './Type';
+import InfoSaga from './Info';
+import IntroductionSaga from './Introduction';
+import GradeSaga from './Grade';
 import JoinSaga from './Join';
 
 export default function* rootSaga() {
   yield all([
-    infoSaga(),
-    typeSaga(),
+    InfoSaga(),
+    TypeSaga(),
     HeaderSaga(),
-    introductionSaga(),
+    IntroductionSaga(),
     GradeSaga(),
     JoinSaga(),
   ]);

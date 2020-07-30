@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { SCHOOL_SEARCH_MODAL, modalOn } from '@/core/redux/actions/modal';
+import { SCHOOL_SEARCH_MODAL, modalOn } from '@/core/redux/actions/Modal';
 import { DefaultRowWithPicture } from '..';
 import { Input, DefaultButton } from '../../default/ApplicationFormDefault';
 import { InfoElementContent } from '../../../styles/Info';

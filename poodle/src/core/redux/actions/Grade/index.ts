@@ -1,3 +1,4 @@
+import ErrorType from '@/lib/utils/type/ErrorType';
 import { State } from '../../reducer/Grade';
 
 export const SERVICE_TIME = 'Grade/SERVICE_TIME' as const;
@@ -7,9 +8,15 @@ export const LEAVELATE_DAY = 'Grade/LEAVELATE_DAY' as const;
 export const PERCEPTION_DAY = 'Grade/PERCEPTION_DAY' as const;
 export const GRADE = 'Grade/GRADE' as const;
 export const SCORE = 'Grade/SCORE' as const;
+export const ALL = 'Grade/ALL' as const;
+
+export const GRADE_CALL = 'Grade/GRADE_CALL' as const;
 export const GRADE_SUCCESS = 'Grade/GRADE_SUCCESS' as const;
 export const GRADE_FAILURE = 'Grade/GRADE_FAILURE' as const;
-export const ALL = 'Grade/ALL' as const;
+
+export const GET_GRADE_CALL = 'Grade/GET_GRADE_CALL' as const;
+export const GET_GRADE_FAILURE = 'Grade/GET_GRADE_FAILURE' as const;
+export const GET_GRADE_SUCCESS = 'Grade/GET_GRADE_SUCCESS' as const;
 export type ScoreType = 'A' | 'B' | 'C' | 'D' | 'E' | 'X';
 
 export type SubjectType =
@@ -65,18 +72,35 @@ export interface SetScore {
 
 export interface GradeSuccess {
   type: typeof GRADE_SUCCESS;
-  payload: { data: Object };
+  payload: { response: State };
 }
 
 export interface GradeFailure {
   type: typeof GRADE_FAILURE;
-  payload: { error: Error };
-  error: boolean;
+  payload: { error: ErrorType };
 }
 
 export interface SetAll {
   type: typeof ALL;
   payload: { all: State };
+}
+
+export interface GetGradeSuccess {
+  type: typeof GET_GRADE_SUCCESS;
+  payload: { response: State };
+}
+
+export interface GetGradeFailure {
+  type: typeof GET_GRADE_FAILURE;
+  payload: { error: ErrorType };
+}
+
+export interface GetGradeCall {
+  type: typeof GET_GRADE_CALL;
+}
+
+export interface GradeCall {
+  type: typeof GRADE_CALL;
 }
 
 export type GradeActionType =
@@ -89,7 +113,11 @@ export type GradeActionType =
   | SetScore
   | GradeSuccess
   | GradeFailure
-  | SetAll;
+  | SetAll
+  | GradeCall
+  | GetGradeCall
+  | GetGradeFailure
+  | GetGradeSuccess;
 
 export const setServiceTime = (payload: {
   serviceTime: string;
@@ -132,15 +160,40 @@ export const setScore = (payload: { score: string }): GradeActionType => ({
   payload,
 });
 
-export const gradeSuccess = (payload: { data: Object }): GradeActionType => ({
+export const gradeSuccess = (payload: {
+  response: State;
+}): GradeActionType => ({
   type: GRADE_SUCCESS,
   payload,
 });
 
-export const gradeFailure = (payload: { error: Error }): GradeActionType => ({
+export const gradeFailure = (payload: {
+  error: ErrorType;
+}): GradeActionType => ({
   type: GRADE_FAILURE,
   payload,
-  error: true,
+});
+
+export const getGradeSuccess = (payload: {
+  response: State;
+}): GradeActionType => ({
+  type: GET_GRADE_SUCCESS,
+  payload,
+});
+
+export const getGradeFailure = (payload: {
+  error: ErrorType;
+}): GradeActionType => ({
+  type: GET_GRADE_FAILURE,
+  payload,
+});
+
+export const getGradeCall = (): GradeActionType => ({
+  type: GET_GRADE_CALL,
+});
+
+export const gradeCall = (): GradeActionType => ({
+  type: GRADE_CALL,
 });
 
 export const setAll = (payload: { all: State }): GradeActionType => ({

@@ -8,7 +8,6 @@ import {
 
 interface DefaultProps {
   isError: boolean;
-  addressSearchModalAbleChange: (value: boolean) => void;
 }
 
 type Props = ReturnType<typeof mapStateToProps> &
@@ -34,7 +33,6 @@ const QualificationPage: FC<Props> = ({
   setPicture,
   setProtectorName,
   isError,
-  addressSearchModalAbleChange,
   postNum,
   detailAddress,
 }) => {
@@ -61,7 +59,6 @@ const QualificationPage: FC<Props> = ({
         setPhoneNum={setPhoneNum}
         setProtectorPhoneNum={setProtectorPhoneNum}
         isError={isError}
-        addressSearchModalAbleChange={addressSearchModalAbleChange}
         postNum={postNum}
         detailAddress={detailAddress}
       />

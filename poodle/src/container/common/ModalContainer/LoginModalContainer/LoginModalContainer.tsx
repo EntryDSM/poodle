@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useCallback } from 'react';
 import LoginModal from '@/components/default/common/Modal/LoginModal/LoginModal';
 import { MAINCOLOR } from '@/lib/utils/style/color';
-import { login, logout } from '@/core/redux/actions/header';
+import { login, logout } from '@/core/redux/actions/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/core/redux/reducer';
 import { useHistory } from 'react-router-dom';
@@ -12,7 +12,7 @@ enum ErrorCode {
 }
 const LoginModalContainer: FC<{}> = () => {
   const dispatch = useDispatch();
-  const { user, loginError } = useSelector(({ header }: RootState) => ({
+  const { user, loginError } = useSelector(({ Header: header }: RootState) => ({
     user: header.user,
     loginError: header.error,
   }));

@@ -10,12 +10,13 @@ const stringBooleanToBoolean = (str: string | null) => {
   }
   return false;
 };
-const localStorageQualification = stringBooleanToBoolean(
-  localStorage.getItem('isQualificationExam'),
-);
+const localStorageQualification = () => {
+  console.log('it works');
+  return stringBooleanToBoolean(localStorage.getItem('isQualificationExam'));
+};
 
 const initalState = {
-  isQualification: localStorageQualification,
+  isQualification: localStorageQualification(),
 };
 
 const QualificationState = (

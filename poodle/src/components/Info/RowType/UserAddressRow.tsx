@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { modalOn, ADDRESS_SEARCH_MODAL } from '@/core/redux/actions/modal';
+import { modalOn, ADDRESS_SEARCH_MODAL } from '@/core/redux/actions/Modal';
 import { DefaultRow } from '..';
 import { Input, DefaultButton } from '../../default/ApplicationFormDefault';
 import {
@@ -74,4 +74,4 @@ const UserAddressRow: FC<Props> = ({
   );
 };
 
-export default UserAddress
+export default UserAddressRow;

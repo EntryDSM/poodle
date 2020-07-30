@@ -13,7 +13,7 @@ import {
   modalOff,
   ADDRESS_SEARCH_MODAL,
   SCHOOL_SEARCH_MODAL,
-} from '@/core/redux/actions/modal';
+} from '@/core/redux/actions/Modal';
 import Modal from '@/components/default/common/Modal/Modal';
 import ModalBox from '@/components/default/common/Modal/ModalBox';
 import {
@@ -45,7 +45,7 @@ const ModalContainer: FC<Props> = ({ onClick }) => {
     warning,
     schoolSearch,
     addressSearch,
-  } = useSelector(({ modal }: RootState) => ({
+  } = useSelector(({ Modal: modal }: RootState) => ({
     login: modal[LOGINMODAL],
     reset: modal[RESETMODAL],
     yellowCheck: modal[YELLOWCHECKMODAL],

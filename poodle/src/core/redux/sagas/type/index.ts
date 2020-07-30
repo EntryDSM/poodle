@@ -1,15 +1,24 @@
 import { debounce, put, takeLatest } from 'redux-saga/effects';
-import { typeStateToRequest } from '@/lib/api/ApplicationApplyApi';
+import {
+  typeStateToRequest,
+  typeResponseToState,
+} from '@/lib/api/ApplicationApplyApi';
 import { USERTYPE_URL } from '@/lib/api/ServerUrl';
-import { createSaveSaga } from '@/lib/utils/saga';
+import {
+  createGetSaga,
+  createMovePageSaga,
+  createSaveSaga,
+} from '@/lib/utils/saga';
 import {
   APPLYTYPE,
   DISTRICT,
   GRADUATION_STATUS,
   GRADUATION_YEAR,
   ADDITIONALTYPE,
+  GET_TYPE_CALL,
+  TYPE_CALL,
 } from '../../actions/ChoiceType';
-import { QUALIFICATION, setQualification } from '../../actions/Qualification';
+import { setQualification } from '../../actions/Qualification';
 import { RootState } from '../../reducer';
 import { State } from '../../reducer/ChoiceType';
 
@@ -29,9 +38,22 @@ const getStateFunc = (state: RootState): State => state.ChoiceTypeState;
 const saveSaga = createSaveSaga(
   typeStateToRequest,
   USERTYPE_URL,
-  ACTIONNAME,
-  PAGENAME,
+  `${PAGENAME}/${ACTIONNAME}`,
   getStateFunc,
+);
+
+const getDataSava = createGetSaga(
+  USERTYPE_URL,
+  `GET_${PAGENAME}/${ACTIONNAME}`,
+  typeResponseToState,
+);
+
+const saveAndMovePageSaga = createMovePageSaga(
+  typeStateToRequest,
+  USERTYPE_URL,
+  `${PAGENAME}/${ACTIONNAME}`,
+  getStateFunc,
+  'info',
 );
 
 const isGED = (status: string) => status === 'ged';
@@ -51,5 +73,7 @@ function* statusChangeSaga(action: any) {
 
 export default function* typeSaga() {
   yield debounce(DELAY_TIME, actionArray, saveSaga);
+  yield takeLatest(TYPE_CALL, saveAndMovePageSaga);
+  yield takeLatest(GET_TYPE_CALL, getDataSava);
   yield takeLatest(GRADUATION_STATUS, statusChangeSaga);
 }
