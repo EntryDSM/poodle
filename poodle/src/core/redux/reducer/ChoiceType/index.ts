@@ -11,6 +11,9 @@ import {
   ADDITIONALTYPE,
   GET_TYPE_FAILURE,
   GET_TYPE_SUCCESS,
+  GED_SUCCESS_DATE,
+  GED_SUCCESS_MONTH,
+  GED_SUCCESS_YEAR,
 } from '../../actions/ChoiceType';
 import { AdditionalType } from '../../actions/ChoiceType';
 
@@ -22,6 +25,9 @@ export interface State {
   graduationYear: string;
   additionalType: AdditionalType;
   error: ErrorType | null;
+  gedSuccessYear: string;
+  gedSuccessMonth: string;
+  gedSuccessDate: string;
 }
 
 const initialState: State = {
@@ -32,6 +38,9 @@ const initialState: State = {
   graduationYear: '2020',
   additionalType: 'NOT_APPLICABLE',
   error: null,
+  gedSuccessDate: '1',
+  gedSuccessMonth: '1',
+  gedSuccessYear: '2020',
 };
 
 const ChoiceTypeState = (
@@ -102,6 +111,24 @@ const ChoiceTypeState = (
       return {
         ...state,
         error: action.payload.error,
+      };
+    }
+    case GED_SUCCESS_DATE: {
+      return {
+        ...state,
+        gedSuccessDate: action.payload.date,
+      };
+    }
+    case GED_SUCCESS_MONTH: {
+      return {
+        ...state,
+        gedSuccessMonth: action.payload.month,
+      };
+    }
+    case GED_SUCCESS_YEAR: {
+      return {
+        ...state,
+        gedSuccessYear: action.payload.year,
       };
     }
     default: {
