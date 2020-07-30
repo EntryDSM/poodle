@@ -11,6 +11,7 @@ import {
   GraduationStatus,
   GraduationYear,
   Specialty,
+  ChoiceTypeGEDYear,
 } from '@/components/ChoiceType/RowType';
 import { mapStateToProps, mapDispatchToProps } from './ConnectChoiceType';
 import { isEmptyCheck } from '@/lib/utils/function';
@@ -33,11 +34,17 @@ const ChoiceType: FC<Props> = props => {
     graduationStatus,
     graduationYear,
     additionalType,
+    gedSuccessDate,
+    gedSuccessMonth,
+    gedSuccessYear,
     setApplyType,
     setDistrict,
     setGraduationStatus,
     setGraduationYear,
     setAdditionalType,
+    setGEDSuccessDate,
+    setGEDSuccessMonth,
+    setGEDSuccessYear,
     history,
     error,
     page,
@@ -77,9 +84,6 @@ const ChoiceType: FC<Props> = props => {
   const getTypeAndSetState = useCallback(async () => {
     props.getTypeToServer();
   }, []);
-  const moveNextPage = useCallback(() => {
-    history.push('/info');
-  }, [history]);
   const graduationStatusChangeHandler = useCallback((status: string) => {
     if (status === 'ungraduated') {
       setGraduationYear('2021');
@@ -96,6 +100,35 @@ const ChoiceType: FC<Props> = props => {
       history.push(`/${page}`);
     }
   }, [page]);
+  const getYearRow = (): React.ReactNode => {
+    if (graduationStatus === 'graduated') {
+      return (
+        <GraduationYear
+          describe='*졸업자의 경우 졸업연도를 선택해주세요.'
+          valueChangeHandler={setGraduationYear}
+          graduationYear={graduationYear}
+        />
+      );
+    } else if (graduationStatus === 'ged') {
+      return (
+        <ChoiceTypeGEDYear
+          describe='*졸업자의 경우 졸업연도 선택해주세요.'
+          year={gedSuccessYear}
+          month={gedSuccessMonth}
+          date={gedSuccessDate}
+          yearChangeHandler={setGEDSuccessYear}
+          monthChangeHandler={setGEDSuccessMonth}
+          dateChangeHandler={setGEDSuccessDate}
+        />
+      );
+    }
+    return <></>;
+  };
+  useEffect(() => {
+    if (error?.response) {
+      modalController.createNewToast('SERVER_ERROR');
+    }
+  }, [error]);
   return (
     <TypeDiv>
       <div id={TOAST_DIV_ID} />
@@ -114,17 +147,7 @@ const ChoiceType: FC<Props> = props => {
             valueChangeHandler={graduationStatusChangeHandler}
             graduationStatus={graduationStatus}
           />
-          {graduationStatus !== 'graduated' ? (
-            ''
-          ) : (
-            <>
-              <GraduationYear
-                describe='*졸업자의 경우 졸업연도를 선택해주세요.'
-                valueChangeHandler={setGraduationYear}
-                graduationYear={graduationYear}
-              />
-            </>
-          )}
+          {getYearRow()}
           <Specialty
             describe='*해당하는 특기사항에 체크해주세요.'
             additionalType={additionalType}
@@ -146,6 +169,9 @@ const ChoiceType: FC<Props> = props => {
               additionalType,
               error,
               page,
+              gedSuccessDate,
+              gedSuccessMonth,
+              gedSuccessYear,
             });
           }}
         />
