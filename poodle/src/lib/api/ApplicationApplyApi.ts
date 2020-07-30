@@ -71,6 +71,10 @@ export const typeResponseToState = ({
   graduationYear: graduate_year,
   additionalType: additional_type,
   error: null,
+  gedSuccessDate: '',
+  gedSuccessMonth: '',
+  gedSuccessYear: '',
+  // i will fix
 });
 
 const isGED = (grade_type: string) => {
@@ -263,7 +267,9 @@ export const gradeResponseToState = (
   };
 };
 
-const responseGradeToStateGrade = (response: SubjectsType): GradeType[] => {
+export const responseGradeToStateGrade = (
+  response: SubjectsType,
+): GradeType[] => {
   const entriedObj = objectToString(response);
   let grade: GradeType[] = [];
   entriedObj.map(([key, value]) => {
