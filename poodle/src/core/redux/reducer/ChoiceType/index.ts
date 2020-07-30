@@ -1,3 +1,4 @@
+import ErrorType from '@/lib/utils/type/ErrorType';
 import {
   APPLYTYPE,
   DISTRICT,
@@ -8,6 +9,8 @@ import {
   TYPE_SUCCESS,
   ALL,
   ADDITIONALTYPE,
+  GET_TYPE_FAILURE,
+  GET_TYPE_SUCCESS,
 } from '../../actions/ChoiceType';
 import { AdditionalType } from '../../actions/ChoiceType';
 
@@ -18,6 +21,7 @@ export interface State {
   graduationStatus: string;
   graduationYear: string;
   additionalType: AdditionalType;
+  error: ErrorType | null;
 }
 
 const initialState: State = {
@@ -27,6 +31,7 @@ const initialState: State = {
   graduationStatus: '',
   graduationYear: '2020',
   additionalType: 'NOT_APPLICABLE',
+  error: null,
 };
 
 const ChoiceTypeState = (
@@ -62,7 +67,10 @@ const ChoiceTypeState = (
       return state;
     }
     case TYPE_FAILURE: {
-      return state;
+      return {
+        ...state,
+        error: action.payload.error,
+      };
     }
     case ALL: {
       return {
@@ -79,6 +87,21 @@ const ChoiceTypeState = (
       return {
         ...state,
         additionalType: action.payload.additionalType,
+      };
+    }
+    case GET_TYPE_SUCCESS: {
+      return action.payload.response;
+    }
+    case GET_TYPE_FAILURE: {
+      return {
+        ...state,
+        error: action.payload.error,
+      };
+    }
+    case TYPE_FAILURE: {
+      return {
+        ...state,
+        error: action.payload.error,
       };
     }
     default: {

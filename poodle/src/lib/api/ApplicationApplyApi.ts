@@ -1,6 +1,7 @@
 import { RootState } from '@/core/redux/reducer';
 import { GradeType, SubjectType, ScoreType } from '@/core/redux/actions/Grade';
 import client from './client';
+import ErrorType from '@/lib/utils/type/ErrorType';
 import {
   userTypeServerType,
   gradeServerType,
@@ -12,8 +13,6 @@ import {
   gedGradeServerType,
 } from './ApiType';
 import { GRADESEMESTERLIST } from '@/components/Grade/constance';
-
-type ErrorType = { response: { status: number } };
 
 export const errorTypeCheck = (error: ErrorType): void => {
   if (error.response?.status === 401 || error.response?.status === 403) {
@@ -71,6 +70,7 @@ export const typeResponseToState = ({
   graduationStatus: grade_type,
   graduationYear: graduate_year,
   additionalType: additional_type,
+  error: null,
 });
 
 const isGED = (grade_type: string) => {
@@ -177,6 +177,7 @@ export const infoResponseToState = (
   picture: response.photo,
   gradeNumber: infoStringToGradeNumber(response.student_number),
   classNumber: infoStringToClassNumber(response.student_number),
+  error: null,
 });
 
 const infoRequestDateStringToStateDateString = (requestDateString: string) => {
@@ -258,6 +259,7 @@ export const gradeResponseToState = (
     leaveLateDay: response.early_leave_count.toString(),
     grade: responseGradeToStateGrade(subjects),
     score: response.ged_average_score.toString(),
+    error: null,
   };
 };
 

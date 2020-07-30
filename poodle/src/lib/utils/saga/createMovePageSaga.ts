@@ -1,11 +1,13 @@
 import { put, call, select } from 'redux-saga/effects';
 import { setDataToServer } from '@/lib/api/ApplicationApplyApi';
+import { PAGE_MOVE, PageType } from '@/core/redux/actions/Page';
 
-const createSaveSaga = (
+const createMovePageSaga = (
   stateToRequest: (state: any) => any,
   url: string,
   type: string,
   getStateFunc: (state: any) => any,
+  nextPage: PageType,
 ) => {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
@@ -18,14 +20,17 @@ const createSaveSaga = (
         type: SUCCESS,
         payload: response,
       });
+      yield put({
+        type: PAGE_MOVE,
+        payload: { page: nextPage },
+      });
     } catch (error) {
       yield put({
         type: FAILURE,
         payload: error,
-        error: true,
       });
     }
   };
 };
 
-export default createSaveSaga;
+export default createMovePageSaga;

@@ -1,3 +1,4 @@
+import ErrorType from '@/lib/utils/type/ErrorType';
 import {
   SERVICE_TIME,
   ABSENT_DAY,
@@ -11,6 +12,8 @@ import {
   GRADE_FAILURE,
   GRADE_SUCCESS,
   ALL,
+  GET_GRADE_FAILURE,
+  GET_GRADE_SUCCESS,
 } from '../../actions/Grade';
 
 export interface State {
@@ -21,6 +24,7 @@ export interface State {
   perceptionDay: string;
   grade: GradeType[];
   score: string;
+  error: ErrorType | null;
 }
 
 export const initialState: State = {
@@ -31,6 +35,7 @@ export const initialState: State = {
   perceptionDay: '',
   grade: [],
   score: '',
+  error: null,
 };
 
 const GradeState = (
@@ -88,6 +93,24 @@ const GradeState = (
     }
     case ALL: {
       return action.payload.all;
+    }
+    case GRADE_FAILURE: {
+      return {
+        ...state,
+        error: action.payload.error,
+      };
+    }
+    case GET_GRADE_FAILURE: {
+      return {
+        ...state,
+        error: action.payload.error,
+      };
+    }
+    case GRADE_SUCCESS: {
+      return action.payload.response;
+    }
+    case GET_GRADE_SUCCESS: {
+      return action.payload.response;
     }
     default: {
       return state;
