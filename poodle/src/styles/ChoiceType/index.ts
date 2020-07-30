@@ -44,12 +44,16 @@ export const TypeElementContent = styled.div`
   box-sizing: border-box;
   justify-content: space-between;
   position: relative;
+  > div {
+    display: flex;
+    align-items: center;
+  }
   > div > p {
     font-size: 12px;
     color: #606060;
   }
-  > div {
-    display: flex;
+  > div > span.dropdownText {
+    margin: 0px 20px 0px 5px;
   }
   > div > label {
     min-width: 170px;
