@@ -14,6 +14,7 @@ interface Props {
   isError: boolean;
   detailAddress: string;
   postNum: string;
+  describe: string;
 }
 
 const UserAddressRow: FC<Props> = ({
@@ -22,6 +23,7 @@ const UserAddressRow: FC<Props> = ({
   isError,
   detailAddress,
   postNum,
+  describe,
 }) => {
   const [isEmpty, emptyChange] = useState<boolean>(false);
   const dispatch = useDispatch();
@@ -69,6 +71,9 @@ const UserAddressRow: FC<Props> = ({
             />
           </div>
         </InfoAddressRowContent>
+        <div>
+          <p>{describe}</p>
+        </div>
       </InfoElementContent>
     </DefaultRow>
   );
