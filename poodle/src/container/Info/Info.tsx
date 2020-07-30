@@ -1,17 +1,8 @@
 import React, { FC, useCallback, useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import {
-  getDataToServer,
-  infoResponseToState,
-  setDataToServer,
-  infoStateToRequest,
-  infoStateToGedRequest,
-  errorTypeCheck,
-} from '@/lib/api/ApplicationApplyApi';
+import { errorTypeCheck } from '@/lib/api/ApplicationApplyApi';
 import ModalContainer from '@/container/common/ModalContainer/ModalContainer';
-import { userInfoServerType, gedInfoServerType } from '@/lib/api/ApiType';
-import { USERINFO_URL } from '@/lib/api/ServerUrl';
 import { modalOff, REDERRORMODAL } from '@/core/redux/actions/Modal';
 import { InfoDiv, InfoBody } from '../../styles/Info';
 import {
@@ -102,8 +93,7 @@ const Info: FC<Props> = props => {
         modalController.createNewToast('ERROR');
       } else {
         try {
-          await setInfo(state);
-          props.history.push('/grade');
+          await props.setInfoToServer();
         } catch (error) {
           errorTypeCheck(error);
         }
@@ -111,41 +101,20 @@ const Info: FC<Props> = props => {
     },
     [isStateAble, props],
   );
-
-  const setInfo = useCallback(async (props: MapStateToProps) => {
-    if (props.isQualification) {
-      const request = infoStateToGedRequest(props);
-      return await setDataToServer<gedInfoServerType>(USERINFO_URL, request);
-    }
-    const request = infoStateToRequest(props);
-    return await setDataToServer<userInfoServerType>(USERINFO_URL, request);
-  }, []);
   const modalOffDispatch = useCallback(() => {
     dispatch(modalOff(REDERRORMODAL));
   }, [dispatch]);
-  const getInfoAndSetState = useCallback(async () => {
-    // const response = await getDataToServer<userInfoServerType>(USERINFO_URL);
-    const response: userInfoServerType = {
-      name: '오준상',
-      sex: 'male',
-      birth_date: '2020-06-27',
-      student_number: '30122',
-      school_name: '어디 중학교',
-      parent_name: '배덕희',
-      school_tel: '01073030413',
-      applicant_tel: '01073030413',
-      parent_tel: '01022341231',
-      address: '어딘가',
-      photo: '',
-      post_code: '34111',
-      detail_address: '어디어딘가',
-    };
-    const state = infoResponseToState(response);
-    props.setAll(state);
+  const goCurrentPage = useCallback(() => {
+    props.history.push('/Type');
   }, []);
   useEffect(() => {
-    getInfoAndSetState();
+    props.getInfoToServer();
   }, []);
+  useEffect(() => {
+    if (props.page !== '') {
+      props.history.push(`/${props.page}`);
+    }
+  }, [props.page]);
   return (
     <InfoDiv>
       <div id={TOAST_DIV_ID} />
@@ -158,9 +127,7 @@ const Info: FC<Props> = props => {
         )} */}
         <DefaultlNavigation
           page='info'
-          currentPageClickHandler={() => {
-            props.history.push('/Type');
-          }}
+          currentPageClickHandler={goCurrentPage}
           nextPageClickHandler={() => {
             goNextPage(props);
           }}

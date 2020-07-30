@@ -1,19 +1,6 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
-import {
-  selfIntroductionServerType,
-  studyPlanServerType,
-} from '@/lib/api/ApiType';
-import {
-  selfIntroductionStateToRequest,
-  studyPlanStateToRequest,
-  setDataToServer,
-  getDataToServer,
-  errorTypeCheck,
-  selfIntroductionResponseToState,
-  studyPlanResponseToState,
-} from '@/lib/api/ApplicationApplyApi';
-import { INTRODUCTION_URL } from '@/lib/api/ServerUrl';
+import { errorTypeCheck } from '@/lib/api/ApplicationApplyApi';
 import {
   Title,
   DefaultlNavigation,
@@ -41,6 +28,12 @@ const Introduction: FC<Props> = ({
   selfIntroduction,
   studyPlan,
   history,
+  error,
+  page,
+  getStudyPlanToServer,
+  setStudyPlanToServer,
+  setSelfIntroductionToServer,
+  getSelfIntroductionToServer,
 }) => {
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
@@ -56,65 +49,26 @@ const Introduction: FC<Props> = ({
         return;
       }
       try {
-        const props: MapStateToProps = {
-          selfIntroduction,
-          studyPlan,
-        };
-        await setIntroductionToServer(props);
-        await setStudyPlanToServer(props);
-        history.push('/preview');
+        await setSelfIntroductionToServer();
+        await setStudyPlanToServer();
       } catch (error) {
         errorTypeCheck(error);
       }
     },
     [history],
   );
-
-  const setIntroductionToServer = useCallback(
-    async (props: MapStateToProps) => {
-      const request = selfIntroductionStateToRequest(props);
-      return await setDataToServer<selfIntroductionServerType>(
-        INTRODUCTION_URL,
-        request,
-      );
-    },
-    [],
-  );
-
-  const setStudyPlanToServer = useCallback(async (props: MapStateToProps) => {
-    const request = studyPlanStateToRequest(props);
-    return await setDataToServer<studyPlanServerType>(
-      INTRODUCTION_URL,
-      request,
-    );
-  }, []);
   const goCurrentPage = useCallback(() => {
-    history.push('/grade');
-  }, []);
-  const getIntroductionAndSetState = useCallback(async () => {
-    // const introductionResponse = await getDataToServer<
-    //   selfIntroductionServerType
-    // >(INTRODUCTION_URL);
-    const response: selfIntroductionServerType = {
-      self_introduction: 'asjldkfjalsdjfkajs',
-    };
-    const state = selfIntroductionResponseToState(response);
-    setSelfIntroduction(state.selfIntroduction);
-  }, []);
-  const getStudyplanAndSetState = useCallback(async () => {
-    // const studyPlanResponse = await getDataToServer<studyPlanServerType>(
-    //   INTRODUCTION_URL,
-    // );
-    const response: studyPlanServerType = {
-      study_plan: 'asdfasdfasdf',
-    };
-    const state = studyPlanResponseToState(response);
-    setStudyPlan(state.studyPlan);
+    history.push(`/${page}`);
+  }, [page]);
+  useEffect(() => {
+    getStudyPlanToServer();
+    getSelfIntroductionToServer();
   }, []);
   useEffect(() => {
-    getIntroductionAndSetState();
-    getStudyplanAndSetState();
-  }, []);
+    if (page != '') {
+      history.push(`/${page}`);
+    }
+  }, [page]);
   return (
     <IntroductionDiv>
       <div id={TOAST_DIV_ID} />
@@ -136,7 +90,7 @@ const Introduction: FC<Props> = ({
           page='introduction'
           currentPageClickHandler={goCurrentPage}
           nextPageClickHandler={() =>
-            goNextPage({ selfIntroduction, studyPlan })
+            goNextPage({ selfIntroduction, studyPlan, error, page })
           }
         />
       </IntroductionMain>

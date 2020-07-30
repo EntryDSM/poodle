@@ -18,6 +18,8 @@ import {
   setAll,
   setClassNumber,
   setGradeNumber,
+  getInfoCall,
+  infoCall,
 } from '@/core/redux/actions/Info';
 
 export const mapStateToProps = (state: RootState) => ({
@@ -37,6 +39,8 @@ export const mapStateToProps = (state: RootState) => ({
   postNum: state.InfoState.postNum,
   gradeNumber: state.InfoState.gradeNumber,
   classNumber: state.InfoState.classNumber,
+  error: state.InfoState.error,
+  page: state.PageState.page,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
@@ -63,6 +67,8 @@ export const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(setGradeNumber({ gradeNumber })),
   setClassNumber: (classNumber: string) =>
     dispatch(setClassNumber({ classNumber })),
+  getInfoToServer: () => dispatch(getInfoCall()),
+  setInfoToServer: () => dispatch(infoCall()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Info);

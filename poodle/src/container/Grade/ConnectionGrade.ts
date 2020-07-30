@@ -10,6 +10,8 @@ import {
   setGrade,
   setScore,
   GradeType,
+  getGradeCall,
+  gradeCall,
 } from '@/core/redux/actions/Grade';
 import { State } from '@/core/redux/reducer/Grade';
 import Grade from './Grade';
@@ -23,6 +25,8 @@ export const mapStateToProps = (state: RootState) => ({
   grade: state.GradeState.grade,
   score: state.GradeState.score,
   isQualification: state.QualificationState.isQualification,
+  error: state.GradeState.error,
+  page: state.PageState.page,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
@@ -38,6 +42,8 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setGrade: (grade: GradeType[]) => dispatch(setGrade({ grade })),
   setScore: (score: string) => dispatch(setScore({ score })),
   setAll: (all: State) => dispatch(setAll({ all })),
+  getGradeToServer: () => dispatch(getGradeCall()),
+  setGradeToServer: () => dispatch(gradeCall()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Grade);
