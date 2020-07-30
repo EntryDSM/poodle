@@ -49,6 +49,7 @@ const QualificationAnotherRows: FC<Props> = ({
       detailAddress={detailAddress}
       address={address}
       isError={isError}
+      describe='* 완벽한 도로명 주소로 입력해 주세요.'
     />
   </>
 );

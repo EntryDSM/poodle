@@ -70,6 +70,7 @@ const DefaultAnotherRows: FC<Props> = ({
       isError={isError}
       detailAddress={detailAddress}
       postNum={postNum}
+      describe='* 완벽한 도로명 주소로 입력해 주세요.'
     />
   </>
 );
