@@ -9,7 +9,6 @@ import {
 } from '../RowType';
 
 type dispatchFuncType = (value: string) => void;
-type modalChangeFuncType = (value: boolean) => void;
 
 interface Props {
   name: string;
