@@ -17,6 +17,9 @@ import {
   ADDITIONALTYPE,
   GET_TYPE_CALL,
   TYPE_CALL,
+  GED_SUCCESS_DATE,
+  GED_SUCCESS_MONTH,
+  GED_SUCCESS_YEAR,
 } from '../../actions/ChoiceType';
 import { setQualification } from '../../actions/Qualification';
 import { RootState } from '../../reducer';
@@ -28,6 +31,9 @@ const actionArray = [
   GRADUATION_YEAR,
   GRADUATION_STATUS,
   ADDITIONALTYPE,
+  GED_SUCCESS_DATE,
+  GED_SUCCESS_MONTH,
+  GED_SUCCESS_YEAR,
 ];
 const PAGENAME = 'ChoiceType';
 const ACTIONNAME = 'TYPE';
@@ -44,7 +50,7 @@ const saveSaga = createSaveSaga(
 
 const getDataSava = createGetSaga(
   USERTYPE_URL,
-  `GET_${PAGENAME}/${ACTIONNAME}`,
+  `${PAGENAME}/GET_${ACTIONNAME}`,
   typeResponseToState,
 );
 
