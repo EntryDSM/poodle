@@ -1,15 +1,18 @@
 import { connect } from 'react-redux';
 import { setQualification } from '@/core/redux/actions/Qualification';
-import { AdditionalType } from '@/core/redux/actions/ChoiceType';
 import ChoiceType from './ChoiceType';
 import { RootState } from '@/core/redux/reducer';
 import { State } from '@/core/redux/reducer/ChoiceType';
 import {
+  AdditionalType,
   setApplyType,
   setDistrict,
   setGraduationStatus,
   setGraduationYear,
   setAdditionalType,
+  setGEDSuccessMonth,
+  setGEDSuccessYear,
+  SetGEDSuccessDate,
   setAll,
   getTypeCall,
   typeCall,
@@ -25,6 +28,9 @@ export const mapStateToProps = (state: RootState) => ({
   additionalType: state.ChoiceTypeState.additionalType,
   error: state.ChoiceTypeState.error,
   page: state.PageState.page,
+  gedSuccessDate: state.ChoiceTypeState.gedSuccessDate,
+  gedSuccessMonth: state.ChoiceTypeState.gedSuccessMonth,
+  gedSuccessYear: state.ChoiceTypeState.gedSuccessYear,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
@@ -40,6 +46,10 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setAll: (all: State) => dispatch(setAll({ all })),
   getTypeToServer: () => dispatch(getTypeCall()),
   setTypeToServer: (state: State) => dispatch(typeCall({ state })),
+  setGEDSuccessDate: (date: string) => dispatch(SetGEDSuccessDate({ date })),
+  setGEDSuccessMonth: (month: string) =>
+    dispatch(setGEDSuccessMonth({ month })),
+  setGEDSuccessYear: (year: string) => dispatch(setGEDSuccessYear({ year })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChoiceType);

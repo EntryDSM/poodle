@@ -15,7 +15,6 @@ interface Props {
 const GraduationStatus: FC<Props> = ({
   valueChangeHandler,
   graduationStatus,
-
 }) => (
   <DefaultRow title='졸업 구분'>
     <TypeElementContent>

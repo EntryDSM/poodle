@@ -120,11 +120,11 @@ const Info: FC<Props> = props => {
       <div id={TOAST_DIV_ID} />
       <InfoBody>
         <Title margin='80px'>인적사항</Title>
-        {/* {props.isQualification ? (
+        {props.isQualification ? (
           <QualificationPage {...props} isError={isError} />
         ) : (
           <DefaultPage {...props} isError={isError} />
-        )} */}
+        )}
         <DefaultlNavigation
           page='info'
           currentPageClickHandler={goCurrentPage}

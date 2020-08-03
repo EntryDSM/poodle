@@ -7,6 +7,9 @@ export const GRADUATION_YEAR = 'ChoiceType/GRADUATIONSTATUS_YEAR' as const;
 export const GRADUATION_STATUS = 'ChoiceType/GRADUATION_STATUS' as const;
 export const ALL = 'ChoiceType/ALL' as const;
 export const ADDITIONALTYPE = 'ChoiceType/ADDITIONALTYPE' as const;
+export const GED_SUCCESS_YEAR = 'ChoiceType/GED_SUCCESS_YEAR' as const;
+export const GED_SUCCESS_MONTH = 'ChoiceType/GED_SUCCESS_MONTH' as const;
+export const GED_SUCCESS_DATE = 'ChoiceType/GED_SUCCESS_DATE' as const;
 
 export const GET_TYPE_CALL = 'ChoiceType/GET_TYPE_CALL' as const;
 export const GET_TYPE_FAILURE = 'ChoiceType/GET_TYPE_FAILURE' as const;
@@ -81,6 +84,21 @@ export interface GetTypeCall {
   type: typeof GET_TYPE_CALL;
 }
 
+export interface SetGEDSuccessDate {
+  type: typeof GED_SUCCESS_DATE;
+  payload: { date: string };
+}
+
+export interface SetGEDSuccessYear {
+  type: typeof GED_SUCCESS_YEAR;
+  payload: { year: string };
+}
+
+export interface SetGEDSuccessMonth {
+  type: typeof GED_SUCCESS_MONTH;
+  payload: { month: string };
+}
+
 export type ChoiceTypeActionType =
   | SetApplyType
   | SetDistrict
@@ -93,7 +111,10 @@ export type ChoiceTypeActionType =
   | TypeCall
   | GetTypeFailure
   | GetTypeSuccess
-  | GetTypeCall;
+  | GetTypeCall
+  | SetGEDSuccessYear
+  | SetGEDSuccessDate
+  | SetGEDSuccessMonth;
 
 export const setApplyType = (payload: {
   type: string;
@@ -166,5 +187,26 @@ export const getTypeCall = (): ChoiceTypeActionType => ({
 
 export const typeCall = (payload: { state: State }): ChoiceTypeActionType => ({
   type: TYPE_CALL,
+  payload,
+});
+
+export const setGEDSuccessYear = (payload: {
+  year: string;
+}): ChoiceTypeActionType => ({
+  type: GED_SUCCESS_YEAR,
+  payload,
+});
+
+export const setGEDSuccessMonth = (payload: {
+  month: string;
+}): ChoiceTypeActionType => ({
+  type: GED_SUCCESS_MONTH,
+  payload,
+});
+
+export const SetGEDSuccessDate = (payload: {
+  date: string;
+}): ChoiceTypeActionType => ({
+  type: GED_SUCCESS_DATE,
   payload,
 });

@@ -31,9 +31,7 @@ const GradeColumn: FC<Props> = ({ subject, semester, grade }) => {
     (score: ScoreType) => {
       const copy: GradeType[] = copyGradeState(gradeState);
       const scoreIndex = getChangeIndex(copy);
-      if (!copy[scoreIndex]) {
-        return;
-      }
+      if (!copy[scoreIndex]) return;
       copy[scoreIndex].score = score;
       const action = setGrade({ grade: copy });
       dispatch(action);

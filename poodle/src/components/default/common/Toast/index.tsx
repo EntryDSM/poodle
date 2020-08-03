@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import { ToastBody, ToastDiv, ToastImg } from '@/styles/common/Toast';
+import { ToastType } from '@/container/common/ToastContainer';
 
 interface Props {
   title: string;
   description: string;
-  type: 'ERROR' | 'SUCCESS';
+  type: ToastType;
   id: String;
 }
 

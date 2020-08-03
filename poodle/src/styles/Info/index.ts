@@ -117,6 +117,7 @@ export const InfoAddressRowContent = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 10px 0px;
+  width: 600px;
   > div {
     display: flex;
     align-items: center;

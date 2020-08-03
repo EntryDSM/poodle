@@ -16,8 +16,9 @@ const QualificationUserImg: FC<Props> = ({ valueChangeHandler, img }) => {
     const target = event.target as HTMLInputElement;
     const files = target.files;
     if (!files) return;
+    if (!files[0]) return;
     const file = files[0];
-    if (!isFileTypeAble(file)) {
+    if (typeof file !== 'undefined' && !isFileTypeAble(file)) {
       dispatch(modalOn(REDERRORMODAL));
       return;
     }
@@ -25,12 +26,11 @@ const QualificationUserImg: FC<Props> = ({ valueChangeHandler, img }) => {
     valueChangeHandler(url);
   }, []);
   const isFileTypeAble = useCallback((file: File) => {
+    if (!file) return false;
     const acceptFileTypes: string[] = ACCEPT_FILE_TYPE.split(',');
     const fileName = getFileName(file);
-    for (let acceptFileType in acceptFileTypes) {
-      if (fileName.includes(acceptFileType)) {
-        return true;
-      }
+    for (let acceptFileType of acceptFileTypes) {
+      if (fileName.includes(acceptFileType)) return true;
     }
     return false;
   }, []);

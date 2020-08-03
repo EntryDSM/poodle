@@ -16,6 +16,7 @@ const UserImg: FC<Props> = ({ valueChangeHandler, img }) => {
     const target = event.target as HTMLInputElement;
     const files = target.files;
     if (!files) return;
+    if (!files[0]) return;
     const file = files[0];
     if (!isFileTypeAble(file)) {
       dispatch(modalOn(REDERRORMODAL));
@@ -27,8 +28,9 @@ const UserImg: FC<Props> = ({ valueChangeHandler, img }) => {
   const isFileTypeAble = useCallback((file: File) => {
     const acceptFileTypes: string[] = ACCEPT_FILE_TYPE.split(',');
     const fileName = getFileName(file);
-    for (let acceptFileType in acceptFileTypes) {
+    for (let acceptFileType of acceptFileTypes) {
       if (fileName.includes(acceptFileType)) {
+        console.log(fileName.includes(acceptFileType));
         return true;
       }
     }
