@@ -9,6 +9,7 @@ import GradeState from './Grade';
 import QualificationState from './Qualification';
 import PageState from './Page';
 import Join from './Join';
+import SearchSchool from './SearchSchool';
 
 const rootReducer = combineReducers({
   Join,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   GradeState,
   QualificationState,
   PageState,
+  SearchSchool,
 });
 export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;
