@@ -31,22 +31,22 @@ export interface GetSchoolSuccess {
   payload: { info: SchoolType[] };
 }
 
-export interface SchoolInfo {
+export interface SchoolInfoChange {
   type: typeof SCHOOL_INFO;
   payload: { info: SchoolType[] };
 }
 
-export interface EduOffice {
+export interface EduOfficeChange {
   type: typeof EDU_OFFICE;
   payload: { office: string };
 }
 
-export interface SchoolSearchInput {
+export interface SchoolSearchInputChange {
   type: typeof SCHOOL_SEARCH_INPUT;
   payload: { searchInput: string };
 }
 
-export interface Page {
+export interface PageChange {
   type: typeof PAGE;
   payload: { page: number };
 }
@@ -60,10 +60,10 @@ export type SearchSchoolType =
   | GetSchoolCall
   | GetSchoolFailure
   | GetSchoolSuccess
-  | SchoolInfo
-  | EduOffice
-  | SchoolSearchInput
-  | Page
+  | SchoolInfoChange
+  | EduOfficeChange
+  | SchoolSearchInputChange
+  | PageChange
   | Loading;
 
 export const getSchoolCall = (payload: { url: string }): SearchSchoolType => ({
@@ -92,17 +92,17 @@ export const schoolInfoChange = (payload: {
   payload,
 });
 
-export const eduOffice = (payload: { office: string }) => ({
+export const eduOfficeChange = (payload: { office: string }) => ({
   type: EDU_OFFICE,
   payload,
 });
 
-export const schoolSearchInput = (payload: { searchInput: string }) => ({
+export const schoolSearchInputChange = (payload: { searchInput: string }) => ({
   type: SCHOOL_SEARCH_INPUT,
   payload,
 });
 
-export const page = (payload: { page: number }) => ({
+export const pageChange = (payload: { page: number }) => ({
   type: PAGE,
   payload,
 });

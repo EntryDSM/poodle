@@ -8,8 +8,8 @@ import {
   GET_SCHOOL_CALL,
   GET_SCHOOL_FAILURE,
   GET_SCHOOL_SUCCESS,
-  Page,
   PAGE,
+  PageChange,
 } from '../../actions/SearchSchool';
 import { RootState } from '../../reducer';
 import { startLoading, finishLoading } from '@/core/redux/actions/Loading';
@@ -51,7 +51,7 @@ function* searchSchool(action: GetSchoolCall) {
   yield put(finishLoading(action.type));
 }
 
-function* pageChangeSaga(action: Page) {
+function* pageChangeSaga(action: PageChange) {
   const { eduOffice, schoolSearchInput } = yield select(getStateFunc);
   const url = getSearchSchoolUrl(
     eduOffice,
