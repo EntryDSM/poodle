@@ -25,8 +25,8 @@ export const errorTypeCheck = (error: ErrorType): void => {
 export const getDataToServer = async <ResponseType>(
   url: string,
 ): Promise<ResponseType> => {
-  const response: ResponseType = await client.get(url);
-  return response;
+  const response = await client.get<ResponseType>(url);
+  return response.data;
 };
 
 export const setDataToServer = async <RequestType>(
@@ -368,3 +368,12 @@ export const studyPlanResponseToState = (
 ): { studyPlan: string } => ({
   studyPlan: response.study_plan,
 });
+
+export const getSearchSchoolUrl = (
+  eduOffice: string,
+  name: string,
+  page: number,
+  size: number,
+) => {
+  return `eduOffice='${eduOffice}'&name='${name}'&page=${page}&size=${size}`;
+};
