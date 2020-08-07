@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM, { createPortal } from 'react-dom';
 import Toast from '@/components/default/common/Toast';
 
-type ToastType = 'ERROR' | 'SUCCESS';
+export type ToastType = 'ERROR' | 'SUCCESS' | 'SERVER_ERROR';
 
 interface ToastInfo {
   title: string;
@@ -25,6 +25,22 @@ const getFailToastInfo = (id: string): ToastInfo => ({
   id: id,
 });
 
+const getServerFailToastInfo = (id: string): ToastInfo => ({
+  type: 'SERVER_ERROR',
+  description: '다시 시도해 주세요.',
+  title: '서버에서 에러가 발생하였습니다.',
+  id: id,
+});
+
+const getToastInfo = (type: ToastType, id: string) => {
+  if (type === 'ERROR') {
+    return getFailToastInfo(id);
+  } else if (type === 'SERVER_ERROR') {
+    return getServerFailToastInfo(id);
+  }
+  return getSuccessToastInfo(id);
+};
+
 class ToastController {
   toastInfos: ToastInfo[];
   toasts: React.ReactNode[];
@@ -43,8 +59,7 @@ class ToastController {
     if (this.isToastOver()) return;
     const copy = this.toastInfos;
     const id = this.count.toString();
-    const newToast: ToastInfo =
-      type === 'ERROR' ? getFailToastInfo(id) : getSuccessToastInfo(id);
+    const newToast: ToastInfo = getToastInfo(type, id);
     copy.push(newToast);
     this.count++;
     this.renderToastWithIds(copy);
