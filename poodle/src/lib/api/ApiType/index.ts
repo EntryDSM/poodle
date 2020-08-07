@@ -1,4 +1,5 @@
 import { AdditionalType } from '@/core/redux/actions/ChoiceType';
+import { SchoolType } from '@/core/redux/actions/SearchSchool';
 
 export interface gradeServerType {
   volanteer_time: number;
@@ -89,4 +90,8 @@ export interface kakaoSearchedAddressType {
     region_2depth_name: string;
     region_3depth_name: string;
   };
+}
+
+export interface searchSchoolResponseType {
+  content: SchoolType[];
 }
