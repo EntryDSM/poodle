@@ -2,6 +2,7 @@ import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { InfoPicture } from '../../../styles/Info';
 import { modalOn, REDERRORMODAL } from '@/core/redux/actions/Modal';
+import { setPictureCall } from '@/core/redux/actions/Info';
 
 interface Props {
   valueChangeHandler: (value: string) => void;
@@ -24,18 +25,27 @@ const UserImg: FC<Props> = ({ valueChangeHandler, img }) => {
     }
     const url = URL.createObjectURL(file);
     valueChangeHandler(url);
+    dispatch(setPictureCall({ picture: file }));
   }, []);
   const isFileTypeAble = useCallback((file: File) => {
-    const acceptFileTypes: string[] = ACCEPT_FILE_TYPE.split(',');
     const fileName = getFileName(file);
+    const acceptFileTypes: string[] = spliceAcceptFileTypeString(
+      ACCEPT_FILE_TYPE,
+    );
     for (let acceptFileType of acceptFileTypes) {
       if (fileName.includes(acceptFileType)) {
-        console.log(fileName.includes(acceptFileType));
         return true;
       }
     }
     return false;
   }, []);
+  const spliceAcceptFileTypeString = useCallback(
+    (acceptFileTypeString: string): string[] => {
+      const acceptFileTypes: string[] = acceptFileTypeString.split(',');
+      return acceptFileTypes;
+    },
+    [],
+  );
   const getFileName = useCallback((file: File) => {
     return file.name;
   }, []);
