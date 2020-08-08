@@ -115,6 +115,11 @@ const Info: FC<Props> = props => {
       props.history.push(`/${props.page}`);
     }
   }, [props.page]);
+  useEffect(() => {
+    if (props.error?.response) {
+      modalController.createNewToast('SERVER_ERROR');
+    }
+  }, [props.error]);
   return (
     <InfoDiv>
       <div id={TOAST_DIV_ID} />
