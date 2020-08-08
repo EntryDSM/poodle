@@ -69,6 +69,11 @@ const Introduction: FC<Props> = ({
       history.push(`/${page}`);
     }
   }, [page]);
+  useEffect(() => {
+    if (error?.response) {
+      modalController.createNewToast('SERVER_ERROR');
+    }
+  }, [error]);
   return (
     <IntroductionDiv>
       <div id={TOAST_DIV_ID} />
