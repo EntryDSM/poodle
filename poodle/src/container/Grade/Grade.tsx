@@ -76,6 +76,11 @@ const Grade: FC<Props> = props => {
       props.history.push(`/${props.page}`);
     }
   }, [props.page]);
+  useEffect(() => {
+    if (props.error?.response) {
+      modalController.createNewToast('SERVER_ERROR');
+    }
+  }, [props.error]);
   return (
     <GradeDiv>
       <div id={TOAST_DIV_ID} />
