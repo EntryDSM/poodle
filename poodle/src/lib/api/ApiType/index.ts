@@ -22,7 +22,8 @@ export interface userTypeServerType {
   apply_type: string;
   is_daejeon: boolean;
   additional_type: AdditionalType;
-  graduate_year: string;
+  graduated_date: string;
+  ged_pass_date: string;
 }
 
 export interface userInfoServerType {
