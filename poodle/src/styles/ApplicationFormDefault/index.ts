@@ -182,8 +182,8 @@ export const DropdownDiv = styled.div<{ width: string; isAble?: boolean }>`
   }
 `;
 
-export const DropdownElement = styled.div`
-  font-size: 16px;
+export const DropdownElement = styled.div<{ fontSize?: string }>`
+  font-size: ${props => (props.fontSize ? props.fontSize : '16px')};
   font-weight: 100;
   width: 100%;
   height: 30px;
@@ -201,12 +201,13 @@ export const DropdownElement = styled.div`
 
 export const DropdownCurrentElement = styled(DropdownElement)<{
   isAble?: boolean;
+  fontSize?: string;
 }>`
-  font-size: 18px;
   font-weight: 500;
   height: 40px;
   display: flex;
   justify-content: space-between;
+  font-size: ${props => (props.fontSize ? props.fontSize : '18px')};
   &::after {
     content: '';
     width: 0;
