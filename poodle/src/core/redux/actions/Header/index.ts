@@ -17,7 +17,7 @@ export const loginSuccess = (user: {
 });
 export const loginFailure = (e: {
   response: {
-    code: number;
+    status: number;
   };
 }) => ({
   type: LOGIN_FAILURE,
