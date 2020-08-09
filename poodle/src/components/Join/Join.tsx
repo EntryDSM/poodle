@@ -147,7 +147,6 @@ const Join: React.FC<JoinProps> = ({
           setTimeout(() => codePrevRef.current.nextSibling.focus(), 1);
         }
         public static password() {
-          console.log(10100101);
           this.focusAndDisableRelatedPassword();
           setTimeout(() => passwordPrevRef.current.nextSibling.focus(), 1);
         }
