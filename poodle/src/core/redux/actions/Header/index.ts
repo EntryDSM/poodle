@@ -1,3 +1,5 @@
+import ErrorType from '@/lib/utils/type/ErrorType';
+
 export const LOGIN = 'header/LOGIN' as const;
 export const LOGIN_SUCCESS = 'header/LOGIN_SUCCESS' as const;
 export const LOGIN_FAILURE = 'header/LOGIN_FAILURE' as const;
@@ -15,11 +17,7 @@ export const loginSuccess = (user: {
   type: LOGIN_SUCCESS,
   payload: user,
 });
-export const loginFailure = (e: {
-  response: {
-    status: number;
-  };
-}) => ({
+export const loginFailure = (e: ErrorType) => ({
   type: LOGIN_FAILURE,
   payload: e,
   error: true,
