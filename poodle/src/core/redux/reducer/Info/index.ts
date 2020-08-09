@@ -21,6 +21,7 @@ import {
   CLASS_NUMBER,
   GET_INFO_SUCCESS,
   GET_INFO_FAILURE,
+  SET_PICTURE_FAILURE,
 } from '../../actions/Info';
 
 export interface State {
@@ -176,6 +177,12 @@ const InfoState = (
     }
     case ALL: {
       return action.payload.all;
+    }
+    case SET_PICTURE_FAILURE: {
+      return {
+        ...state,
+        error: action.payload.error,
+      };
     }
     default: {
       return state;
