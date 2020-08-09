@@ -48,6 +48,8 @@ export const ModalHeader = styled.header`
 `;
 
 export const CloseButton = styled.button`
+  outline: none;
+  background-color: #ffffff;
   width: 16px;
   height: 16px;
   object-fit: contain;
