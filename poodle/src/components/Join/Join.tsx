@@ -16,7 +16,7 @@ import {
   AGREEMENT_2,
   AGREEMENT_3,
 } from './JoinConstance';
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 import {
   inputReducer,
   inputInitialState,
