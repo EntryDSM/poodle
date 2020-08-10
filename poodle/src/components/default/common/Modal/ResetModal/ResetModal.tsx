@@ -8,6 +8,13 @@ import {
   ModalContentProps,
 } from '..';
 import { ButtonType } from '../ModalButtonList';
+import {
+  EmailPage,
+  VerifyCodePage,
+  PasswordPage,
+  PasswordCheckPage,
+  SuccessPage,
+} from './';
 
 type PageType = {
   inputType: string;
@@ -31,8 +38,8 @@ type ResetModalProps = {
 };
 
 const RestModal: FC<ResetModalProps> = ({
-  page,
-  setPage,
+  page: page2,
+  setPage: setPage2,
   pageList,
   buttonList,
   title,
@@ -40,6 +47,7 @@ const RestModal: FC<ResetModalProps> = ({
   error,
   color,
 }) => {
+  const [page, setPage] = useState<number>(1);
   const [email, setEmail] = useState<string>('');
   const [code, setCode] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -119,31 +127,39 @@ const RestModal: FC<ResetModalProps> = ({
     next4,
     check5,
   );
-  if (page < 0 || page > 4) return null;
+  if (page < 0 || page > 5) return null;
   return (
     <ModalContent
       title={title}
       contour={contour}
       errorSentence={error ? pageList[page].errorSentence : ''}
       color={color}
-      explain={pageList[page].explain}
-      icon={pageList[page].icon}
+      explain={pageList[page - 1].explain}
+      icon={
+        pageList[page - 1].icon
+          ? (pageList[page - 1].icon as
+              | 'BlueSuccess'
+              | 'BlueCheck'
+              | 'RedError'
+              | 'YellowCheck')
+          : undefined
+      }
     >
-      {pageList[page].inputType && (
-        <ModalInput
-          type={pageList[page].inputType}
-          placeholder={pageList[page].placeholder}
-          textCenter={
-            pageList[page].inputType === 'password' ||
-            pageList[page].inputType === 'verification'
-          }
-          value={getResetValue(pageList[page].key)}
-          setValue={getSetResetValue(pageList[page].key)}
-          id={pageList[page].key}
-        />
-      )}
-      <ModalButtonList buttonList={correctedButtonList[page]} color={color} />
-      {pageList[page].moreExplain && (
+      {(page === 1 && <EmailPage setPage={setPage} />) ||
+        (page === 2 && <VerifyCodePage setPage={setPage} />) ||
+        (page === 3 && (
+          <PasswordPage
+            password={password}
+            setPassword={setPassword}
+            setPage={setPage}
+          />
+        )) ||
+        (page === 4 && (
+          <PasswordCheckPage password={password} setPage={setPage} />
+        )) ||
+        (page === 5 && <SuccessPage />)}
+
+      {pageList[page - 1].moreExplain && (
         <S.MoreExplainSentence>
           {pageList[page].moreExplain}
         </S.MoreExplainSentence>
