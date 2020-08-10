@@ -7,7 +7,6 @@ type ModalInputProps = {
   textCenter: boolean;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
-  id: string;
   submit?: () => void;
 };
 
@@ -17,7 +16,6 @@ const ModalInput: FC<ModalInputProps> = ({
   value,
   setValue,
   textCenter,
-  id,
   submit,
 }) => {
   const onChange = useCallback(
