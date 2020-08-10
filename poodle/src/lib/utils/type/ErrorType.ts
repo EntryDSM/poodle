@@ -1,7 +1,7 @@
 type ErrorType = {
   message: string;
   response: {
-    status: Number;
+    status: number;
   };
 };
 

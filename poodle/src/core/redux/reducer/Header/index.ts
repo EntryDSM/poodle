@@ -5,6 +5,7 @@ import {
   LOGOUT,
   LOGIN_ERROR_RESET,
 } from '../../actions/Header';
+import ErrorType from '@/lib/utils/type/ErrorType';
 
 type HeaderState = {
   isLogin: boolean;
@@ -12,11 +13,14 @@ type HeaderState = {
     accessToken: string;
     refreshToken: string;
   };
-  error: {
-    response: {
-      code: number;
-    };
-  };
+  error: ErrorType;
+};
+
+const errorInitialState = {
+  message: '',
+  response: {
+    status: 0,
+  },
 };
 
 const initialState: HeaderState = {
@@ -25,11 +29,7 @@ const initialState: HeaderState = {
     accessToken: '',
     refreshToken: '',
   },
-  error: {
-    response: {
-      code: 0,
-    },
-  },
+  error: errorInitialState,
 };
 
 export default function header(
@@ -55,20 +55,12 @@ export default function header(
           accessToken: '',
           refreshToken: '',
         },
-        error: {
-          response: {
-            code: 0,
-          },
-        },
+        error: errorInitialState,
       };
     case LOGIN_ERROR_RESET:
       return {
         ...state,
-        error: {
-          response: {
-            code: 0,
-          },
-        },
+        error: errorInitialState,
       };
     default:
       return state;

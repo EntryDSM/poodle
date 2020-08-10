@@ -18,6 +18,7 @@ type LoginModalProps = ModalContentProps & {
   user: {
     accessToken: string;
   };
+  loginErrorReset: () => void;
 };
 
 const LoginModal: FC<LoginModalProps> = ({
@@ -27,6 +28,7 @@ const LoginModal: FC<LoginModalProps> = ({
   color,
   onClick,
   user,
+  loginErrorReset,
 }) => {
   const dispatch = useDispatch();
   const redirectToLink = useRedirect();
@@ -57,6 +59,9 @@ const LoginModal: FC<LoginModalProps> = ({
       dispatch(loginErrorReset());
     }
   }, [user]);
+  useEffect(() => {
+    return () => loginErrorReset();
+  }, []);
   return (
     <ModalContent
       title={title}
