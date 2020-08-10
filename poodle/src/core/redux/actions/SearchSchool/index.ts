@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 
 export const GET_SCHOOL_CALL = 'SearchSchool/GET_SCHOOL' as const;
 export const GET_SCHOOL_FAILURE = 'SearchSchool/GET_SCHOOL_FAILURE' as const;

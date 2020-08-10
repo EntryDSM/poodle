@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 
 export const SEND_EMAIL = 'join/SEND_EMAIL' as const;
 export const SEND_EMAIL_SUCCESS = 'join/SEND_EMAIL_SUCCESS' as const;

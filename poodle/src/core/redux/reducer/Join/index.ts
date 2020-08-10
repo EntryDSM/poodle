@@ -10,7 +10,7 @@ import {
   JOIN_SUCCESS,
   JOIN_FAILURE,
 } from '../../actions/Join';
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType, { errorInitialState } from '@/lib/utils/type';
 
 type JoinState = {
   sendEmailSuccess: boolean;
@@ -19,13 +19,6 @@ type JoinState = {
   verifyCodeError: ErrorType;
   joinSuccess: boolean;
   joinError: ErrorType;
-};
-
-const errorInitialState = {
-  message: '',
-  response: {
-    status: 0,
-  },
 };
 
 const initialState: JoinState = {

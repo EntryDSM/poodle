@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 
 export const LOGIN = 'header/LOGIN' as const;
 export const LOGIN_SUCCESS = 'header/LOGIN_SUCCESS' as const;

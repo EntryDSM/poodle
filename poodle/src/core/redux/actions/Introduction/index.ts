@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 import { State } from '../../reducer/Introduction';
 
 export const SELF_INTRODUCTION = 'Introduction/SELF_INTRODUCTION' as const;
