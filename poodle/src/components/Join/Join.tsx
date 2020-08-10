@@ -44,6 +44,7 @@ import {
   setFocusedPasswordCheck,
 } from './focusedReducer';
 import { useRedirect } from '@/lib/utils/function';
+import { emailRegExp, passwordRegExp } from '@/lib/RegExp';
 type JoinReduxType = {
   success: boolean;
   error: ErrorType;
@@ -60,8 +61,6 @@ export type JoinProps = {
   joinValue: JoinReduxType;
 };
 
-const emailRegExp = new RegExp('.{1}@.{1}');
-const passwordRegExp = new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9]).{8,15}$');
 const lPad = (str: string, padLen: Number, padStr: string) => {
   while (str.length < padLen) str = padStr + str;
   return str;

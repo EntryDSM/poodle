@@ -59,6 +59,7 @@ export const CloseButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #ffffff;
 `;
 
 export const CloseButtonImage = styled.span`

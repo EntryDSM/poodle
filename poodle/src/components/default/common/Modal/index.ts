@@ -33,5 +33,5 @@ export type ModalContentProps = {
   errorSentence?: string;
   explain?: string;
   color: string;
-  icon?: string;
+  icon?: 'BlueSuccess' | 'BlueCheck' | 'RedError' | 'YellowCheck';
 };
