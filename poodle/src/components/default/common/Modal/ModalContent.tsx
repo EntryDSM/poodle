@@ -3,12 +3,12 @@ import * as S from '@/styles/common/Modal';
 import { ModalContentProps } from '.';
 import { BlueSuccess, BlueCheck, RedError, YellowCheck } from '@/assets/Modal';
 
-enum IMAGE_LIST {
-  BlueSuccess = 'BlueSuccess',
-  BlueCheck = 'BlueCheck',
-  RedError = 'RedError',
-  YellowCheck = 'YellowCheck',
-}
+const IMAGE_LIST = {
+  BlueSuccess: BlueSuccess,
+  BlueCheck: BlueCheck,
+  RedError: RedError,
+  YellowCheck: YellowCheck,
+};
 
 const ModalContent: FC<ModalContentProps> = ({
   children,
@@ -53,7 +53,7 @@ const ModalContent: FC<ModalContentProps> = ({
         {hasError && errorSentence}
         {normal && normal}
       </S.SubTitle>
-      {icon && <S.IconImage src={BlueSuccess} />}
+      {icon && <S.IconImage src={IMAGE_LIST[icon]} />}
       {explain && <S.ExplainSentence>{explain}</S.ExplainSentence>}
       {children}
     </S.ModalContentWrapper>
