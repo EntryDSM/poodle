@@ -5,6 +5,7 @@ import {
   LOGOUT,
   LOGIN_ERROR_RESET,
 } from '../../actions/Header';
+import ErrorType, { errorInitialState } from '@/lib/utils/type';
 
 type HeaderState = {
   isLogin: boolean;

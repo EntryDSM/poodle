@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { startLoading, finishLoading } from '@/core/redux/actions/Loading';
-import ErrorType from '../type/ErrorType';
+import ErrorType from '../type';
 
 export default function createRequestSaga(type: any, request: any) {
   const SUCCESS = `${type}_SUCCESS`;

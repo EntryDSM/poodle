@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 import {
   GET_SCHOOL_CALL,
   GET_SCHOOL_FAILURE,

@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 import {
   SERVICE_TIME,
   ABSENT_DAY,

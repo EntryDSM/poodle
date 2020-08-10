@@ -13,7 +13,7 @@ import {
 } from '../../actions/SearchSchool';
 import { RootState } from '../../reducer';
 import { startLoading, finishLoading } from '@/core/redux/actions/Loading';
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 import { searchSchoolResponseType } from '@/lib/api/ApiType';
 
 const getStateFunc = (state: RootState): RootState['SearchSchool'] =>

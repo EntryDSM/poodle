@@ -1,5 +1,5 @@
 import { State } from '@/core/redux/reducer/Info';
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 
 export const NAME = 'Info/NAME' as const;
 export const GENDER = 'Info/GENDER' as const;
