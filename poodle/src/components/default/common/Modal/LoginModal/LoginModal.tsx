@@ -75,7 +75,6 @@ const LoginModal: FC<LoginModalProps> = ({
         textCenter={false}
         value={email}
         setValue={setEmail}
-        id='email'
       />
       <ModalInput
         type='password'
@@ -83,7 +82,6 @@ const LoginModal: FC<LoginModalProps> = ({
         textCenter={false}
         value={password}
         setValue={setPassword}
-        id='password'
         submit={onSubmit}
       />
       <ModalButtonList
