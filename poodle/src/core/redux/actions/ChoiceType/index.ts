@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 import { State } from '../../reducer/ChoiceType';
 
 export const APPLYTYPE = 'ChoiceType/APPLYTYPE' as const;

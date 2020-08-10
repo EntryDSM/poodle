@@ -6,3 +6,10 @@ type ErrorType = {
 };
 
 export default ErrorType;
+
+export const errorInitialState = {
+  message: '',
+  response: {
+    status: 0,
+  },
+};

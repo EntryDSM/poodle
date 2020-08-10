@@ -1,7 +1,7 @@
 import { RootState } from '@/core/redux/reducer';
 import { GradeType, SubjectType, ScoreType } from '@/core/redux/actions/Grade';
 import client from './client';
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 import {
   userTypeServerType,
   gradeServerType,
