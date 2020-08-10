@@ -29,9 +29,7 @@ const QualificationUserImg: FC<Props> = ({ valueChangeHandler, img }) => {
   }, []);
   const isFileTypeAble = useCallback((file: File) => {
     if (!file) return false;
-    const acceptFileTypes: string[] = spliceAcceptFileTypeString(
-      ACCEPT_FILE_TYPE,
-    );
+    const acceptFileTypes = spliceAcceptFileTypeString(ACCEPT_FILE_TYPE);
     const fileName = getFileName(file);
     for (let acceptFileType of acceptFileTypes) {
       if (fileName.includes(acceptFileType)) return true;
