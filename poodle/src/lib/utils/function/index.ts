@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { useCallback } from 'react';
+import { useCallback, useState, useMemo, useRef } from 'react';
 
 export const useRedirect = () => {
   const history = useHistory();
@@ -61,4 +61,41 @@ export const getDAY = (
     });
   }
   return buf;
+};
+
+export const lPad = (str: string, padLen: Number, padStr: string) => {
+  while (str.length < padLen) str = padStr + str;
+  return str;
+};
+
+export const useTimer = (): [
+  React.MutableRefObject<number>,
+  (validitySecond: number) => void,
+  () => void,
+  number,
+  string,
+] => {
+  const timer = useRef<number>(0);
+  const [remainedTime, setRemainedTime] = useState(0);
+  const getFormatedTime = useMemo(() => {
+    const ONE_MINUTE = 60;
+    const minute = Math.floor(remainedTime / ONE_MINUTE) + '';
+    const second = (remainedTime % ONE_MINUTE) + '';
+    return `${lPad(minute, 2, '0')}:${lPad(second, 2, '0')}`;
+  }, [remainedTime]);
+  const startTimer = (validitySecond: number) => {
+    if (!timer.current) {
+      setRemainedTime(validitySecond);
+      timer.current = setInterval(() => {
+        if (!validitySecond) return resetTimer();
+        setRemainedTime(--validitySecond);
+      }, 1000);
+    }
+  };
+  const resetTimer = useCallback(() => {
+    clearInterval(timer.current);
+    timer.current = 0;
+    setRemainedTime(0);
+  }, []);
+  return [timer, startTimer, resetTimer, remainedTime, getFormatedTime];
 };
