@@ -5,20 +5,43 @@ import {
   ModalButtonList,
   ModalContentProps,
 } from '..';
-import { ModalButtonListWrapper } from '@/styles/common/Modal';
+import { ModalButtonListWrapper, ETCSentence } from '@/styles/common/Modal';
 import { MAINCOLOR } from '@/lib/utils/style/color';
 import ModalButton from '../ModalButton';
+import ErrorType from '@/lib/utils/type';
 
 type VerifyCodePageProps = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  email: string;
+  sendEmail: (email: string) => void;
+  verifyCode: (data: { email: string; code: string }) => void;
+  verifyCodeValue: {
+    success: boolean;
+    error: ErrorType;
+    loading: boolean;
+  };
 };
 
-const VerifyCodePage: FC<VerifyCodePageProps> = ({ setPage }) => {
+const VerifyCodePage: FC<VerifyCodePageProps> = ({
+  setPage,
+  email,
+  sendEmail,
+  verifyCode,
+  verifyCodeValue,
+}) => {
+  const { success } = verifyCodeValue;
   const [code, setCode] = useState<string>('');
+  const reSendEmail = useCallback(() => {
+    sendEmail(email);
+  }, [email]);
   const codeSubmit = useCallback(() => {
-    if (!code) alert('빈칸은 입력할 수 없습니다.');
-    console.log('todo: 인증 코드 안증 api 연동');
-  }, [code]);
+    if (!code) return alert('빈칸은 입력할 수 없습니다.');
+    verifyCode({ email, code });
+  }, [email, code]);
+  const goNextPage = useCallback(() => {
+    if (!success) return alert('이메일 인증을 해야 합니다.');
+    setPage(prev => prev + 1);
+  }, [verifyCodeValue.success]);
   return (
     <>
       <ModalInput
@@ -28,13 +51,15 @@ const VerifyCodePage: FC<VerifyCodePageProps> = ({ setPage }) => {
         value={code}
         setValue={setCode}
         submit={codeSubmit}
+        disabled={verifyCodeValue.success ? true : false}
+        maxLength={5}
       />
       <ModalButtonListWrapper>
         <ModalButton
           color={MAINCOLOR}
           title='재전송'
           size='min'
-          onClick={codeSubmit}
+          onClick={reSendEmail}
         />
         <ModalButton
           color={MAINCOLOR}
@@ -46,9 +71,13 @@ const VerifyCodePage: FC<VerifyCodePageProps> = ({ setPage }) => {
           color={MAINCOLOR}
           title='다음'
           size='min'
-          onClick={() => setPage(prev => prev + 1)}
+          onClick={goNextPage}
         />
       </ModalButtonListWrapper>
+      <ETCSentence>
+        혹시 메일이 오지 않았다면 메일주소를 다시 확인하고
+      </ETCSentence>
+      <ETCSentence>스팸 메일함도 확인해주세요.</ETCSentence>
     </>
   );
 };

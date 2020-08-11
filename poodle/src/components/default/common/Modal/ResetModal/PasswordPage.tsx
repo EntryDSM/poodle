@@ -7,7 +7,7 @@ import {
 } from '..';
 import ModalButton from '../ModalButton';
 import { MAINCOLOR } from '@/lib/utils/style/color';
-import { ModalButtonListWrapper } from '@/styles/common/Modal';
+import { ModalButtonListWrapper, ETCSentence } from '@/styles/common/Modal';
 
 type PasswordPageProps = {
   password: string;
@@ -22,7 +22,7 @@ const PasswordPage: FC<PasswordPageProps> = ({
 }) => {
   const passwordSubmit = useCallback(() => {
     if (!password) alert('빈칸은 입력할 수 없습니다.');
-    console.log('todo: 비밀번호');
+    setPage(prev => prev + 1);
   }, [password]);
   return (
     <>
@@ -33,14 +33,9 @@ const PasswordPage: FC<PasswordPageProps> = ({
         value={password}
         setValue={setPassword}
         submit={passwordSubmit}
+        disabled={false}
       />
       <ModalButtonListWrapper>
-        <ModalButton
-          color={MAINCOLOR}
-          title='이전'
-          size='middle'
-          onClick={() => setPage(prev => prev - 1)}
-        />
         <ModalButton
           color={MAINCOLOR}
           title='다음'
@@ -48,6 +43,9 @@ const PasswordPage: FC<PasswordPageProps> = ({
           onClick={() => setPage(prev => prev + 1)}
         />
       </ModalButtonListWrapper>
+      <ETCSentence>
+        영문(대소문자 구분), 숫자 포함 8자리 이상 특수기호 가능
+      </ETCSentence>
     </>
   );
 };
