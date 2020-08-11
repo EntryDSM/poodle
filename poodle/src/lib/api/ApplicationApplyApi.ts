@@ -11,6 +11,7 @@ import {
   SubjectsType,
   gedInfoServerType,
   gedGradeServerType,
+  previewType,
 } from './ApiType';
 import { GRADESEMESTERLIST } from '@/components/Grade/constance';
 
@@ -376,4 +377,10 @@ export const getSearchSchoolUrl = (
   size: number,
 ) => {
   return `eduOffice='${eduOffice}'&name='${name}'&page=${page}&size=${size}`;
+};
+
+export const previewStateToRequest = (isSubmit: boolean): previewType => {
+  return {
+    is_final_submit: isSubmit,
+  };
 };
