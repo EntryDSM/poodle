@@ -12,8 +12,10 @@ import {
   gedInfoServerType,
   gedGradeServerType,
   previewType,
+  submitType,
 } from './ApiType';
 import { GRADESEMESTERLIST } from '@/components/Grade/constance';
+import { PreviewState } from '@/core/redux/reducer/Preview';
 
 export const errorTypeCheck = (error: ErrorType): void => {
   if (error.response?.status === 401 || error.response?.status === 403) {
@@ -379,8 +381,17 @@ export const getSearchSchoolUrl = (
   return `eduOffice='${eduOffice}'&name='${name}'&page=${page}&size=${size}`;
 };
 
-export const previewStateToRequest = (isSubmit: boolean): previewType => {
+export const previewStateToRequest = (isSubmit: boolean): submitType => {
   return {
     is_final_submit: isSubmit,
+  };
+};
+
+export const pdfResponseToState = (response: previewType): PreviewState => {
+  return {
+    preview: '',
+    // i will fix
+    error: null,
+    isSubmit: false,
   };
 };
