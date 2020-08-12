@@ -12,7 +12,12 @@ const Document: React.FC<{}> = () => (
         underLineLength={121}
         titleFontSize={36}
       />
-      <iframe src='/example.pdf' width='1170px' height='1072px' />
+      <iframe
+        title='미리보기'
+        src='/example.pdf'
+        width='1170px'
+        height='1072px'
+      />
     </S.DocumentContainer>
   </S.Wrapper>
 );
