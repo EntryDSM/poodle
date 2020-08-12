@@ -166,7 +166,6 @@ const Join: React.FC<JoinProps> = ({
           ((key === 'password' || key === 'passwordCheck') &&
             !passwordRegExp.exec(value))
         ) {
-          console.log(key);
           Emphasizer[key]();
           break;
         }
