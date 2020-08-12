@@ -8,22 +8,22 @@ import {
   SUBMIT_SUCCESS,
 } from '../../actions/Preview';
 
-export interface State {
+export interface PreviewState {
   preview: string;
   error: ErrorType | null;
   isSubmit: boolean;
 }
 
-const initialState: State = {
+const initialState: PreviewState = {
   preview: '',
   error: null,
   isSubmit: false,
 };
 
 const PreviewState = (
-  state: State = initialState,
+  state: PreviewState = initialState,
   action: PreviewAction,
-): State => {
+): PreviewState => {
   switch (action.type) {
     case PREVIEW: {
       return {
