@@ -5,26 +5,30 @@ import {
   ModalButtonList,
   ModalContentProps,
 } from '..';
-import { ModalButtonListWrapper } from '@/styles/common/Modal';
+import { ModalButtonListWrapper, ETCSentence } from '@/styles/common/Modal';
 import ModalButton from '../ModalButton';
 import { MAINCOLOR } from '@/lib/utils/style/color';
+import { passwordRegExp } from '@/lib/RegExp';
 
 type OneMorePasswordPageProps = {
   password: string;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  passwordCheck: string;
+  setPasswordCheck: React.Dispatch<React.SetStateAction<string>>;
+  resetPassword: (password: string) => void;
 };
 
 const PasswordCheckPage: FC<OneMorePasswordPageProps> = ({
   password,
   setPage,
+  passwordCheck,
+  setPasswordCheck,
+  resetPassword,
 }) => {
-  const [passwordCheck, setPasswordCheck] = useState('');
   const passwordCheckSubmit = useCallback(() => {
     if (!passwordCheck) return alert('빈칸은 입력할 수 없습니다.');
-    if (password !== passwordCheck)
-      return alert('비밀번호가 일치하지 않습니다.');
-    console.log('todo: 인증 코드 안증 api 연동');
-    setPage(prev => prev + 1);
+    if (password === passwordCheck || passwordRegExp.exec(passwordCheck))
+      resetPassword(passwordCheck);
   }, [password, passwordCheck]);
   return (
     <>
@@ -35,6 +39,7 @@ const PasswordCheckPage: FC<OneMorePasswordPageProps> = ({
         value={passwordCheck}
         setValue={setPasswordCheck}
         submit={passwordCheckSubmit}
+        disabled={false}
       />
       <ModalButtonListWrapper>
         <ModalButton
@@ -50,6 +55,9 @@ const PasswordCheckPage: FC<OneMorePasswordPageProps> = ({
           onClick={passwordCheckSubmit}
         />
       </ModalButtonListWrapper>
+      <ETCSentence>
+        영문(대소문자 구분), 숫자 포함 8자리 이상 특수기호 가능
+      </ETCSentence>
     </>
   );
 };

@@ -5,12 +5,20 @@ import {
 } from '../../actions/Loading';
 import { LOGIN } from '../../actions/Header';
 import { SEND_EMAIL, VERIFY_CODE, JOIN } from '../../actions/Join';
+import {
+  SEND_EMAIL as RESET_SEND_EMAIL,
+  VERIFY_CODE as RESET_VERIFY_CODE,
+  RESET_PASSWORD,
+} from '../../actions/ResetPassword';
 
 type LoadingState = {
   [LOGIN]: boolean;
   [SEND_EMAIL]: boolean;
   [VERIFY_CODE]: boolean;
   [JOIN]: boolean;
+  [RESET_SEND_EMAIL]: boolean;
+  [RESET_VERIFY_CODE]: boolean;
+  [RESET_PASSWORD]: boolean;
 };
 
 const initialState: LoadingState = {
@@ -18,6 +26,9 @@ const initialState: LoadingState = {
   [SEND_EMAIL]: false,
   [VERIFY_CODE]: false,
   [JOIN]: false,
+  [RESET_SEND_EMAIL]: false,
+  [RESET_VERIFY_CODE]: false,
+  [RESET_PASSWORD]: false,
 };
 
 export default function loading(

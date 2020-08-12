@@ -30,9 +30,17 @@ const ModalContent: FC<ModalContentProps> = ({
       setHasContour(true);
       timout.current = setTimeout(() => {
         setIsEffect(false);
-        setHasError(true);
         setHasContour(false);
+        setHasError(true);
       }, [1000]);
+    } else {
+      setIsEffect(true);
+      setHasError(true);
+      timout.current = setTimeout(() => {
+        setIsEffect(false);
+        setHasContour(true);
+        setHasError(false);
+      });
     }
     return () => {
       clearTimeout(timout.current);
@@ -40,7 +48,7 @@ const ModalContent: FC<ModalContentProps> = ({
       setHasContour(contour);
       setHasError(false);
     };
-  }, [errorSentence]);
+  }, [errorSentence, normal]);
   return (
     <S.ModalContentWrapper>
       <S.Title>{title}</S.Title>
@@ -49,6 +57,7 @@ const ModalContent: FC<ModalContentProps> = ({
         error={hasError}
         color={color}
         effect={isEffect}
+        normal={normal}
       >
         {hasError && errorSentence}
         {normal && normal}
