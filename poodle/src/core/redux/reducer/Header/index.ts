@@ -4,6 +4,7 @@ import {
   HeaderAction,
   LOGOUT,
   LOGIN_ERROR_RESET,
+  LOGIN,
 } from '../../actions/Header';
 import ErrorType, { errorInitialState } from '@/lib/utils/type';
 
@@ -30,11 +31,14 @@ export default function header(
   action: HeaderAction,
 ) {
   switch (action.type) {
+    case LOGIN:
+      return initialState;
     case LOGIN_SUCCESS:
       return {
         ...state,
         isLogin: true,
         user: action.payload,
+        error: errorInitialState,
       };
     case LOGIN_FAILURE:
       return {

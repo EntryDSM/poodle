@@ -8,7 +8,7 @@ type ModalInputProps = {
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
   submit?: () => void;
-  disabled?: boolean;
+  disabled: boolean;
   maxLength?: number;
 };
 
