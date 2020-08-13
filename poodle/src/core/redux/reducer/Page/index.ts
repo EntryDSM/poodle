@@ -5,7 +5,7 @@ export interface State {
 }
 
 const initialState: State = {
-  page: '',
+  page: null,
 };
 
 const PageState = (
