@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { FC, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import SearchModalBox from '../SearchModalBox';
 import {
   ModalWrapper,
@@ -10,64 +10,106 @@ import {
 import SchoolSearchContent from './SchoolSearchContent';
 import { Dropdown } from '@/components/default/ApplicationFormDefault';
 import { setMiddleSchool } from '@/core/redux/actions/Info';
-
-interface OptionType {
-  VALUE: string;
-  LABEL: string;
-}
+import eduOfficeList from './SchoolSearchConstance';
+import { ReducerType } from '@/core/redux/store';
+import {
+  eduOfficeChange,
+  schoolInfoChange,
+  pageChange,
+  schoolSearchInputChange,
+  SchoolType,
+  getSchoolCall,
+} from '@/core/redux/actions/SearchSchool';
+import { getSearchSchoolUrl } from '@/lib/api/ApplicationApplyApi';
+import { GET_GRADE_CALL } from '@/core/redux/actions/Grade';
 
 interface Props {
   modalOff: () => void;
 }
 
-const dummyData = [
-  {
-    schoolName: '구미중학교',
-    address: '경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트',
-  },
-];
-
-const dummyOption: OptionType[] = [
-  { LABEL: 'sth', VALUE: 'sth' },
-  { LABEL: 'sth4', VALUE: 'sth1' },
-  { LABEL: 'sth3', VALUE: 'sth2' },
-  { LABEL: 'sth2', VALUE: 'sth3' },
-  { LABEL: 'sth1', VALUE: 'sth4' },
-];
-
 const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
+  const { eduOffice, page, schoolSearchInput, SchoolInfo, error } = useSelector(
+    (state: ReducerType) => state.SearchSchool,
+  );
   const dispatch = useDispatch();
   const middleSchoolNameChange = (schoolName: string) => {
     const action = setMiddleSchool({ schoolName });
     dispatch(action);
     modalOff();
   };
+  const eduOfficeChangeHandler = useCallback((eduOffice: string) => {
+    dispatch(eduOfficeChange({ office: eduOffice }));
+  }, []);
+  const inputChangeHandler = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      dispatch(schoolSearchInputChange({ searchInput: value }));
+    },
+    [],
+  );
+  const dispatchPageChange = useCallback((page: number) => {
+    dispatch(pageChange({ page }));
+  }, []);
+  const dispatchGetSchoolCall = useCallback((url: string) => {
+    dispatch(getSchoolCall({ url }));
+  }, []);
+  const schoolSearchContent = useCallback(
+    (schoolInfo: SchoolType[]): React.ReactNode => {
+      if (schoolInfo.length <= 0) return <p>결과가 없습니다.</p>;
+      return schoolInfo.map(data => {
+        const { schoolName, schoolAddress } = data;
+        return (
+          <SchoolSearchContent
+            schoolName={schoolName}
+            address={schoolAddress}
+            onClick={middleSchoolNameChange}
+          />
+        );
+      });
+    },
+    [],
+  );
+  const scrollEventHandler = useCallback(
+    (event: React.UIEvent<HTMLElement>) => {
+      const { scrollHeight, clientHeight, scrollTop } = event.currentTarget;
+      if (!isBottom(scrollTop, scrollHeight, clientHeight)) return;
+      dispatchPageChange(page + 1);
+    },
+    [page],
+  );
+  const isBottom = useCallback(
+    (scrollTop: number, scrollHeight: number, clientHeight: number) => {
+      return scrollTop + clientHeight === scrollHeight;
+    },
+    [],
+  );
+  const buttonClickHandler = useCallback(() => {
+    const url = getSearchSchoolUrl(eduOffice, schoolSearchInput, 0, 10);
+    dispatchPageChange(0);
+    dispatchGetSchoolCall(url);
+  }, []);
   return (
     <ModalWrapper>
       <SearchModalBox title='학교 검색' onModalChange={modalOff}>
         <SearchModalInputDiv>
           <Dropdown
-            options={dummyOption}
-            onChange={() => {}}
-            value=''
+            options={eduOfficeList}
+            onChange={eduOfficeChangeHandler}
+            value={eduOffice}
             width='170px'
+            // fontSize='16px'
+            // detailFontSize='14px'
           />
           <SearchModalInput width='250px' leftMargin='16px'>
-            <input placeholder='주소를 입력해 주세요.' />
-            <img onClick={modalOff} />
+            <input
+              placeholder='주소를 입력해 주세요.'
+              onChange={inputChangeHandler}
+            />
+            <img onClick={buttonClickHandler} />
           </SearchModalInput>
         </SearchModalInputDiv>
-        <SearchModalResult>
-          {dummyData.map(data => {
-            const { schoolName, address } = data;
-            return (
-              <SchoolSearchContent
-                schoolName={schoolName}
-                address={address}
-                onClick={middleSchoolNameChange}
-              />
-            );
-          })}
+        <SearchModalResult onScroll={scrollEventHandler}>
+          {schoolSearchContent(SchoolInfo)}
         </SearchModalResult>
       </SearchModalBox>
     </ModalWrapper>
