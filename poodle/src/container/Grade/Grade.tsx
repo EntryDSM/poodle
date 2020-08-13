@@ -72,7 +72,7 @@ const Grade: FC<Props> = props => {
     props.getGradeToServer();
   }, []);
   useEffect(() => {
-    if (props.page !== '') {
+    if (props.page !== null) {
       props.history.push(`/${props.page}`);
     }
   }, [props.page]);
