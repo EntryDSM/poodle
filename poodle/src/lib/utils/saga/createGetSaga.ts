@@ -1,5 +1,6 @@
 import { put, call } from 'redux-saga/effects';
 import { getDataToServer } from '@/lib/api/ApplicationApplyApi';
+import ErrorType from '../type';
 
 const createGetSaga = (
   url: string,
@@ -16,10 +17,16 @@ const createGetSaga = (
         type: SUCCESS,
         payload: state,
       });
-    } catch (error) {
+    } catch (response) {
+      const error: ErrorType = {
+        message: '',
+        response: {
+          status: 500,
+        },
+      };
       yield put({
         type: FAILURE,
-        payload: error,
+        payload: { error },
       });
     }
   };

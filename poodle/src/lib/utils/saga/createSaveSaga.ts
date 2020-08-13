@@ -16,13 +16,12 @@ const createSaveSaga = (
       const response = yield call(setDataToServer, url, request);
       yield put({
         type: SUCCESS,
-        payload: response,
+        payload: response.data,
       });
     } catch (error) {
       yield put({
         type: FAILURE,
         payload: error,
-        error: true,
       });
     }
   };
