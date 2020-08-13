@@ -18,15 +18,9 @@ const createGetSaga = (
         payload: state,
       });
     } catch (response) {
-      const error: ErrorType = {
-        message: '',
-        response: {
-          status: 500,
-        },
-      };
       yield put({
         type: FAILURE,
-        payload: { error },
+        payload: { error: response as ErrorType },
       });
     }
   };
