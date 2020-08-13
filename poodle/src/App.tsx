@@ -27,9 +27,9 @@ function App() {
         <Route exact path='/mypage' component={Mypage} />
         <Route path='/mypage/document' component={Document} />
         <Route path='/preview' component={PreviewContainer} />
-        <Route path='/Introduction' render={() => <ConnectIntroduction />} />
-        <Route path='/Type' render={() => <ConnectChoiceType />} />
-        <Route path='/Info' render={() => <ConnectInfo />} />
+        <Route path='/Introduction' component={ConnectIntroduction} />
+        <Route path='/Type' component={ConnectChoiceType} />
+        <Route path='/Info' component={ConnectInfo} />
         <Route component={Error} />
       </Switch>
       <Footer />
