@@ -58,14 +58,14 @@ const Introduction: FC<Props> = ({
     [history],
   );
   const goCurrentPage = useCallback(() => {
-    history.push(`/${page}`);
+    history.push('/grade');
   }, [page]);
   useEffect(() => {
     getStudyPlanToServer();
     getSelfIntroductionToServer();
   }, []);
   useEffect(() => {
-    if (page != '') {
+    if (page != null) {
       history.push(`/${page}`);
     }
   }, [page]);

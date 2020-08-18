@@ -111,7 +111,7 @@ const Info: FC<Props> = props => {
     props.getInfoToServer();
   }, []);
   useEffect(() => {
-    if (props.page !== '') {
+    if (props.page !== null) {
       props.history.push(`/${props.page}`);
     }
   }, [props.page]);

@@ -96,7 +96,7 @@ const ChoiceType: FC<Props> = props => {
     getTypeAndSetState();
   }, []);
   useEffect(() => {
-    if (page !== '') {
+    if (page !== null) {
       history.push(`/${page}`);
     }
   }, [page]);

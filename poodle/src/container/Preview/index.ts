@@ -1,1 +1,1 @@
-export { default as Preview } from './Preview';
+export { default as PreviewContainer } from './Preview';

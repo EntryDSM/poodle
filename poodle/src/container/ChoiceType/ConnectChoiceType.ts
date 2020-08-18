@@ -12,10 +12,10 @@ import {
   setAdditionalType,
   setGEDSuccessMonth,
   setGEDSuccessYear,
+  setGraduationMonth,
   setAll,
   getTypeCall,
   typeCall,
-  setGraduationMonth,
 } from '@/core/redux/actions/ChoiceType';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 
