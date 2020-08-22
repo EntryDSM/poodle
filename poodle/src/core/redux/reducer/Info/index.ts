@@ -46,7 +46,7 @@ export interface State {
 const initialState: State = {
   name: '',
   gender: '',
-  birthday: '',
+  birthday: '2000-1-1',
   number: '',
   middleSchool: '',
   protectorName: '',

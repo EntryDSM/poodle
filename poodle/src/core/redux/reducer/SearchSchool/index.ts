@@ -24,7 +24,7 @@ type State = {
 const initalState: State = {
   SchoolInfo: [],
   error: null,
-  eduOffice: '',
+  eduOffice: '대전',
   page: 0,
   schoolSearchInput: '',
   loading: false,
