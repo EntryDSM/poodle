@@ -14,21 +14,19 @@ import eduOfficeList from './SchoolSearchConstance';
 import { ReducerType } from '@/core/redux/store';
 import {
   eduOfficeChange,
-  schoolInfoChange,
   pageChange,
   schoolSearchInputChange,
   SchoolType,
   getSchoolCall,
 } from '@/core/redux/actions/SearchSchool';
 import { getSearchSchoolUrl } from '@/lib/api/ApplicationApplyApi';
-import { GET_GRADE_CALL } from '@/core/redux/actions/Grade';
 
 interface Props {
   modalOff: () => void;
 }
 
 const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
-  const { eduOffice, page, schoolSearchInput, SchoolInfo, error } = useSelector(
+  const { eduOffice, page, schoolSearchInput, SchoolInfo } = useSelector(
     (state: ReducerType) => state.SearchSchool,
   );
   const dispatch = useDispatch();
@@ -47,6 +45,15 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
     },
     [],
   );
+  const inputKeyPressHandler = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') searchSchool(eduOffice, schoolSearchInput);
+    },
+    [eduOffice, schoolSearchInput],
+  );
+  const buttonClickHandler = useCallback(() => {
+    searchSchool(eduOffice, schoolSearchInput);
+  }, []);
   const dispatchPageChange = useCallback((page: number) => {
     dispatch(pageChange({ page }));
   }, []);
@@ -83,11 +90,14 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
     },
     [],
   );
-  const buttonClickHandler = useCallback(() => {
-    const url = getSearchSchoolUrl(eduOffice, schoolSearchInput, 0, 10);
-    dispatchPageChange(0);
-    dispatchGetSchoolCall(url);
-  }, []);
+  const searchSchool = useCallback(
+    (eduOffice: string, schoolSearchInput: string) => {
+      const url = getSearchSchoolUrl(eduOffice, schoolSearchInput, 0, 10);
+      dispatchPageChange(0);
+      dispatchGetSchoolCall(url);
+    },
+    [eduOffice, schoolSearchInput],
+  );
   return (
     <ModalWrapper>
       <SearchModalBox title='학교 검색' onModalChange={modalOff}>
@@ -97,13 +107,12 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
             onChange={eduOfficeChangeHandler}
             value={eduOffice}
             width='170px'
-            // fontSize='16px'
-            // detailFontSize='14px'
           />
           <SearchModalInput width='250px' leftMargin='16px'>
             <input
               placeholder='주소를 입력해 주세요.'
               onChange={inputChangeHandler}
+              onKeyPress={inputKeyPressHandler}
             />
             <img onClick={buttonClickHandler} />
           </SearchModalInput>
