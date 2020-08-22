@@ -1,10 +1,11 @@
-import { debounce, select, call, takeLatest } from 'redux-saga/effects';
+import { debounce, select, call, takeLatest, put } from 'redux-saga/effects';
 import {
   infoStateToRequest,
   infoStateToGedRequest,
   infoResponseToState,
+  setDataToServer,
 } from '@/lib/api/ApplicationApplyApi';
-import { USERINFO_URL } from '@/lib/api/ServerUrl';
+import { USERINFO_URL, SET_PICTURE_URL } from '@/lib/api/ServerUrl';
 import {
   createSaveSaga,
   createProxySaga,
@@ -30,6 +31,10 @@ import {
   CLASS_NUMBER,
   INFO_CALL,
   GET_INFO_CALL,
+  SetPictureCall,
+  SET_PICTURE,
+  SET_PICTURE_FAILURE,
+  SET_PICTURE_SUCCESS,
 } from '../../actions/Info';
 
 const actionArray = [
@@ -96,6 +101,16 @@ const getInfoSaga = createGetSaga(
   infoResponseToState,
 );
 
+function* setImgSaga(action: SetPictureCall) {
+  try {
+    const picture = action.payload.picture;
+    yield call(setDataToServer, SET_PICTURE_URL, picture);
+    yield put({ type: SET_PICTURE_SUCCESS });
+  } catch (error) {
+    yield put({ type: SET_PICTURE_FAILURE, payload: { error: error } });
+  }
+}
+
 function* numberChangeSaga() {
   const state = yield select(getStateFunc);
   if (!isNumberStateAble(state)) {
@@ -124,4 +139,5 @@ export default function* typeSaga() {
   yield debounce(DELAY_TIME, numberActionArray, numberChangeSaga);
   yield takeLatest(GET_INFO_CALL, getInfoSaga);
   yield takeLatest(INFO_CALL, movePageProxySaga);
+  yield takeLatest(SET_PICTURE, setImgSaga);
 }

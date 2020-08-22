@@ -7,11 +7,10 @@ import { Header } from '@/components/default/Header';
 import { modalOn, LOGINMODAL } from '@/core/redux/actions/Modal';
 
 const HeaderContainer: FC<{}> = () => {
-  const { isLogin, loginLoading, loginError, user } = useSelector(
+  const { isLogin, loginLoading, user } = useSelector(
     ({ Header: header, Loading: loading }: RootState) => ({
       isLogin: header.isLogin,
       loginLoading: loading[LOGIN],
-      loginError: header.error,
       user: header.user,
     }),
   );

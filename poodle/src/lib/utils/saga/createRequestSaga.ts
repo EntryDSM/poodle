@@ -13,12 +13,10 @@ export default function createRequestSaga(type: any, request: any) {
         type: SUCCESS,
         payload: response.data,
       });
-    } catch (e) {
-      const error: ErrorType = e;
+    } catch (response) {
       yield put({
         type: FAILURE,
-        payload: error,
-        error: true,
+        payload: { error: response as ErrorType },
       });
     }
     yield put(finishLoading(type));

@@ -4,6 +4,7 @@ import { State } from '../../reducer/ChoiceType';
 export const APPLYTYPE = 'ChoiceType/APPLYTYPE' as const;
 export const DISTRICT = 'ChoiceType/DISTRICT' as const;
 export const GRADUATION_YEAR = 'ChoiceType/GRADUATIONSTATUS_YEAR' as const;
+export const GRADUATION_MONTH = 'ChoiceType/GRADUATIONSTATUS_MONTH' as const;
 export const GRADUATION_STATUS = 'ChoiceType/GRADUATION_STATUS' as const;
 export const ALL = 'ChoiceType/ALL' as const;
 export const ADDITIONALTYPE = 'ChoiceType/ADDITIONALTYPE' as const;
@@ -45,6 +46,11 @@ export interface SetGraduationYear {
   payload: { year: string };
 }
 
+export interface SetGraduationMonth {
+  type: typeof GRADUATION_MONTH;
+  payload: { month: string };
+}
+
 export interface TypeSuccess {
   type: typeof TYPE_SUCCESS;
   payload: { response: State };
@@ -84,11 +90,6 @@ export interface GetTypeCall {
   type: typeof GET_TYPE_CALL;
 }
 
-export interface SetGEDSuccessDate {
-  type: typeof GED_SUCCESS_DATE;
-  payload: { date: string };
-}
-
 export interface SetGEDSuccessYear {
   type: typeof GED_SUCCESS_YEAR;
   payload: { year: string };
@@ -104,6 +105,7 @@ export type ChoiceTypeActionType =
   | SetDistrict
   | SetGraduationStatus
   | SetGraduationYear
+  | SetGraduationMonth
   | TypeSuccess
   | TypeFailure
   | SetAll
@@ -113,7 +115,6 @@ export type ChoiceTypeActionType =
   | GetTypeSuccess
   | GetTypeCall
   | SetGEDSuccessYear
-  | SetGEDSuccessDate
   | SetGEDSuccessMonth;
 
 export const setApplyType = (payload: {
@@ -138,6 +139,13 @@ export const setGraduationYear = (payload: {
   year: string;
 }): ChoiceTypeActionType => ({
   type: GRADUATION_YEAR,
+  payload,
+});
+
+export const setGraduationMonth = (payload: {
+  month: string;
+}): ChoiceTypeActionType => ({
+  type: GRADUATION_MONTH,
   payload,
 });
 
@@ -201,12 +209,5 @@ export const setGEDSuccessMonth = (payload: {
   month: string;
 }): ChoiceTypeActionType => ({
   type: GED_SUCCESS_MONTH,
-  payload,
-});
-
-export const SetGEDSuccessDate = (payload: {
-  date: string;
-}): ChoiceTypeActionType => ({
-  type: GED_SUCCESS_DATE,
   payload,
 });

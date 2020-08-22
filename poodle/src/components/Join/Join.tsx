@@ -43,7 +43,7 @@ import {
   setFocusedPassword,
   setFocusedPasswordCheck,
 } from './focusedReducer';
-import { useRedirect } from '@/lib/utils/function';
+import { useRedirect, useTimer } from '@/lib/utils/function';
 import { emailRegExp, passwordRegExp } from '@/lib/RegExp';
 type JoinReduxType = {
   success: boolean;
@@ -61,11 +61,6 @@ export type JoinProps = {
   joinValue: JoinReduxType;
 };
 
-const lPad = (str: string, padLen: Number, padStr: string) => {
-  while (str.length < padLen) str = padStr + str;
-  return str;
-};
-
 const Join: React.FC<JoinProps> = ({
   sendEmail,
   sendEmailValue,
@@ -76,6 +71,13 @@ const Join: React.FC<JoinProps> = ({
   joinValue,
 }) => {
   const redirectToLink = useRedirect();
+  const [
+    timer,
+    startTimer,
+    resetTimer,
+    remainedTime,
+    getFormatedTime,
+  ] = useTimer();
   const goToMain = useCallback(() => {
     redirectToLink('/');
   }, []);
@@ -96,7 +98,7 @@ const Join: React.FC<JoinProps> = ({
     email: false,
     code: false,
   });
-  const [remainedTime, setRemainedTime] = useState(0);
+
   const [inputFocused, setInputFocused] = useState({
     password: false,
     passwordCheck: false,
@@ -116,15 +118,7 @@ const Join: React.FC<JoinProps> = ({
     inputState.passwordCheck,
     isAgrreed,
   ]);
-  const getFormatedTime = useMemo(() => {
-    const ONE_MINUTE = 60;
-    const minute = Math.floor(remainedTime / ONE_MINUTE) + '';
-    const second = (remainedTime % ONE_MINUTE) + '';
 
-    return `${lPad(minute, 2, '0')}:${lPad(second, 2, '0')}`;
-  }, [remainedTime]);
-
-  const timer = useRef(0);
   const emailPrevRef = useRef<null | any>(null);
   const codePrevRef = useRef<null | any>(null);
   const passwordPrevRef = useRef<null | any>(null);
@@ -172,7 +166,6 @@ const Join: React.FC<JoinProps> = ({
           ((key === 'password' || key === 'passwordCheck') &&
             !passwordRegExp.exec(value))
         ) {
-          console.log(key);
           Emphasizer[key]();
           break;
         }
@@ -186,11 +179,7 @@ const Join: React.FC<JoinProps> = ({
     focusedDispatch(resetFocusedState());
     disabledDispatch(resetDisabledState());
   }, [isAgrreed, disabledState, focusedState, inputState]);
-  const resetTimer = useCallback(() => {
-    clearInterval(timer.current);
-    timer.current = 0;
-    setRemainedTime(0);
-  }, []);
+
   const sendEmailClickHandler = useCallback(() => {
     if (isChecked.code) return null;
     const email = inputState.email.trim();
@@ -219,13 +208,7 @@ const Join: React.FC<JoinProps> = ({
   useEffect(() => {
     if (sendEmailValue.success) {
       let validitySecond = 10;
-      if (!timer.current) {
-        setRemainedTime(validitySecond);
-        timer.current = setInterval(() => {
-          if (!validitySecond) return resetTimer();
-          setRemainedTime(--validitySecond);
-        }, 1000);
-      }
+      startTimer(validitySecond);
       setTimeout(() => {
         codePrevRef.current.nextSibling.focus();
       }, 1);

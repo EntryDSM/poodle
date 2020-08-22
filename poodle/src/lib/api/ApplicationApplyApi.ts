@@ -47,16 +47,20 @@ export const typeStateToRequest = (
     qualificationExam,
     graduationStatus,
     graduationYear,
+    graduationMonth,
     district,
     applyType,
     additionalType,
+    gedSuccessMonth,
+    gedSuccessYear,
   } = state;
   return {
     grade_type: getGradeType(qualificationExam, graduationStatus),
     apply_type: applyType,
     is_daejeon: isDaejeon(district),
     additional_type: additionalType,
-    graduate_year: graduationYear,
+    graduated_date: yearMonthToOne(graduationYear, graduationMonth),
+    ged_pass_date: yearMonthToOne(gedSuccessYear, gedSuccessMonth),
   };
 };
 
@@ -65,19 +69,19 @@ export const typeResponseToState = ({
   grade_type,
   additional_type,
   apply_type,
-  graduate_year,
+  graduated_date,
+  ged_pass_date,
 }: userTypeServerType): RootState['ChoiceTypeState'] => ({
   qualificationExam: isGED(grade_type),
   applyType: apply_type,
   district: getDistrictStringToisDaejeon(is_daejeon),
   graduationStatus: grade_type,
-  graduationYear: graduate_year,
+  graduationYear: getYearFromDateString(graduated_date),
+  graduationMonth: getMonthFromDateString(graduated_date),
   additionalType: additional_type,
   error: null,
-  gedSuccessDate: '',
-  gedSuccessMonth: '',
-  gedSuccessYear: '',
-  // i will fix
+  gedSuccessMonth: getMonthFromDateString(ged_pass_date),
+  gedSuccessYear: getYearFromDateString(ged_pass_date),
 });
 
 const isGED = (grade_type: string) => {
@@ -99,11 +103,25 @@ const getGradeType = (qualifacationExam: boolean, graduationStatus: string) => {
   return graduationStatus;
 };
 
-const getDistrictStringToisDaejeon = (is_daejeon: boolean) => {
+const getDistrictStringToisDaejeon = (is_daejeon: boolean): string => {
   if (is_daejeon) {
     return '대전';
   }
   return '전국';
+};
+
+const yearMonthToOne = (year: string, month: string): string => {
+  return `${year}-${month}`;
+};
+
+const getMonthFromDateString = (dateString: string): string => {
+  const splitedStringArray = dateString.split('-');
+  return splitedStringArray[1];
+};
+
+const getYearFromDateString = (dateString: string): string => {
+  const splitedStringArray = dateString.split('-');
+  return splitedStringArray[0];
 };
 
 export const infoStateToRequest = (

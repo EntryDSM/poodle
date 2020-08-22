@@ -18,6 +18,8 @@ interface Props<T> {
   value: T;
   children?: React.ReactNode;
   dropdownChange?: (value: T) => void;
+  fontSize?: string;
+  detailFontSize?: string;
 }
 
 function Dropdown<T>({
@@ -28,6 +30,8 @@ function Dropdown<T>({
   children,
   onChange,
   dropdownChange,
+  fontSize,
+  detailFontSize,
 }: Props<T>) {
   const [checkedMenu, checkedMenuChange] = useState(options[0]);
   useEffect(() => {
@@ -64,7 +68,7 @@ function Dropdown<T>({
     <DropdownDiv width={width} isAble={!isAble}>
       <label>
         {isAble ? <input type='checkbox' /> : ''}
-        <DropdownCurrentElement isAble={!isAble}>
+        <DropdownCurrentElement fontSize={fontSize} isAble={!isAble}>
           {checkedMenu.LABEL}
         </DropdownCurrentElement>
         <div className='DropdownWrapper'>
@@ -72,6 +76,7 @@ function Dropdown<T>({
             <DropdownElement
               onClick={() => elementClickHandler(menu)}
               key={menu.LABEL}
+              fontSize={detailFontSize}
             >
               <p>{menu.LABEL}</p>
             </DropdownElement>

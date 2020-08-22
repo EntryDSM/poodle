@@ -2,6 +2,7 @@ import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { QuilificationUserPicture } from '../../../styles/Info';
 import { modalOn, REDERRORMODAL } from '@/core/redux/actions/Modal';
+import { setPictureCall } from '@/core/redux/actions/Info';
 
 const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000';
 
@@ -22,12 +23,13 @@ const QualificationUserImg: FC<Props> = ({ valueChangeHandler, img }) => {
       dispatch(modalOn(REDERRORMODAL));
       return;
     }
+    dispatch(setPictureCall({ picture: file }));
     const url = URL.createObjectURL(file);
     valueChangeHandler(url);
   }, []);
   const isFileTypeAble = useCallback((file: File) => {
     if (!file) return false;
-    const acceptFileTypes: string[] = ACCEPT_FILE_TYPE.split(',');
+    const acceptFileTypes = spliceAcceptFileTypeString(ACCEPT_FILE_TYPE);
     const fileName = getFileName(file);
     for (let acceptFileType of acceptFileTypes) {
       if (fileName.includes(acceptFileType)) return true;
@@ -37,7 +39,13 @@ const QualificationUserImg: FC<Props> = ({ valueChangeHandler, img }) => {
   const getFileName = useCallback((file: File) => {
     return file.name;
   }, []);
-
+  const spliceAcceptFileTypeString = useCallback(
+    (acceptFileTypeString: string): string[] => {
+      const acceptFileTypes: string[] = acceptFileTypeString.split(',');
+      return acceptFileTypes;
+    },
+    [],
+  );
   return (
     <QuilificationUserPicture>
       <label>

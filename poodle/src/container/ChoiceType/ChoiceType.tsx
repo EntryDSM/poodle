@@ -33,16 +33,16 @@ const ChoiceType: FC<Props> = props => {
     district,
     graduationStatus,
     graduationYear,
+    graduationMonth,
     additionalType,
-    gedSuccessDate,
     gedSuccessMonth,
     gedSuccessYear,
     setApplyType,
     setDistrict,
     setGraduationStatus,
     setGraduationYear,
+    setGraduationMonth,
     setAdditionalType,
-    setGEDSuccessDate,
     setGEDSuccessMonth,
     setGEDSuccessYear,
     history,
@@ -96,7 +96,7 @@ const ChoiceType: FC<Props> = props => {
     getTypeAndSetState();
   }, []);
   useEffect(() => {
-    if (page !== '') {
+    if (page !== null) {
       history.push(`/${page}`);
     }
   }, [page]);
@@ -105,20 +105,20 @@ const ChoiceType: FC<Props> = props => {
       return (
         <GraduationYear
           describe='*졸업자의 경우 졸업연도를 선택해주세요.'
-          valueChangeHandler={setGraduationYear}
+          graduationYearChange={setGraduationYear}
+          graduationMonthChange={setGraduationMonth}
+          graduationMonth={graduationMonth}
           graduationYear={graduationYear}
         />
       );
     } else if (graduationStatus === 'ged') {
       return (
         <ChoiceTypeGEDYear
-          describe='*졸업자의 경우 졸업연도 선택해주세요.'
+          describe='*검정고시 합격일자를 선택해주세요.'
           year={gedSuccessYear}
           month={gedSuccessMonth}
-          date={gedSuccessDate}
           yearChangeHandler={setGEDSuccessYear}
           monthChangeHandler={setGEDSuccessMonth}
-          dateChangeHandler={setGEDSuccessDate}
         />
       );
     }
@@ -166,10 +166,10 @@ const ChoiceType: FC<Props> = props => {
               district,
               graduationStatus,
               graduationYear,
+              graduationMonth,
               additionalType,
               error,
               page,
-              gedSuccessDate,
               gedSuccessMonth,
               gedSuccessYear,
             });

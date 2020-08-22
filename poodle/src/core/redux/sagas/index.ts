@@ -7,6 +7,7 @@ import GradeSaga from './Grade';
 import JoinSaga from './Join';
 import SearchShcool from './SearchSchool';
 import previewSaga from './Preview';
+import ResetPasswordSaga from './ResetPassword';
 
 export default function* rootSaga() {
   yield all([
@@ -18,5 +19,6 @@ export default function* rootSaga() {
     JoinSaga(),
     SearchShcool(),
     previewSaga(),
+    ResetPasswordSaga(),
   ]);
 }
