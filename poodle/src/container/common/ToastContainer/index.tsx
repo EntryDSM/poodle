@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM, { createPortal } from 'react-dom';
 import Toast from '@/components/default/common/Toast';
 
-export type ToastType = 'ERROR' | 'SUCCESS' | 'SERVER_ERROR';
+export type ToastType = 'ERROR' | 'SUCCESS' | 'SERVER_ERROR' | 'NETWORK_ERROR';
 
 interface ToastInfo {
   title: string;
@@ -15,21 +15,28 @@ const getSuccessToastInfo = (id: string): ToastInfo => ({
   type: 'SUCCESS',
   description: '',
   title: '자동 저장 되었습니다.',
-  id: id,
+  id,
 });
 
 const getFailToastInfo = (id: string): ToastInfo => ({
   type: 'ERROR',
   description: '모든 작성 후 제출을 해주세요.',
   title: '작성되지 않은 부분이 있습니다',
-  id: id,
+  id,
 });
 
 const getServerFailToastInfo = (id: string): ToastInfo => ({
   type: 'SERVER_ERROR',
   description: '다시 시도해 주세요.',
   title: '서버에서 에러가 발생하였습니다.',
-  id: id,
+  id,
+});
+
+const getNetworkError = (id: string): ToastInfo => ({
+  type: 'NETWORK_ERROR',
+  description: '네트워크를 확인해 주세요.',
+  title: '네트워크에 오류가 있습니다.',
+  id,
 });
 
 const getToastInfo = (type: ToastType, id: string) => {
@@ -37,6 +44,8 @@ const getToastInfo = (type: ToastType, id: string) => {
     return getFailToastInfo(id);
   } else if (type === 'SERVER_ERROR') {
     return getServerFailToastInfo(id);
+  } else if (type === 'NETWORK_ERROR') {
+    return getNetworkError(id);
   }
   return getSuccessToastInfo(id);
 };
