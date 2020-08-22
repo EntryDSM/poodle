@@ -127,6 +127,8 @@ const ChoiceType: FC<Props> = props => {
   useEffect(() => {
     if (error?.response) {
       modalController.createNewToast('SERVER_ERROR');
+    } else {
+      modalController.createNewToast('NETWORK_ERROR');
     }
   }, [error]);
   return (
