@@ -38,7 +38,6 @@ const Mypage: FC<Props> = ({ process, getProcess }) => {
   useEffect(() => {
     getProcess();
   }, []);
-  console.log(process);
   return (
     <S.Wrapper>
       <S.Container>
