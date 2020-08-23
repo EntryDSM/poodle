@@ -6,3 +6,4 @@ export { ChoiceType, ConnectChoiceType } from './ChoiceType';
 export { ConnectInfo } from './Info';
 export { PreviewContainer } from './Preview';
 export { ConnectGrade } from './Grade';
+export { default as MypageContainer } from './MypageContainer/MypageContainer';
