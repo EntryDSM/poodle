@@ -11,6 +11,7 @@ import PageState from './Page';
 import Join from './Join';
 import SearchSchool from './SearchSchool';
 import ResetPassword from './ResetPassword';
+import Mypage from './Mypage';
 
 const rootReducer = combineReducers({
   Join,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   PageState,
   SearchSchool,
   ResetPassword,
+  Mypage,
 });
 export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;

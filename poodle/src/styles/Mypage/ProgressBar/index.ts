@@ -44,6 +44,9 @@ export const ProgressTitleLink = styled(Link)`
   text-align: center;
   color: #afafaf;
   letter-spacing: -2px;
+  &.finished {
+    color: #62d3e8;
+  }
 `;
 
 export const Line = styled.hr`
@@ -54,5 +57,8 @@ export const Line = styled.hr`
   margin: 40px 10px 0;
   &:last-of-type {
     display: none;
+  }
+  &.finished {
+    background-color: #62d3e8;
   }
 `;

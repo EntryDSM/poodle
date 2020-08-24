@@ -40,7 +40,15 @@ export const SubmitDocument = styled.button`
   width: 100px;
   height: 40px;
   border-radius: 4px;
+  border: none;
   background-color: #62d3e8;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: NanumSquareB;
+  font-size: 16px;
+  color: #ffffff;
+  outline: none;
+  cursor: pointer;
 `;
 
 export const ExplainSentence = styled.p`
@@ -51,18 +59,4 @@ export const ExplainSentence = styled.p`
   text-align: center;
   color: #606060;
   margin: 62px 0;
-`;
-
-export const DocumentLink = styled(Link)`
-  box-sizing: border-box;
-  width: 100px;
-  height: 40px;
-  border-radius: 4px;
-  background-color: #62d3e8;
-  text-align: center;
-  line-height: 40px;
-  font-family: NanumSquareB;
-  font-size: 16px;
-  color: #ffffff;
-  text-decoration: none;
 `;

@@ -10,8 +10,9 @@ import {
   HeaderContainer,
   ConnectGrade,
   PreviewContainer,
+  MypageContainer,
 } from './container';
-import { Footer, ApplyStatus, Mypage, Document, Error } from './components';
+import { Footer, ApplyStatus, Document, Error } from './components';
 import './';
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
         <Route path='/applystatus' component={ApplyStatus} />
         <Route path='/join' component={JoinContainer} />
         <Route path='/grade' component={ConnectGrade} />
-        <Route exact path='/mypage' component={Mypage} />
+        <Route exact path='/mypage' component={MypageContainer} />
         <Route path='/mypage/document' component={Document} />
         <Route path='/preview' component={PreviewContainer} />
         <Route path='/Introduction' component={ConnectIntroduction} />
