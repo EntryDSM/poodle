@@ -11,6 +11,8 @@ import {
   SubjectsType,
   gedInfoServerType,
   gedGradeServerType,
+  gedUserTypeServerType,
+  userTypeResponseType,
 } from './ApiType';
 import { GRADESEMESTERLIST } from '@/components/Grade/constance';
 
@@ -48,6 +50,25 @@ export const typeStateToRequest = (
     district,
     applyType,
     additionalType,
+  } = state;
+  return {
+    grade_type: getGradeType(qualificationExam, graduationStatus),
+    apply_type: applyType,
+    is_daejeon: isDaejeon(district),
+    additional_type: additionalType,
+    graduated_date: yearMonthToOne(graduationYear, graduationMonth),
+  };
+};
+
+export const gedTypeToRequest = (
+  state: RootState['ChoiceTypeState'],
+): gedUserTypeServerType => {
+  const {
+    qualificationExam,
+    graduationStatus,
+    district,
+    applyType,
+    additionalType,
     gedSuccessMonth,
     gedSuccessYear,
   } = state;
@@ -56,7 +77,6 @@ export const typeStateToRequest = (
     apply_type: applyType,
     is_daejeon: isDaejeon(district),
     additional_type: additionalType,
-    graduated_date: yearMonthToOne(graduationYear, graduationMonth),
     ged_pass_date: yearMonthToOne(gedSuccessYear, gedSuccessMonth),
   };
 };
@@ -68,7 +88,7 @@ export const typeResponseToState = ({
   apply_type,
   graduated_date,
   ged_pass_date,
-}: userTypeServerType): RootState['ChoiceTypeState'] => ({
+}: userTypeResponseType): RootState['ChoiceTypeState'] => ({
   qualificationExam: isGED(grade_type),
   applyType: apply_type,
   district: getDistrictStringToisDaejeon(is_daejeon),
@@ -393,5 +413,5 @@ export const getSearchSchoolUrl = (
   page: number,
   size: number,
 ) => {
-  return `eduOffice='${eduOffice}'&name='${name}'&page=${page}&size=${size}`;
+  return `school?eduOffice=${eduOffice}&name=${name}&page=${page}&size=${size}`;
 };

@@ -118,6 +118,8 @@ const Info: FC<Props> = props => {
   useEffect(() => {
     if (props.error?.response) {
       modalController.createNewToast('SERVER_ERROR');
+    } else {
+      modalController.createNewToast('NETWORK_ERROR');
     }
   }, [props.error]);
   return (

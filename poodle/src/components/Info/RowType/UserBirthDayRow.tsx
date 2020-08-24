@@ -45,6 +45,7 @@ const UserBirthDayRow: FC<Props> = ({ valueChangeHandler, birthday }) => {
   }, []);
   useEffect(() => {
     const birthdayText = `${checkedYear}-${checkedMonth}-${checkedDay}`;
+    if (birthday === birthdayText) return;
     valueChangeHandler(birthdayText);
   }, [
     checkedYear,

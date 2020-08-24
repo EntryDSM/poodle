@@ -23,6 +23,22 @@ export interface userTypeServerType {
   is_daejeon: boolean;
   additional_type: AdditionalType;
   graduated_date: string;
+}
+
+export interface gedUserTypeServerType {
+  grade_type: string;
+  apply_type: string;
+  is_daejeon: boolean;
+  additional_type: AdditionalType;
+  ged_pass_date: string;
+}
+
+export interface userTypeResponseType {
+  grade_type: string;
+  apply_type: string;
+  is_daejeon: boolean;
+  additional_type: AdditionalType;
+  graduated_date: string;
   ged_pass_date: string;
 }
 
