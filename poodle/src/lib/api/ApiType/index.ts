@@ -112,3 +112,9 @@ export interface kakaoSearchedAddressType {
 export interface searchSchoolResponseType {
   content: SchoolType[];
 }
+
+export interface submitType {
+  is_final_submit: boolean;
+}
+
+export interface previewType {}

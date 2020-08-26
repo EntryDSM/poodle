@@ -10,6 +10,7 @@ import QualificationState from './Qualification';
 import PageState from './Page';
 import Join from './Join';
 import SearchSchool from './SearchSchool';
+import Preview from './Preview';
 import ResetPassword from './ResetPassword';
 import Mypage from './Mypage';
 
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   QualificationState,
   PageState,
   SearchSchool,
+  Preview,
   ResetPassword,
   Mypage,
 });
