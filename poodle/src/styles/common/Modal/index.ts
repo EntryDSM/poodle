@@ -413,3 +413,46 @@ export const SearchModalContentText = styled.p`
     font-weight: 300;
   }
 `;
+
+export const NoticeModal = styled.div`
+  padding: 0px 0px 40px 40px;
+  box-sizing: border-box;
+  width: 1200px;
+  height: 770px;
+  background-color: white;
+  margin-top: 50px;
+`;
+
+export const NoticeModalTitle = styled.h1`
+  font-size: 30px;
+  font-weight: normal;
+  margin: 20px 0px 10px 0px;
+`;
+
+export const NoticeTitleBar = styled.div`
+  width: 270px;
+  height: 2px;
+  background-color: #ff6969;
+`;
+
+export const NoticeTitleWrapper = styled.div`
+  margin-bottom: 50px;
+`;
+
+export const NoticeModalBody = styled.div`
+  > p.title {
+    font-size: 20px;
+    margin: 30px 0px 20px 0px;
+  }
+  > p.text {
+    font-size: 16px;
+  }
+`;
+
+export const NoticeHeader = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  box-sizing: border-box;
+`;
