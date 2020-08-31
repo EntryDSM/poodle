@@ -34,6 +34,7 @@ const Introduction: FC<Props> = ({
   setStudyPlanToServer,
   setSelfIntroductionToServer,
   getSelfIntroductionToServer,
+  successDate,
 }) => {
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
@@ -70,11 +71,8 @@ const Introduction: FC<Props> = ({
     }
   }, [page]);
   useEffect(() => {
-    if (error?.response) {
-      modalController.createNewToast('SERVER_ERROR');
-    } else {
-      modalController.createNewToast('NETWORK_ERROR');
-    }
+    if (!error) return;
+    modalController.createNewToast('SERVER_ERROR');
   }, [error]);
   return (
     <IntroductionDiv>
@@ -97,7 +95,13 @@ const Introduction: FC<Props> = ({
           page='introduction'
           currentPageClickHandler={goCurrentPage}
           nextPageClickHandler={() =>
-            goNextPage({ selfIntroduction, studyPlan, error, page })
+            goNextPage({
+              selfIntroduction,
+              studyPlan,
+              error,
+              page,
+              successDate,
+            })
           }
         />
       </IntroductionMain>
