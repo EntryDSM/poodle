@@ -27,6 +27,7 @@ export const mapStateToProps = (state: RootState) => ({
   isQualification: state.QualificationState.isQualification,
   error: state.GradeState.error,
   page: state.PageState.page,
+  successTime: state.GradeState.successTime,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({

@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
+import { Check } from '@/assets/common';
 
 export const ToastAnimation = keyframes`
     from{
@@ -25,7 +26,7 @@ export const ToastDiv = styled.div<{ isAble: boolean }>`
   margin: 10px;
 `;
 
-export const ToastImg = styled.div`
+export const FailureToastImg = styled.div`
   width: 50px;
   height: 50px;
   background-color: #ff6969;
@@ -54,8 +55,22 @@ export const ToastImg = styled.div`
   }
 `;
 
-export const ToastBody = styled.div`
-  background-color: #ffc4c4;
+export const SuccessToastImg = styled.div`
+  width: 50px;
+  height: 50px;
+  background-color: #3ede18;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > div {
+    width: 40px;
+    height: 40px;
+    background-image: url(${Check});
+  }
+`;
+
+export const ToastBody = styled.div<{ isSuccess: boolean }>`
+  background-color: ${props => (props.isSuccess ? '#b1f2a2' : '#ffc4c4')};
   width: 250px;
   height: 50px;
   display: flex;

@@ -15,12 +15,14 @@ import {
   submitType,
   gedUserTypeServerType,
   userTypeResponseType,
+  selfIntroductionRequestType,
+  studyPlanRequestType,
 } from './ApiType';
 import { GRADESEMESTERLIST } from '@/components/Grade/constance';
 import { PreviewState } from '@/core/redux/reducer/Preview';
 
 export const errorTypeCheck = (error: ErrorType): void => {
-  if (error.response?.status === 401 || error.response?.status === 403) {
+  if (error.status === 401 || error.status === 403) {
     console.log('token expired');
   } else {
     console.log('unknown error');
@@ -102,6 +104,7 @@ export const typeResponseToState = ({
   error: null,
   gedSuccessMonth: getMonthFromDateString(ged_pass_date),
   gedSuccessYear: getYearFromDateString(ged_pass_date),
+  successTime: null,
 });
 
 const isGED = (grade_type: string) => {
@@ -223,6 +226,7 @@ export const infoResponseToState = (
   gradeNumber: infoStringToGradeNumber(response.student_number),
   classNumber: infoStringToClassNumber(response.student_number),
   error: null,
+  successDate: null,
 });
 
 const infoRequestDateStringToStateDateString = (requestDateString: string) => {
@@ -305,6 +309,7 @@ export const gradeResponseToState = (
     grade: responseGradeToStateGrade(subjects),
     score: response.ged_average_score.toString(),
     error: null,
+    successTime: null,
   };
 };
 
@@ -388,26 +393,28 @@ export const gradeStateToGedRequest = (
 
 export const selfIntroductionStateToRequest = (
   state: RootState['IntroductionState'],
-): selfIntroductionServerType => ({
-  self_introduction: state.selfIntroduction,
+): selfIntroductionRequestType => ({
+  content: state.selfIntroduction,
 });
 
 export const studyPlanStateToRequest = (
   state: RootState['IntroductionState'],
-): studyPlanServerType => ({
-  study_plan: state.studyPlan,
+): studyPlanRequestType => ({
+  content: state.studyPlan,
 });
 
 export const selfIntroductionResponseToState = (
   response: selfIntroductionServerType,
 ): { selfIntroduction: string } => ({
-  selfIntroduction: response.self_introduction,
+  selfIntroduction: response.self_introduction
+    ? response.self_introduction
+    : '',
 });
 
 export const studyPlanResponseToState = (
   response: studyPlanServerType,
 ): { studyPlan: string } => ({
-  studyPlan: response.study_plan,
+  studyPlan: response.study_plan ? response.study_plan : '',
 });
 
 export const getSearchSchoolUrl = (

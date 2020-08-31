@@ -106,7 +106,7 @@ export interface SetDetailAddress {
 }
 export interface InfoSuccess {
   type: typeof INFO_SUCCESS;
-  payload: { response: State };
+  payload: Date;
 }
 
 export interface InfoFailure {
@@ -120,7 +120,7 @@ export interface InfoCall {
 
 export interface GetInfoSuccess {
   type: typeof GET_INFO_SUCCESS;
-  payload: { response: State };
+  payload: State;
 }
 
 export interface GetInfoFailure {
@@ -267,7 +267,7 @@ export const setPostNum = (payload: { postNum: string }): InfoActionType => ({
   payload,
 });
 
-export const infoSuccess = (payload: { response: State }): InfoActionType => ({
+export const infoSuccess = (payload: Date): InfoActionType => ({
   type: INFO_SUCCESS,
   payload,
 });
@@ -281,9 +281,7 @@ export const infoCall = (): InfoActionType => ({
   type: INFO_CALL,
 });
 
-export const getInfoSuccess = (payload: {
-  response: State;
-}): InfoActionType => ({
+export const getInfoSuccess = (payload: State): InfoActionType => ({
   type: GET_INFO_SUCCESS,
   payload,
 });

@@ -16,8 +16,7 @@ const UserImg: FC<Props> = ({ valueChangeHandler, img }) => {
   const inputChangeHandler = useCallback((event: React.ChangeEvent) => {
     const target = event.target as HTMLInputElement;
     const files = target.files;
-    if (!files) return;
-    if (!files[0]) return;
+    if (!files || !files[0]) return;
     const file = files[0];
     if (!isFileTypeAble(file)) {
       dispatch(modalOn(REDERRORMODAL));

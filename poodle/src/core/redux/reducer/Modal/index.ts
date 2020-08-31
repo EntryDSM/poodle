@@ -11,6 +11,7 @@ import {
   WARNINGMODAL,
   SCHOOL_SEARCH_MODAL,
   ADDRESS_SEARCH_MODAL,
+  NOTICE_MODAL,
 } from '../../actions/Modal';
 
 type ModalState = {
@@ -22,6 +23,7 @@ type ModalState = {
   [WARNINGMODAL]: boolean;
   [SCHOOL_SEARCH_MODAL]: boolean;
   [ADDRESS_SEARCH_MODAL]: boolean;
+  [NOTICE_MODAL]: boolean;
 };
 
 const initialState: ModalState = {
@@ -34,6 +36,7 @@ const initialState: ModalState = {
   [WARNINGMODAL]: false,
   [SCHOOL_SEARCH_MODAL]: false,
   [ADDRESS_SEARCH_MODAL]: false,
+  [NOTICE_MODAL]: false,
 };
 
 export default function modal(

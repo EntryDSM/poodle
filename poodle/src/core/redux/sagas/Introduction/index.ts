@@ -5,7 +5,7 @@ import {
   selfIntroductionResponseToState,
   studyPlanResponseToState,
 } from '@/lib/api/ApplicationApplyApi';
-import { INTRODUCTION_URL } from '@/lib/api/ServerUrl';
+import { STUDY_PLAN_URL, SELF_INTRODUCTION_URL } from '@/lib/api/ServerUrl';
 import {
   createGetSaga,
   createMovePageSaga,
@@ -22,7 +22,7 @@ import {
 import { RootState } from '../../reducer';
 
 const PAGENAME = 'Introduction';
-const INTRODUCTION_ACTIONNAME = 'INTRODUCTION';
+const INTRODUCTION_ACTIONNAME = 'SELF_INTRODUCTION';
 const STUDY_PLAN_ACTIONNAME = 'STUDY_PLAN';
 const DELAY_TIME = 3000;
 
@@ -31,27 +31,27 @@ const getStateFunc = (state: RootState): RootState['IntroductionState'] =>
 
 const introductionSaveSaga = createSaveSaga(
   selfIntroductionStateToRequest,
-  INTRODUCTION_URL,
+  SELF_INTRODUCTION_URL,
   `${PAGENAME}/${INTRODUCTION_ACTIONNAME}`,
   getStateFunc,
 );
 
 const studyplanSaveSaga = createSaveSaga(
   studyPlanStateToRequest,
-  INTRODUCTION_URL,
+  STUDY_PLAN_URL,
   `${PAGENAME}/${STUDY_PLAN_ACTIONNAME}`,
   getStateFunc,
 );
 
 const getIntroductionSaga = createGetSaga(
-  INTRODUCTION_URL,
+  SELF_INTRODUCTION_URL,
   `${PAGENAME}/GET_${INTRODUCTION_ACTIONNAME}`,
   selfIntroductionResponseToState,
 );
 
 const studyplanSaveAndMovePageSaga = createMovePageSaga(
   studyPlanStateToRequest,
-  INTRODUCTION_URL,
+  STUDY_PLAN_URL,
   `${PAGENAME}/${STUDY_PLAN_ACTIONNAME}`,
   getStateFunc,
   'preview',
@@ -59,14 +59,14 @@ const studyplanSaveAndMovePageSaga = createMovePageSaga(
 
 const introductionSaveAndMovePageSaga = createMovePageSaga(
   selfIntroductionStateToRequest,
-  INTRODUCTION_URL,
+  SELF_INTRODUCTION_URL,
   `${PAGENAME}/${INTRODUCTION_ACTIONNAME}`,
   getStateFunc,
   'preview',
 );
 
 const getStudyPlan = createGetSaga(
-  INTRODUCTION_URL,
+  STUDY_PLAN_URL,
   `${PAGENAME}/GET_${STUDY_PLAN_ACTIONNAME}`,
   studyPlanResponseToState,
 );

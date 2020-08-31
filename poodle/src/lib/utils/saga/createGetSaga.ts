@@ -17,10 +17,10 @@ const createGetSaga = (
         type: SUCCESS,
         payload: state,
       });
-    } catch (response) {
+    } catch (error) {
       yield put({
         type: FAILURE,
-        payload: { error: response as ErrorType },
+        payload: { error: error.response.data as ErrorType },
       });
     }
   };
