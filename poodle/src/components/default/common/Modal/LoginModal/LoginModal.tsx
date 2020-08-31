@@ -11,7 +11,7 @@ import {
   openModal,
   clearModal,
 } from '..';
-import { loginErrorReset } from '@/core/redux/actions/Header';
+import { emailRegExp } from '@/lib/RegExp';
 
 type LoginModalProps = ModalContentProps & {
   onClick: (email: string, password: string) => void;
@@ -43,6 +43,8 @@ const LoginModal: FC<LoginModalProps> = ({
     const loginInfoValue = [email, password];
     if (loginInfoValue.some(v => !v || v.indexOf(' ') !== -1)) {
       alert('빈칸은 입력할수 없습니다.');
+    } else if (!emailRegExp.exec(email)) {
+      alert('이메일 형식이 일치하지 않습니다.');
     } else {
       isRequesting.current = true;
       onClick(email, password);
@@ -75,7 +77,7 @@ const LoginModal: FC<LoginModalProps> = ({
         textCenter={false}
         value={email}
         setValue={setEmail}
-        id='email'
+        disabled={false}
       />
       <ModalInput
         type='password'
@@ -83,8 +85,8 @@ const LoginModal: FC<LoginModalProps> = ({
         textCenter={false}
         value={password}
         setValue={setPassword}
-        id='password'
         submit={onSubmit}
+        disabled={false}
       />
       <ModalButtonList
         color={color}
@@ -97,8 +99,12 @@ const LoginModal: FC<LoginModalProps> = ({
           },
         ]}
       />
-      <S.ETCSentence onClick={goToJoin}>아직 계정이 없으신가요?</S.ETCSentence>
-      <S.ETCSentence onClick={openResetModal}>비밀번호 재설정</S.ETCSentence>
+      <S.ETCSentence onClick={goToJoin} style={{ cursor: 'pointer' }}>
+        아직 계정이 없으신가요?
+      </S.ETCSentence>
+      <S.ETCSentence onClick={openResetModal} style={{ cursor: 'pointer' }}>
+        비밀번호 재설정
+      </S.ETCSentence>
     </ModalContent>
   );
 };

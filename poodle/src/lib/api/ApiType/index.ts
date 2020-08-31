@@ -22,7 +22,24 @@ export interface userTypeServerType {
   apply_type: string;
   is_daejeon: boolean;
   additional_type: AdditionalType;
-  graduate_year: string;
+  graduated_date: string;
+}
+
+export interface gedUserTypeServerType {
+  grade_type: string;
+  apply_type: string;
+  is_daejeon: boolean;
+  additional_type: AdditionalType;
+  ged_pass_date: string;
+}
+
+export interface userTypeResponseType {
+  grade_type: string;
+  apply_type: string;
+  is_daejeon: boolean;
+  additional_type: AdditionalType;
+  graduated_date: string;
+  ged_pass_date: string;
 }
 
 export interface userInfoServerType {
@@ -95,3 +112,9 @@ export interface kakaoSearchedAddressType {
 export interface searchSchoolResponseType {
   content: SchoolType[];
 }
+
+export interface submitType {
+  is_final_submit: boolean;
+}
+
+export interface previewType {}

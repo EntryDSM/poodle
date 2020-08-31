@@ -4,5 +4,6 @@ export { default as JoinContainer } from './JoinContainer/JoinContainer';
 export { Introduction, ConnectIntroduction } from './Introduction';
 export { ChoiceType, ConnectChoiceType } from './ChoiceType';
 export { ConnectInfo } from './Info';
-export { Preview } from './Preview';
+export { PreviewContainer } from './Preview';
 export { ConnectGrade } from './Grade';
+export { default as MypageContainer } from './MypageContainer/MypageContainer';

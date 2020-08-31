@@ -2,12 +2,14 @@ import { debounce, put, takeLatest } from 'redux-saga/effects';
 import {
   typeStateToRequest,
   typeResponseToState,
+  gedTypeToRequest,
 } from '@/lib/api/ApplicationApplyApi';
 import { USERTYPE_URL } from '@/lib/api/ServerUrl';
 import {
   createGetSaga,
   createMovePageSaga,
   createSaveSaga,
+  createProxySaga,
 } from '@/lib/utils/saga';
 import {
   APPLYTYPE,
@@ -48,6 +50,15 @@ const saveSaga = createSaveSaga(
   getStateFunc,
 );
 
+const gedSaveSage = createSaveSaga(
+  gedTypeToRequest,
+  USERTYPE_URL,
+  `${PAGENAME}/${ACTIONNAME}`,
+  getStateFunc,
+);
+
+const proxySaga = createProxySaga(gedSaveSage, saveSaga);
+
 const getDataSava = createGetSaga(
   USERTYPE_URL,
   `${PAGENAME}/GET_${ACTIONNAME}`,
@@ -60,6 +71,19 @@ const saveAndMovePageSaga = createMovePageSaga(
   `${PAGENAME}/${ACTIONNAME}`,
   getStateFunc,
   'info',
+);
+
+const gedSaveAndMovePageSaga = createMovePageSaga(
+  gedTypeToRequest,
+  USERTYPE_URL,
+  `${PAGENAME}/${ACTIONNAME}`,
+  getStateFunc,
+  'info',
+);
+
+const movePageProxySaga = createProxySaga(
+  gedSaveAndMovePageSaga,
+  saveAndMovePageSaga,
 );
 
 const isGED = (status: string) => status === 'ged';
@@ -78,8 +102,8 @@ function* statusChangeSaga(action: any) {
 }
 
 export default function* typeSaga() {
-  yield debounce(DELAY_TIME, actionArray, saveSaga);
-  yield takeLatest(TYPE_CALL, saveAndMovePageSaga);
+  yield debounce(DELAY_TIME, actionArray, proxySaga);
+  yield takeLatest(TYPE_CALL, movePageProxySaga);
   yield takeLatest(GET_TYPE_CALL, getDataSava);
   yield takeLatest(GRADUATION_STATUS, statusChangeSaga);
 }

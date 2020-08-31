@@ -8,8 +8,11 @@ import {
   MainContainer,
   JoinContainer,
   HeaderContainer,
+  ConnectGrade,
+  PreviewContainer,
+  MypageContainer,
 } from './container';
-import { Footer, ApplyStatus, Mypage, Document, Error } from './components';
+import { Footer, ApplyStatus, Document, Error } from './components';
 import './';
 
 function App() {
@@ -21,16 +24,17 @@ function App() {
         <Route exact path='/' component={MainContainer} />
         <Route path='/applystatus' component={ApplyStatus} />
         <Route path='/join' component={JoinContainer} />
-        <Route exact path='/mypage' component={Mypage} />
+        <Route path='/grade' component={ConnectGrade} />
+        <Route exact path='/mypage' component={MypageContainer} />
         <Route path='/mypage/document' component={Document} />
-        <Route path='/Introduction' render={() => <ConnectIntroduction />} />
-        <Route path='/Type' render={() => <ConnectChoiceType />} />
-        <Route path='/Info' render={() => <ConnectInfo />} />
+        <Route path='/preview' component={PreviewContainer} />
+        <Route path='/Introduction' component={ConnectIntroduction} />
+        <Route path='/Type' component={ConnectChoiceType} />
+        <Route path='/Info' component={ConnectInfo} />
         <Route component={Error} />
       </Switch>
       <Footer />
     </BrowserRouter>
   );
 }
-
 export default App;

@@ -7,8 +7,9 @@ type ModalInputProps = {
   textCenter: boolean;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
-  id: string;
   submit?: () => void;
+  disabled: boolean;
+  maxLength?: number;
 };
 
 const ModalInput: FC<ModalInputProps> = ({
@@ -17,8 +18,9 @@ const ModalInput: FC<ModalInputProps> = ({
   value,
   setValue,
   textCenter,
-  id,
   submit,
+  disabled,
+  maxLength,
 }) => {
   const onChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +44,8 @@ const ModalInput: FC<ModalInputProps> = ({
           onChange={onChange}
           textCenter={textCenter}
           onKeyPress={onKeyPress}
+          disabled={disabled}
+          maxLength={maxLength}
         />
       </S.ModalInputBox>
     </S.ModalInputWrapper>

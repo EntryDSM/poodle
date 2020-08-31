@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { startLoading, finishLoading } from '@/core/redux/actions/Loading';
-import ErrorType from '../type/ErrorType';
+import ErrorType from '../type';
 
 export default function createRequestSaga(type: any, request: any) {
   const SUCCESS = `${type}_SUCCESS`;
@@ -13,12 +13,10 @@ export default function createRequestSaga(type: any, request: any) {
         type: SUCCESS,
         payload: response.data,
       });
-    } catch (e) {
-      const error: ErrorType = e;
+    } catch (response) {
       yield put({
         type: FAILURE,
-        payload: error,
-        error: true,
+        payload: { error: response as ErrorType },
       });
     }
     yield put(finishLoading(type));

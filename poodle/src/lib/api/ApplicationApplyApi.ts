@@ -1,7 +1,7 @@
 import { RootState } from '@/core/redux/reducer';
 import { GradeType, SubjectType, ScoreType } from '@/core/redux/actions/Grade';
 import client from './client';
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 import {
   userTypeServerType,
   gradeServerType,
@@ -11,8 +11,13 @@ import {
   SubjectsType,
   gedInfoServerType,
   gedGradeServerType,
+  previewType,
+  submitType,
+  gedUserTypeServerType,
+  userTypeResponseType,
 } from './ApiType';
 import { GRADESEMESTERLIST } from '@/components/Grade/constance';
+import { PreviewState } from '@/core/redux/reducer/Preview';
 
 export const errorTypeCheck = (error: ErrorType): void => {
   if (error.response?.status === 401 || error.response?.status === 403) {
@@ -44,6 +49,7 @@ export const typeStateToRequest = (
     qualificationExam,
     graduationStatus,
     graduationYear,
+    graduationMonth,
     district,
     applyType,
     additionalType,
@@ -53,7 +59,28 @@ export const typeStateToRequest = (
     apply_type: applyType,
     is_daejeon: isDaejeon(district),
     additional_type: additionalType,
-    graduate_year: graduationYear,
+    graduated_date: yearMonthToOne(graduationYear, graduationMonth),
+  };
+};
+
+export const gedTypeToRequest = (
+  state: RootState['ChoiceTypeState'],
+): gedUserTypeServerType => {
+  const {
+    qualificationExam,
+    graduationStatus,
+    district,
+    applyType,
+    additionalType,
+    gedSuccessMonth,
+    gedSuccessYear,
+  } = state;
+  return {
+    grade_type: getGradeType(qualificationExam, graduationStatus),
+    apply_type: applyType,
+    is_daejeon: isDaejeon(district),
+    additional_type: additionalType,
+    ged_pass_date: yearMonthToOne(gedSuccessYear, gedSuccessMonth),
   };
 };
 
@@ -62,19 +89,19 @@ export const typeResponseToState = ({
   grade_type,
   additional_type,
   apply_type,
-  graduate_year,
-}: userTypeServerType): RootState['ChoiceTypeState'] => ({
+  graduated_date,
+  ged_pass_date,
+}: userTypeResponseType): RootState['ChoiceTypeState'] => ({
   qualificationExam: isGED(grade_type),
   applyType: apply_type,
   district: getDistrictStringToisDaejeon(is_daejeon),
   graduationStatus: grade_type,
-  graduationYear: graduate_year,
+  graduationYear: getYearFromDateString(graduated_date),
+  graduationMonth: getMonthFromDateString(graduated_date),
   additionalType: additional_type,
   error: null,
-  gedSuccessDate: '',
-  gedSuccessMonth: '',
-  gedSuccessYear: '',
-  // i will fix
+  gedSuccessMonth: getMonthFromDateString(ged_pass_date),
+  gedSuccessYear: getYearFromDateString(ged_pass_date),
 });
 
 const isGED = (grade_type: string) => {
@@ -96,11 +123,25 @@ const getGradeType = (qualifacationExam: boolean, graduationStatus: string) => {
   return graduationStatus;
 };
 
-const getDistrictStringToisDaejeon = (is_daejeon: boolean) => {
+const getDistrictStringToisDaejeon = (is_daejeon: boolean): string => {
   if (is_daejeon) {
     return '대전';
   }
   return '전국';
+};
+
+const yearMonthToOne = (year: string, month: string): string => {
+  return `${year}-${month}`;
+};
+
+const getMonthFromDateString = (dateString: string): string => {
+  const splitedStringArray = dateString.split('-');
+  return splitedStringArray[1];
+};
+
+const getYearFromDateString = (dateString: string): string => {
+  const splitedStringArray = dateString.split('-');
+  return splitedStringArray[0];
 };
 
 export const infoStateToRequest = (
@@ -375,5 +416,20 @@ export const getSearchSchoolUrl = (
   page: number,
   size: number,
 ) => {
-  return `eduOffice='${eduOffice}'&name='${name}'&page=${page}&size=${size}`;
+  return `school?eduOffice=${eduOffice}&name=${name}&page=${page}&size=${size}`;
+};
+
+export const previewStateToRequest = (isSubmit: boolean): submitType => {
+  return {
+    is_final_submit: isSubmit,
+  };
+};
+
+export const pdfResponseToState = (response: previewType): PreviewState => {
+  return {
+    preview: '',
+    // i will fix
+    error: null,
+    isSubmit: false,
+  };
 };

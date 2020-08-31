@@ -1,5 +1,5 @@
 import { State } from '@/core/redux/reducer/Info';
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 
 export const NAME = 'Info/NAME' as const;
 export const GENDER = 'Info/GENDER' as const;
@@ -25,6 +25,10 @@ export const INFO_CALL = 'Info/INFO_CALL' as const;
 export const GET_INFO_SUCCESS = 'Info/GET_INFO_SUCCESS' as const;
 export const GET_INFO_FAILURE = 'Info/GET_INFO_FAILURE' as const;
 export const GET_INFO_CALL = 'Info/GET_INFO_CALL' as const;
+
+export const SET_PICTURE = 'Info/SET_PICTURE' as const;
+export const SET_PICTURE_FAILURE = 'Info/SET_PICTURE_FAILURE' as const;
+export const SET_PICTURE_SUCCESS = 'Info/SET_PICTURE_SUCCESS' as const;
 
 export interface SetName {
   type: typeof NAME;
@@ -133,6 +137,20 @@ export interface SetAll {
   payload: { all: State };
 }
 
+export interface SetPictureCall {
+  type: typeof SET_PICTURE;
+  payload: { picture: File };
+}
+
+export interface SetPictureFailure {
+  type: typeof SET_PICTURE_FAILURE;
+  payload: { error: ErrorType };
+}
+
+export interface SetPictureSuccess {
+  type: typeof SET_PICTURE_SUCCESS;
+}
+
 export type InfoActionType =
   | SetName
   | SetNumber
@@ -155,7 +173,10 @@ export type InfoActionType =
   | GetInfoCall
   | GetInfoFailure
   | GetInfoSuccess
-  | InfoCall;
+  | InfoCall
+  | SetPictureCall
+  | SetPictureFailure
+  | SetPictureSuccess;
 
 export const setName = (payload: { name: string }): InfoActionType => ({
   type: NAME,
@@ -281,4 +302,20 @@ export const getInfoCall = (): InfoActionType => ({
 export const setAll = (payload: { all: State }): InfoActionType => ({
   type: ALL,
   payload,
+});
+
+export const setPictureCall = (payload: { picture: File }): InfoActionType => ({
+  type: SET_PICTURE,
+  payload,
+});
+
+export const setPictureFailure = (payload: {
+  error: ErrorType;
+}): InfoActionType => ({
+  type: SET_PICTURE_FAILURE,
+  payload,
+});
+
+export const setPictureSuccess = (): InfoActionType => ({
+  type: SET_PICTURE_SUCCESS,
 });

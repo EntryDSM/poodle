@@ -12,7 +12,7 @@ import {
   setAdditionalType,
   setGEDSuccessMonth,
   setGEDSuccessYear,
-  SetGEDSuccessDate,
+  setGraduationMonth,
   setAll,
   getTypeCall,
   typeCall,
@@ -25,10 +25,10 @@ export const mapStateToProps = (state: RootState) => ({
   district: state.ChoiceTypeState.district,
   graduationStatus: state.ChoiceTypeState.graduationStatus,
   graduationYear: state.ChoiceTypeState.graduationYear,
+  graduationMonth: state.ChoiceTypeState.graduationMonth,
   additionalType: state.ChoiceTypeState.additionalType,
   error: state.ChoiceTypeState.error,
   page: state.PageState.page,
-  gedSuccessDate: state.ChoiceTypeState.gedSuccessDate,
   gedSuccessMonth: state.ChoiceTypeState.gedSuccessMonth,
   gedSuccessYear: state.ChoiceTypeState.gedSuccessYear,
 });
@@ -41,12 +41,13 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setGraduationStatus: (status: GraduationStatusType) =>
     dispatch(setGraduationStatus({ status })),
   setGraduationYear: (year: string) => dispatch(setGraduationYear({ year })),
+  setGraduationMonth: (month: string) =>
+    dispatch(setGraduationMonth({ month })),
   setAdditionalType: (additionalType: AdditionalType) =>
     dispatch(setAdditionalType({ additionalType })),
   setAll: (all: State) => dispatch(setAll({ all })),
   getTypeToServer: () => dispatch(getTypeCall()),
   setTypeToServer: (state: State) => dispatch(typeCall({ state })),
-  setGEDSuccessDate: (date: string) => dispatch(SetGEDSuccessDate({ date })),
   setGEDSuccessMonth: (month: string) =>
     dispatch(setGEDSuccessMonth({ month })),
   setGEDSuccessYear: (year: string) => dispatch(setGEDSuccessYear({ year })),

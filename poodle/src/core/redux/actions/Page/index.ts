@@ -6,7 +6,8 @@ export type PageType =
   | 'grade'
   | 'introduction'
   | 'preview'
-  | '';
+  | ''
+  | null;
 
 export interface PageMove {
   type: typeof PAGE_MOVE;

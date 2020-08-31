@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 import {
   NAME,
   GENDER,
@@ -21,6 +21,7 @@ import {
   CLASS_NUMBER,
   GET_INFO_SUCCESS,
   GET_INFO_FAILURE,
+  SET_PICTURE_FAILURE,
 } from '../../actions/Info';
 
 export interface State {
@@ -45,7 +46,7 @@ export interface State {
 const initialState: State = {
   name: '',
   gender: '',
-  birthday: '',
+  birthday: '2000-1-1',
   number: '',
   middleSchool: '',
   protectorName: '',
@@ -176,6 +177,12 @@ const InfoState = (
     }
     case ALL: {
       return action.payload.all;
+    }
+    case SET_PICTURE_FAILURE: {
+      return {
+        ...state,
+        error: action.payload.error,
+      };
     }
     default: {
       return state;

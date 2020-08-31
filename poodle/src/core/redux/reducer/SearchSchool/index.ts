@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 import {
   GET_SCHOOL_CALL,
   GET_SCHOOL_FAILURE,
@@ -24,7 +24,7 @@ type State = {
 const initalState: State = {
   SchoolInfo: [],
   error: null,
-  eduOffice: '',
+  eduOffice: '대전',
   page: 0,
   schoolSearchInput: '',
   loading: false,

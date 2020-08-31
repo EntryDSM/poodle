@@ -59,6 +59,7 @@ export const CloseButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #ffffff;
 `;
 
 export const CloseButtonImage = styled.span`
@@ -100,11 +101,12 @@ type SubTitleProps = {
 };
 
 export const SubTitle = styled.div<SubTitleProps>`
-    transition: width 1s;
-    overflow: hidden; 
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
+  transition: width 1s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  width: 0;
     ${({ contour, color, effect }) =>
       contour &&
       css`
@@ -121,22 +123,21 @@ export const SubTitle = styled.div<SubTitleProps>`
         height: 1rem;
         font-family: NanumSquareR;
         font-size: 0.857rem;
-        text-align: center;
         color: #ff5c5c;
         line-height: 1rem;
       `}
-    ${({ normal, effect }) =>
+    ${({ normal }) =>
       normal &&
       css`
-        width: ${effect ? '0' : '3.5'}rem;
+        width: 3.75rem;
         height: 1.375rem;
         font-family: NanumSquareB;
         font-size: 20px;
         line-height: 1.375rem;
-        text-align: right;
         color: #46b2c6;
         margin: 1.875rem 0 2.5rem 0;
-      `}
+        background-color: transparent;
+      `};
 `;
 
 export const ModalInputWrapper = styled.div`
@@ -254,7 +255,6 @@ export const ETCSentence = styled.p`
   font-size: 12px;
   text-align: center;
   color: #78cede;
-  cursor: pointer;
   &:last-child {
     margin-top: 0.75rem;
   }

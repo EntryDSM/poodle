@@ -4,8 +4,9 @@ import {
   HeaderAction,
   LOGOUT,
   LOGIN_ERROR_RESET,
+  LOGIN,
 } from '../../actions/Header';
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType, { errorInitialState } from '@/lib/utils/type';
 
 type HeaderState = {
   isLogin: boolean;
@@ -14,13 +15,6 @@ type HeaderState = {
     refreshToken: string;
   };
   error: ErrorType;
-};
-
-const errorInitialState = {
-  message: '',
-  response: {
-    status: 0,
-  },
 };
 
 const initialState: HeaderState = {
@@ -37,11 +31,14 @@ export default function header(
   action: HeaderAction,
 ) {
   switch (action.type) {
+    case LOGIN:
+      return initialState;
     case LOGIN_SUCCESS:
       return {
         ...state,
         isLogin: true,
         user: action.payload,
+        error: errorInitialState,
       };
     case LOGIN_FAILURE:
       return {

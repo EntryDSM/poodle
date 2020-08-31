@@ -26,6 +26,7 @@ const Specialty: FC<Props> = ({
   }, []);
   useEffect(() => {
     if (nationalMerit || privilegedAdmission) return;
+    else if (nationalMerit === privilegedAdmission) return;
     additionalTypeChange('NOT_APPLICABLE');
   }, [nationalMerit, privilegedAdmission]);
   const nationalMeritClick = (value: boolean) => {

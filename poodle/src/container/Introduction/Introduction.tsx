@@ -58,17 +58,24 @@ const Introduction: FC<Props> = ({
     [history],
   );
   const goCurrentPage = useCallback(() => {
-    history.push(`/${page}`);
+    history.push('/grade');
   }, [page]);
   useEffect(() => {
     getStudyPlanToServer();
     getSelfIntroductionToServer();
   }, []);
   useEffect(() => {
-    if (page != '') {
+    if (page != null) {
       history.push(`/${page}`);
     }
   }, [page]);
+  useEffect(() => {
+    if (error?.response) {
+      modalController.createNewToast('SERVER_ERROR');
+    } else {
+      modalController.createNewToast('NETWORK_ERROR');
+    }
+  }, [error]);
   return (
     <IntroductionDiv>
       <div id={TOAST_DIV_ID} />

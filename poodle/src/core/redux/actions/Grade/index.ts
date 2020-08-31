@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 import { State } from '../../reducer/Grade';
 
 export const SERVICE_TIME = 'Grade/SERVICE_TIME' as const;
