@@ -31,6 +31,7 @@ export const mapStateToProps = (state: RootState) => ({
   page: state.PageState.page,
   gedSuccessMonth: state.ChoiceTypeState.gedSuccessMonth,
   gedSuccessYear: state.ChoiceTypeState.gedSuccessYear,
+  successTime: state.ChoiceTypeState.successTime,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({

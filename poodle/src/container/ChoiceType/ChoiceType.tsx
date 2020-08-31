@@ -49,6 +49,7 @@ const ChoiceType: FC<Props> = props => {
     error,
     page,
     modalOn,
+    successTime,
   } = props;
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
@@ -127,11 +128,8 @@ const ChoiceType: FC<Props> = props => {
     return <></>;
   };
   useEffect(() => {
-    if (error?.response) {
-      modalController.createNewToast('SERVER_ERROR');
-    } else {
-      modalController.createNewToast('NETWORK_ERROR');
-    }
+    if (!error) return;
+    modalController.createNewToast('SERVER_ERROR');
   }, [error]);
   return (
     <TypeDiv>
@@ -176,6 +174,7 @@ const ChoiceType: FC<Props> = props => {
               page,
               gedSuccessMonth,
               gedSuccessYear,
+              successTime,
             });
           }}
         />
