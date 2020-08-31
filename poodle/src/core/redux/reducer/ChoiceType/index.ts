@@ -28,6 +28,7 @@ export interface State {
   error: ErrorType | null;
   gedSuccessYear: string;
   gedSuccessMonth: string;
+  successTime: Date | null;
 }
 
 const initialState: State = {
@@ -41,6 +42,7 @@ const initialState: State = {
   error: null,
   gedSuccessMonth: '1',
   gedSuccessYear: '2020',
+  successTime: null,
 };
 
 const ChoiceTypeState = (
@@ -78,9 +80,6 @@ const ChoiceTypeState = (
         graduationStatus: action.payload.status,
       };
     }
-    case TYPE_SUCCESS: {
-      return state;
-    }
     case TYPE_FAILURE: {
       return {
         ...state,
@@ -105,7 +104,13 @@ const ChoiceTypeState = (
       };
     }
     case GET_TYPE_SUCCESS: {
-      return action.payload.response;
+      return action.payload;
+    }
+    case TYPE_SUCCESS: {
+      return {
+        ...state,
+        successTime: action.payload,
+      };
     }
     case GET_TYPE_FAILURE: {
       return {

@@ -27,6 +27,7 @@ export interface State {
   grade: GradeType[];
   score: string;
   error: ErrorType | null;
+  successTime: Date | null;
 }
 
 const setInitalGradeState = () => {
@@ -51,6 +52,7 @@ export const initialState: State = {
   grade: setInitalGradeState(),
   score: '',
   error: null,
+  successTime: null,
 };
 
 const GradeState = (
@@ -101,10 +103,10 @@ const GradeState = (
       };
     }
     case GRADE_SUCCESS: {
-      return state;
-    }
-    case GRADE_FAILURE: {
-      return state;
+      return {
+        ...state,
+        successTime: action.payload,
+      };
     }
     case ALL: {
       return action.payload.all;
@@ -121,11 +123,8 @@ const GradeState = (
         error: action.payload.error,
       };
     }
-    case GRADE_SUCCESS: {
-      return action.payload.response;
-    }
     case GET_GRADE_SUCCESS: {
-      return action.payload.response;
+      return action.payload;
     }
     default: {
       return state;
