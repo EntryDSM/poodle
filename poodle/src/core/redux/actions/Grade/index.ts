@@ -72,7 +72,7 @@ export interface SetScore {
 
 export interface GradeSuccess {
   type: typeof GRADE_SUCCESS;
-  payload: { response: State };
+  payload: Date;
 }
 
 export interface GradeFailure {
@@ -87,7 +87,7 @@ export interface SetAll {
 
 export interface GetGradeSuccess {
   type: typeof GET_GRADE_SUCCESS;
-  payload: { response: State };
+  payload: State;
 }
 
 export interface GetGradeFailure {
@@ -160,9 +160,7 @@ export const setScore = (payload: { score: string }): GradeActionType => ({
   payload,
 });
 
-export const gradeSuccess = (payload: {
-  response: State;
-}): GradeActionType => ({
+export const gradeSuccess = (payload: Date): GradeActionType => ({
   type: GRADE_SUCCESS,
   payload,
 });
@@ -174,9 +172,7 @@ export const gradeFailure = (payload: {
   payload,
 });
 
-export const getGradeSuccess = (payload: {
-  response: State;
-}): GradeActionType => ({
+export const getGradeSuccess = (payload: State): GradeActionType => ({
   type: GET_GRADE_SUCCESS,
   payload,
 });
