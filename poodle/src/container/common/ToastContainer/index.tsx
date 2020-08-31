@@ -9,13 +9,15 @@ interface ToastInfo {
   description: string;
   type: ToastType;
   id: string;
+  isSuccess: boolean;
 }
 
 const getSuccessToastInfo = (id: string): ToastInfo => ({
   type: 'SUCCESS',
-  description: '',
+  description: '현재까지 작성된 내용을 자동으로 저장했습니다',
   title: '자동 저장 되었습니다.',
   id,
+  isSuccess: true,
 });
 
 const getFailToastInfo = (id: string): ToastInfo => ({
@@ -23,6 +25,7 @@ const getFailToastInfo = (id: string): ToastInfo => ({
   description: '모든 작성 후 제출을 해주세요.',
   title: '작성되지 않은 부분이 있습니다',
   id,
+  isSuccess: false,
 });
 
 const getServerFailToastInfo = (id: string): ToastInfo => ({
@@ -30,6 +33,7 @@ const getServerFailToastInfo = (id: string): ToastInfo => ({
   description: '다시 시도해 주세요.',
   title: '서버에서 에러가 발생하였습니다.',
   id,
+  isSuccess: false,
 });
 
 const getNetworkError = (id: string): ToastInfo => ({
@@ -37,6 +41,7 @@ const getNetworkError = (id: string): ToastInfo => ({
   description: '네트워크를 확인해 주세요.',
   title: '네트워크에 오류가 있습니다.',
   id,
+  isSuccess: false,
 });
 
 const getToastInfo = (type: ToastType, id: string) => {
@@ -83,7 +88,7 @@ class ToastController {
   }
   createToastNodes(toasts: ToastInfo[]) {
     const buf: React.ReactNode[] = [];
-    toasts.map(({ title, description, id, type }) => {
+    toasts.map(({ title, description, id, type, isSuccess }) => {
       buf.push(
         <Toast
           title={title}
@@ -91,6 +96,7 @@ class ToastController {
           type={type}
           id={id}
           key={id}
+          isSuccess={isSuccess}
         />,
       );
     });

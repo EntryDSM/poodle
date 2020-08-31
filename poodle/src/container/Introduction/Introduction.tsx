@@ -74,6 +74,10 @@ const Introduction: FC<Props> = ({
     if (!error) return;
     modalController.createNewToast('SERVER_ERROR');
   }, [error]);
+  useEffect(() => {
+    if (!successDate) return;
+    modalController.createNewToast('SUCCESS');
+  }, [successDate]);
   return (
     <IntroductionDiv>
       <div id={TOAST_DIV_ID} />

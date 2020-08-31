@@ -1,5 +1,8 @@
+import {
+  selfIntroductionServerType,
+  studyPlanServerType,
+} from '@/lib/api/ApiType';
 import ErrorType from '@/lib/utils/type';
-import { State } from '../../reducer/Introduction';
 
 export const SELF_INTRODUCTION = 'Introduction/SELF_INTRODUCTION' as const;
 export const STUDY_PLAN = 'Introduction/STUDY_PLAN' as const;
@@ -39,7 +42,7 @@ export interface SelfIntroductionFailure {
 
 export interface SelfIntroductionSuccess {
   type: typeof SELF_INTRODUCTION_SUCCESS;
-  payload: { response: State };
+  payload: Date;
 }
 
 export interface GetSelfIntroductionCall {
@@ -53,7 +56,7 @@ export interface GetSelfIntroductionFailure {
 
 export interface GetSelfIntroductionSuccess {
   type: typeof GET_SELF_INTRODUCTION_SUCCESS;
-  payload: { response: State };
+  payload: { selfIntroduction: string };
 }
 
 export interface StudyPlanCall {
@@ -67,7 +70,7 @@ export interface StudyPlanFailure {
 
 export interface StudyPlanSuccess {
   type: typeof STUDY_PLAN_SUCCESS;
-  payload: { response: State };
+  payload: Date;
 }
 
 export interface GetStudyPlanCall {
@@ -81,7 +84,7 @@ export interface GetStudyPlanFailure {
 
 export interface GetStudyPlanSuccess {
   type: typeof GET_STUDY_PLAN_SUCCESS;
-  payload: { response: State };
+  payload: { studyPlan: string };
 }
 
 export type IntroductionActionType =
@@ -125,9 +128,9 @@ export const selfIntroductionFailure = (payload: {
   payload,
 });
 
-export const selfIntroductionSuccess = (payload: {
-  response: State;
-}): IntroductionActionType => ({
+export const selfIntroductionSuccess = (
+  payload: Date,
+): IntroductionActionType => ({
   type: SELF_INTRODUCTION_SUCCESS,
   payload,
 });
@@ -144,7 +147,7 @@ export const getSelfIntroductionFailure = (payload: {
 });
 
 export const getSelfIntroductionSuccess = (payload: {
-  response: State;
+  selfIntroduction: string;
 }): IntroductionActionType => ({
   type: GET_SELF_INTRODUCTION_SUCCESS,
   payload,
@@ -161,9 +164,7 @@ export const studyPlanFailure = (payload: {
   payload,
 });
 
-export const studyPlanSuccess = (payload: {
-  response: State;
-}): IntroductionActionType => ({
+export const studyPlanSuccess = (payload: Date): IntroductionActionType => ({
   type: STUDY_PLAN_SUCCESS,
   payload,
 });
@@ -180,7 +181,7 @@ export const getStudyPlanFailure = (payload: {
 });
 
 export const getStudyPlanSuccess = (payload: {
-  response: State;
+  studyPlan: string;
 }): IntroductionActionType => ({
   type: GET_STUDY_PLAN_SUCCESS,
   payload,
