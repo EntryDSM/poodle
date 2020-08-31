@@ -116,11 +116,8 @@ const Info: FC<Props> = props => {
     }
   }, [props.page]);
   useEffect(() => {
-    if (props.error?.response) {
-      modalController.createNewToast('SERVER_ERROR');
-    } else {
-      modalController.createNewToast('NETWORK_ERROR');
-    }
+    if (!props.error) return;
+    modalController.createNewToast('SERVER_ERROR');
   }, [props.error]);
   return (
     <InfoDiv>
