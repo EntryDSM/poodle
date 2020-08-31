@@ -53,7 +53,7 @@ function JoinContainer() {
     },
     [],
   );
-  if (!sendEmailValue.error.response || !verifyCodeValue.error.response)
+  if (!sendEmailValue.error.status || !verifyCodeValue.error.status)
     return <h1>Error!</h1>;
   return (
     <Join
