@@ -14,15 +14,15 @@ const createSaveSaga = (
     const state = yield select(getStateFunc);
     const request = stateToRequest(state);
     try {
-      const response = yield call(setDataToServer, url, request);
+      yield call(setDataToServer, url, request);
       yield put({
         type: SUCCESS,
-        payload: response.data,
+        payload: new Date(),
       });
-    } catch (response) {
+    } catch (error) {
       yield put({
         type: FAILURE,
-        payload: { error: response as ErrorType },
+        payload: { error: error.response.data as ErrorType },
       });
     }
   };

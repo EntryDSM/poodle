@@ -26,16 +26,10 @@ function* submitSavaSaga() {
       type: PAGE,
       payload: { page: '' },
     });
-  } catch (response) {
-    const error: ErrorType = {
-      message: '',
-      response: {
-        status: 500,
-      },
-    };
+  } catch (error) {
     yield put({
       type: FAILURE,
-      payload: error,
+      payload: error.response.data,
     });
   }
   yield put(modalOff(BLUECHECKMODAL));

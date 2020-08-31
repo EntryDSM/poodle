@@ -15,6 +15,7 @@ export const mapStateToProps = (state: RootState) => ({
   studyPlan: state.IntroductionState.studyPlan,
   error: state.IntroductionState.error,
   page: state.PageState.page,
+  successDate: state.IntroductionState.successDate,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({

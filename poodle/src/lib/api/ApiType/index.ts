@@ -62,8 +62,16 @@ export interface selfIntroductionServerType {
   self_introduction: string;
 }
 
+export interface selfIntroductionRequestType {
+  content: string;
+}
+
 export interface studyPlanServerType {
   study_plan: string;
+}
+
+export interface studyPlanRequestType {
+  content: string;
 }
 
 export interface SubjectsType {

@@ -41,12 +41,13 @@ export interface State {
   classNumber: string;
   gradeNumber: string;
   error: ErrorType | null;
+  successDate: Date | null;
 }
 
 const initialState: State = {
   name: '',
   gender: '',
-  birthday: '2000-1-1',
+  birthday: '2000-01-01',
   number: '',
   middleSchool: '',
   protectorName: '',
@@ -60,6 +61,7 @@ const initialState: State = {
   classNumber: '',
   gradeNumber: '',
   error: null,
+  successDate: null,
 };
 
 const InfoState = (
@@ -158,7 +160,10 @@ const InfoState = (
       };
     }
     case INFO_SUCCESS: {
-      return action.payload.response;
+      return {
+        ...state,
+        successDate: action.payload,
+      };
     }
     case INFO_FAILURE: {
       return {
@@ -173,7 +178,7 @@ const InfoState = (
       };
     }
     case GET_INFO_SUCCESS: {
-      return action.payload.response;
+      return action.payload;
     }
     case ALL: {
       return action.payload.all;
