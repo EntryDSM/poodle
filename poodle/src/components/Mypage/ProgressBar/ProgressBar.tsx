@@ -41,7 +41,7 @@ const ProgressBar: FC<Props> = ({
     ],
     [data],
   );
-  if (error.response && error.response.status) return null;
+  if (error.status) return null;
   return (
     <S.ProgressBarWrapper>
       <S.ProgressBox>

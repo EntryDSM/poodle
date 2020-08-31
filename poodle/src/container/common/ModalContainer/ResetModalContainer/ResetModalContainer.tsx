@@ -106,12 +106,12 @@ const ResetModalContainer: FC<{}> = () => {
       let status: number = 0;
       switch (page) {
         case 0:
-          status = sendEmailValue.error.response.status;
+          status = sendEmailValue.error.status;
           return SendEmailError[status];
         case 1:
-          status = verifyCodeValue.error.response.status;
+          status = verifyCodeValue.error.status;
           if (status) return VerifyCodeError[status];
-          if (sendEmailValue.error.response.status)
+          if (sendEmailValue.error.status)
             return '이메일 재전송에 실패하였습니다.';
           return '';
         case 3:
@@ -119,7 +119,7 @@ const ResetModalContainer: FC<{}> = () => {
             return '비밀번호가 일치하지 않습니다.';
           if (!passwordRegExp.exec(passwordCheck))
             return '조건에 맞지 않는 비밀번호 입니다.';
-          if (resetPasswordValue.error.response.status)
+          if (resetPasswordValue.error.status)
             return '비밀번호 변경에 실패하였습니다.';
         default:
           return '';
