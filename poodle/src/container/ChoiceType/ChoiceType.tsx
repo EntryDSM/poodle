@@ -48,6 +48,7 @@ const ChoiceType: FC<Props> = props => {
     history,
     error,
     page,
+    modalOn,
   } = props;
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
@@ -94,6 +95,7 @@ const ChoiceType: FC<Props> = props => {
   }, []);
   useEffect(() => {
     getTypeAndSetState();
+    modalOn();
   }, []);
   useEffect(() => {
     if (page !== null) {

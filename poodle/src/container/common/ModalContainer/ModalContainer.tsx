@@ -1,6 +1,5 @@
-import React, { useMemo, useCallback, FC } from 'react';
+import React, { useMemo, FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { RootState } from '@/core/redux/reducer';
 import {
   LOGINMODAL,
@@ -13,6 +12,7 @@ import {
   modalOff,
   ADDRESS_SEARCH_MODAL,
   SCHOOL_SEARCH_MODAL,
+  NOTICE_MODAL,
 } from '@/core/redux/actions/Modal';
 import Modal from '@/components/default/common/Modal/Modal';
 import ModalBox from '@/components/default/common/Modal/ModalBox';
@@ -23,6 +23,7 @@ import {
   WarningModal,
   SchoolSearchModal,
   AddressSearchModal,
+  NoticeModal,
 } from '@/components/default/common/Modal';
 import {
   LoginModalContainer,
@@ -45,6 +46,7 @@ const ModalContainer: FC<Props> = ({ onClick }) => {
     warning,
     schoolSearch,
     addressSearch,
+    notice,
   } = useSelector(({ Modal: modal }: RootState) => ({
     login: modal[LOGINMODAL],
     reset: modal[RESETMODAL],
@@ -54,6 +56,7 @@ const ModalContainer: FC<Props> = ({ onClick }) => {
     warning: modal[WARNINGMODAL],
     addressSearch: modal[ADDRESS_SEARCH_MODAL],
     schoolSearch: modal[SCHOOL_SEARCH_MODAL],
+    notice: modal[NOTICE_MODAL],
   }));
   const modalList = useMemo(
     () => [
@@ -65,6 +68,7 @@ const ModalContainer: FC<Props> = ({ onClick }) => {
       warning,
       schoolSearch,
       addressSearch,
+      notice,
     ],
     [
       login,
@@ -75,6 +79,7 @@ const ModalContainer: FC<Props> = ({ onClick }) => {
       warning,
       schoolSearch,
       addressSearch,
+      notice,
     ],
   );
 
@@ -120,6 +125,9 @@ const ModalContainer: FC<Props> = ({ onClick }) => {
         <SchoolSearchModal
           modalOff={() => dispatch(modalOff(SCHOOL_SEARCH_MODAL))}
         />
+      )}
+      {notice && (
+        <NoticeModal modalOff={() => dispatch(modalOff(NOTICE_MODAL))} />
       )}
     </Modal>
   );

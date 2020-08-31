@@ -24,6 +24,7 @@ export { default as RedErrorModal } from './RedErrorModal/RedErrorModal';
 export { default as WarningModal } from './WarningModal/WarningModal';
 export { default as AddressSearchModal } from './AddressSearchModal';
 export { default as SchoolSearchModal } from './SchoolSearchModal';
+export { default as NoticeModal } from './NoticeModal/NoticeModal';
 
 export type ModalContentProps = {
   children?: React.ReactNode;
