@@ -25,7 +25,7 @@ export default function createRequestSaga(type: any, request: any) {
           payload: {
             message: `TypeError: Cannot read property 'data' of undefined`,
             status: 500,
-          },
+          } as ErrorType,
         });
       }
     }
