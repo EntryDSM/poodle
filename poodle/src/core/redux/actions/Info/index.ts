@@ -1,5 +1,6 @@
 import { State } from '@/core/redux/reducer/Info';
 import ErrorType from '@/lib/utils/type';
+import { GraduationStatusType } from '../ChoiceType';
 
 export const NAME = 'Info/NAME' as const;
 export const GENDER = 'Info/GENDER' as const;
@@ -16,6 +17,7 @@ export const PHONE_NUM = 'Info/PHONE_NUM' as const;
 export const ADDRESS = 'Info/ADDRESS' as const;
 export const POST_NUM = 'Info/POST_NUM' as const;
 export const ADDRESS_DETAIL = 'Info/ADDRESS_DETAIL' as const;
+export const GRADE_TYPE = 'Info/GRADE_TYPE' as const;
 export const ALL = 'Info/ALL' as const;
 
 export const INFO_SUCCESS = 'Info/INFO_SUCCESS' as const;
@@ -149,6 +151,12 @@ export interface SetPictureFailure {
 
 export interface SetPictureSuccess {
   type: typeof SET_PICTURE_SUCCESS;
+  payload: { url: string };
+}
+
+export interface SetGradeType {
+  type: typeof GRADE_TYPE;
+  payload: { gradeType: GraduationStatusType };
 }
 
 export type InfoActionType =
@@ -176,7 +184,8 @@ export type InfoActionType =
   | InfoCall
   | SetPictureCall
   | SetPictureFailure
-  | SetPictureSuccess;
+  | SetPictureSuccess
+  | SetGradeType;
 
 export const setName = (payload: { name: string }): InfoActionType => ({
   type: NAME,
@@ -314,6 +323,16 @@ export const setPictureFailure = (payload: {
   payload,
 });
 
-export const setPictureSuccess = (): InfoActionType => ({
+export const setPictureSuccess = (payload: {
+  url: string;
+}): InfoActionType => ({
   type: SET_PICTURE_SUCCESS,
+  payload,
+});
+
+export const setGradeType = (payload: {
+  gradeType: GraduationStatusType;
+}): InfoActionType => ({
+  type: GRADE_TYPE,
+  payload,
 });
