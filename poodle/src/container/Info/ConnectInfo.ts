@@ -41,6 +41,7 @@ export const mapStateToProps = (state: RootState) => ({
   classNumber: state.InfoState.classNumber,
   error: state.InfoState.error,
   page: state.PageState.page,
+  successTime: state.InfoState.successDate,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({

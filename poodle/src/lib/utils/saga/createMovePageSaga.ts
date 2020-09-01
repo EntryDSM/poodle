@@ -25,11 +25,10 @@ const createMovePageSaga = (
         type: PAGE_MOVE,
         payload: { page: nextPage },
       });
-    } catch (response) {
-      const error: ErrorType = response;
+    } catch (error) {
       yield put({
         type: FAILURE,
-        payload: { error: response as ErrorType },
+        payload: { error: error.response.data as ErrorType },
       });
     }
   };

@@ -36,16 +36,10 @@ function* searchSchool(action: GetSchoolCall) {
       type: GET_SCHOOL_SUCCESS,
       payload: newSchoolInfo,
     });
-  } catch (response) {
-    const error: ErrorType = {
-      message: '',
-      response: {
-        status: 500,
-      },
-    };
+  } catch (error) {
     yield put({
       type: GET_SCHOOL_FAILURE,
-      payload: { error },
+      payload: { error: error.response.data },
     });
   }
   yield put(finishLoading(action.type));

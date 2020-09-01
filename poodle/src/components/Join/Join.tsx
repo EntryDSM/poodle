@@ -258,7 +258,7 @@ const Join: React.FC<JoinProps> = ({
               *해당 이메일로 인증코드를 전송했습니다.
             </S.ExplainSentence>
           )}
-          {sendEmailValue.error.response.status ? (
+          {sendEmailValue.error.status ? (
             <S.ExplainSentence error>
               *이메일 전송에 실패하였습니다.
             </S.ExplainSentence>
@@ -271,7 +271,7 @@ const Join: React.FC<JoinProps> = ({
 
   const getCodeExplainJSX = useCallback(() => {
     if (focusedState.code) {
-      if (verifyCodeValue.error.response.status) {
+      if (verifyCodeValue.error.status) {
         return (
           <S.ExplainSentence error>*잘못된 인증코드입니다.</S.ExplainSentence>
         );
@@ -284,7 +284,7 @@ const Join: React.FC<JoinProps> = ({
                 *해당 이메일로 인증코드를 재전송했습니다.
               </S.ExplainSentence>
             )}
-            {sendEmailValue.error.response.status ? (
+            {sendEmailValue.error.status ? (
               <S.ExplainSentence error>
                 *이메일 재전송에 실패하였습니다.
               </S.ExplainSentence>

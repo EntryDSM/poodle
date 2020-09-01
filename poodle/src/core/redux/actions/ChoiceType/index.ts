@@ -53,7 +53,7 @@ export interface SetGraduationMonth {
 
 export interface TypeSuccess {
   type: typeof TYPE_SUCCESS;
-  payload: { response: State };
+  payload: Date;
 }
 
 export interface TypeFailure {
@@ -78,7 +78,7 @@ export interface TypeCall {
 
 export interface GetTypeSuccess {
   type: typeof GET_TYPE_SUCCESS;
-  payload: { response: State };
+  payload: State;
 }
 
 export interface GetTypeFailure {
@@ -149,9 +149,7 @@ export const setGraduationMonth = (payload: {
   payload,
 });
 
-export const typeSuccess = (payload: {
-  response: State;
-}): ChoiceTypeActionType => ({
+export const typeSuccess = (payload: Date): ChoiceTypeActionType => ({
   type: TYPE_SUCCESS,
   payload,
 });
@@ -175,10 +173,8 @@ export const setAdditionalType = (payload: {
   payload,
 });
 
-export const getTypeSuccess = (payload: {
-  response: State;
-}): ChoiceTypeActionType => ({
-  type: TYPE_SUCCESS,
+export const getTypeSuccess = (payload: State): ChoiceTypeActionType => ({
+  type: GET_TYPE_SUCCESS,
   payload,
 });
 
