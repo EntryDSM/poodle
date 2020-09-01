@@ -50,7 +50,7 @@ const Info: FC<Props> = props => {
       postNum,
       detailAddress,
     }: MapStateToProps): boolean => {
-      if (props.isQualification) {
+      if (props.gradeType === 'GED') {
         return (
           isEmptyCheck(address) ||
           isEmptyCheck(postNum) ||
@@ -119,12 +119,16 @@ const Info: FC<Props> = props => {
     if (!props.error) return;
     modalController.createNewToast('SERVER_ERROR');
   }, [props.error]);
+  useEffect(() => {
+    if (!props.successTime) return;
+    modalController.createNewToast('SUCCESS');
+  }, [props.successTime]);
   return (
     <InfoDiv>
       <div id={TOAST_DIV_ID} />
       <InfoBody>
         <Title margin='80px'>인적사항</Title>
-        {props.isQualification ? (
+        {props.gradeType === 'GED' ? (
           <QualificationPage {...props} isError={isError} />
         ) : (
           <DefaultPage {...props} isError={isError} />
