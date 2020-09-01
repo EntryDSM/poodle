@@ -34,7 +34,8 @@ const Header: FC<HeaderProps> = ({
       localStorage.setItem('refreshToken', user.refreshToken);
       return;
     }
-    localStorage.clear();
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
   }, [user]);
   return (
     <S.HeaderWrapper>
