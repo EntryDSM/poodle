@@ -14,10 +14,20 @@ export default function createRequestSaga(type: any, request: any) {
         payload: response.data,
       });
     } catch (e) {
-      yield put({
-        type: FAILURE,
-        payload: e.response.data as ErrorType,
-      });
+      if (e.response?.data) {
+        yield put({
+          type: FAILURE,
+          payload: e.response.data as ErrorType,
+        });
+      } else {
+        yield put({
+          type: FAILURE,
+          payload: {
+            message: `TypeError: Cannot read property 'data' of undefined`,
+            status: 500,
+          },
+        });
+      }
     }
     yield put(finishLoading(type));
   };
