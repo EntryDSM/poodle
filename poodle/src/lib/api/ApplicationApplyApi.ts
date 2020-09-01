@@ -230,10 +230,7 @@ const isSingleText = (text: string) => {
 };
 
 const checkSingleTextAddZero = (text: string) => {
-  if (isSingleText(text)) {
-    return `0${text}`;
-  }
-  return text;
+  return text.padStart(2, '0');
 };
 
 export const infoResponseToState = (
@@ -264,14 +261,6 @@ const infoResponseDateStringToStateDateString = (
 ): string => {
   if (requestDateString === null) return '2000-01-01';
   return requestDateString;
-};
-
-const cutZeroToString = (str: string) => {
-  const splitedString = str.split('');
-  if (splitedString[0] === '0') {
-    return splitedString[1];
-  }
-  return str;
 };
 
 const infoStringToGradeNumber = (str: string | null): string => {
