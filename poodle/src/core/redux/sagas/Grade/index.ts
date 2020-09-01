@@ -40,7 +40,7 @@ const defaultSaveSaga = createSaveSaga(
 
 const gedSaveSaga = createSaveSaga(
   gradeStateToGedRequest,
-  GRADE_URL,
+  `${GRADE_URL}/ged`,
   `${PAGENAME}/GET_${ACTIONNAME}`,
   getStateFunc,
 );
@@ -61,7 +61,7 @@ const defaultSaveAndMovePage = createMovePageSaga(
 
 const gedSaveSagaAndMovePage = createMovePageSaga(
   gradeStateToGedRequest,
-  GRADE_URL,
+  `${GRADE_URL}/ged`,
   `${PAGENAME}/GET_${ACTIONNAME}`,
   getStateFunc,
   'introduction',
