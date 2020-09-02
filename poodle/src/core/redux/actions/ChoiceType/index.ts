@@ -6,6 +6,7 @@ export const DISTRICT = 'ChoiceType/DISTRICT' as const;
 export const GRADUATION_YEAR = 'ChoiceType/GRADUATIONSTATUS_YEAR' as const;
 export const GRADUATION_MONTH = 'ChoiceType/GRADUATIONSTATUS_MONTH' as const;
 export const GRADUATION_STATUS = 'ChoiceType/GRADUATION_STATUS' as const;
+export const ISQUALIFICATION = 'ChoiceType/ISQUALIFICATION' as const;
 export const ALL = 'ChoiceType/ALL' as const;
 export const ADDITIONALTYPE = 'ChoiceType/ADDITIONALTYPE' as const;
 export const GED_SUCCESS_YEAR = 'ChoiceType/GED_SUCCESS_YEAR' as const;
@@ -73,7 +74,7 @@ export interface SetAdditionalType {
 
 export interface TypeCall {
   type: typeof TYPE_CALL;
-  payload: { state: State };
+  payload: { pageMove: boolean };
 }
 
 export interface GetTypeSuccess {
@@ -100,6 +101,11 @@ export interface SetGEDSuccessMonth {
   payload: { month: string };
 }
 
+export interface setIsQualification {
+  type: typeof ISQUALIFICATION;
+  payload: { qualification: boolean };
+}
+
 export type ChoiceTypeActionType =
   | SetApplyType
   | SetDistrict
@@ -115,7 +121,8 @@ export type ChoiceTypeActionType =
   | GetTypeSuccess
   | GetTypeCall
   | SetGEDSuccessYear
-  | SetGEDSuccessMonth;
+  | SetGEDSuccessMonth
+  | setIsQualification;
 
 export const setApplyType = (payload: {
   type: string;
@@ -189,7 +196,9 @@ export const getTypeCall = (): ChoiceTypeActionType => ({
   type: GET_TYPE_CALL,
 });
 
-export const typeCall = (payload: { state: State }): ChoiceTypeActionType => ({
+export const typeCall = (payload: {
+  pageMove: boolean;
+}): ChoiceTypeActionType => ({
   type: TYPE_CALL,
   payload,
 });
@@ -205,5 +214,10 @@ export const setGEDSuccessMonth = (payload: {
   month: string;
 }): ChoiceTypeActionType => ({
   type: GED_SUCCESS_MONTH,
+  payload,
+});
+
+export const setIsQualification = (payload: { qualification: boolean }) => ({
+  type: ISQUALIFICATION,
   payload,
 });

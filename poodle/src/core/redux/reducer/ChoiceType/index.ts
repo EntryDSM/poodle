@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type';
+import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import {
   APPLYTYPE,
   DISTRICT,
@@ -29,6 +29,8 @@ export interface State {
   gedSuccessYear: string;
   gedSuccessMonth: string;
   successTime: Date | null;
+  getTypeError: ErrorType;
+  setTypeError: ErrorType;
 }
 
 const initialState: State = {
@@ -43,6 +45,8 @@ const initialState: State = {
   gedSuccessMonth: '1',
   gedSuccessYear: '2020',
   successTime: null,
+  getTypeError: errorInitialState,
+  setTypeError: errorInitialState,
 };
 
 const ChoiceTypeState = (
@@ -80,12 +84,6 @@ const ChoiceTypeState = (
         graduationStatus: action.payload.status,
       };
     }
-    case TYPE_FAILURE: {
-      return {
-        ...state,
-        error: action.payload.error,
-      };
-    }
     case ALL: {
       return {
         ...state,
@@ -116,12 +114,16 @@ const ChoiceTypeState = (
       return {
         ...state,
         error: action.payload.error,
+        getTypeError: action.payload.error,
+        setTypeError: errorInitialState,
       };
     }
     case TYPE_FAILURE: {
       return {
         ...state,
         error: action.payload.error,
+        setTypeError: action.payload.error,
+        getTypeError: errorInitialState,
       };
     }
     case GED_SUCCESS_MONTH: {
