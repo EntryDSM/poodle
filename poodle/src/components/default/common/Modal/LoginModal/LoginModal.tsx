@@ -15,9 +15,7 @@ import { emailRegExp } from '@/lib/RegExp';
 
 type LoginModalProps = ModalContentProps & {
   onClick: (email: string, password: string) => void;
-  user: {
-    accessToken: string;
-  };
+  isLogin: boolean;
   loginErrorReset: () => void;
 };
 
@@ -27,7 +25,7 @@ const LoginModal: FC<LoginModalProps> = ({
   errorSentence,
   color,
   onClick,
-  user,
+  isLogin,
   loginErrorReset,
 }) => {
   const dispatch = useDispatch();
@@ -56,13 +54,16 @@ const LoginModal: FC<LoginModalProps> = ({
     clearModal(dispatch);
   }, []);
   useEffect(() => {
-    if (user.accessToken) {
+    if (isLogin) {
       clearModal(dispatch);
       dispatch(loginErrorReset());
     }
-  }, [user]);
+  }, [isLogin]);
+
   useEffect(() => {
-    return () => loginErrorReset();
+    return () => {
+      loginErrorReset();
+    };
   }, []);
   return (
     <ModalContent
