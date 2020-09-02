@@ -14,7 +14,10 @@ import {
   ChoiceTypeGEDYear,
 } from '@/components/ChoiceType/RowType';
 import { mapStateToProps, mapDispatchToProps } from './ConnectChoiceType';
-import { isEmptyCheck } from '@/lib/utils/function';
+import {
+  isEmptyCheck,
+  useReGenerateTokenAndDoCallback,
+} from '@/lib/utils/function';
 import ToastController from '../common/ToastContainer';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 
@@ -50,6 +53,10 @@ const ChoiceType: FC<Props> = props => {
     page,
     modalOn,
     successTime,
+    getTypeError,
+    setTypeError,
+    setTypeToServer,
+    getTypeToServer,
   } = props;
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
@@ -79,13 +86,10 @@ const ChoiceType: FC<Props> = props => {
         modalController.createNewToast('ERROR');
         return;
       }
-      await props.setTypeToServer(props);
+      await setTypeToServer(true);
     },
     [props, isStateAble, history, modalController],
   );
-  const getTypeAndSetState = useCallback(async () => {
-    props.getTypeToServer();
-  }, []);
   const graduationStatusChangeHandler = useCallback((status: string) => {
     if (status === 'UNGRADUATED') {
       setGraduationYear('2021');
@@ -94,15 +98,6 @@ const ChoiceType: FC<Props> = props => {
     }
     setGraduationStatus(status as GraduationStatusType);
   }, []);
-  useEffect(() => {
-    getTypeAndSetState();
-    modalOn();
-  }, []);
-  useEffect(() => {
-    if (page !== null) {
-      history.push(`/${page}`);
-    }
-  }, [page]);
   const getYearRow = (): React.ReactNode => {
     if (graduationStatus === 'GRADUATED') {
       return (
@@ -127,14 +122,38 @@ const ChoiceType: FC<Props> = props => {
     }
     return <></>;
   };
+
+  const getTypeGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    getTypeToServer,
+  );
+  const setTypeGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    () => setTypeToServer(false),
+  );
+
+  useEffect(() => {
+    getTypeToServer();
+    modalOn();
+  }, []);
+  useEffect(() => {
+    if (page !== null) {
+      history.push(`/${page}`);
+    }
+  }, [page]);
+
   useEffect(() => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');
   }, [props.successTime]);
+
   useEffect(() => {
     if (!error) return;
+    if (error.status === 401) {
+      if (getTypeError.status === 401) getTypeGenerateTokenAndDoCallback();
+      if (setTypeError.status === 401) setTypeGenerateTokenAndDoCallback();
+      return;
+    }
     modalController.createNewToast('SERVER_ERROR');
-  }, [error]);
+  }, [error, getTypeError, setTypeError]);
   return (
     <TypeDiv>
       <div id={TOAST_DIV_ID} />
@@ -179,6 +198,8 @@ const ChoiceType: FC<Props> = props => {
               gedSuccessMonth,
               gedSuccessYear,
               successTime,
+              setTypeError,
+              getTypeError,
             });
           }}
         />

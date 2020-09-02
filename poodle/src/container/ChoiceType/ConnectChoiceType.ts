@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { setQualification } from '@/core/redux/actions/Qualification';
 import ChoiceType from './ChoiceType';
 import { RootState } from '@/core/redux/reducer';
 import { State } from '@/core/redux/reducer/ChoiceType';
@@ -16,11 +15,12 @@ import {
   setAll,
   getTypeCall,
   typeCall,
+  setIsQualification,
 } from '@/core/redux/actions/ChoiceType';
 import { NOTICE_MODAL, modalOn } from '@/core/redux/actions/Modal';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 export const mapStateToProps = (state: RootState) => ({
-  qualificationExam: state.QualificationState.isQualification,
+  qualificationExam: state.ChoiceTypeState.qualificationExam,
   applyType: state.ChoiceTypeState.applyType,
   district: state.ChoiceTypeState.district,
   graduationStatus: state.ChoiceTypeState.graduationStatus,
@@ -32,11 +32,13 @@ export const mapStateToProps = (state: RootState) => ({
   gedSuccessMonth: state.ChoiceTypeState.gedSuccessMonth,
   gedSuccessYear: state.ChoiceTypeState.gedSuccessYear,
   successTime: state.ChoiceTypeState.successTime,
+  getTypeError: state.ChoiceTypeState.getTypeError,
+  setTypeError: state.ChoiceTypeState.setTypeError,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
-  setQualification: (isQualification: boolean) =>
-    dispatch(setQualification({ isQualification })),
+  setQualification: (qualification: boolean) =>
+    dispatch(setIsQualification({ qualification })),
   setApplyType: (type: string) => dispatch(setApplyType({ type })),
   setDistrict: (district: string) => dispatch(setDistrict({ district })),
   setGraduationStatus: (status: GraduationStatusType) =>
@@ -48,7 +50,7 @@ export const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(setAdditionalType({ additionalType })),
   setAll: (all: State) => dispatch(setAll({ all })),
   getTypeToServer: () => dispatch(getTypeCall()),
-  setTypeToServer: (state: State) => dispatch(typeCall({ state })),
+  setTypeToServer: (pageMove: boolean) => dispatch(typeCall({ pageMove })),
   setGEDSuccessMonth: (month: string) =>
     dispatch(setGEDSuccessMonth({ month })),
   setGEDSuccessYear: (year: string) => dispatch(setGEDSuccessYear({ year })),
