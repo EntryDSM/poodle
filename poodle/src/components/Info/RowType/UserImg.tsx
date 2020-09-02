@@ -11,7 +11,7 @@ interface Props {
 
 const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000';
 
-const UserImg: FC<Props> = ({ valueChangeHandler, img }) => {
+const UserImg: FC<Props> = ({ img }) => {
   const dispatch = useDispatch();
   const inputChangeHandler = useCallback((event: React.ChangeEvent) => {
     const target = event.target as HTMLInputElement;
@@ -23,7 +23,6 @@ const UserImg: FC<Props> = ({ valueChangeHandler, img }) => {
       return;
     }
     const url = URL.createObjectURL(file);
-    valueChangeHandler(url);
     dispatch(setPictureCall({ picture: file }));
   }, []);
   const isFileTypeAble = useCallback((file: File) => {
