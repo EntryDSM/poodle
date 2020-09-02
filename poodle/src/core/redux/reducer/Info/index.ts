@@ -1,4 +1,5 @@
 import ErrorType from '@/lib/utils/type';
+import { GraduationStatusType } from '../../actions/ChoiceType';
 import {
   NAME,
   GENDER,
@@ -22,6 +23,8 @@ import {
   GET_INFO_SUCCESS,
   GET_INFO_FAILURE,
   SET_PICTURE_FAILURE,
+  GRADE_TYPE,
+  SET_PICTURE_SUCCESS,
 } from '../../actions/Info';
 
 export interface State {
@@ -42,6 +45,7 @@ export interface State {
   gradeNumber: string;
   error: ErrorType | null;
   successDate: Date | null;
+  gradeType: GraduationStatusType;
 }
 
 const initialState: State = {
@@ -62,6 +66,7 @@ const initialState: State = {
   gradeNumber: '',
   error: null,
   successDate: null,
+  gradeType: 'GED',
 };
 
 const InfoState = (
@@ -187,6 +192,17 @@ const InfoState = (
       return {
         ...state,
         error: action.payload.error,
+      };
+    }
+    case SET_PICTURE_SUCCESS: {
+      return {
+        ...state,
+        picture: action.payload.url,
+      };
+    }
+    case GRADE_TYPE: {
+      return {
+        ...state,
       };
     }
     default: {

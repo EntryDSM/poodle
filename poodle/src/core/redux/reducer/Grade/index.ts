@@ -15,8 +15,7 @@ import {
   GET_GRADE_FAILURE,
   GET_GRADE_SUCCESS,
 } from '../../actions/Grade';
-import { responseGradeToStateGrade } from '@/lib/api/ApplicationApplyApi';
-import { SubjectsType } from '@/lib/api/ApiType';
+import { setInitalGradeState } from '@/lib/api/ApplicationApplyApi';
 
 export interface State {
   serviceTime: string;
@@ -29,19 +28,6 @@ export interface State {
   error: ErrorType | null;
   successTime: Date | null;
 }
-
-const setInitalGradeState = () => {
-  const initialSubjectGrade: SubjectsType = {
-    korean: 'XXXXX',
-    science: 'XXXXX',
-    society: 'XXXXX',
-    math: 'XXXXX',
-    english: 'XXXXX',
-    history: 'XXXXX',
-    tech: 'XXXXX',
-  };
-  return responseGradeToStateGrade(initialSubjectGrade);
-};
 
 export const initialState: State = {
   serviceTime: '',
