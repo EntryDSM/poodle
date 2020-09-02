@@ -1,61 +1,74 @@
-import { AdditionalType } from '@/core/redux/actions/ChoiceType';
+import {
+  AdditionalType,
+  GraduationStatusType,
+} from '@/core/redux/actions/ChoiceType';
 import { SchoolType } from '@/core/redux/actions/SearchSchool';
 
 export interface gradeServerType {
-  volanteer_time: number;
-  full_cut_count: number;
-  period_cut_count: number;
-  late_count: number;
-  early_leave_count: number;
-  korean: string;
-  social: string;
-  history: string;
-  math: string;
-  science: string;
-  tech_and_home: string;
-  english: string;
-  ged_average_score: number;
+  volanteer_time: number | null;
+  full_cut_count: number | null;
+  period_cut_count: number | null;
+  late_count: number | null;
+  early_leave_count: number | null;
+  korean: string | null;
+  social: string | null;
+  history: string | null;
+  math: string | null;
+  science: string | null;
+  tech_and_home: string | null;
+  english: string | null;
+  ged_average_score: number | null;
 }
 
 export interface userTypeServerType {
-  grade_type: string;
-  apply_type: string;
-  is_daejeon: boolean;
-  additional_type: AdditionalType;
-  graduated_date: string;
-}
-
-export interface gedUserTypeServerType {
-  grade_type: string;
-  apply_type: string;
-  is_daejeon: boolean;
-  additional_type: AdditionalType;
-  ged_pass_date: string;
+  grade_type: string | null;
+  apply_type: string | null;
+  is_daejeon: boolean | null;
+  additional_type: AdditionalType | null;
+  graduated_date: string | null;
+  ged_pass_date: string | null;
 }
 
 export interface userTypeResponseType {
-  grade_type: string;
-  apply_type: string;
-  is_daejeon: boolean;
-  additional_type: AdditionalType;
-  graduated_date: string;
-  ged_pass_date: string;
+  grade_type: string | null;
+  apply_type: string | null;
+  is_daejeon: boolean | null;
+  additional_type: AdditionalType | null;
+  graduated_date: string | null;
+  ged_pass_date: string | null;
 }
 
 export interface userInfoServerType {
-  name: string;
-  sex: string;
-  birth_date: string;
-  student_number: string;
-  school_name: string;
-  parent_name: string;
-  school_tel: string;
-  applicant_tel: string;
-  parent_tel: string;
-  address: string;
-  photo: string;
-  post_code: string;
-  detail_address: string;
+  name: string | null;
+  sex: string | null;
+  birth_date: string | null;
+  student_number: string | null;
+  school_name: string | null;
+  parent_name: string | null;
+  school_tel: string | null;
+  applicant_tel: string | null;
+  parent_tel: string | null;
+  address: string | null;
+  photo: string | null;
+  post_code: string | null;
+  detail_address: string | null;
+}
+
+export interface userInfoResponseType {
+  name: string | null;
+  sex: string | null;
+  birth_date: string | null;
+  student_number: string | null;
+  school_name: string | null;
+  parent_name: string | null;
+  school_tel: string | null;
+  applicant_tel: string | null;
+  parent_tel: string | null;
+  address: string | null;
+  photo: string | null;
+  post_code: string | null;
+  detail_address: string | null;
+  grade_type: GraduationStatusType | null;
 }
 
 export interface selfIntroductionServerType {
@@ -75,29 +88,29 @@ export interface studyPlanRequestType {
 }
 
 export interface SubjectsType {
-  korean: string;
-  society: string;
-  history: string;
-  math: string;
-  science: string;
-  tech: string;
-  english: string;
+  korean: string | null;
+  society: string | null;
+  history: string | null;
+  math: string | null;
+  science: string | null;
+  tech: string | null;
+  english: string | null;
 }
 
 export interface gedInfoServerType {
-  applicant_tel: string;
-  parent_tel: string;
-  address: string;
-  photo: string;
-  post_code: string;
-  parent_name: string;
-  name: string;
-  sex: string;
-  birth_date: string;
+  applicant_tel: string | null;
+  parent_tel: string | null;
+  address: string | null;
+  photo: string | null;
+  post_code: string | null;
+  parent_name: string | null;
+  name: string | null;
+  sex: string | null;
+  birth_date: string | null;
 }
 
 export interface gedGradeServerType {
-  ged_average_score: number;
+  ged_average_score: number | null;
 }
 
 export interface kakaoSearchedAddressType {

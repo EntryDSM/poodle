@@ -32,6 +32,7 @@ const Header: FC<HeaderProps> = ({
       localStorage.setItem('refreshToken', token.refresh_token);
     }
   }, [token]);
+
   return (
     <S.HeaderWrapper>
       <S.HeaderContent>

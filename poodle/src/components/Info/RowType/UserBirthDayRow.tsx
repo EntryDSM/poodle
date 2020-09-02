@@ -19,21 +19,12 @@ const MONTH = getMONTH(1, 12);
 const YEAR = getYEAR(2000, 2020);
 
 const UserBirthDayRow: FC<Props> = ({ valueChangeHandler, birthday }) => {
-  const [checkedDay, _checkedDayChange] = useState(DAY[0].VALUE);
-  const [checkedMonth, _checkedMonthChange] = useState(MONTH[0].VALUE);
-  const [checkedYear, _checkedYearChange] = useState(YEAR[0].VALUE);
+  const [checkedDay, checkedDayChange] = useState(DAY[0].VALUE);
+  const [checkedMonth, checkedMonthChange] = useState(MONTH[0].VALUE);
+  const [checkedYear, checkedYearChange] = useState(YEAR[0].VALUE);
   const getCheckedMenu = useCallback((options: options[]): options => {
     const checkedMenu = options.filter(menu => menu.isChecked);
     return checkedMenu[0];
-  }, []);
-  const checkedDayChange = useCallback((value: string) => {
-    _checkedDayChange(value);
-  }, []);
-  const checkedMonthChange = useCallback((value: string) => {
-    _checkedMonthChange(value);
-  }, []);
-  const checkedYearChange = useCallback((value: string) => {
-    _checkedYearChange(value);
   }, []);
   const updateSavedData = useCallback((birthday: string) => {
     if (birthday.length > 0) {

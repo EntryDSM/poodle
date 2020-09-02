@@ -23,9 +23,9 @@ const GraduationStatus: FC<Props> = ({
           onChange={valueChangeHandler}
           value={graduationStatus}
         >
-          <Radio value='ungraduated'>졸업예정자</Radio>
-          <Radio value='graduated'>졸업자</Radio>
-          <Radio value='ged'>검정고시</Radio>
+          <Radio value='UNGRADUATED'>졸업예정자</Radio>
+          <Radio value='GRADUATED'>졸업자</Radio>
+          <Radio value='GED'>검정고시</Radio>
         </RadioGroupProvider>
       </div>
     </TypeElementContent>

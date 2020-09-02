@@ -23,8 +23,8 @@ const UserGenderRow: FC<Props> = ({ valueChangeHandler, value }) => {
       <InfoElementContent>
         <div>
           <RadioGroupProvider onChange={radioClickHandler} value={value}>
-            <Radio value='male'>남자</Radio>
-            <Radio value='female'>여자</Radio>
+            <Radio value='MALE'>남자</Radio>
+            <Radio value='FEMALE'>여자</Radio>
           </RadioGroupProvider>
         </div>
       </InfoElementContent>
