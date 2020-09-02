@@ -1,21 +1,19 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import * as S from '@/styles/common/Header';
 import { useRedirect } from '@/lib/utils/function';
+import { Token } from '@/lib/api/auth';
 
 export type HeaderProps = {
   isLogin: boolean;
   loginLoading: boolean;
   login: () => void;
   logout: () => void;
-  user: {
-    accessToken: string;
-    refreshToken: string;
-  };
+  token: Token;
 };
 
 const Header: FC<HeaderProps> = ({
   isLogin,
-  user,
+  token,
   loginLoading,
   login,
   logout,
@@ -29,14 +27,12 @@ const Header: FC<HeaderProps> = ({
   }, []);
 
   useEffect(() => {
-    if (user.accessToken && user.refreshToken) {
-      localStorage.setItem('accessToken', user.accessToken);
-      localStorage.setItem('refreshToken', user.refreshToken);
-      return;
+    if (token.access_token && token.refresh_token) {
+      localStorage.setItem('accessToken', token.access_token);
+      localStorage.setItem('refreshToken', token.refresh_token);
     }
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-  }, [user]);
+  }, [token]);
+
   return (
     <S.HeaderWrapper>
       <S.HeaderContent>
@@ -45,7 +41,7 @@ const Header: FC<HeaderProps> = ({
         </S.LogoWrapper>
         <S.GNBWrapper>
           {loginLoading && <p>로그인중...</p>}
-          {!loginLoading && isLogin && user.accessToken && (
+          {!loginLoading && isLogin && token.access_token && (
             <>
               <S.GNB onClick={goToMypage}>마이페이지</S.GNB>
               <S.GNB onClick={logout}>로그아웃</S.GNB>

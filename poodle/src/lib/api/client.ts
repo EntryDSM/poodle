@@ -7,4 +7,22 @@ const client = axios.create({
   },
 });
 
+export const getClientWithAccessToken = () =>
+  axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
+
+export const getClientWithRefreshToken = () =>
+  axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Refresh-Token': localStorage.getItem('refreshToken'),
+    },
+  });
+
 export default client;

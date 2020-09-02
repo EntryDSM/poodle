@@ -107,37 +107,37 @@ export const SubTitle = styled.div<SubTitleProps>`
   white-space: nowrap;
   text-align: center;
   width: 0;
-    ${({ contour, color, effect }) =>
-      contour &&
-      css`
-        margin: 2.5rem 0 3.125rem 0;
-        width: ${effect ? '0' : '9.375'}rem;
-        height: 0.125rem;
-        background-color: ${color};
-      `}
-    ${({ error, effect }) =>
-      error &&
-      css`
-        width: ${effect ? '0' : '14.25'}rem;
-        margin: 2.125rem 0 2.625rem 0;
-        height: 1rem;
-        font-family: NanumSquareR;
-        font-size: 0.857rem;
-        color: #ff5c5c;
-        line-height: 1rem;
-      `}
+  ${({ contour, color, effect }) =>
+    contour &&
+    css`
+      margin: 2.5rem 0 3.125rem 0;
+      width: ${effect ? '0' : '9.375'}rem;
+      height: 0.125rem;
+      background-color: ${color};
+    `}
+  ${({ error, effect }) =>
+    error &&
+    css`
+      width: ${effect ? '0' : '17.25'}rem;
+      margin: 2.125rem 0 2.625rem 0;
+      height: 1rem;
+      font-family: NanumSquareR;
+      font-size: 0.857rem;
+      color: #ff5c5c;
+      line-height: 1rem;
+    `}
     ${({ normal }) =>
-      normal &&
-      css`
-        width: 3.75rem;
-        height: 1.375rem;
-        font-family: NanumSquareB;
-        font-size: 20px;
-        line-height: 1.375rem;
-        color: #46b2c6;
-        margin: 1.875rem 0 2.5rem 0;
-        background-color: transparent;
-      `};
+    normal &&
+    css`
+      width: 3.75rem;
+      height: 1.375rem;
+      font-family: NanumSquareB;
+      font-size: 20px;
+      line-height: 1.375rem;
+      color: #46b2c6;
+      margin: 1.875rem 0 2.5rem 0;
+      background-color: transparent;
+    `};
 `;
 
 export const ModalInputWrapper = styled.div`
