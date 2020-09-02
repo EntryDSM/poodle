@@ -7,7 +7,7 @@ import {
   reGenerateToken,
   GET_USER,
 } from '../../actions/Header';
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, takeEvery } from 'redux-saga/effects';
 import createRequestSaga from '@/lib/utils/saga/createRequestSaga';
 import * as authCtrl from '@/lib/api/auth';
 
@@ -34,6 +34,6 @@ const getUserSaga = createRequestSaga(GET_USER, authCtrl.getUser);
 
 export default function* headerSaga() {
   yield takeLatest(LOGIN, loginSaga);
-  yield takeLatest(RE_GENERATE_TOKEN, reGenerateTokenSaga);
+  yield takeEvery(RE_GENERATE_TOKEN, reGenerateTokenSaga);
   yield takeLatest(GET_USER, getUserSaga);
 }
