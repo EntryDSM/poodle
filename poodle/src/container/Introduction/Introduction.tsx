@@ -12,7 +12,10 @@ import {
   STUDY_PLAN_DESCRIBE,
 } from '@/components/Introduction/constance';
 import { mapDispatchToProps, mapStateToProps } from './ConnectIntroduction';
-import { isEmptyCheck } from '../../lib/utils/function';
+import {
+  isEmptyCheck,
+  useReGenerateTokenAndDoCallback,
+} from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
 
 type Props = ReturnType<typeof mapDispatchToProps> &
@@ -35,6 +38,10 @@ const Introduction: FC<Props> = ({
   setSelfIntroductionToServer,
   getSelfIntroductionToServer,
   successDate,
+  setSelfIntroductionError,
+  setStudyPlanError,
+  getSelfIntroductionError,
+  getStudyPlanError,
 }) => {
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
@@ -50,8 +57,8 @@ const Introduction: FC<Props> = ({
         return;
       }
       try {
-        await setSelfIntroductionToServer();
-        await setStudyPlanToServer();
+        await setSelfIntroductionToServer(true);
+        await setStudyPlanToServer(true);
       } catch (error) {
         errorTypeCheck(error);
       }
@@ -61,6 +68,18 @@ const Introduction: FC<Props> = ({
   const goCurrentPage = useCallback(() => {
     history.push('/grade');
   }, [page]);
+  const getSelfIntroductionGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    getSelfIntroductionToServer,
+  );
+  const getStudyPlanGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    getStudyPlanToServer,
+  );
+  const setSelfIntroductionGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    () => setSelfIntroductionToServer(false),
+  );
+  const setStudyPlanGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    () => setStudyPlanToServer(false),
+  );
   useEffect(() => {
     getStudyPlanToServer();
     getSelfIntroductionToServer();
@@ -72,6 +91,17 @@ const Introduction: FC<Props> = ({
   }, [page]);
   useEffect(() => {
     if (!error) return;
+    if (error.status === 401) {
+      if (setSelfIntroductionError.status === 401)
+        setSelfIntroductionGenerateTokenAndDoCallback();
+      if (setStudyPlanError.status === 401)
+        setStudyPlanGenerateTokenAndDoCallback();
+      if (getSelfIntroductionError.status === 401)
+        getSelfIntroductionGenerateTokenAndDoCallback();
+      if (getStudyPlanError.status === 401)
+        getStudyPlanGenerateTokenAndDoCallback();
+      return;
+    }
     modalController.createNewToast('SERVER_ERROR');
   }, [error]);
   useEffect(() => {
@@ -105,6 +135,10 @@ const Introduction: FC<Props> = ({
               error,
               page,
               successDate,
+              setSelfIntroductionError,
+              getSelfIntroductionError,
+              setStudyPlanError,
+              getStudyPlanError,
             })
           }
         />
