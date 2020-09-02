@@ -105,6 +105,7 @@ export default function header(
       };
     case RE_GENERATE_TOKEN_FAILURE:
       clearLocalStorageAboutToken();
+      alert('로그인 유효기간이 만료되었습니다.');
       return initialState;
     case GET_USER_SUCCESS:
       return {

@@ -12,7 +12,7 @@ export const getClientWithAccessToken = () =>
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('refreshToken')}`,
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
   });
 
