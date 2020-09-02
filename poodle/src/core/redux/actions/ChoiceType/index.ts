@@ -24,7 +24,7 @@ export type AdditionalType =
   | 'NATIONAL_MERIT'
   | 'PRIVILEGED_ADMISSION'
   | 'NOT_APPLICABLE';
-export type GraduationStatusType = 'ungraduated' | 'graduated' | 'ged';
+export type GraduationStatusType = 'UNGRADUATED' | 'GRADUATED' | 'GED';
 
 export interface SetApplyType {
   type: typeof APPLYTYPE;

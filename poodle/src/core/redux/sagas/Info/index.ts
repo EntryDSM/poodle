@@ -3,7 +3,7 @@ import {
   infoStateToRequest,
   infoStateToGedRequest,
   infoResponseToState,
-  setDataToServer,
+  setPostToServer,
 } from '@/lib/api/ApplicationApplyApi';
 import { USERINFO_URL, SET_PICTURE_URL } from '@/lib/api/ServerUrl';
 import {
@@ -68,7 +68,7 @@ const defaultSaveSaga = createSaveSaga(
 
 const gedSaveSaga = createSaveSaga(
   infoStateToGedRequest,
-  USERINFO_URL,
+  `${USERINFO_URL}/ged`,
   `${PAGENAME}/${ACTIONNAME}`,
   getStateFunc,
 );
@@ -83,7 +83,7 @@ const defaultSaveAndMovePageSaga = createMovePageSaga(
 
 const gedSaveAndMovePageSaga = createMovePageSaga(
   infoStateToGedRequest,
-  USERINFO_URL,
+  `${USERINFO_URL}/ged`,
   `${PAGENAME}/${ACTIONNAME}`,
   getStateFunc,
   'grade',
@@ -103,9 +103,11 @@ const getInfoSaga = createGetSaga(
 
 function* setImgSaga(action: SetPictureCall) {
   try {
+    const formData = new FormData();
     const picture = action.payload.picture;
-    yield call(setDataToServer, SET_PICTURE_URL, picture);
-    yield put({ type: SET_PICTURE_SUCCESS });
+    formData.append('file', picture);
+    const response = yield call(setPostToServer, SET_PICTURE_URL, formData);
+    yield put({ type: SET_PICTURE_SUCCESS, payload: { url: response } });
   } catch (error) {
     yield put({ type: SET_PICTURE_FAILURE, payload: { error: error } });
   }

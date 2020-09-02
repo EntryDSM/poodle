@@ -23,7 +23,7 @@ import {
 } from '@/core/redux/actions/Info';
 
 export const mapStateToProps = (state: RootState) => ({
-  isQualification: state.QualificationState.isQualification,
+  gradeType: state.InfoState.gradeType,
   address: state.InfoState.address,
   birthday: state.InfoState.birthday,
   gender: state.InfoState.gender,

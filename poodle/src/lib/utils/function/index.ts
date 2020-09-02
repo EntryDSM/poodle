@@ -20,12 +20,6 @@ export const isEmptyCheck = (text: string) => {
   return true;
 };
 
-export const stringedSingleDigitNumberToDoubleDigitNumber = (
-  number: string,
-) => {
-  return `0${number}`;
-};
-
 export const getYEAR = (
   startYear: number,
   lastYear: number,
@@ -48,10 +42,7 @@ export const getMONTH = (
   const buf = [];
   for (let MONTH = startMonth; MONTH <= lastMonth; MONTH++) {
     const stringedMONTH = MONTH.toString();
-    const value =
-      stringedMONTH.length > 1
-        ? stringedMONTH
-        : stringedSingleDigitNumberToDoubleDigitNumber(stringedMONTH);
+    const value = stringedMONTH.padStart(2, '0');
     buf.push({
       VALUE: value,
       LABEL: stringedMONTH,
@@ -67,10 +58,7 @@ export const getDAY = (
   const buf = [];
   for (let DAY = startDay; DAY <= lastDay; DAY++) {
     const stringedDAY = DAY.toString();
-    const value =
-      stringedDAY.length > 1
-        ? stringedDAY
-        : stringedSingleDigitNumberToDoubleDigitNumber(stringedDAY);
+    const value = stringedDAY.padStart(2, '0');
     buf.push({
       VALUE: value,
       LABEL: stringedDAY,

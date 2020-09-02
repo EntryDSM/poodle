@@ -13,10 +13,10 @@ import {
   gedGradeServerType,
   previewType,
   submitType,
-  gedUserTypeServerType,
   userTypeResponseType,
   selfIntroductionRequestType,
   studyPlanRequestType,
+  userInfoResponseType,
 } from './ApiType';
 import { GRADESEMESTERLIST } from '@/components/Grade/constance';
 import { PreviewState } from '@/core/redux/reducer/Preview';
@@ -27,6 +27,26 @@ export const errorTypeCheck = (error: ErrorType): void => {
   } else {
     console.log('unknown error');
   }
+};
+
+export const nullAndNumberToString = (value: null | number): string => {
+  if (value === null) return '';
+  return value.toString();
+};
+
+export const nullAbleStringToString = (value: null | string) => {
+  if (value === null) return '';
+  return value;
+};
+
+export const stringToStringOrNull = (value: string): string | null => {
+  if (value.length === 0) return null;
+  return value;
+};
+
+export const strintToNumberOrNull = (value: string): number | null => {
+  if (value.length === 0) return null;
+  return parseInt(value);
 };
 
 export const getDataToServer = async <ResponseType>(
@@ -44,6 +64,14 @@ export const setDataToServer = async <RequestType>(
   return response;
 };
 
+export const setPostToServer = async <RequestType>(
+  url: string,
+  payload: RequestType,
+) => {
+  const response = await client.post(url, payload);
+  return response.data;
+};
+
 export const typeStateToRequest = (
   state: RootState['ChoiceTypeState'],
 ): userTypeServerType => {
@@ -55,34 +83,23 @@ export const typeStateToRequest = (
     district,
     applyType,
     additionalType,
-  } = state;
-  return {
-    grade_type: getGradeType(qualificationExam, graduationStatus),
-    apply_type: applyType,
-    is_daejeon: isDaejeon(district),
-    additional_type: additionalType,
-    graduated_date: yearMonthToOne(graduationYear, graduationMonth),
-  };
-};
-
-export const gedTypeToRequest = (
-  state: RootState['ChoiceTypeState'],
-): gedUserTypeServerType => {
-  const {
-    qualificationExam,
-    graduationStatus,
-    district,
-    applyType,
-    additionalType,
     gedSuccessMonth,
     gedSuccessYear,
   } = state;
+  const gradeType = getGradeType(qualificationExam, graduationStatus);
   return {
-    grade_type: getGradeType(qualificationExam, graduationStatus),
-    apply_type: applyType,
+    grade_type: gradeType,
+    apply_type: stringToStringOrNull(applyType),
     is_daejeon: isDaejeon(district),
     additional_type: additionalType,
-    ged_pass_date: yearMonthToOne(gedSuccessYear, gedSuccessMonth),
+    graduated_date:
+      gradeType === 'GRADUATED'
+        ? yearMonthToOne(graduationYear, graduationMonth)
+        : null,
+    ged_pass_date:
+      gradeType === 'GED'
+        ? yearMonthToOne(gedSuccessYear, gedSuccessMonth)
+        : null,
   };
 };
 
@@ -95,39 +112,46 @@ export const typeResponseToState = ({
   ged_pass_date,
 }: userTypeResponseType): RootState['ChoiceTypeState'] => ({
   qualificationExam: isGED(grade_type),
-  applyType: apply_type,
+  applyType: nullAbleStringToString(apply_type),
   district: getDistrictStringToisDaejeon(is_daejeon),
-  graduationStatus: grade_type,
+  graduationStatus: nullAbleStringToString(grade_type),
   graduationYear: getYearFromDateString(graduated_date),
   graduationMonth: getMonthFromDateString(graduated_date),
-  additionalType: additional_type,
+  additionalType: additional_type ? additional_type : 'NOT_APPLICABLE',
   error: null,
   gedSuccessMonth: getMonthFromDateString(ged_pass_date),
   gedSuccessYear: getYearFromDateString(ged_pass_date),
   successTime: null,
 });
 
-const isGED = (grade_type: string) => {
-  if (grade_type === 'ged') {
+const isGED = (grade_type: string | null) => {
+  if (grade_type === 'GED') {
     return true;
   }
   return false;
 };
 
-const isDaejeon = (district: string) => {
+const isDaejeon = (district: string): boolean | null => {
+  if (district.length === 0) return null;
   if (district === '대전') {
     return true;
   }
   return false;
 };
 
-const getGradeType = (qualifacationExam: boolean, graduationStatus: string) => {
-  if (qualifacationExam) return 'ged';
+const getGradeType = (
+  qualifacationExam: boolean,
+  graduationStatus: string,
+): string | null => {
+  if (graduationStatus === '') return null;
+  else if (qualifacationExam) return 'GED';
   return graduationStatus;
 };
 
-const getDistrictStringToisDaejeon = (is_daejeon: boolean): string => {
-  if (is_daejeon) {
+const getDistrictStringToisDaejeon = (is_daejeon: boolean | null): string => {
+  if (typeof is_daejeon === 'object') {
+    return '';
+  } else if (is_daejeon) {
     return '대전';
   }
   return '전국';
@@ -137,12 +161,14 @@ const yearMonthToOne = (year: string, month: string): string => {
   return `${year}-${month}`;
 };
 
-const getMonthFromDateString = (dateString: string): string => {
+const getMonthFromDateString = (dateString: string | null): string => {
+  if (dateString === null) return '01';
   const splitedStringArray = dateString.split('-');
   return splitedStringArray[1];
 };
 
-const getYearFromDateString = (dateString: string): string => {
+const getYearFromDateString = (dateString: string | null): string => {
+  if (typeof dateString === 'object') return '2020';
   const splitedStringArray = dateString.split('-');
   return splitedStringArray[0];
 };
@@ -150,19 +176,19 @@ const getYearFromDateString = (dateString: string): string => {
 export const infoStateToRequest = (
   state: RootState['InfoState'],
 ): userInfoServerType => ({
-  name: state.name,
-  sex: state.gender,
+  name: stringToStringOrNull(state.name),
+  sex: stringToStringOrNull(state.gender),
   student_number: infoStateToRequestStudentNumber(state),
-  parent_name: state.protectorName,
-  parent_tel: state.protectorPhoneNum,
-  school_name: state.schoolPhoneNum,
-  applicant_tel: state.phoneNum,
-  school_tel: state.schoolPhoneNum,
-  photo: state.picture,
+  parent_name: stringToStringOrNull(state.protectorName),
+  parent_tel: stringToStringOrNull(state.protectorPhoneNum),
+  school_name: stringToStringOrNull(state.schoolPhoneNum),
+  applicant_tel: stringToStringOrNull(state.phoneNum),
+  school_tel: stringToStringOrNull(state.schoolPhoneNum),
+  photo: stringToStringOrNull(state.picture),
   birth_date: infoDateStringToStateDateString(state.birthday),
-  address: state.address,
-  detail_address: state.detailAddress,
-  post_code: state.postNum,
+  address: stringToStringOrNull(state.address),
+  detail_address: stringToStringOrNull(state.detailAddress),
+  post_code: stringToStringOrNull(state.postNum),
 });
 
 export const infoStateToGedRequest = (
@@ -179,17 +205,20 @@ export const infoStateToGedRequest = (
   birth_date: state.birthday,
 });
 
-const infoDateStringToStateDateString = (str: string) => {
+const infoDateStringToStateDateString = (str: string): string | null => {
   const splitedString = str.split('-');
   const changedMonth = checkSingleTextAddZero(splitedString[1]);
   const changedDay = checkSingleTextAddZero(splitedString[2]);
   return `${splitedString[0]}-${changedMonth}-${changedDay}`;
 };
 
-const infoStateToRequestStudentNumber = (state: RootState['InfoState']) => {
+const infoStateToRequestStudentNumber = (
+  state: RootState['InfoState'],
+): string | null => {
   const changedClassNum = checkSingleTextAddZero(state.classNumber);
   const changedNumber = checkSingleTextAddZero(state.number);
-  const grade = state.gradeNumber;
+  const grade = stringToStringOrNull(state.gradeNumber);
+  if (!(grade && changedNumber && changedClassNum)) return null;
   return `${grade}${changedClassNum}${changedNumber}`;
 };
 
@@ -201,53 +230,46 @@ const isSingleText = (text: string) => {
 };
 
 const checkSingleTextAddZero = (text: string) => {
-  if (isSingleText(text)) {
-    return `0${text}`;
-  }
-  return text;
+  return text.padStart(2, '0');
 };
 
 export const infoResponseToState = (
-  response: userInfoServerType,
+  response: userInfoResponseType,
 ): RootState['InfoState'] => ({
-  name: response.name,
-  gender: response.sex,
+  name: nullAbleStringToString(response.name),
+  gender: nullAbleStringToString(response.sex),
   number: infoStringToNumber(response.student_number),
-  protectorName: response.parent_name,
-  protectorPhoneNum: response.parent_tel,
-  schoolPhoneNum: response.school_tel,
-  phoneNum: response.applicant_tel,
-  middleSchool: response.school_name,
-  birthday: infoRequestDateStringToStateDateString(response.birth_date),
-  postNum: response.post_code,
-  address: response.address,
-  detailAddress: response.detail_address,
-  picture: response.photo,
+  protectorName: nullAbleStringToString(response.parent_name),
+  protectorPhoneNum: nullAbleStringToString(response.parent_tel),
+  schoolPhoneNum: nullAbleStringToString(response.school_tel),
+  phoneNum: nullAbleStringToString(response.applicant_tel),
+  middleSchool: nullAbleStringToString(response.school_name),
+  birthday: infoResponseDateStringToStateDateString(response.birth_date),
+  postNum: nullAbleStringToString(response.post_code),
+  address: nullAbleStringToString(response.address),
+  detailAddress: nullAbleStringToString(response.detail_address),
+  picture: nullAbleStringToString(response.photo),
   gradeNumber: infoStringToGradeNumber(response.student_number),
   classNumber: infoStringToClassNumber(response.student_number),
   error: null,
   successDate: null,
+  gradeType: response.grade_type ? response.grade_type : 'GED',
 });
 
-const infoRequestDateStringToStateDateString = (requestDateString: string) => {
-  const splitedStringArray = requestDateString.split('-');
-  const year = splitedStringArray[0];
-  const month = cutZeroToString(splitedStringArray[1]);
-  const day = cutZeroToString(splitedStringArray[2]);
-  return `${year}-${month}-${day}`;
+const infoResponseDateStringToStateDateString = (
+  requestDateString: string | null,
+): string => {
+  if (requestDateString === null) return '2000-01-01';
+  return requestDateString;
 };
 
-const cutZeroToString = (str: string) => {
-  const splitedString = str.split('');
-  if (splitedString[0] === '0') {
-    return splitedString[1];
-  }
-  return str;
+const infoStringToGradeNumber = (str: string | null): string => {
+  if (str === null) return '';
+  return str.split('')[0];
 };
 
-const infoStringToGradeNumber = (str: string) => str.split('')[0];
-
-const infoStringToClassNumber = (str: string) => {
+const infoStringToClassNumber = (str: string | null) => {
+  if (str === null) return '';
   const splitString = str.split('');
   if (splitString[1] === '0') {
     return splitString[2];
@@ -255,12 +277,26 @@ const infoStringToClassNumber = (str: string) => {
   return `${splitString[1]}${splitString[2]}`;
 };
 
-const infoStringToNumber = (str: string) => {
+const infoStringToNumber = (str: string | null): string => {
+  if (str === null) return '';
   const splitString = str.split('');
   if (splitString[3] === '0') {
     return splitString[4];
   }
   return `${splitString[3]}${splitString[4]}`;
+};
+
+export const setInitalGradeState = () => {
+  const initialSubjectGrade: SubjectsType = {
+    korean: 'XXXXX',
+    science: 'XXXXX',
+    society: 'XXXXX',
+    math: 'XXXXX',
+    english: 'XXXXX',
+    history: 'XXXXX',
+    tech: 'XXXXX',
+  };
+  return responseGradeToStateGrade(initialSubjectGrade);
 };
 
 const gradeArrayToString = (
@@ -301,21 +337,22 @@ export const gradeResponseToState = (
 ): RootState['GradeState'] => {
   const subjects = responseToSubjects(response);
   return {
-    serviceTime: response.volanteer_time.toString(),
-    absentDay: response.full_cut_count.toString(),
-    perceptionDay: response.late_count.toString(),
-    cutClassDay: response.period_cut_count.toString(),
-    leaveLateDay: response.early_leave_count.toString(),
+    serviceTime: nullAndNumberToString(response.volanteer_time),
+    absentDay: nullAndNumberToString(response.full_cut_count),
+    perceptionDay: nullAndNumberToString(response.late_count),
+    cutClassDay: nullAndNumberToString(response.period_cut_count),
+    leaveLateDay: nullAndNumberToString(response.early_leave_count),
     grade: responseGradeToStateGrade(subjects),
-    score: response.ged_average_score.toString(),
+    score: nullAndNumberToString(response.ged_average_score),
     error: null,
     successTime: null,
   };
 };
 
 export const responseGradeToStateGrade = (
-  response: SubjectsType,
+  response: SubjectsType | null,
 ): GradeType[] => {
+  if (response === null) return setInitalGradeState();
   const entriedObj = objectToString(response);
   let grade: GradeType[] = [];
   entriedObj.map(([key, value]) => {
@@ -370,11 +407,11 @@ const gradeSortCompareFunc = (current: GradeType, next: GradeType) => {
 export const gradeStateToRequest = (
   state: RootState['GradeState'],
 ): gradeServerType => ({
-  volanteer_time: Number(state.serviceTime),
-  full_cut_count: Number(state.absentDay),
-  period_cut_count: Number(state.cutClassDay),
-  early_leave_count: Number(state.leaveLateDay),
-  late_count: Number(state.perceptionDay),
+  volanteer_time: strintToNumberOrNull(state.serviceTime),
+  full_cut_count: strintToNumberOrNull(state.absentDay),
+  period_cut_count: strintToNumberOrNull(state.cutClassDay),
+  early_leave_count: strintToNumberOrNull(state.leaveLateDay),
+  late_count: strintToNumberOrNull(state.perceptionDay),
   korean: gradeArrayToString(state.grade, 'korean'),
   social: gradeArrayToString(state.grade, 'society'),
   history: gradeArrayToString(state.grade, 'history'),
@@ -382,7 +419,7 @@ export const gradeStateToRequest = (
   science: gradeArrayToString(state.grade, 'science'),
   tech_and_home: gradeArrayToString(state.grade, 'tech'),
   english: gradeArrayToString(state.grade, 'english'),
-  ged_average_score: Number(state.score),
+  ged_average_score: strintToNumberOrNull(state.score),
 });
 
 export const gradeStateToGedRequest = (
