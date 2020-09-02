@@ -5,13 +5,11 @@ import {
   HeaderAction,
   LOGOUT,
   LOGIN_ERROR_RESET,
-  LOGIN,
+  RE_GENERATE_TOKEN,
   RE_GENERATE_TOKEN_SUCCESS,
   RE_GENERATE_TOKEN_FAILURE,
-  RE_GENERATE_TOKEN,
   GET_USER_SUCCESS,
   GET_USER_FAILURE,
-  GET_USER,
 } from '../../actions/Header';
 import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import { Token, User } from '@/lib/api/auth';
