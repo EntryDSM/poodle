@@ -10,7 +10,7 @@ const createSaveSaga = (
 ) => {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
-  return function* saveSaga() {
+  return function* saveSaga(action?: any) {
     const state = yield select(getStateFunc);
     const request = stateToRequest(state);
     try {
