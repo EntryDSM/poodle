@@ -87,7 +87,7 @@ const ChoiceType: FC<Props> = props => {
     props.getTypeToServer();
   }, []);
   const graduationStatusChangeHandler = useCallback((status: string) => {
-    if (status === 'ungraduated') {
+    if (status === 'UNGRADUATED') {
       setGraduationYear('2021');
     } else {
       setGraduationYear('2020');
@@ -104,7 +104,7 @@ const ChoiceType: FC<Props> = props => {
     }
   }, [page]);
   const getYearRow = (): React.ReactNode => {
-    if (graduationStatus === 'graduated') {
+    if (graduationStatus === 'GRADUATED') {
       return (
         <GraduationYear
           describe='*졸업자의 경우 졸업연도를 선택해주세요.'
@@ -114,7 +114,7 @@ const ChoiceType: FC<Props> = props => {
           graduationYear={graduationYear}
         />
       );
-    } else if (graduationStatus === 'ged') {
+    } else if (graduationStatus === 'GED') {
       return (
         <ChoiceTypeGEDYear
           describe='*검정고시 합격일자를 선택해주세요.'
@@ -127,6 +127,10 @@ const ChoiceType: FC<Props> = props => {
     }
     return <></>;
   };
+  useEffect(() => {
+    if (!props.successTime) return;
+    modalController.createNewToast('SUCCESS');
+  }, [props.successTime]);
   useEffect(() => {
     if (!error) return;
     modalController.createNewToast('SERVER_ERROR');

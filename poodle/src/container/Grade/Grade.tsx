@@ -80,6 +80,10 @@ const Grade: FC<Props> = props => {
     if (!props.error) return;
     modalController.createNewToast('SERVER_ERROR');
   }, [props.error]);
+  useEffect(() => {
+    if (!props.successTime) return;
+    modalController.createNewToast('SUCCESS');
+  }, [props.successTime]);
   return (
     <GradeDiv>
       <div id={TOAST_DIV_ID} />
