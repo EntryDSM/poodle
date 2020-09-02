@@ -1,5 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import { useCallback, useState, useMemo, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { reGenerateToken } from '@/core/redux/actions/Header';
 
 export const useRedirect = () => {
   const history = useHistory();
@@ -112,4 +114,22 @@ export const useTimer = (): [
     setRemainedTime(0);
   }, []);
   return [timer, startTimer, resetTimer, remainedTime, getFormatedTime];
+};
+
+export const useReGenerateTokenAndDoCallback = (
+  callback: (params?: any) => void,
+  callbackParams?: any,
+) => {
+  const dispatch = useDispatch();
+
+  const reGenerateTokenAndDoCallback = useCallback(() => {
+    dispatch(reGenerateToken({ callback, callbackParams }));
+  }, [dispatch]);
+
+  return reGenerateTokenAndDoCallback;
+};
+
+export const clearLocalStorageAboutToken = () => {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
 };
