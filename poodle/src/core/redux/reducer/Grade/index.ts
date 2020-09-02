@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type';
+import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import {
   SERVICE_TIME,
   ABSENT_DAY,
@@ -16,6 +16,7 @@ import {
   GET_GRADE_SUCCESS,
 } from '../../actions/Grade';
 import { setInitalGradeState } from '@/lib/api/ApplicationApplyApi';
+import { GraduationStatusType } from '../../actions/ChoiceType';
 
 export interface State {
   serviceTime: string;
@@ -27,6 +28,9 @@ export interface State {
   score: string;
   error: ErrorType | null;
   successTime: Date | null;
+  getGradeError: ErrorType;
+  setGradeError: ErrorType;
+  gradeType: GraduationStatusType;
 }
 
 export const initialState: State = {
@@ -39,6 +43,9 @@ export const initialState: State = {
   score: '',
   error: null,
   successTime: null,
+  getGradeError: errorInitialState,
+  setGradeError: errorInitialState,
+  gradeType: 'GED',
 };
 
 const GradeState = (
@@ -101,12 +108,16 @@ const GradeState = (
       return {
         ...state,
         error: action.payload.error,
+        setGradeError: action.payload.error,
+        getGradeError: errorInitialState,
       };
     }
     case GET_GRADE_FAILURE: {
       return {
         ...state,
         error: action.payload.error,
+        getGradeError: action.payload.error,
+        setGradeError: errorInitialState,
       };
     }
     case GET_GRADE_SUCCESS: {

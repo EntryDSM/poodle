@@ -11,7 +11,10 @@ import {
 } from '../../components/default/ApplicationFormDefault';
 import { mapStateToProps, mapDispatchToProps } from './ConnectInfo';
 import { QualificationPage, DefaultPage } from '../../components/Info/Page';
-import { isEmptyCheck } from '../../lib/utils/function';
+import {
+  isEmptyCheck,
+  useReGenerateTokenAndDoCallback,
+} from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
 
 type Props = ReturnType<typeof mapStateToProps> &
@@ -93,7 +96,7 @@ const Info: FC<Props> = props => {
         modalController.createNewToast('ERROR');
       } else {
         try {
-          await props.setInfoToServer();
+          await props.setInfoToServer(true);
         } catch (error) {
           errorTypeCheck(error);
         }
@@ -107,6 +110,14 @@ const Info: FC<Props> = props => {
   const goCurrentPage = useCallback(() => {
     props.history.push('/Type');
   }, []);
+
+  const setInfoGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    () => props.setInfoToServer(false),
+  );
+  const getInfoGenerateTokenAdnDoCallback = useReGenerateTokenAndDoCallback(
+    props.getInfoToServer,
+  );
+
   useEffect(() => {
     props.getInfoToServer();
   }, []);
@@ -117,8 +128,15 @@ const Info: FC<Props> = props => {
   }, [props.page]);
   useEffect(() => {
     if (!props.error) return;
+    if (props.error.status === 401) {
+      if (props.setInfoError.status === 401)
+        setInfoGenerateTokenAndDoCallback();
+      if (props.getInfoError.status === 401)
+        getInfoGenerateTokenAdnDoCallback();
+      return;
+    }
     modalController.createNewToast('SERVER_ERROR');
-  }, [props.error]);
+  }, [props.error, props.setInfoToServer, props.getInfoToServer]);
   useEffect(() => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');

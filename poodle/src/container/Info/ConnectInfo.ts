@@ -42,6 +42,8 @@ export const mapStateToProps = (state: RootState) => ({
   error: state.InfoState.error,
   page: state.PageState.page,
   successTime: state.InfoState.successDate,
+  setInfoError: state.InfoState.setInfoError,
+  getInfoError: state.InfoState.getInfoError,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
@@ -69,7 +71,7 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setClassNumber: (classNumber: string) =>
     dispatch(setClassNumber({ classNumber })),
   getInfoToServer: () => dispatch(getInfoCall()),
-  setInfoToServer: () => dispatch(infoCall()),
+  setInfoToServer: (pageMove: boolean) => dispatch(infoCall({ pageMove })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Info);
