@@ -102,7 +102,6 @@ const Grade: FC<Props> = props => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');
   }, [props.successTime]);
-  console.log(props.score);
   return (
     <GradeDiv>
       <div id={TOAST_DIV_ID} />
