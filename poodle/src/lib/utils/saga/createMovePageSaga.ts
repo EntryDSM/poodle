@@ -13,7 +13,6 @@ const createMovePageSaga = (
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
   return function* movePageSaga(action?: any) {
-    console.log(action.payload.pageMove);
     const state = yield select(getStateFunc);
     const request = stateToRequest(state);
     try {
