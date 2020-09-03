@@ -23,8 +23,10 @@ import {
   GET_INFO_SUCCESS,
   GET_INFO_FAILURE,
   SET_PICTURE_FAILURE,
-  GRADE_TYPE,
   SET_PICTURE_SUCCESS,
+  YEAR,
+  MONTH,
+  DAY,
 } from '../../actions/Info';
 
 export interface State {
@@ -45,9 +47,12 @@ export interface State {
   gradeNumber: string;
   error: ErrorType | null;
   successDate: Date | null;
-  gradeType: GraduationStatusType;
+  gradeType: GraduationStatusType | '';
   setInfoError: ErrorType;
   getInfoError: ErrorType;
+  year: string;
+  month: string;
+  day: string;
 }
 
 const initialState: State = {
@@ -68,9 +73,12 @@ const initialState: State = {
   gradeNumber: '',
   error: null,
   successDate: null,
-  gradeType: 'GED',
+  gradeType: '',
   setInfoError: errorInitialState,
   getInfoError: errorInitialState,
+  year: '2020',
+  month: '01',
+  day: '01',
 };
 
 const InfoState = (
@@ -208,9 +216,22 @@ const InfoState = (
         picture: action.payload.url,
       };
     }
-    case GRADE_TYPE: {
+    case YEAR: {
       return {
         ...state,
+        year: action.payload.year,
+      };
+    }
+    case MONTH: {
+      return {
+        ...state,
+        month: action.payload.month,
+      };
+    }
+    case DAY: {
+      return {
+        ...state,
+        day: action.payload.day,
       };
     }
     default: {
