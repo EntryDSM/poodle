@@ -69,7 +69,7 @@ export const setPostToServer = async <RequestType>(
   url: string,
   payload: RequestType,
 ) => {
-  const response = await client.post(url, payload);
+  const response = await getClientWithAccessToken().post(url, payload);
   return response.data;
 };
 
@@ -87,6 +87,7 @@ export const typeStateToRequest = (
     gedSuccessMonth,
     gedSuccessYear,
   } = state;
+  console.log(qualificationExam, graduationStatus);
   const gradeType = getGradeType(qualificationExam, graduationStatus);
   return {
     grade_type: gradeType,
@@ -165,34 +166,43 @@ const yearMonthToOne = (year: string, month: string): string => {
 };
 
 const getMonthFromDateString = (dateString: string | null): string => {
-  if (dateString === null) return '01';
+  if (!dateString) return '01';
   const splitedStringArray = dateString.split('-');
-  return splitedStringArray[1];
+  return checkSingleTextAddZero(splitedStringArray[1]);
 };
 
 const getYearFromDateString = (dateString: string | null): string => {
-  if (typeof dateString === 'object') return '2020';
+  if (!dateString) return '2020';
   const splitedStringArray = dateString.split('-');
-  return splitedStringArray[0];
+  return checkSingleTextAddZero(splitedStringArray[0]);
+};
+
+const getDayFromDateString = (dateString: string | null): string => {
+  if (!dateString) return '01';
+  const splitedStringArray = dateString.split('-');
+  return checkSingleTextAddZero(splitedStringArray[2]);
 };
 
 export const infoStateToRequest = (
   state: RootState['InfoState'],
-): userInfoServerType => ({
-  name: stringToStringOrNull(state.name),
-  sex: stringToStringOrNull(state.gender),
-  student_number: infoStateToRequestStudentNumber(state),
-  parent_name: stringToStringOrNull(state.protectorName),
-  parent_tel: stringToStringOrNull(state.protectorPhoneNum),
-  school_name: stringToStringOrNull(state.schoolPhoneNum),
-  applicant_tel: stringToStringOrNull(state.phoneNum),
-  school_tel: stringToStringOrNull(state.schoolPhoneNum),
-  photo: stringToStringOrNull(state.picture),
-  birth_date: infoDateStringToStateDateString(state.birthday),
-  address: stringToStringOrNull(state.address),
-  detail_address: stringToStringOrNull(state.detailAddress),
-  post_code: stringToStringOrNull(state.postNum),
-});
+): userInfoServerType => {
+  const dateString = `${state.year}-${state.month}-${state.day}`;
+  return {
+    name: stringToStringOrNull(state.name),
+    sex: stringToStringOrNull(state.gender),
+    student_number: infoStateToRequestStudentNumber(state),
+    parent_name: stringToStringOrNull(state.protectorName),
+    parent_tel: stringToStringOrNull(state.protectorPhoneNum),
+    school_name: stringToStringOrNull(state.schoolPhoneNum),
+    applicant_tel: stringToStringOrNull(state.phoneNum),
+    school_tel: stringToStringOrNull(state.schoolPhoneNum),
+    photo: stringToStringOrNull(state.picture),
+    birth_date: infoDateStringToStateDateString(dateString),
+    address: stringToStringOrNull(state.address),
+    detail_address: stringToStringOrNull(state.detailAddress),
+    post_code: stringToStringOrNull(state.postNum),
+  };
+};
 
 export const infoStateToGedRequest = (
   state: RootState['InfoState'],
@@ -210,6 +220,7 @@ export const infoStateToGedRequest = (
 
 const infoDateStringToStateDateString = (str: string): string | null => {
   const splitedString = str.split('-');
+  console.log(splitedString);
   const changedMonth = checkSingleTextAddZero(splitedString[1]);
   const changedDay = checkSingleTextAddZero(splitedString[2]);
   return `${splitedString[0]}-${changedMonth}-${changedDay}`;
@@ -225,14 +236,8 @@ const infoStateToRequestStudentNumber = (
   return `${grade}${changedClassNum}${changedNumber}`;
 };
 
-const isSingleText = (text: string) => {
-  if (text.length > 1) {
-    return false;
-  }
-  return true;
-};
-
 const checkSingleTextAddZero = (text: string) => {
+  console.log(text);
   return text.padStart(2, '0');
 };
 
@@ -259,6 +264,9 @@ export const infoResponseToState = (
   gradeType: response.grade_type ? response.grade_type : 'GED',
   getInfoError: errorInitialState,
   setInfoError: errorInitialState,
+  year: getYearFromDateString(response.birth_date),
+  month: getMonthFromDateString(response.birth_date),
+  day: getDayFromDateString(response.birth_date),
 });
 
 const infoResponseDateStringToStateDateString = (

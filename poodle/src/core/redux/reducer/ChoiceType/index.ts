@@ -14,6 +14,7 @@ import {
   GED_SUCCESS_MONTH,
   GED_SUCCESS_YEAR,
   GRADUATION_MONTH,
+  ISQUALIFICATION,
 } from '../../actions/ChoiceType';
 import { AdditionalType } from '../../actions/ChoiceType';
 
@@ -136,6 +137,12 @@ const ChoiceTypeState = (
       return {
         ...state,
         gedSuccessYear: action.payload.year,
+      };
+    }
+    case ISQUALIFICATION: {
+      return {
+        ...state,
+        qualificationExam: action.payload.qualification,
       };
     }
     default: {

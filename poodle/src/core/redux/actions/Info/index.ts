@@ -19,6 +19,9 @@ export const POST_NUM = 'Info/POST_NUM' as const;
 export const ADDRESS_DETAIL = 'Info/ADDRESS_DETAIL' as const;
 export const GRADE_TYPE = 'Info/GRADE_TYPE' as const;
 export const ALL = 'Info/ALL' as const;
+export const YEAR = 'Info/YEAR' as const;
+export const MONTH = 'Info/MONTH' as const;
+export const DAY = 'Info/DAY' as const;
 
 export const INFO_SUCCESS = 'Info/INFO_SUCCESS' as const;
 export const INFO_FAILURE = 'Info/INFO_FAILURE' as const;
@@ -160,6 +163,21 @@ export interface SetGradeType {
   payload: { gradeType: GraduationStatusType };
 }
 
+export interface SetYear {
+  type: typeof YEAR;
+  payload: { year: string };
+}
+
+export interface SetMonth {
+  type: typeof MONTH;
+  payload: { month: string };
+}
+
+export interface SetDay {
+  type: typeof DAY;
+  payload: { day: string };
+}
+
 export type InfoActionType =
   | SetName
   | SetNumber
@@ -186,7 +204,10 @@ export type InfoActionType =
   | SetPictureCall
   | SetPictureFailure
   | SetPictureSuccess
-  | SetGradeType;
+  | SetGradeType
+  | SetDay
+  | SetMonth
+  | SetYear;
 
 export const setName = (payload: { name: string }): InfoActionType => ({
   type: NAME,
@@ -336,5 +357,20 @@ export const setGradeType = (payload: {
   gradeType: GraduationStatusType;
 }): InfoActionType => ({
   type: GRADE_TYPE,
+  payload,
+});
+
+export const setYear = (payload: { year: string }) => ({
+  type: YEAR,
+  payload,
+});
+
+export const setMonth = (payload: { month: string }) => ({
+  type: MONTH,
+  payload,
+});
+
+export const setDay = (payload: { day: string }) => ({
+  type: DAY,
   payload,
 });

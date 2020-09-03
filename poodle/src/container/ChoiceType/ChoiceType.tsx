@@ -19,7 +19,10 @@ import {
   useReGenerateTokenAndDoCallback,
 } from '@/lib/utils/function';
 import ToastController from '../common/ToastContainer';
-import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
+import {
+  GraduationStatusType,
+  setIsQualification,
+} from '@/core/redux/actions/ChoiceType';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -93,9 +96,12 @@ const ChoiceType: FC<Props> = props => {
   const graduationStatusChangeHandler = useCallback((status: string) => {
     if (status === 'UNGRADUATED') {
       setGraduationYear('2021');
-    } else {
+      setIsQualification({ qualification: false });
+    } else if (status === 'GRADUATED') {
       setGraduationYear('2020');
+      setIsQualification({ qualification: false });
     }
+    setIsQualification({ qualification: true });
     setGraduationStatus(status as GraduationStatusType);
   }, []);
   const getYearRow = (): React.ReactNode => {
