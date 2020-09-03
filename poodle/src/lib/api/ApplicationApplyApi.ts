@@ -1,7 +1,7 @@
 import { RootState } from '@/core/redux/reducer';
 import { GradeType, SubjectType, ScoreType } from '@/core/redux/actions/Grade';
-import client from './client';
-import ErrorType from '@/lib/utils/type';
+import client, { getClientWithAccessToken } from './client';
+import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import {
   userTypeServerType,
   gradeServerType,
@@ -17,6 +17,7 @@ import {
   selfIntroductionRequestType,
   studyPlanRequestType,
   userInfoResponseType,
+  gradeResponseType,
 } from './ApiType';
 import { GRADESEMESTERLIST } from '@/components/Grade/constance';
 import { PreviewState } from '@/core/redux/reducer/Preview';
@@ -30,12 +31,12 @@ export const errorTypeCheck = (error: ErrorType): void => {
 };
 
 export const nullAndNumberToString = (value: null | number): string => {
-  if (value === null) return '';
+  if (!value) return '';
   return value.toString();
 };
 
 export const nullAbleStringToString = (value: null | string) => {
-  if (value === null) return '';
+  if (!value) return '';
   return value;
 };
 
@@ -52,7 +53,7 @@ export const strintToNumberOrNull = (value: string): number | null => {
 export const getDataToServer = async <ResponseType>(
   url: string,
 ): Promise<ResponseType> => {
-  const response = await client.get<ResponseType>(url);
+  const response = await getClientWithAccessToken().get<ResponseType>(url);
   return response.data;
 };
 
@@ -60,7 +61,7 @@ export const setDataToServer = async <RequestType>(
   url: string,
   payload: RequestType,
 ) => {
-  const response = await client.patch(url, payload);
+  const response = await getClientWithAccessToken().patch(url, payload);
   return response;
 };
 
@@ -122,6 +123,8 @@ export const typeResponseToState = ({
   gedSuccessMonth: getMonthFromDateString(ged_pass_date),
   gedSuccessYear: getYearFromDateString(ged_pass_date),
   successTime: null,
+  getTypeError: errorInitialState,
+  setTypeError: errorInitialState,
 });
 
 const isGED = (grade_type: string | null) => {
@@ -254,6 +257,8 @@ export const infoResponseToState = (
   error: null,
   successDate: null,
   gradeType: response.grade_type ? response.grade_type : 'GED',
+  getInfoError: errorInitialState,
+  setInfoError: errorInitialState,
 });
 
 const infoResponseDateStringToStateDateString = (
@@ -333,7 +338,7 @@ const responseToSubjects = (response: gradeServerType) => {
 };
 
 export const gradeResponseToState = (
-  response: gradeServerType,
+  response: gradeResponseType,
 ): RootState['GradeState'] => {
   const subjects = responseToSubjects(response);
   return {
@@ -346,13 +351,25 @@ export const gradeResponseToState = (
     score: nullAndNumberToString(response.ged_average_score),
     error: null,
     successTime: null,
+    getGradeError: errorInitialState,
+    setGradeError: errorInitialState,
+    gradeType: response.grade_type ? response.grade_type : 'GED',
   };
 };
 
+export const gradeIsAble = (response: SubjectsType) => {
+  const entriedObj = objectToString(response);
+  for (let i = 0; i < entriedObj.length; i++) {
+    if (!entriedObj[i][1]) return false;
+  }
+  return true;
+};
+
 export const responseGradeToStateGrade = (
-  response: SubjectsType | null,
+  response: SubjectsType,
 ): GradeType[] => {
-  if (response === null) return setInitalGradeState();
+  if (!gradeIsAble(response)) return setInitalGradeState();
+
   const entriedObj = objectToString(response);
   let grade: GradeType[] = [];
   entriedObj.map(([key, value]) => {
@@ -451,7 +468,7 @@ export const selfIntroductionResponseToState = (
 export const studyPlanResponseToState = (
   response: studyPlanServerType,
 ): { studyPlan: string } => ({
-  studyPlan: response.study_plan ? response.study_plan : '',
+  studyPlan: response.plan ? response.plan : '',
 });
 
 export const getSearchSchoolUrl = (
@@ -475,5 +492,7 @@ export const pdfResponseToState = (response: previewType): PreviewState => {
     // i will fix
     error: null,
     isSubmit: false,
+    getPreviewError: errorInitialState,
+    setUserStatus: errorInitialState,
   };
 };
