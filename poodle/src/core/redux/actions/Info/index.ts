@@ -118,6 +118,7 @@ export interface InfoFailure {
 
 export interface InfoCall {
   type: typeof INFO_CALL;
+  payload: { pageMove: boolean };
 }
 
 export interface GetInfoSuccess {
@@ -286,8 +287,9 @@ export const infoFailure = (payload: { error: ErrorType }): InfoActionType => ({
   payload,
 });
 
-export const infoCall = (): InfoActionType => ({
+export const infoCall = (payload: { pageMove: boolean }): InfoActionType => ({
   type: INFO_CALL,
+  payload,
 });
 
 export const getInfoSuccess = (payload: State): InfoActionType => ({

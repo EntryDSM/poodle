@@ -20,6 +20,23 @@ export interface gradeServerType {
   ged_average_score: number | null;
 }
 
+export interface gradeResponseType {
+  volanteer_time: number | null;
+  full_cut_count: number | null;
+  period_cut_count: number | null;
+  late_count: number | null;
+  early_leave_count: number | null;
+  korean: string | null;
+  social: string | null;
+  history: string | null;
+  math: string | null;
+  science: string | null;
+  tech_and_home: string | null;
+  english: string | null;
+  ged_average_score: number | null;
+  grade_type: GraduationStatusType | null;
+}
+
 export interface userTypeServerType {
   grade_type: string | null;
   apply_type: string | null;
@@ -80,7 +97,7 @@ export interface selfIntroductionRequestType {
 }
 
 export interface studyPlanServerType {
-  study_plan: string;
+  plan: string;
 }
 
 export interface studyPlanRequestType {

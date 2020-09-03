@@ -81,6 +81,7 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
             address={responseToAddress(data)}
             postNumber={data.road_address.zone_no}
             onClick={addressChange}
+            key={data.road_address.zone_no}
           />,
         );
       });
@@ -98,7 +99,6 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
       if (isFirst) {
         return '검색어를 입력해 주세요.';
       } else if (isListEmpty(addressComponents)) {
-
         return '검색된 결과가 없습니다.';
       }
       return addressComponents;

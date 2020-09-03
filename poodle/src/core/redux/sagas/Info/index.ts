@@ -89,10 +89,15 @@ const gedSaveAndMovePageSaga = createMovePageSaga(
   'grade',
 );
 
-const proxySaga = createProxySaga(gedSaveSaga, defaultSaveSaga);
+const proxySaga = createProxySaga(
+  gedSaveSaga,
+  defaultSaveSaga,
+  state => state.InfoState,
+);
 const movePageProxySaga = createProxySaga(
   gedSaveAndMovePageSaga,
   defaultSaveAndMovePageSaga,
+  (state: RootState) => state.InfoState,
 );
 
 const getInfoSaga = createGetSaga(

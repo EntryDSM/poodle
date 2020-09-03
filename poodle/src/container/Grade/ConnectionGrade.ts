@@ -24,10 +24,12 @@ export const mapStateToProps = (state: RootState) => ({
   leaveLateDay: state.GradeState.leaveLateDay,
   grade: state.GradeState.grade,
   score: state.GradeState.score,
-  isQualification: state.QualificationState.isQualification,
+  gradeType: state.GradeState.gradeType,
   error: state.GradeState.error,
   page: state.PageState.page,
   successTime: state.GradeState.successTime,
+  setGradeError: state.GradeState.setGradeError,
+  getGradeError: state.GradeState.getGradeError,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
@@ -44,7 +46,7 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setScore: (score: string) => dispatch(setScore({ score })),
   setAll: (all: State) => dispatch(setAll({ all })),
   getGradeToServer: () => dispatch(getGradeCall()),
-  setGradeToServer: () => dispatch(gradeCall()),
+  setGradeToServer: (pageMove: boolean) => dispatch(gradeCall({ pageMove })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Grade);

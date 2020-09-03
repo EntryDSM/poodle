@@ -1,16 +1,12 @@
-import {
-  selfIntroductionServerType,
-  studyPlanServerType,
-} from '@/lib/api/ApiType';
 import ErrorType from '@/lib/utils/type';
 
 export const SELF_INTRODUCTION = 'Introduction/SELF_INTRODUCTION' as const;
 export const STUDY_PLAN = 'Introduction/STUDY_PLAN' as const;
 
-export const STUDY_PLAN_SUCCESS = 'Introduction/STUDY_PALN_SUCCESS' as const;
+export const STUDY_PLAN_SUCCESS = 'Introduction/STUDY_PLAN_SUCCESS' as const;
 export const STUDY_PLAN_FAILURE = 'Introduction/STUDY_PLAN_FAILURE' as const;
 export const STUDY_PLAN_CALL = 'Introduction/STUDY_PLAN_CALL' as const;
-export const GET_STUDY_PLAN_SUCCESS = 'Introduction/GET_STUDY_PALN_SUCCESS' as const;
+export const GET_STUDY_PLAN_SUCCESS = 'Introduction/GET_STUDY_PLAN_SUCCESS' as const;
 export const GET_STUDY_PLAN_FAILURE = 'Introduction/GET_STUDY_PLAN_FAILURE' as const;
 export const GET_STUDY_PLAN_CALL = 'Introduction/GET_STUDY_PLAN_CALL' as const;
 
@@ -33,6 +29,7 @@ export interface SetStudyPlan {
 
 export interface SelfIntroductionCall {
   type: typeof SELF_INTRODUCTION_CALL;
+  payload: { pageMove: boolean };
 }
 
 export interface SelfIntroductionFailure {
@@ -61,6 +58,7 @@ export interface GetSelfIntroductionSuccess {
 
 export interface StudyPlanCall {
   type: typeof STUDY_PLAN_CALL;
+  payload: { pageMove: boolean };
 }
 
 export interface StudyPlanFailure {
@@ -117,8 +115,11 @@ export const setStudyPlan = (payload: {
   payload,
 });
 
-export const selfIntroductionCall = (): IntroductionActionType => ({
+export const selfIntroductionCall = (payload: {
+  pageMove: boolean;
+}): IntroductionActionType => ({
   type: SELF_INTRODUCTION_CALL,
+  payload,
 });
 
 export const selfIntroductionFailure = (payload: {
@@ -153,8 +154,11 @@ export const getSelfIntroductionSuccess = (payload: {
   payload,
 });
 
-export const studyPlanCall = (): IntroductionActionType => ({
+export const studyPlanCall = (payload: {
+  pageMove: boolean;
+}): IntroductionActionType => ({
   type: STUDY_PLAN_CALL,
+  payload,
 });
 
 export const studyPlanFailure = (payload: {

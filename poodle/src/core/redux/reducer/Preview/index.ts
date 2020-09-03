@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type';
+import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import {
   PreviewAction,
   PREVIEW,
@@ -12,12 +12,16 @@ export interface PreviewState {
   preview: string;
   error: ErrorType | null;
   isSubmit: boolean;
+  getPreviewError: ErrorType;
+  setUserStatus: ErrorType;
 }
 
 const initialState: PreviewState = {
   preview: '',
   error: null,
   isSubmit: false,
+  getPreviewError: errorInitialState,
+  setUserStatus: errorInitialState,
 };
 
 const PreviewState = (
@@ -35,6 +39,8 @@ const PreviewState = (
       return {
         ...state,
         error: action.payload,
+        getPreviewError: action.payload,
+        setUserStatus: errorInitialState,
       };
     }
     case PREVIEW_CALL_SUCCESS: {
@@ -53,6 +59,8 @@ const PreviewState = (
       return {
         ...state,
         error: action.payload,
+        setUserStatus: action.payload,
+        getPreviewError: errorInitialState,
       };
     }
     default:

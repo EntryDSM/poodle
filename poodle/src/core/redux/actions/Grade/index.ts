@@ -101,6 +101,7 @@ export interface GetGradeCall {
 
 export interface GradeCall {
   type: typeof GRADE_CALL;
+  payload: { pageMove: boolean };
 }
 
 export type GradeActionType =
@@ -188,8 +189,9 @@ export const getGradeCall = (): GradeActionType => ({
   type: GET_GRADE_CALL,
 });
 
-export const gradeCall = (): GradeActionType => ({
+export const gradeCall = (payload: { pageMove: boolean }): GradeActionType => ({
   type: GRADE_CALL,
+  payload,
 });
 
 export const setAll = (payload: { all: State }): GradeActionType => ({

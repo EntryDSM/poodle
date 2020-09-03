@@ -21,8 +21,8 @@ import {
   GED_SUCCESS_DATE,
   GED_SUCCESS_MONTH,
   GED_SUCCESS_YEAR,
+  setIsQualification,
 } from '../../actions/ChoiceType';
-import { setQualification } from '../../actions/Qualification';
 import { RootState } from '../../reducer';
 import { State } from '../../reducer/ChoiceType';
 
@@ -74,7 +74,7 @@ function* statusChangeSaga(action: any) {
     booleanToStringBoolean(status),
   );
   yield put(
-    setQualification({ isQualification: isGED(action.payload.status) }),
+    setIsQualification({ qualification: isGED(action.payload.status) }),
   );
 }
 
