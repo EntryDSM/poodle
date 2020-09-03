@@ -12,7 +12,7 @@ const createMovePageSaga = (
 ) => {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
-  return function* saveSaga() {
+  return function* movePageSaga(action?: any) {
     const state = yield select(getStateFunc);
     const request = stateToRequest(state);
     try {
@@ -21,10 +21,12 @@ const createMovePageSaga = (
         type: SUCCESS,
         payload: response.data,
       });
-      yield put({
-        type: PAGE_MOVE,
-        payload: { page: nextPage },
-      });
+      if (action.payload.pageMove) {
+        yield put({
+          type: PAGE_MOVE,
+          payload: { page: nextPage },
+        });
+      }
     } catch (error) {
       yield put({
         type: FAILURE,

@@ -2,6 +2,7 @@ import React, { FC, useCallback, useEffect } from 'react';
 import * as S from '@/styles/common/Header';
 import { useRedirect } from '@/lib/utils/function';
 import { Token } from '@/lib/api/auth';
+import { useLocation } from 'react-router-dom';
 
 export type HeaderProps = {
   isLogin: boolean;
@@ -18,6 +19,7 @@ const Header: FC<HeaderProps> = ({
   login,
   logout,
 }: HeaderProps) => {
+  const location = useLocation();
   const redirectToLink = useRedirect();
   const goToHome = useCallback(() => {
     redirectToLink('/');
@@ -32,6 +34,18 @@ const Header: FC<HeaderProps> = ({
       localStorage.setItem('refreshToken', token.refresh_token);
     }
   }, [token]);
+
+  useEffect(() => {
+    if (
+      location.pathname !== '/' &&
+      location.pathname !== '/join' &&
+      !token.access_token &&
+      !token.refresh_token
+    ) {
+      alert('로그인 상태가 아니므로 메인으로 이동합니다.');
+      goToHome();
+    }
+  }, [location, token]);
 
   return (
     <S.HeaderWrapper>

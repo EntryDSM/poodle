@@ -11,7 +11,10 @@ import {
 } from '../../components/default/ApplicationFormDefault';
 import { mapStateToProps, mapDispatchToProps } from './ConnectInfo';
 import { QualificationPage, DefaultPage } from '../../components/Info/Page';
-import { isEmptyCheck } from '../../lib/utils/function';
+import {
+  isEmptyCheck,
+  useReGenerateTokenAndDoCallback,
+} from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
 
 type Props = ReturnType<typeof mapStateToProps> &
@@ -26,7 +29,6 @@ const Info: FC<Props> = props => {
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const dispatch = useDispatch();
   const [isError, errorChange] = useState<boolean>(false);
-
   const isFileAble = useCallback((file: File | null) => {
     if (file) {
       return true;
@@ -93,7 +95,7 @@ const Info: FC<Props> = props => {
         modalController.createNewToast('ERROR');
       } else {
         try {
-          await props.setInfoToServer();
+          await props.setInfoToServer(true);
         } catch (error) {
           errorTypeCheck(error);
         }
@@ -107,6 +109,23 @@ const Info: FC<Props> = props => {
   const goCurrentPage = useCallback(() => {
     props.history.push('/Type');
   }, []);
+
+  const setInfoGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    () => props.setInfoToServer(false),
+  );
+  const getInfoGenerateTokenAdnDoCallback = useReGenerateTokenAndDoCallback(
+    props.getInfoToServer,
+  );
+  const renderPage = useCallback(
+    gradeType => {
+      if (gradeType === 'GED')
+        return <QualificationPage {...props} isError={isError} />;
+      else if (gradeType === 'GRADUATED' || gradeType === 'UNGRADUATED')
+        return <DefaultPage {...props} isError={isError} />;
+      else return <div></div>;
+    },
+    [props, isError],
+  );
   useEffect(() => {
     props.getInfoToServer();
   }, []);
@@ -117,6 +136,13 @@ const Info: FC<Props> = props => {
   }, [props.page]);
   useEffect(() => {
     if (!props.error) return;
+    if (props.error.status === 401) {
+      if (props.setInfoError.status === 401)
+        setInfoGenerateTokenAndDoCallback();
+      if (props.getInfoError.status === 401)
+        getInfoGenerateTokenAdnDoCallback();
+      return;
+    }
     modalController.createNewToast('SERVER_ERROR');
   }, [props.error]);
   useEffect(() => {
@@ -128,11 +154,7 @@ const Info: FC<Props> = props => {
       <div id={TOAST_DIV_ID} />
       <InfoBody>
         <Title margin='80px'>인적사항</Title>
-        {props.gradeType === 'GED' ? (
-          <QualificationPage {...props} isError={isError} />
-        ) : (
-          <DefaultPage {...props} isError={isError} />
-        )}
+        {renderPage(props.gradeType)}
         <DefaultlNavigation
           page='info'
           currentPageClickHandler={goCurrentPage}

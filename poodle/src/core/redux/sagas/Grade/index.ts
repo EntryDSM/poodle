@@ -41,7 +41,7 @@ const defaultSaveSaga = createSaveSaga(
 const gedSaveSaga = createSaveSaga(
   gradeStateToGedRequest,
   `${GRADE_URL}/ged`,
-  `${PAGENAME}/GET_${ACTIONNAME}`,
+  `${PAGENAME}/${ACTIONNAME}`,
   getStateFunc,
 );
 
@@ -62,15 +62,20 @@ const defaultSaveAndMovePage = createMovePageSaga(
 const gedSaveSagaAndMovePage = createMovePageSaga(
   gradeStateToGedRequest,
   `${GRADE_URL}/ged`,
-  `${PAGENAME}/GET_${ACTIONNAME}`,
+  `${PAGENAME}/${ACTIONNAME}`,
   getStateFunc,
   'introduction',
 );
 
-const proxySaga = createProxySaga(gedSaveSaga, defaultSaveSaga);
+const proxySaga = createProxySaga(
+  gedSaveSaga,
+  defaultSaveSaga,
+  (state: RootState) => state.GradeState,
+);
 const movePageProxySaga = createProxySaga(
   gedSaveSagaAndMovePage,
   defaultSaveAndMovePage,
+  (state: RootState) => state.GradeState,
 );
 
 const actionArray = [

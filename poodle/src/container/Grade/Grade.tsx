@@ -12,7 +12,10 @@ import {
   QualificationScore,
 } from '@/components/Grade';
 import { mapDispatchToProps, mapStateToProps } from './ConnectionGrade';
-import { isEmptyCheck } from '@/lib/utils/function';
+import {
+  isEmptyCheck,
+  useReGenerateTokenAndDoCallback,
+} from '@/lib/utils/function';
 import { errorTypeCheck } from '@/lib/api/ApplicationApplyApi';
 import ToastController from '@/container/common/ToastContainer';
 
@@ -36,7 +39,7 @@ const Grade: FC<Props> = props => {
       absentDay,
       score,
     }: MapStateToProps) => {
-      if (props.isQualification) {
+      if (props.gradeType === 'GED') {
         return isEmptyCheck(score);
       }
       return (
@@ -57,7 +60,7 @@ const Grade: FC<Props> = props => {
         modalController.createNewToast('ERROR');
       } else {
         try {
-          await props.setGradeToServer();
+          await props.setGradeToServer(true);
         } catch (error) {
           errorTypeCheck(error);
         }
@@ -65,6 +68,14 @@ const Grade: FC<Props> = props => {
     },
     [props],
   );
+
+  const getGradeGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    props.getGradeToServer,
+  );
+  const setGradeGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    () => props.setGradeToServer(false),
+  );
+
   const moveCurrentPage = useCallback(() => {
     props.history.push('/info');
   }, []);
@@ -78,8 +89,15 @@ const Grade: FC<Props> = props => {
   }, [props.page]);
   useEffect(() => {
     if (!props.error) return;
+    if (props.error.status === 401) {
+      if (props.getGradeError.status === 401)
+        getGradeGenerateTokenAndDoCallback();
+      if (props.setGradeError.status === 401)
+        setGradeGenerateTokenAndDoCallback();
+      return;
+    }
     modalController.createNewToast('SERVER_ERROR');
-  }, [props.error]);
+  }, [props.error, props.setGradeError, props.getGradeError]);
   useEffect(() => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');
@@ -89,7 +107,7 @@ const Grade: FC<Props> = props => {
       <div id={TOAST_DIV_ID} />
       <GradeMain>
         <Title margin='100px'>성적 입력</Title>
-        {props.isQualification ? (
+        {props.gradeType === 'GED' ? (
           <QualificationScore {...props} isError={isError} />
         ) : (
           <>

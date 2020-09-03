@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type';
+import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import {
   SELF_INTRODUCTION,
   STUDY_PLAN,
@@ -18,6 +18,10 @@ export interface State {
   studyPlan: string;
   error: ErrorType | null;
   successDate: Date | null;
+  setSelfIntroductionError: ErrorType;
+  getSelfIntroductionError: ErrorType;
+  setStudyPlanError: ErrorType;
+  getStudyPlanError: ErrorType;
 }
 
 const initialState: State = {
@@ -25,6 +29,10 @@ const initialState: State = {
   studyPlan: '',
   error: null,
   successDate: null,
+  setSelfIntroductionError: errorInitialState,
+  getSelfIntroductionError: errorInitialState,
+  setStudyPlanError: errorInitialState,
+  getStudyPlanError: errorInitialState,
 };
 
 const IntroductionState = (
@@ -66,12 +74,20 @@ const IntroductionState = (
       return {
         ...state,
         error: action.payload.error,
+        setStudyPlanError: errorInitialState,
+        getSelfIntroductionError: errorInitialState,
+        setSelfIntroductionError: action.payload.error,
+        getStudyPlanError: errorInitialState,
       };
     }
     case STUDY_PLAN_FAILURE: {
       return {
         ...state,
         error: action.payload.error,
+        setStudyPlanError: action.payload.error,
+        getSelfIntroductionError: errorInitialState,
+        setSelfIntroductionError: errorInitialState,
+        getStudyPlanError: errorInitialState,
       };
     }
     case GET_STUDY_PLAN_SUCCESS: {
@@ -84,12 +100,20 @@ const IntroductionState = (
       return {
         ...state,
         error: action.payload.error,
+        setStudyPlanError: errorInitialState,
+        getSelfIntroductionError: errorInitialState,
+        setSelfIntroductionError: errorInitialState,
+        getStudyPlanError: action.payload.error,
       };
     }
     case GET_SELF_INTRODUCTION_FAILURE: {
       return {
         ...state,
         error: action.payload.error,
+        setStudyPlanError: errorInitialState,
+        getSelfIntroductionError: action.payload.error,
+        setSelfIntroductionError: errorInitialState,
+        getStudyPlanError: errorInitialState,
       };
     }
     default: {

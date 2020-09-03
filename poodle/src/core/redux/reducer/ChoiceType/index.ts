@@ -1,4 +1,4 @@
-import ErrorType from '@/lib/utils/type';
+import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import {
   APPLYTYPE,
   DISTRICT,
@@ -14,6 +14,7 @@ import {
   GED_SUCCESS_MONTH,
   GED_SUCCESS_YEAR,
   GRADUATION_MONTH,
+  ISQUALIFICATION,
 } from '../../actions/ChoiceType';
 import { AdditionalType } from '../../actions/ChoiceType';
 
@@ -29,6 +30,8 @@ export interface State {
   gedSuccessYear: string;
   gedSuccessMonth: string;
   successTime: Date | null;
+  getTypeError: ErrorType;
+  setTypeError: ErrorType;
 }
 
 const initialState: State = {
@@ -43,6 +46,8 @@ const initialState: State = {
   gedSuccessMonth: '1',
   gedSuccessYear: '2020',
   successTime: null,
+  getTypeError: errorInitialState,
+  setTypeError: errorInitialState,
 };
 
 const ChoiceTypeState = (
@@ -80,12 +85,6 @@ const ChoiceTypeState = (
         graduationStatus: action.payload.status,
       };
     }
-    case TYPE_FAILURE: {
-      return {
-        ...state,
-        error: action.payload.error,
-      };
-    }
     case ALL: {
       return {
         ...state,
@@ -116,12 +115,16 @@ const ChoiceTypeState = (
       return {
         ...state,
         error: action.payload.error,
+        getTypeError: action.payload.error,
+        setTypeError: errorInitialState,
       };
     }
     case TYPE_FAILURE: {
       return {
         ...state,
         error: action.payload.error,
+        setTypeError: action.payload.error,
+        getTypeError: errorInitialState,
       };
     }
     case GED_SUCCESS_MONTH: {
@@ -134,6 +137,12 @@ const ChoiceTypeState = (
       return {
         ...state,
         gedSuccessYear: action.payload.year,
+      };
+    }
+    case ISQUALIFICATION: {
+      return {
+        ...state,
+        qualificationExam: action.payload.qualification,
       };
     }
     default: {
