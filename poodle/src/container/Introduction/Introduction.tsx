@@ -42,6 +42,7 @@ const Introduction: FC<Props> = ({
   setStudyPlanError,
   getSelfIntroductionError,
   getStudyPlanError,
+  pageMove,
 }) => {
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
@@ -66,6 +67,7 @@ const Introduction: FC<Props> = ({
     [history],
   );
   const goCurrentPage = useCallback(() => {
+    pageMove('grade');
     history.push('/grade');
   }, [page]);
   const getSelfIntroductionGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(

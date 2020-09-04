@@ -9,6 +9,7 @@ import {
   getSelfIntroductionCall,
   selfIntroductionCall,
 } from '@/core/redux/actions/Introduction';
+import { PageType, pageMove } from '@/core/redux/actions/Page';
 
 export const mapStateToProps = (state: RootState) => ({
   selfIntroduction: state.IntroductionState.selfIntroduction,
@@ -32,6 +33,7 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setSelfIntroductionToServer: (pageMove: boolean) =>
     dispatch(selfIntroductionCall({ pageMove })),
   getSelfIntroductionToServer: () => dispatch(getSelfIntroductionCall()),
+  pageMove: (page: PageType) => dispatch(pageMove({ page })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Introduction);
