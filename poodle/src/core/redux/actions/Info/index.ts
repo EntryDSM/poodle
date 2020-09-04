@@ -22,6 +22,7 @@ export const ALL = 'Info/ALL' as const;
 export const YEAR = 'Info/YEAR' as const;
 export const MONTH = 'Info/MONTH' as const;
 export const DAY = 'Info/DAY' as const;
+export const SCHOOL_CODE = 'Info/SCHOOL_CODE' as const;
 
 export const INFO_SUCCESS = 'Info/INFO_SUCCESS' as const;
 export const INFO_FAILURE = 'Info/INFO_FAILURE' as const;
@@ -178,6 +179,11 @@ export interface SetDay {
   payload: { day: string };
 }
 
+export interface SetSchoolCode {
+  type: typeof SCHOOL_CODE;
+  payload: { code: string };
+}
+
 export type InfoActionType =
   | SetName
   | SetNumber
@@ -207,7 +213,8 @@ export type InfoActionType =
   | SetGradeType
   | SetDay
   | SetMonth
-  | SetYear;
+  | SetYear
+  | SetSchoolCode;
 
 export const setName = (payload: { name: string }): InfoActionType => ({
   type: NAME,
@@ -372,5 +379,10 @@ export const setMonth = (payload: { month: string }) => ({
 
 export const setDay = (payload: { day: string }) => ({
   type: DAY,
+  payload,
+});
+
+export const setSchoolCode = (payload: { code: string }) => ({
+  type: SCHOOL_CODE,
   payload,
 });

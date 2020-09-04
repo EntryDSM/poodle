@@ -8,13 +8,19 @@ import {
 interface Props {
   schoolName: string;
   address: string;
-  onClick: (schoolName: string) => void;
+  schoolCode: string;
+  onClick: (schoolName: string, code: string) => void;
 }
 
-const SchoolSearchContent: FC<Props> = ({ schoolName, address, onClick }) => {
+const SchoolSearchContent: FC<Props> = ({
+  schoolName,
+  address,
+  onClick,
+  schoolCode,
+}) => {
   const clickContentHandler = useCallback(() => {
-    onClick(schoolName);
-  }, []);
+    onClick(schoolName, schoolCode);
+  }, [schoolName, schoolCode]);
   return (
     <SearchModalContent>
       <div onClick={clickContentHandler}>
