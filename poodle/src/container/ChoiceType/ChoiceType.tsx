@@ -61,6 +61,7 @@ const ChoiceType: FC<Props> = props => {
     setTypeToServer,
     getTypeToServer,
     pageMove,
+    pageMoveChange,
   } = props;
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
@@ -157,6 +158,7 @@ const ChoiceType: FC<Props> = props => {
   useEffect(() => {
     if (pageMove) {
       history.push('/info');
+      pageMoveChange(false);
     }
   }, [pageMove]);
 

@@ -147,7 +147,8 @@ const Info: FC<Props> = props => {
   }, [props.successTime]);
   useEffect(() => {
     if (props.pageMove) {
-      history.push('/info');
+      history.push('/grade');
+      props.pageMoveChange(false);
     }
   }, [props.pageMove]);
   return (

@@ -41,6 +41,7 @@ const Introduction: FC<Props> = ({
   setStudyPlanError,
   getSelfIntroductionError,
   getStudyPlanError,
+  pageMoveChange,
   pageMove,
 }) => {
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
@@ -105,7 +106,8 @@ const Introduction: FC<Props> = ({
   }, [successDate]);
   useEffect(() => {
     if (pageMove) {
-      history.push('/info');
+      history.push('/preview');
+      pageMoveChange(false);
     }
   }, [pageMove]);
   return (

@@ -16,6 +16,7 @@ import {
   getTypeCall,
   typeCall,
   setIsQualification,
+  pageMove,
 } from '@/core/redux/actions/ChoiceType';
 import { NOTICE_MODAL, modalOn } from '@/core/redux/actions/Modal';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
@@ -55,6 +56,8 @@ export const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(setGEDSuccessMonth({ month })),
   setGEDSuccessYear: (year: string) => dispatch(setGEDSuccessYear({ year })),
   modalOn: () => dispatch(modalOn(NOTICE_MODAL)),
+  pageMoveChange: (isPageMove: boolean) =>
+    dispatch(pageMove({ pageMove: isPageMove })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChoiceType);

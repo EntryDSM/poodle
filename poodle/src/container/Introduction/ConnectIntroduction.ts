@@ -8,6 +8,7 @@ import {
   studyPlanCall,
   getSelfIntroductionCall,
   selfIntroductionCall,
+  pageMove,
 } from '@/core/redux/actions/Introduction';
 
 export const mapStateToProps = (state: RootState) => ({
@@ -32,6 +33,8 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setSelfIntroductionToServer: (pageMove: boolean) =>
     dispatch(selfIntroductionCall({ pageMove })),
   getSelfIntroductionToServer: () => dispatch(getSelfIntroductionCall()),
+  pageMoveChange: (isPageMove: boolean) =>
+    dispatch(pageMove({ pageMove: isPageMove })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Introduction);

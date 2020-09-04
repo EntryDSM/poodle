@@ -121,7 +121,8 @@ const Grade: FC<Props> = props => {
   }, [props.successTime]);
   useEffect(() => {
     if (props.pageMove) {
-      history.push('/info');
+      history.push('/introduction');
+      props.pageMoveChange(false);
     }
   }, [props.pageMove]);
   return (
