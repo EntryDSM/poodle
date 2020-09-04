@@ -72,7 +72,10 @@ export interface SetScore {
 
 export interface GradeSuccess {
   type: typeof GRADE_SUCCESS;
-  payload: Date;
+  payload: {
+    date: Date;
+    pageMove: boolean;
+  };
 }
 
 export interface GradeFailure {
@@ -161,7 +164,10 @@ export const setScore = (payload: { score: string }): GradeActionType => ({
   payload,
 });
 
-export const gradeSuccess = (payload: Date): GradeActionType => ({
+export const gradeSuccess = (payload: {
+  date: Date;
+  pageMove: boolean;
+}): GradeActionType => ({
   type: GRADE_SUCCESS,
   payload,
 });

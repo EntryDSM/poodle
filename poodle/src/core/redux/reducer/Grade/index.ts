@@ -31,6 +31,7 @@ export interface State {
   getGradeError: ErrorType;
   setGradeError: ErrorType;
   gradeType: GraduationStatusType;
+  pageMove: boolean;
 }
 
 export const initialState: State = {
@@ -46,6 +47,7 @@ export const initialState: State = {
   getGradeError: errorInitialState,
   setGradeError: errorInitialState,
   gradeType: 'UNGRADUATED',
+  pageMove: false,
 };
 
 const GradeState = (
@@ -98,7 +100,8 @@ const GradeState = (
     case GRADE_SUCCESS: {
       return {
         ...state,
-        successTime: action.payload,
+        successTime: action.payload.date,
+        pageMove: action.payload.pageMove,
       };
     }
     case ALL: {
@@ -110,6 +113,7 @@ const GradeState = (
         error: action.payload.error,
         setGradeError: action.payload.error,
         getGradeError: errorInitialState,
+        pageMove: false,
       };
     }
     case GET_GRADE_FAILURE: {

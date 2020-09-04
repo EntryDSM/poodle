@@ -1,5 +1,5 @@
 import React, { FC, useState, useCallback, useEffect, useMemo } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router';
+import { withRouter, RouteComponentProps, useHistory } from 'react-router';
 import { GradeDiv, GradeMain } from '@/styles/Grade';
 import {
   Title,
@@ -30,6 +30,7 @@ type MapStateToProps = ReturnType<typeof mapStateToProps>;
 const TOAST_DIV_ID = 'toastDiv';
 
 const Grade: FC<Props> = props => {
+  const history = useHistory();
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const [isError, errorChange] = useState<boolean>(false);
   const isStateAble = useCallback(
@@ -98,17 +99,11 @@ const Grade: FC<Props> = props => {
       );
   }, [props]);
   const moveCurrentPage = useCallback(() => {
-    props.pageMove('info');
     props.history.push('/info');
   }, []);
   useEffect(() => {
     props.getGradeToServer();
   }, []);
-  useEffect(() => {
-    if (props.page !== null) {
-      props.history.push(`/${props.page}`);
-    }
-  }, [props.page]);
   useEffect(() => {
     if (!props.error) return;
     if (props.error.status === 401) {
@@ -124,6 +119,11 @@ const Grade: FC<Props> = props => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');
   }, [props.successTime]);
+  useEffect(() => {
+    if (props.pageMove) {
+      history.push('/info');
+    }
+  }, [props.pageMove]);
   return (
     <GradeDiv>
       <div id={TOAST_DIV_ID} />
