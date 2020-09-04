@@ -108,6 +108,7 @@ const Info: FC<Props> = props => {
   }, [dispatch]);
   const goCurrentPage = useCallback(() => {
     props.history.push('/Type');
+    props.pageMove('type');
   }, []);
 
   const setInfoGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(

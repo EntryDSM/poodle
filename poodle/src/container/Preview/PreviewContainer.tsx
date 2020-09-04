@@ -12,6 +12,7 @@ import { previewCall, submitCall } from '@/core/redux/actions/Preview';
 import { useHistory } from 'react-router-dom';
 import { ReducerType } from '@/core/redux/store';
 import ToastController from '../common/ToastContainer';
+import { pageMove } from '@/core/redux/actions/Page';
 
 const TOAST_DIV_ID = 'toastDiv';
 
@@ -22,6 +23,7 @@ const PreviewContainer: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const goCurrentPage = useCallback(() => {
+    dispatch(pageMove({ page: 'introduction' }));
     history.push('/introduction');
   }, []);
   const goNextPage = useCallback(() => {
