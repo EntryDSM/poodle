@@ -13,7 +13,6 @@ import {
 } from '../../actions/SearchSchool';
 import { RootState } from '../../reducer';
 import { startLoading, finishLoading } from '@/core/redux/actions/Loading';
-import ErrorType from '@/lib/utils/type';
 import { searchSchoolResponseType } from '@/lib/api/ApiType';
 
 const getStateFunc = (state: RootState): RootState['SearchSchool'] =>
@@ -34,7 +33,7 @@ function* searchSchool(action: GetSchoolCall) {
     const newSchoolInfo = [...SchoolInfo, ...response.content];
     yield put({
       type: GET_SCHOOL_SUCCESS,
-      payload: newSchoolInfo,
+      payload: { info: newSchoolInfo },
     });
   } catch (error) {
     yield put({
