@@ -1,44 +1,69 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { InfoPicture } from '../../../styles/Info';
+import { modalOn, REDERRORMODAL } from '@/core/redux/actions/Modal';
+import { setPictureCall } from '@/core/redux/actions/Info';
 
 interface Props {
-    valueChangeHandler:(value: File) => void,
-    img: File | null
+  valueChangeHandler: (value: string) => void;
+  img: string;
 }
 
-const UserImg: FC<Props> = ({
-    valueChangeHandler,
-    img,
-}) => {
-    const inputChangeHandler = (event: React.ChangeEvent) => {
-        const target = (event.target as HTMLInputElement);
-        const files = target.files;
-        if (files) {
-            valueChangeHandler(files[0]);
-        }
+const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000';
+
+const UserImg: FC<Props> = ({ img }) => {
+  const dispatch = useDispatch();
+  const inputChangeHandler = useCallback((event: React.ChangeEvent) => {
+    const target = event.target as HTMLInputElement;
+    const files = target.files;
+    if (!files || !files[0]) return;
+    const file = files[0];
+    if (!isFileTypeAble(file)) {
+      dispatch(modalOn(REDERRORMODAL));
+      return;
     }
-    const fileToURL = (file: File) => {
-        return URL.createObjectURL(file);
+    const url = URL.createObjectURL(file);
+    dispatch(setPictureCall({ picture: file }));
+  }, []);
+  const isFileTypeAble = useCallback((file: File) => {
+    const fileName = getFileName(file);
+    const acceptFileTypes = spliceAcceptFileTypeString(ACCEPT_FILE_TYPE);
+    for (let acceptFileType of acceptFileTypes) {
+      if (fileName.includes(acceptFileType)) {
+        return true;
+      }
     }
-    return (
-        <InfoPicture>
-            <label>
-                <input 
-                    type="file" 
-                    onChange={inputChangeHandler}
-                    accept=".gif, .jpg, .png, .jpeg, .jpeg2000"
-                />
-                {
-                    img ? 
-                    <img src={fileToURL(img)} alt="사진"/> :
-                    <div>
-                        <p>증명사진을 첨부해주세요</p>
-                        <p>(JPG,JPEG,JPEG2000,PNG)</p>
-                    </div> 
-                }
-            </label>
-        </InfoPicture>
-    )
-}
+    return false;
+  }, []);
+  const spliceAcceptFileTypeString = useCallback(
+    (acceptFileTypeString: string): string[] => {
+      const acceptFileTypes: string[] = acceptFileTypeString.split(',');
+      return acceptFileTypes;
+    },
+    [],
+  );
+  const getFileName = useCallback((file: File) => {
+    return file.name;
+  }, []);
+  return (
+    <InfoPicture>
+      <label>
+        <input
+          type='file'
+          onChange={inputChangeHandler}
+          accept='.gif, .jpg, .png, .jpeg, .jpeg2000'
+        />
+        {img ? (
+          <img src={img} alt='사진' />
+        ) : (
+          <div>
+            <p>증명사진을 첨부해주세요</p>
+            <p>(JPG,JPEG,JPEG2000,PNG)</p>
+          </div>
+        )}
+      </label>
+    </InfoPicture>
+  );
+};
 
 export default UserImg;

@@ -1,12 +1,32 @@
 import { combineReducers } from 'redux';
-import header from './header';
-import loading from './loading';
-import modal from './modal';
+import Header from './Header';
+import Loading from './Loading';
+import Modal from './Modal';
+import ChoiceTypeState from './ChoiceType';
+import IntroductionState from './Introduction';
+import InfoState from './Info';
+import GradeState from './Grade';
+import PageState from './Page';
+import Join from './Join';
+import SearchSchool from './SearchSchool';
+import Preview from './Preview';
+import ResetPassword from './ResetPassword';
+import Mypage from './Mypage';
 
 const rootReducer = combineReducers({
-    header,
-    loading,
-    modal,
+  Join,
+  Header,
+  Loading,
+  Modal,
+  ChoiceTypeState,
+  IntroductionState,
+  InfoState,
+  GradeState,
+  PageState,
+  SearchSchool,
+  Preview,
+  ResetPassword,
+  Mypage,
 });
 export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;

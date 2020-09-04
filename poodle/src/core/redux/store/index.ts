@@ -7,9 +7,9 @@ import rootReducer from '../reducer';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(sagaMiddleware))
+  rootReducer,
+  composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
-
 sagaMiddleware.run(rootSaga);
+export type ReducerType = ReturnType<typeof rootReducer>;
 export default store;

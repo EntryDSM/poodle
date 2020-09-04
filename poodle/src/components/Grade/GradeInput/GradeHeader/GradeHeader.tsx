@@ -1,25 +1,25 @@
-import React, {
-  FC,
-  useCallback,
-} from 'react';
-import {
-  useDispatch,
-} from 'react-redux';
+import React, { FC, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   setGrade,
   GradeType,
   SubjectType,
   ScoreType,
-} from '../../../../core/redux/actions/Grade';
-import {
-  GradeSubTitle,
-  GradeHeaderDiv,
-} from '../../../../styles/Grade';
+} from '@/core/redux/actions/Grade';
+import { GradeSubTitle, GradeHeaderDiv } from '@/styles/Grade';
 import { GradeSetAllScore } from '../GradeHeader';
 import { GRADESEMESTERLIST } from '../../constance';
 
-const scoreList:ScoreType[] = ['A', 'B', 'C', 'D', 'E', 'X'];
-const subjectList:SubjectType[] = ['korean', 'math', 'history', 'science', 'society', 'tech', 'english'];
+const scoreList: ScoreType[] = ['A', 'B', 'C', 'D', 'E', 'X'];
+const subjectList: SubjectType[] = [
+  'korean',
+  'math',
+  'history',
+  'science',
+  'society',
+  'tech',
+  'english',
+];
 const GradeHeader: FC = () => {
   const dispatch = useDispatch();
   const setAllScore = useCallback((score: ScoreType) => {
@@ -43,20 +43,22 @@ const GradeHeader: FC = () => {
     });
     return gradeList;
   };
-  const setAllScoreComp = useCallback((scoreList: ScoreType[]) => 
-    scoreList.map((score) => <GradeSetAllScore onClick={() => setAllScore(score)}>{score}</GradeSetAllScore>)
-  , []);
+  const setAllScoreComp = useCallback(
+    (scoreList: ScoreType[]) =>
+      scoreList.map(score => (
+        <GradeSetAllScore onClick={() => setAllScore(score)}>
+          {score}
+        </GradeSetAllScore>
+      )),
+    [],
+  );
 
   return (
     <GradeHeaderDiv>
-      <GradeSubTitle>
-        성적 입력
-      </GradeSubTitle>
+      <GradeSubTitle>성적 입력</GradeSubTitle>
       <div>
         전체 성적 초기화
-        {
-          setAllScoreComp(scoreList)
-        }
+        {setAllScoreComp(scoreList)}
       </div>
     </GradeHeaderDiv>
   );
