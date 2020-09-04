@@ -170,6 +170,12 @@ export const GradeScoreRow = styled.tr`
   }
 `;
 
+export const GraduatedGradeScoreRow = styled(GradeScoreRow)`
+  > td.grade {
+    width: 168px;
+  }
+`;
+
 export const GradeSchoolYearRow = styled.tr`
   display: flex;
   > td {
@@ -199,6 +205,12 @@ export const GradeSchoolYearRow = styled.tr`
   }
 `;
 
+export const GraduatedGradeSchoolYearRow = styled(GradeSchoolYearRow)`
+  > td.grade {
+    width: 337px;
+  }
+`;
+
 export const GradeSemesterRow = styled.tr`
   display: flex;
   > td {
@@ -221,6 +233,13 @@ export const GradeSemesterRow = styled.tr`
     border-left: none;
   }
 `;
+
+export const GraduatedSemesterRow = styled(GradeSemesterRow)`
+  > td {
+    width: 168px;
+  }
+`;
+
 export const GradeButtonList = styled.ul`
   list-style: none;
   display: flex;
