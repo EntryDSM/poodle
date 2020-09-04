@@ -21,6 +21,7 @@ import {
 } from './ApiType';
 import { GRADESEMESTERLIST } from '@/components/Grade/constance';
 import { PreviewState } from '@/core/redux/reducer/Preview';
+import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 
 export const errorTypeCheck = (error: ErrorType): void => {
   if (error.status === 401 || error.status === 403) {
@@ -31,8 +32,13 @@ export const errorTypeCheck = (error: ErrorType): void => {
 };
 
 export const nullAndNumberToString = (value: null | number): string => {
-  if (!value) return '';
-  return value.toString();
+  try {
+    if (value === null || value === undefined) return '';
+    return value.toString();
+  } catch (error) {
+    console.log(error);
+    return '';
+  }
 };
 
 export const nullAbleStringToString = (value: null | string) => {
@@ -126,6 +132,7 @@ export const typeResponseToState = ({
   successTime: null,
   getTypeError: errorInitialState,
   setTypeError: errorInitialState,
+  setTypeAndMovePageError: errorInitialState,
 });
 
 const isGED = (grade_type: string | null) => {
@@ -201,6 +208,7 @@ export const infoStateToRequest = (
     address: stringToStringOrNull(state.address),
     detail_address: stringToStringOrNull(state.detailAddress),
     post_code: stringToStringOrNull(state.postNum),
+    school_code: stringToStringOrNull(state.schoolCode),
   };
 };
 
@@ -267,6 +275,7 @@ export const infoResponseToState = (
   year: getYearFromDateString(response.birth_date),
   month: getMonthFromDateString(response.birth_date),
   day: getDayFromDateString(response.birth_date),
+  schoolCode: nullAbleStringToString(response.school_code),
 });
 
 const infoResponseDateStringToStateDateString = (
@@ -301,13 +310,13 @@ const infoStringToNumber = (str: string | null): string => {
 
 export const setInitalGradeState = () => {
   const initialSubjectGrade: SubjectsType = {
-    korean: 'XXXXX',
-    science: 'XXXXX',
-    society: 'XXXXX',
-    math: 'XXXXX',
-    english: 'XXXXX',
-    history: 'XXXXX',
-    tech: 'XXXXX',
+    korean: 'XXXXXX',
+    science: 'XXXXXX',
+    society: 'XXXXXX',
+    math: 'XXXXXX',
+    english: 'XXXXXX',
+    history: 'XXXXXX',
+    tech: 'XXXXXX',
   };
   return responseGradeToStateGrade(initialSubjectGrade);
 };
@@ -315,6 +324,7 @@ export const setInitalGradeState = () => {
 const gradeArrayToString = (
   gradeList: GradeType[],
   subject: SubjectType,
+  gradeType: GraduationStatusType,
 ): string => {
   const filteredGradeList = gradeList.filter(
     grade => grade.subject === subject,
@@ -324,7 +334,17 @@ const gradeArrayToString = (
     (str: string, grade: GradeType) => str + grade.score,
     '',
   );
-  return stringedGradeList;
+  if (gradeType === 'UNGRADUATED')
+    return graduatedGradeStringToUngraduatedGradeString(stringedGradeList);
+  else return stringedGradeList;
+};
+
+const graduatedGradeStringToUngraduatedGradeString = (gradeString: string) => {
+  const splitedString = gradeString.split('');
+  let buffer = '';
+  splitedString[5] = 'X';
+  splitedString.map(string => (buffer = buffer + string));
+  return buffer;
 };
 
 const gradeSort = (gradeList: GradeType[]) => {
@@ -349,8 +369,9 @@ export const gradeResponseToState = (
   response: gradeResponseType,
 ): RootState['GradeState'] => {
   const subjects = responseToSubjects(response);
+  console.log(response);
   return {
-    serviceTime: nullAndNumberToString(response.volanteer_time),
+    serviceTime: nullAndNumberToString(response.volunteer_time),
     absentDay: nullAndNumberToString(response.full_cut_count),
     perceptionDay: nullAndNumberToString(response.late_count),
     cutClassDay: nullAndNumberToString(response.period_cut_count),
@@ -432,18 +453,18 @@ const gradeSortCompareFunc = (current: GradeType, next: GradeType) => {
 export const gradeStateToRequest = (
   state: RootState['GradeState'],
 ): gradeServerType => ({
-  volanteer_time: strintToNumberOrNull(state.serviceTime),
+  volunteer_time: strintToNumberOrNull(state.serviceTime),
   full_cut_count: strintToNumberOrNull(state.absentDay),
   period_cut_count: strintToNumberOrNull(state.cutClassDay),
   early_leave_count: strintToNumberOrNull(state.leaveLateDay),
   late_count: strintToNumberOrNull(state.perceptionDay),
-  korean: gradeArrayToString(state.grade, 'korean'),
-  social: gradeArrayToString(state.grade, 'society'),
-  history: gradeArrayToString(state.grade, 'history'),
-  math: gradeArrayToString(state.grade, 'math'),
-  science: gradeArrayToString(state.grade, 'science'),
-  tech_and_home: gradeArrayToString(state.grade, 'tech'),
-  english: gradeArrayToString(state.grade, 'english'),
+  korean: gradeArrayToString(state.grade, 'korean', state.gradeType),
+  social: gradeArrayToString(state.grade, 'society', state.gradeType),
+  history: gradeArrayToString(state.grade, 'history', state.gradeType),
+  math: gradeArrayToString(state.grade, 'math', state.gradeType),
+  science: gradeArrayToString(state.grade, 'science', state.gradeType),
+  tech_and_home: gradeArrayToString(state.grade, 'tech', state.gradeType),
+  english: gradeArrayToString(state.grade, 'english', state.gradeType),
   ged_average_score: strintToNumberOrNull(state.score),
 });
 
@@ -485,7 +506,7 @@ export const getSearchSchoolUrl = (
   page: number,
   size: number,
 ) => {
-  return `school?eduOffice=${eduOffice}&name=${name}&page=${page}&size=${size}`;
+  return `schools?eduOffice=${eduOffice}&name=${name}&page=${page}&size=${size}`;
 };
 
 export const previewStateToRequest = (isSubmit: boolean): submitType => {
