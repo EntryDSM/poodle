@@ -21,7 +21,8 @@ const tokenInitialState = {
   token_type: '',
 };
 
-const userInitialState = {
+const userInitialState: User = {
+  grade_type: '',
   name: null,
   sex: null,
   birth_date: null,
