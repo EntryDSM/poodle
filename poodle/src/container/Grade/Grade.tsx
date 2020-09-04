@@ -10,6 +10,8 @@ import {
   NonTransferSemester,
   GradeInput,
   QualificationScore,
+  GraduatedGradeInput,
+  GraduatedNonTransferSemester,
 } from '@/components/Grade';
 import { mapDispatchToProps, mapStateToProps } from './ConnectionGrade';
 import {
@@ -75,8 +77,28 @@ const Grade: FC<Props> = props => {
   const setGradeGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
     () => props.setGradeToServer(false),
   );
-
+  const renderPage = useCallback(() => {
+    if (props.gradeType === 'GED')
+      return <QualificationScore {...props} isError={isError} />;
+    else if (props.gradeType === 'GRADUATED')
+      return (
+        <>
+          <VolanteerWorkTimeAttend {...props} isError={isError} />
+          <GraduatedNonTransferSemester {...props} />
+          <GraduatedGradeInput {...props} />
+        </>
+      );
+    else
+      return (
+        <>
+          <VolanteerWorkTimeAttend {...props} isError={isError} />
+          <NonTransferSemester {...props} />
+          <GradeInput {...props} />
+        </>
+      );
+  }, [props]);
   const moveCurrentPage = useCallback(() => {
+    props.pageMove('info');
     props.history.push('/info');
   }, []);
   useEffect(() => {
@@ -107,15 +129,7 @@ const Grade: FC<Props> = props => {
       <div id={TOAST_DIV_ID} />
       <GradeMain>
         <Title margin='100px'>성적 입력</Title>
-        {props.gradeType === 'GED' ? (
-          <QualificationScore {...props} isError={isError} />
-        ) : (
-          <>
-            <VolanteerWorkTimeAttend {...props} isError={isError} />
-            <NonTransferSemester {...props} />
-            <GradeInput {...props} />
-          </>
-        )}
+        {renderPage()}
         <DefaultlNavigation
           page='grade'
           currentPageClickHandler={moveCurrentPage}
