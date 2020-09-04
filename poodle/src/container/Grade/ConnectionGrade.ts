@@ -15,7 +15,6 @@ import {
 } from '@/core/redux/actions/Grade';
 import { State } from '@/core/redux/reducer/Grade';
 import Grade from './Grade';
-import { pageMove, PageType } from '@/core/redux/actions/Page';
 
 export const mapStateToProps = (state: RootState) => ({
   serviceTime: state.GradeState.serviceTime,

@@ -9,8 +9,6 @@ import {
   getSelfIntroductionCall,
   selfIntroductionCall,
 } from '@/core/redux/actions/Introduction';
-import { PageType, pageMove } from '@/core/redux/actions/Page';
-import { stat } from 'fs';
 
 export const mapStateToProps = (state: RootState) => ({
   selfIntroduction: state.IntroductionState.selfIntroduction,
