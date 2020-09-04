@@ -15,6 +15,7 @@ import {
 } from '@/core/redux/actions/Grade';
 import { State } from '@/core/redux/reducer/Grade';
 import Grade from './Grade';
+import { pageMove, PageType } from '@/core/redux/actions/Page';
 
 export const mapStateToProps = (state: RootState) => ({
   serviceTime: state.GradeState.serviceTime,
@@ -47,6 +48,7 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setAll: (all: State) => dispatch(setAll({ all })),
   getGradeToServer: () => dispatch(getGradeCall()),
   setGradeToServer: (pageMove: boolean) => dispatch(gradeCall({ pageMove })),
+  pageMove: (page: PageType) => dispatch(pageMove({ page })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Grade);
