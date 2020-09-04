@@ -16,10 +16,10 @@ import {
   getTypeCall,
   typeCall,
   setIsQualification,
+  pageMove,
 } from '@/core/redux/actions/ChoiceType';
 import { NOTICE_MODAL, modalOn } from '@/core/redux/actions/Modal';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
-import { PageType, pageMove } from '@/core/redux/actions/Page';
 export const mapStateToProps = (state: RootState) => ({
   qualificationExam: state.ChoiceTypeState.qualificationExam,
   applyType: state.ChoiceTypeState.applyType,
@@ -29,12 +29,12 @@ export const mapStateToProps = (state: RootState) => ({
   graduationMonth: state.ChoiceTypeState.graduationMonth,
   additionalType: state.ChoiceTypeState.additionalType,
   error: state.ChoiceTypeState.error,
-  page: state.PageState.page,
   gedSuccessMonth: state.ChoiceTypeState.gedSuccessMonth,
   gedSuccessYear: state.ChoiceTypeState.gedSuccessYear,
   successTime: state.ChoiceTypeState.successTime,
   getTypeError: state.ChoiceTypeState.getTypeError,
   setTypeError: state.ChoiceTypeState.setTypeError,
+  pageMove: state.ChoiceTypeState.pageMove,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
@@ -56,7 +56,8 @@ export const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(setGEDSuccessMonth({ month })),
   setGEDSuccessYear: (year: string) => dispatch(setGEDSuccessYear({ year })),
   modalOn: () => dispatch(modalOn(NOTICE_MODAL)),
-  pageMove: (page: PageType) => dispatch(pageMove({ page })),
+  pageMoveChange: (isPageMove: boolean) =>
+    dispatch(pageMove({ pageMove: isPageMove })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChoiceType);

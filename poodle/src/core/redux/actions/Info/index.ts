@@ -23,6 +23,7 @@ export const YEAR = 'Info/YEAR' as const;
 export const MONTH = 'Info/MONTH' as const;
 export const DAY = 'Info/DAY' as const;
 export const SCHOOL_CODE = 'Info/SCHOOL_CODE' as const;
+export const PAGEMOVE = 'Info/PAGEMOVE' as const;
 
 export const INFO_SUCCESS = 'Info/INFO_SUCCESS' as const;
 export const INFO_FAILURE = 'Info/INFO_FAILURE' as const;
@@ -112,7 +113,10 @@ export interface SetDetailAddress {
 }
 export interface InfoSuccess {
   type: typeof INFO_SUCCESS;
-  payload: Date;
+  payload: {
+    date: Date;
+    pageMove: boolean;
+  };
 }
 
 export interface InfoFailure {
@@ -184,6 +188,11 @@ export interface SetSchoolCode {
   payload: { code: string };
 }
 
+export interface PageMove {
+  type: typeof PAGEMOVE;
+  payload: { pageMove: boolean };
+}
+
 export type InfoActionType =
   | SetName
   | SetNumber
@@ -214,7 +223,8 @@ export type InfoActionType =
   | SetDay
   | SetMonth
   | SetYear
-  | SetSchoolCode;
+  | SetSchoolCode
+  | PageMove;
 
 export const setName = (payload: { name: string }): InfoActionType => ({
   type: NAME,
@@ -305,7 +315,10 @@ export const setPostNum = (payload: { postNum: string }): InfoActionType => ({
   payload,
 });
 
-export const infoSuccess = (payload: Date): InfoActionType => ({
+export const infoSuccess = (payload: {
+  date: Date;
+  pageMove: boolean;
+}): InfoActionType => ({
   type: INFO_SUCCESS,
   payload,
 });
@@ -384,5 +397,10 @@ export const setDay = (payload: { day: string }) => ({
 
 export const setSchoolCode = (payload: { code: string }) => ({
   type: SCHOOL_CODE,
+  payload,
+});
+
+export const pageMove = (payload: { pageMove: boolean }) => ({
+  type: PAGEMOVE,
   payload,
 });

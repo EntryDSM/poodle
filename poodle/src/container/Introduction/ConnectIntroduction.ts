@@ -8,19 +8,19 @@ import {
   studyPlanCall,
   getSelfIntroductionCall,
   selfIntroductionCall,
+  pageMove,
 } from '@/core/redux/actions/Introduction';
-import { PageType, pageMove } from '@/core/redux/actions/Page';
 
 export const mapStateToProps = (state: RootState) => ({
   selfIntroduction: state.IntroductionState.selfIntroduction,
   studyPlan: state.IntroductionState.studyPlan,
   error: state.IntroductionState.error,
-  page: state.PageState.page,
   successDate: state.IntroductionState.successDate,
   getSelfIntroductionError: state.IntroductionState.getSelfIntroductionError,
   setSelfIntroductionError: state.IntroductionState.setSelfIntroductionError,
   getStudyPlanError: state.IntroductionState.getStudyPlanError,
   setStudyPlanError: state.IntroductionState.setStudyPlanError,
+  pageMove: state.IntroductionState.pageMove,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
@@ -33,7 +33,8 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setSelfIntroductionToServer: (pageMove: boolean) =>
     dispatch(selfIntroductionCall({ pageMove })),
   getSelfIntroductionToServer: () => dispatch(getSelfIntroductionCall()),
-  pageMove: (page: PageType) => dispatch(pageMove({ page })),
+  pageMoveChange: (isPageMove: boolean) =>
+    dispatch(pageMove({ pageMove: isPageMove })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Introduction);

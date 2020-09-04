@@ -15,6 +15,7 @@ import {
   GED_SUCCESS_YEAR,
   GRADUATION_MONTH,
   ISQUALIFICATION,
+  PAGEMOVE,
 } from '../../actions/ChoiceType';
 import { AdditionalType } from '../../actions/ChoiceType';
 
@@ -32,6 +33,8 @@ export interface State {
   successTime: Date | null;
   getTypeError: ErrorType;
   setTypeError: ErrorType;
+  setTypeAndMovePageError: ErrorType;
+  pageMove: boolean;
 }
 
 const initialState: State = {
@@ -48,6 +51,8 @@ const initialState: State = {
   successTime: null,
   getTypeError: errorInitialState,
   setTypeError: errorInitialState,
+  setTypeAndMovePageError: errorInitialState,
+  pageMove: false,
 };
 
 const ChoiceTypeState = (
@@ -108,7 +113,8 @@ const ChoiceTypeState = (
     case TYPE_SUCCESS: {
       return {
         ...state,
-        successTime: action.payload,
+        successTime: action.payload.date,
+        pageMove: action.payload.pageMove,
       };
     }
     case GET_TYPE_FAILURE: {
@@ -125,6 +131,7 @@ const ChoiceTypeState = (
         error: action.payload.error,
         setTypeError: action.payload.error,
         getTypeError: errorInitialState,
+        pageMove: false,
       };
     }
     case GED_SUCCESS_MONTH: {
@@ -143,6 +150,12 @@ const ChoiceTypeState = (
       return {
         ...state,
         qualificationExam: action.payload.qualification,
+      };
+    }
+    case PAGEMOVE: {
+      return {
+        ...state,
+        pageMove: action.payload.pageMove,
       };
     }
     default: {
