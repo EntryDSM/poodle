@@ -22,6 +22,7 @@ export interface State {
   getSelfIntroductionError: ErrorType;
   setStudyPlanError: ErrorType;
   getStudyPlanError: ErrorType;
+  pageMove: boolean;
 }
 
 const initialState: State = {
@@ -33,6 +34,7 @@ const initialState: State = {
   getSelfIntroductionError: errorInitialState,
   setStudyPlanError: errorInitialState,
   getStudyPlanError: errorInitialState,
+  pageMove: false,
 };
 
 const IntroductionState = (
@@ -61,13 +63,15 @@ const IntroductionState = (
     case SELF_INTRODUCTION_SUCCESS: {
       return {
         ...state,
-        successDate: action.payload,
+        successDate: action.payload.date,
+        pageMove: action.payload.pageMove,
       };
     }
     case STUDY_PLAN_SUCCESS: {
       return {
         ...state,
-        successDate: action.payload,
+        successDate: action.payload.date,
+        pageMove: action.payload.pageMove,
       };
     }
     case SELF_INTRODUCTION_FAILURE: {
@@ -78,6 +82,7 @@ const IntroductionState = (
         getSelfIntroductionError: errorInitialState,
         setSelfIntroductionError: action.payload.error,
         getStudyPlanError: errorInitialState,
+        pageMove: false,
       };
     }
     case STUDY_PLAN_FAILURE: {
@@ -88,6 +93,7 @@ const IntroductionState = (
         getSelfIntroductionError: errorInitialState,
         setSelfIntroductionError: errorInitialState,
         getStudyPlanError: errorInitialState,
+        pageMove: false,
       };
     }
     case GET_STUDY_PLAN_SUCCESS: {

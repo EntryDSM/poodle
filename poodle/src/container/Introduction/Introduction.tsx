@@ -32,7 +32,6 @@ const Introduction: FC<Props> = ({
   studyPlan,
   history,
   error,
-  page,
   getStudyPlanToServer,
   setStudyPlanToServer,
   setSelfIntroductionToServer,
@@ -67,9 +66,8 @@ const Introduction: FC<Props> = ({
     [history],
   );
   const goCurrentPage = useCallback(() => {
-    pageMove('grade');
     history.push('/grade');
-  }, [page]);
+  }, []);
   const getSelfIntroductionGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
     getSelfIntroductionToServer,
   );
@@ -86,11 +84,6 @@ const Introduction: FC<Props> = ({
     getStudyPlanToServer();
     getSelfIntroductionToServer();
   }, []);
-  useEffect(() => {
-    if (page != null) {
-      history.push(`/${page}`);
-    }
-  }, [page]);
   useEffect(() => {
     if (!error) return;
     if (error.status === 401) {
@@ -110,6 +103,11 @@ const Introduction: FC<Props> = ({
     if (!successDate) return;
     modalController.createNewToast('SUCCESS');
   }, [successDate]);
+  useEffect(() => {
+    if (pageMove) {
+      history.push('/info');
+    }
+  }, [pageMove]);
   return (
     <IntroductionDiv>
       <div id={TOAST_DIV_ID} />
@@ -135,12 +133,12 @@ const Introduction: FC<Props> = ({
               selfIntroduction,
               studyPlan,
               error,
-              page,
               successDate,
               setSelfIntroductionError,
               getSelfIntroductionError,
               setStudyPlanError,
               getStudyPlanError,
+              pageMove,
             })
           }
         />

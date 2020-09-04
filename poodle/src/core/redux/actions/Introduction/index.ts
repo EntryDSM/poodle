@@ -39,7 +39,10 @@ export interface SelfIntroductionFailure {
 
 export interface SelfIntroductionSuccess {
   type: typeof SELF_INTRODUCTION_SUCCESS;
-  payload: Date;
+  payload: {
+    date: Date;
+    pageMove: boolean;
+  };
 }
 
 export interface GetSelfIntroductionCall {
@@ -68,7 +71,10 @@ export interface StudyPlanFailure {
 
 export interface StudyPlanSuccess {
   type: typeof STUDY_PLAN_SUCCESS;
-  payload: Date;
+  payload: {
+    date: Date;
+    pageMove: boolean;
+  };
 }
 
 export interface GetStudyPlanCall {
@@ -129,9 +135,10 @@ export const selfIntroductionFailure = (payload: {
   payload,
 });
 
-export const selfIntroductionSuccess = (
-  payload: Date,
-): IntroductionActionType => ({
+export const selfIntroductionSuccess = (payload: {
+  date: Date;
+  pageMove: boolean;
+}): IntroductionActionType => ({
   type: SELF_INTRODUCTION_SUCCESS,
   payload,
 });
@@ -168,7 +175,10 @@ export const studyPlanFailure = (payload: {
   payload,
 });
 
-export const studyPlanSuccess = (payload: Date): IntroductionActionType => ({
+export const studyPlanSuccess = (payload: {
+  date: Date;
+  pageMove: boolean;
+}): IntroductionActionType => ({
   type: STUDY_PLAN_SUCCESS,
   payload,
 });
