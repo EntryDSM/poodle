@@ -17,7 +17,10 @@ const createSaveSaga = (
       yield call(setDataToServer, url, request);
       yield put({
         type: SUCCESS,
-        payload: new Date(),
+        payload: {
+          date: new Date(),
+          pageMove: false,
+        },
       });
     } catch (error) {
       yield put({
