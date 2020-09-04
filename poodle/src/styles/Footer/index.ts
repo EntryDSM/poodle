@@ -4,6 +4,7 @@ const FooterColor = '#62d3e8';
 const FooterFontColor = 'white';
 
 export const FooterDiv = styled.div`
+  min-width: 1270px;
   > div {
     width: 100%;
     height: 204px;
