@@ -27,6 +27,7 @@ import {
   YEAR,
   MONTH,
   DAY,
+  SCHOOL_CODE,
 } from '../../actions/Info';
 
 export interface State {
@@ -53,6 +54,7 @@ export interface State {
   year: string;
   month: string;
   day: string;
+  schoolCode: string;
 }
 
 const initialState: State = {
@@ -79,6 +81,7 @@ const initialState: State = {
   year: '2020',
   month: '01',
   day: '01',
+  schoolCode: '',
 };
 
 const InfoState = (
@@ -232,6 +235,12 @@ const InfoState = (
       return {
         ...state,
         day: action.payload.day,
+      };
+    }
+    case SCHOOL_CODE: {
+      return {
+        ...state,
+        schoolCode: action.payload.code,
       };
     }
     default: {
