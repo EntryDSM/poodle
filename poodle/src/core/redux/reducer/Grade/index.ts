@@ -45,7 +45,7 @@ export const initialState: State = {
   successTime: null,
   getGradeError: errorInitialState,
   setGradeError: errorInitialState,
-  gradeType: 'GED',
+  gradeType: 'UNGRADUATED',
 };
 
 const GradeState = (
