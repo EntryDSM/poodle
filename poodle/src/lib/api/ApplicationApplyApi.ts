@@ -526,5 +526,6 @@ export const pdfResponseToState = (response: previewType): PreviewState => {
     isSubmit: false,
     getPreviewError: errorInitialState,
     setUserStatus: errorInitialState,
+    pageMove: false,
   };
 };
