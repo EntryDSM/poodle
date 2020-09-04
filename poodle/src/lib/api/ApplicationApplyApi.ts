@@ -133,6 +133,7 @@ export const typeResponseToState = ({
   getTypeError: errorInitialState,
   setTypeError: errorInitialState,
   setTypeAndMovePageError: errorInitialState,
+  pageMove: false,
 });
 
 const isGED = (grade_type: string | null) => {
@@ -276,6 +277,7 @@ export const infoResponseToState = (
   month: getMonthFromDateString(response.birth_date),
   day: getDayFromDateString(response.birth_date),
   schoolCode: nullAbleStringToString(response.school_code),
+  pageMove: false,
 });
 
 const infoResponseDateStringToStateDateString = (
@@ -383,6 +385,7 @@ export const gradeResponseToState = (
     getGradeError: errorInitialState,
     setGradeError: errorInitialState,
     gradeType: response.grade_type ? response.grade_type : 'GED',
+    pageMove: false,
   };
 };
 
