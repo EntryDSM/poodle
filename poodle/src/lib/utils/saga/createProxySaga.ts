@@ -1,11 +1,9 @@
 import { select, call } from 'redux-saga/effects';
 import createSaveSaga from './createSaveSaga';
 
-type SaveSagaType = ReturnType<typeof createSaveSaga>;
-
 const createProxySaga = (
-  gedSaveSaga: SaveSagaType,
-  defaultSaveSaga: SaveSagaType,
+  gedSaveSaga: any,
+  defaultSaveSaga: any,
   getStateFunc: (state: any, ...args: any[]) => void,
 ) => {
   return function* (action?: any) {

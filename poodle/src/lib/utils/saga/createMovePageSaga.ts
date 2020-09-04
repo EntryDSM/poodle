@@ -19,7 +19,10 @@ const createMovePageSaga = (
       const response = yield call(setDataToServer, url, request);
       yield put({
         type: SUCCESS,
-        payload: response.data,
+        payload: {
+          pageMove: action.payload.pageMove,
+          date: new Date(),
+        },
       });
       if (action.payload.pageMove) {
         yield put({
