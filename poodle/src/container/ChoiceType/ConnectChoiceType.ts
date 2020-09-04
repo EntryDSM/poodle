@@ -29,12 +29,12 @@ export const mapStateToProps = (state: RootState) => ({
   graduationMonth: state.ChoiceTypeState.graduationMonth,
   additionalType: state.ChoiceTypeState.additionalType,
   error: state.ChoiceTypeState.error,
-  page: state.PageState.page,
   gedSuccessMonth: state.ChoiceTypeState.gedSuccessMonth,
   gedSuccessYear: state.ChoiceTypeState.gedSuccessYear,
   successTime: state.ChoiceTypeState.successTime,
   getTypeError: state.ChoiceTypeState.getTypeError,
   setTypeError: state.ChoiceTypeState.setTypeError,
+  pageMove: state.ChoiceTypeState.pageMove,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
@@ -56,7 +56,6 @@ export const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(setGEDSuccessMonth({ month })),
   setGEDSuccessYear: (year: string) => dispatch(setGEDSuccessYear({ year })),
   modalOn: () => dispatch(modalOn(NOTICE_MODAL)),
-  pageMove: (page: PageType) => dispatch(pageMove({ page })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChoiceType);

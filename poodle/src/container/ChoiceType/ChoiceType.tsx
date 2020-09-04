@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import {
   Title,
@@ -31,6 +31,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 type MapStateToProps = ReturnType<typeof mapStateToProps>;
 
 const TOAST_DIV_ID = 'toastDiv';
+let isButtonClick = false;
 
 const ChoiceType: FC<Props> = props => {
   const {
@@ -53,13 +54,13 @@ const ChoiceType: FC<Props> = props => {
     setGEDSuccessYear,
     history,
     error,
-    page,
     modalOn,
     successTime,
     getTypeError,
     setTypeError,
     setTypeToServer,
     getTypeToServer,
+    pageMove,
   } = props;
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
@@ -89,6 +90,7 @@ const ChoiceType: FC<Props> = props => {
         modalController.createNewToast('ERROR');
         return;
       }
+      isButtonClick = true;
       await setTypeToServer(true);
     },
     [props, isStateAble, history, modalController],
@@ -135,16 +137,17 @@ const ChoiceType: FC<Props> = props => {
   const setTypeGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
     () => setTypeToServer(false),
   );
+  const setTypeAndMovePageGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    () => {
+      setTypeToServer(true);
+      isButtonClick = false;
+    },
+  );
 
   useEffect(() => {
     getTypeToServer();
     modalOn();
   }, []);
-  useEffect(() => {
-    if (page !== null) {
-      history.push(`/${page}`);
-    }
-  }, [page]);
 
   useEffect(() => {
     if (!props.successTime) return;
@@ -152,10 +155,19 @@ const ChoiceType: FC<Props> = props => {
   }, [props.successTime]);
 
   useEffect(() => {
+    if (pageMove) {
+      history.push('/info');
+    }
+  }, [pageMove]);
+
+  useEffect(() => {
     if (!error) return;
     if (error.status === 401) {
       if (getTypeError.status === 401) getTypeGenerateTokenAndDoCallback();
-      if (setTypeError.status === 401) setTypeGenerateTokenAndDoCallback();
+      if (setTypeError.status === 401 && !isButtonClick)
+        setTypeGenerateTokenAndDoCallback();
+      else if (setTypeError.status === 401 && isButtonClick)
+        setTypeAndMovePageGenerateTokenAndDoCallback();
       return;
     }
     modalController.createNewToast('SERVER_ERROR');
@@ -200,12 +212,12 @@ const ChoiceType: FC<Props> = props => {
               graduationMonth,
               additionalType,
               error,
-              page,
               gedSuccessMonth,
               gedSuccessYear,
               successTime,
               setTypeError,
               getTypeError,
+              pageMove,
             });
           }}
         />

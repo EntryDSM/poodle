@@ -54,7 +54,10 @@ export interface SetGraduationMonth {
 
 export interface TypeSuccess {
   type: typeof TYPE_SUCCESS;
-  payload: Date;
+  payload: {
+    date: Date;
+    pageMove: boolean;
+  };
 }
 
 export interface TypeFailure {
@@ -156,7 +159,10 @@ export const setGraduationMonth = (payload: {
   payload,
 });
 
-export const typeSuccess = (payload: Date): ChoiceTypeActionType => ({
+export const typeSuccess = (payload: {
+  date: Date;
+  pageMove: boolean;
+}): ChoiceTypeActionType => ({
   type: TYPE_SUCCESS,
   payload,
 });

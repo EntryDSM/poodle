@@ -32,6 +32,8 @@ export interface State {
   successTime: Date | null;
   getTypeError: ErrorType;
   setTypeError: ErrorType;
+  setTypeAndMovePageError: ErrorType;
+  pageMove: boolean;
 }
 
 const initialState: State = {
@@ -48,6 +50,8 @@ const initialState: State = {
   successTime: null,
   getTypeError: errorInitialState,
   setTypeError: errorInitialState,
+  setTypeAndMovePageError: errorInitialState,
+  pageMove: false,
 };
 
 const ChoiceTypeState = (
@@ -108,7 +112,8 @@ const ChoiceTypeState = (
     case TYPE_SUCCESS: {
       return {
         ...state,
-        successTime: action.payload,
+        successTime: action.payload.date,
+        pageMove: action.payload.pageMove,
       };
     }
     case GET_TYPE_FAILURE: {
@@ -125,6 +130,7 @@ const ChoiceTypeState = (
         error: action.payload.error,
         setTypeError: action.payload.error,
         getTypeError: errorInitialState,
+        pageMove: false,
       };
     }
     case GED_SUCCESS_MONTH: {
