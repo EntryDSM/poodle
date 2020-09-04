@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Wrapper, Container } from '@/styles/common';
 import {
   JoinInfoWrapper,
@@ -36,19 +36,33 @@ export const MyInfoValue = styled(MyInfoTitle)`
   margin-left: 79px;
 `;
 
-export const SubmitDocument = styled.button`
+interface SubmitDocumentProps {
+  isSubmited: boolean;
+}
+
+export const SubmitDocument = styled.button<SubmitDocumentProps>`
   width: 100px;
   height: 40px;
   border-radius: 4px;
   border: none;
-  background-color: #62d3e8;
+  ${({ isSubmited }) =>
+    isSubmited
+      ? css`
+          background-color: #62d3e8;
+          cursor: pointer;
+          color: #ffffff;
+        `
+      : css`
+          background-color: #afafaf;
+          cursor: not-allowed;
+          color: #000000; ;
+        `}
   box-sizing: border-box;
   text-align: center;
   font-family: NanumSquareB;
   font-size: 16px;
-  color: #ffffff;
+
   outline: none;
-  cursor: pointer;
 `;
 
 export const ExplainSentence = styled.p`

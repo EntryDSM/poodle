@@ -13,6 +13,7 @@ export const login = (data: { email: string; password: string }) =>
   client.post<Token>('/auth', data);
 
 export interface User {
+  grade_type: 'GED' | 'GRADUATED' | 'UNGRADUATED' | '';
   name: string | null;
   sex: 'MALE' | 'FEMALE' | null;
   birth_date: string | null;

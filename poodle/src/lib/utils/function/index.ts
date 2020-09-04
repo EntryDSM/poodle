@@ -1,7 +1,8 @@
 import { useHistory } from 'react-router-dom';
 import { useCallback, useState, useMemo, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { reGenerateToken } from '@/core/redux/actions/Header';
+import { RootState } from '@/core/redux/reducer';
 
 export const useRedirect = () => {
   const history = useHistory();
@@ -120,4 +121,12 @@ export const useReGenerateTokenAndDoCallback = (
 export const clearLocalStorageAboutToken = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
+};
+
+export const useUser = () => {
+  const { user } = useSelector(({ Header }: RootState) => ({
+    user: Header.user,
+  }));
+
+  return user;
 };

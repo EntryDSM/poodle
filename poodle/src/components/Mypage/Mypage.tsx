@@ -1,28 +1,17 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import * as S from '@/styles/Mypage';
 import ContentHeader from '@/components/default/common/ContentHeader';
 import ProgressBar from './ProgressBar/ProgressBar';
 import { useHistory } from 'react-router-dom';
 import { Process } from '@/core/redux/actions/Mypage';
 import ErrorType from '@/lib/utils/type';
+import { useReGenerateTokenAndDoCallback, useUser } from '@/lib/utils/function';
+import { UserStatus } from '@/lib/api/mypage';
 
-enum MyInfoTitle {
-  이름,
-  성별,
-  최종제출,
-  '전형료 납부',
-  '우편물 수령',
-  특기사항,
+enum Sex {
+  'FEMALE' = '여자',
+  'MALE' = '남자',
 }
-
-const dummyData = {
-  name: '김해건',
-  gender: '남',
-  finallySubmit: '미완료',
-  payMoney: '납부 전',
-  recieveEmail: '수령 전',
-  specialThing: '검정고시',
-};
 
 interface Props {
   process: {
@@ -31,13 +20,85 @@ interface Props {
     loading: boolean;
   };
   getProcess: () => void;
+  getUserStatus: () => void;
+  userStatus: UserStatus;
+  userStatusError: ErrorType;
 }
 
-const Mypage: FC<Props> = ({ process, getProcess }) => {
+const Mypage: FC<Props> = ({
+  process,
+  getProcess,
+  getUserStatus,
+  userStatus,
+  userStatusError,
+}) => {
+  const { grade_type } = useUser();
   const history = useHistory();
+  const reGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    getProcess,
+  );
+  const goSubmitDocumentPageHandler = () => {
+    if (userStatus.final_submit) {
+      history.push('/mypage/document');
+    } else {
+      alert('최종 제출하지 않으셨습니다.');
+    }
+  };
+
+  const myInfos = useMemo(() => {
+    const { name, sex, final_submit, paid, passed_first_apply } = userStatus;
+    const infos = [
+      { label: '이름', value: name },
+      { label: '성별', value: Sex[sex] },
+      {
+        label: '최종제출',
+        value: final_submit ? '완료' : '미완료',
+        endAdornment: (
+          <S.SubmitDocument
+            isSubmited={final_submit}
+            onClick={goSubmitDocumentPageHandler}
+          >
+            제출서류
+          </S.SubmitDocument>
+        ),
+      },
+      {
+        label: '전형료 납부',
+        value: userStatus.paid ? '납부 완료' : '납부 전',
+      },
+      {
+        label: '우편물 수령',
+        value: userStatus.passed_first_apply ? '수령 완료' : '수령 전',
+      },
+    ];
+    if (grade_type === 'GED') {
+      infos.push({
+        label: '특기사항',
+        value: '검정고시',
+      });
+    }
+    return infos;
+  }, [userStatus, grade_type]);
+
   useEffect(() => {
     getProcess();
+    getUserStatus();
   }, []);
+
+  useEffect(() => {
+    if (process.error.status === 401) {
+      reGenerateTokenAndDoCallback();
+    }
+  }, [process.error]);
+
+  useEffect(() => {
+    if (userStatusError.status) {
+      alert(
+        `Error code: ${userStatusError.status} 유저 상태를 불러오지 못했습니다.`,
+      );
+    }
+  }, [userStatusError]);
+
   return (
     <S.Wrapper>
       <S.Container>
@@ -49,24 +110,7 @@ const Mypage: FC<Props> = ({ process, getProcess }) => {
           titleFontSize={36}
         />
         <S.MyInfoWrapper>
-          {[
-            { label: '이름', value: dummyData.name },
-            { label: '성별', value: dummyData.gender },
-            {
-              label: '최종제출',
-              value: dummyData.finallySubmit,
-              endAdornment: (
-                <S.SubmitDocument
-                  onClick={() => history.push('/mypage/document')}
-                >
-                  제출서류
-                </S.SubmitDocument>
-              ),
-            },
-            { label: '전형료 납부', value: dummyData.payMoney },
-            { label: '우편물 수령', value: dummyData.recieveEmail },
-            { label: '특기사항', value: dummyData.specialThing },
-          ].map(props => (
+          {myInfos.map(props => (
             <MyInfoItem key={props.label} {...props} />
           ))}
         </S.MyInfoWrapper>
@@ -81,11 +125,17 @@ const Mypage: FC<Props> = ({ process, getProcess }) => {
 
 export default Mypage;
 
-const MyInfoItem: React.FC<{
+interface MyInfoItemProps {
   label: string;
   value: string;
   endAdornment?: React.ReactNode;
-}> = ({ label, value, endAdornment }) => (
+}
+
+const MyInfoItem: React.FC<MyInfoItemProps> = ({
+  label,
+  value,
+  endAdornment,
+}) => (
   <S.MyInfoBox>
     <S.MyInfoContent>
       <S.MyInfoTitle>{label}</S.MyInfoTitle>

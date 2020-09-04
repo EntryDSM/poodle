@@ -69,7 +69,7 @@ const ProgressItem: React.FC<ProgressItemProps> = ({ label, isFinished }) => (
         className={isFinished ? 'finished' : ''}
       />
       <S.ProgressTitleLink
-        to='전형구분'
+        to={Uri[label]}
         className={isFinished ? 'finished' : ''}
       >
         {label}

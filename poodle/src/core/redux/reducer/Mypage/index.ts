@@ -3,12 +3,27 @@ import {
   PROCESS_FAILURE,
   Process,
   MypageAction,
+  USER_STATUS_SUCCESS,
+  USER_STATUS_FAILURE,
 } from '../../actions/Mypage';
 import ErrorType, { errorInitialState } from '@/lib/utils/type';
+import { UserStatus } from '@/lib/api/mypage';
 
 type MypageState = {
   process: Process;
   processError: ErrorType;
+  userStatus: UserStatus;
+  userStatueError: ErrorType;
+};
+
+const userStatusInitialState: UserStatus = {
+  name: '',
+  sex: 'FEMALE',
+  paid: false,
+  printed_application_arrived: false,
+  passed_first_apply: false,
+  passed_interview: false,
+  final_submit: false,
 };
 
 const initialState: MypageState = {
@@ -19,6 +34,8 @@ const initialState: MypageState = {
     document: false,
   },
   processError: errorInitialState,
+  userStatus: userStatusInitialState,
+  userStatueError: errorInitialState,
 };
 
 export default function mypage(
@@ -36,6 +53,17 @@ export default function mypage(
       return {
         ...state,
         processError: action.payload,
+      };
+    case USER_STATUS_SUCCESS:
+      return {
+        ...state,
+        userStatus: action.payload,
+        userStatueError: errorInitialState,
+      };
+    case USER_STATUS_FAILURE:
+      return {
+        ...state,
+        userStatueError: action.payload,
       };
     default:
       return state;
