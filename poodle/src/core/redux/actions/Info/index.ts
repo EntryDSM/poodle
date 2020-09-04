@@ -112,7 +112,10 @@ export interface SetDetailAddress {
 }
 export interface InfoSuccess {
   type: typeof INFO_SUCCESS;
-  payload: Date;
+  payload: {
+    date: Date;
+    pageMove: boolean;
+  };
 }
 
 export interface InfoFailure {
@@ -305,7 +308,10 @@ export const setPostNum = (payload: { postNum: string }): InfoActionType => ({
   payload,
 });
 
-export const infoSuccess = (payload: Date): InfoActionType => ({
+export const infoSuccess = (payload: {
+  date: Date;
+  pageMove: boolean;
+}): InfoActionType => ({
   type: INFO_SUCCESS,
   payload,
 });

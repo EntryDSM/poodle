@@ -55,6 +55,7 @@ export interface State {
   month: string;
   day: string;
   schoolCode: string;
+  pageMove: boolean;
 }
 
 const initialState: State = {
@@ -82,6 +83,7 @@ const initialState: State = {
   month: '01',
   day: '01',
   schoolCode: '',
+  pageMove: false,
 };
 
 const InfoState = (
@@ -182,13 +184,15 @@ const InfoState = (
     case INFO_SUCCESS: {
       return {
         ...state,
-        successDate: action.payload,
+        successDate: action.payload.date,
+        pageMove: action.payload.pageMove,
       };
     }
     case INFO_FAILURE: {
       return {
         ...state,
         error: action.payload.error,
+        pageMove: false,
       };
     }
     case GET_INFO_FAILURE: {

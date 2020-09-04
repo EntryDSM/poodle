@@ -20,9 +20,7 @@ import {
   setGradeNumber,
   getInfoCall,
   infoCall,
-  setSchoolCode,
 } from '@/core/redux/actions/Info';
-import { pageMove, PageType } from '@/core/redux/actions/Page';
 
 export const mapStateToProps = (state: RootState) => ({
   gradeType: state.InfoState.gradeType,
@@ -42,10 +40,10 @@ export const mapStateToProps = (state: RootState) => ({
   gradeNumber: state.InfoState.gradeNumber,
   classNumber: state.InfoState.classNumber,
   error: state.InfoState.error,
-  page: state.PageState.page,
   successTime: state.InfoState.successDate,
   setInfoError: state.InfoState.setInfoError,
   getInfoError: state.InfoState.getInfoError,
+  pageMove: state.InfoState.pageMove,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
@@ -74,7 +72,6 @@ export const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(setClassNumber({ classNumber })),
   getInfoToServer: () => dispatch(getInfoCall()),
   setInfoToServer: (pageMove: boolean) => dispatch(infoCall({ pageMove })),
-  pageMove: (page: PageType) => dispatch(pageMove({ page })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Info);
