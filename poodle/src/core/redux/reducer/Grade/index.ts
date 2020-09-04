@@ -14,6 +14,7 @@ import {
   ALL,
   GET_GRADE_FAILURE,
   GET_GRADE_SUCCESS,
+  PAGEMOVE,
 } from '../../actions/Grade';
 import { setInitalGradeState } from '@/lib/api/ApplicationApplyApi';
 import { GraduationStatusType } from '../../actions/ChoiceType';
@@ -126,6 +127,12 @@ const GradeState = (
     }
     case GET_GRADE_SUCCESS: {
       return action.payload;
+    }
+    case PAGEMOVE: {
+      return {
+        ...state,
+        pageMove: action.payload.pageMove,
+      };
     }
     default: {
       return state;

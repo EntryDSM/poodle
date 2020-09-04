@@ -11,6 +11,7 @@ import {
   GET_STUDY_PLAN_SUCCESS,
   GET_STUDY_PLAN_FAILURE,
   GET_SELF_INTRODUCTION_FAILURE,
+  PAGEMOVE,
 } from '../../actions/Introduction';
 
 export interface State {
@@ -120,6 +121,12 @@ const IntroductionState = (
         getSelfIntroductionError: action.payload.error,
         setSelfIntroductionError: errorInitialState,
         getStudyPlanError: errorInitialState,
+      };
+    }
+    case PAGEMOVE: {
+      return {
+        ...state,
+        pageMove: action.payload.pageMove,
       };
     }
     default: {

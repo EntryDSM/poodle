@@ -28,6 +28,7 @@ import {
   MONTH,
   DAY,
   SCHOOL_CODE,
+  PAGEMOVE,
 } from '../../actions/Info';
 
 export interface State {
@@ -245,6 +246,12 @@ const InfoState = (
       return {
         ...state,
         schoolCode: action.payload.code,
+      };
+    }
+    case PAGEMOVE: {
+      return {
+        ...state,
+        pageMove: action.payload.pageMove,
       };
     }
     default: {

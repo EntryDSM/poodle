@@ -15,6 +15,7 @@ import {
   GED_SUCCESS_YEAR,
   GRADUATION_MONTH,
   ISQUALIFICATION,
+  PAGEMOVE,
 } from '../../actions/ChoiceType';
 import { AdditionalType } from '../../actions/ChoiceType';
 
@@ -149,6 +150,12 @@ const ChoiceTypeState = (
       return {
         ...state,
         qualificationExam: action.payload.qualification,
+      };
+    }
+    case PAGEMOVE: {
+      return {
+        ...state,
+        pageMove: action.payload.pageMove,
       };
     }
     default: {
