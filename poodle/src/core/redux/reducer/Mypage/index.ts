@@ -5,6 +5,8 @@ import {
   MypageAction,
   USER_STATUS_SUCCESS,
   USER_STATUS_FAILURE,
+  GET_DOCUMENT_SUCCESS,
+  GET_DOCUMENT_FAILURE,
 } from '../../actions/Mypage';
 import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import { UserStatus } from '@/lib/api/mypage';
@@ -14,6 +16,8 @@ type MypageState = {
   processError: ErrorType;
   userStatus: UserStatus;
   userStatueError: ErrorType;
+  document: Blob;
+  getDocumentError: ErrorType;
 };
 
 const userStatusInitialState: UserStatus = {
@@ -36,6 +40,8 @@ const initialState: MypageState = {
   processError: errorInitialState,
   userStatus: userStatusInitialState,
   userStatueError: errorInitialState,
+  document: new Blob(),
+  getDocumentError: errorInitialState,
 };
 
 export default function mypage(
@@ -64,6 +70,17 @@ export default function mypage(
       return {
         ...state,
         userStatueError: action.payload,
+      };
+    case GET_DOCUMENT_SUCCESS:
+      return {
+        ...state,
+        getDocumentError: errorInitialState,
+        document: action.payload,
+      };
+    case GET_DOCUMENT_FAILURE:
+      return {
+        ...state,
+        getDocumentError: action.payload,
       };
     default:
       return state;
