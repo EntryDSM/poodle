@@ -53,8 +53,7 @@ function JoinContainer() {
     },
     [],
   );
-  if (!sendEmailValue.error.status || !verifyCodeValue.error.status)
-    return <h1>Error!</h1>;
+
   return (
     <Join
       sendEmail={sendEmailHandler}
