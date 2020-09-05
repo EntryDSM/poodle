@@ -25,6 +25,7 @@ interface Props {
   getUserStatus: () => void;
   userStatus: UserStatus;
   userStatusError: ErrorType;
+  resetMypage: () => void;
 }
 
 const Mypage: FC<Props> = ({
@@ -33,6 +34,7 @@ const Mypage: FC<Props> = ({
   getUserStatus,
   userStatus,
   userStatusError,
+  resetMypage,
 }) => {
   const { document } = queryString.parse(window.location.search);
   const { grade_type } = useUser();
@@ -86,6 +88,10 @@ const Mypage: FC<Props> = ({
   useEffect(() => {
     getProcess();
     getUserStatus();
+
+    return () => {
+      resetMypage();
+    };
   }, []);
 
   useEffect(() => {
