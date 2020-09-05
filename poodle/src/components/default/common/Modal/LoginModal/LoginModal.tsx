@@ -1,23 +1,22 @@
 import React, { useState, useCallback, FC, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { useRedirect } from '../../../../../lib/utils/function';
 import * as S from '@/styles/common/Modal';
+import { RESETMODAL } from '@/core/redux/actions/Modal';
+import { useRedirect } from '@/lib/utils/function';
 import {
   ModalContent,
   ModalInput,
   ModalButtonList,
   ModalContentProps,
   openModal,
-  clearModal
+  clearModal,
 } from '..';
-import { RESETMODAL } from '@/core/redux/actions/modal';
-import { loginErrorReset } from '@/core/redux/actions/header';
+import { emailRegExp } from '@/lib/RegExp';
 
 type LoginModalProps = ModalContentProps & {
   onClick: (email: string, password: string) => void;
-  user: {
-    accessToken: string;
-  };
+  isLogin: boolean;
+  loginErrorReset: () => void;
 };
 
 const LoginModal: FC<LoginModalProps> = ({
@@ -26,7 +25,8 @@ const LoginModal: FC<LoginModalProps> = ({
   errorSentence,
   color,
   onClick,
-  user
+  isLogin,
+  loginErrorReset,
 }) => {
   const dispatch = useDispatch();
   const redirectToLink = useRedirect();
@@ -41,6 +41,8 @@ const LoginModal: FC<LoginModalProps> = ({
     const loginInfoValue = [email, password];
     if (loginInfoValue.some(v => !v || v.indexOf(' ') !== -1)) {
       alert('빈칸은 입력할수 없습니다.');
+    } else if (!emailRegExp.exec(email)) {
+      alert('이메일 형식이 일치하지 않습니다.');
     } else {
       isRequesting.current = true;
       onClick(email, password);
@@ -52,11 +54,17 @@ const LoginModal: FC<LoginModalProps> = ({
     clearModal(dispatch);
   }, []);
   useEffect(() => {
-    if (user.accessToken) {
+    if (isLogin) {
       clearModal(dispatch);
       dispatch(loginErrorReset());
     }
-  }, [user]);
+  }, [isLogin]);
+
+  useEffect(() => {
+    return () => {
+      loginErrorReset();
+    };
+  }, []);
   return (
     <ModalContent
       title={title}
@@ -70,7 +78,7 @@ const LoginModal: FC<LoginModalProps> = ({
         textCenter={false}
         value={email}
         setValue={setEmail}
-        id='email'
+        disabled={false}
       />
       <ModalInput
         type='password'
@@ -78,8 +86,8 @@ const LoginModal: FC<LoginModalProps> = ({
         textCenter={false}
         value={password}
         setValue={setPassword}
-        id='password'
         submit={onSubmit}
+        disabled={false}
       />
       <ModalButtonList
         color={color}
@@ -88,12 +96,16 @@ const LoginModal: FC<LoginModalProps> = ({
             id: 1,
             title,
             size: 'max',
-            onClick: onSubmit
-          }
+            onClick: onSubmit,
+          },
         ]}
       />
-      <S.ETCSentence onClick={goToJoin}>아직 계정이 없으신가요?</S.ETCSentence>
-      <S.ETCSentence onClick={openResetModal}>비밀번호 재설정</S.ETCSentence>
+      <S.ETCSentence onClick={goToJoin} style={{ cursor: 'pointer' }}>
+        아직 계정이 없으신가요?
+      </S.ETCSentence>
+      <S.ETCSentence onClick={openResetModal} style={{ cursor: 'pointer' }}>
+        비밀번호 재설정
+      </S.ETCSentence>
     </ModalContent>
   );
 };

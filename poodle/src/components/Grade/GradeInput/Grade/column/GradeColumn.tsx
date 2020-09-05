@@ -1,53 +1,94 @@
-import React, { 
-    FC,
-    useState,
-} from 'react';
+import React, { FC, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { GradeButtonList } from '@/styles/Grade';
+import { ReducerType } from '@/core/redux/store';
 import {
-    GradeButtonList,
-} from '@/styles/Grade';
-
-type GradeType = "A" | "B" | "C" | "D" | "E" | "X";
+  setGrade,
+  GradeType,
+  SubjectType,
+  ScoreType,
+} from '@/core/redux/actions/Grade';
 
 interface Props {
-    onChange: Function,
-    uniqueKey: string,
+  subject: SubjectType;
+  semester: number;
+  grade: number;
 }
 
-const GradeColumn: FC<Props> = ({
-    uniqueKey,
-}) => {
-    const gradeList:GradeType[] = ['A','B','C','D','E',"X"];
-    const [grade, gradeChange] = useState<GradeType>('A');
-    const gradeClickHandler = (grade: GradeType) => {
-        gradeChange(grade);
+const GradeColumn: FC<Props> = ({ subject, semester, grade }) => {
+  const dispatch = useDispatch();
+  const gradeState = useSelector(
+    (state: ReducerType) => state.GradeState.grade,
+  );
+  const scoreList: ScoreType[] = ['A', 'B', 'C', 'D', 'E', 'X'];
+  const scoreClickChange = useCallback(
+    (score: ScoreType) => {
+      setScore(score);
+    },
+    [gradeState],
+  );
+  const setScore = useCallback(
+    (score: ScoreType) => {
+      const copy: GradeType[] = copyGradeState(gradeState);
+      const scoreIndex = getChangeIndex(copy);
+      if (!copy[scoreIndex]) return;
+      copy[scoreIndex].score = score;
+      const action = setGrade({ grade: copy });
+      dispatch(action);
+    },
+    [gradeState],
+  );
+  const copyGradeState = useCallback((gradeList: GradeType[]): GradeType[] => {
+    const copy = [...gradeList];
+    return copy;
+  }, []);
+  const getChangeIndex = useCallback(
+    (gradeList: GradeType[]): number =>
+      gradeList.findIndex(score => isSameScore(score)),
+    [],
+  );
+  const getScoreList = useCallback(
+    (gradeList: GradeType[]): GradeType[] =>
+      gradeList.filter(grade => isSameScore(grade)),
+    [],
+  );
+  const isSameScore = useCallback(
+    (gradeObject: GradeType) =>
+      gradeObject.grade === grade &&
+      gradeObject.semester === semester &&
+      gradeObject.subject === subject,
+    [],
+  );
+  const getScore = useCallback((gradeList: GradeType[]): ScoreType => {
+    const buf = getScoreList(gradeList);
+    if (buf[0]) {
+      return buf[0].score;
     }
-    return (
-        <td 
-            colSpan={1}
-            className="grade"
+    return 'X';
+  }, []);
+  const setScoreList = useCallback(
+    (scoreList: ScoreType[]) =>
+      scoreList.map(score => (
+        <li
+          key={`${subject}-${grade}-${semester}-${score}`}
+          onClick={() => scoreClickChange(score)}
         >
-            <GradeButtonList>
-                <label>
-                    <input type="checkbox"/>
-                    <li>
-                        {grade}
-                    </li>
-                    <div>
-                        {
-                            gradeList.map((grade)=> 
-                                <li
-                                    key={`${uniqueKey}${grade}`}
-                                    onClick={() => gradeClickHandler(grade)}
-                                >
-                                    {grade}
-                                </li>
-                            )    
-                        }
-                    </div>
-                </label>
-            </GradeButtonList>
-        </td>
-    )
-}
+          {score}
+        </li>
+      )),
+    [gradeState],
+  );
+  return (
+    <td colSpan={1} className='grade'>
+      <GradeButtonList>
+        <label>
+          <input type='checkbox' />
+          <li>{getScore(gradeState)}</li>
+          <div>{setScoreList(scoreList)}</div>
+        </label>
+      </GradeButtonList>
+    </td>
+  );
+};
 
 export default GradeColumn;

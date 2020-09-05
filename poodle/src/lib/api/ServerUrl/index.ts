@@ -1,0 +1,9 @@
+export const USERTYPE_URL = '/users/me/type';
+export const GRADE_URL = '/applications/me/score';
+export const USERINFO_URL = '/users/me';
+export const STUDY_PLAN_URL = '/applications/me/plan';
+export const SELF_INTRODUCTION_URL = '/applications/me/intro';
+export const GET_SCHOOL_URL = '/schools';
+export const SET_STATUS_URL = '/users/me/status';
+export const GET_PDF_URL = '/grade/application/preview';
+export const SET_PICTURE_URL = '/users/me/photo';

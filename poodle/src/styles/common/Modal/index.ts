@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import ClearButton from '@/assets/Modal/Button_clear@3x.png';
 import SearchButton from '@/assets/Modal/button-search.png';
+
 export const ModalWrapper = styled.div`
   z-index: 3;
   top: 0;
@@ -47,6 +48,8 @@ export const ModalHeader = styled.header`
 `;
 
 export const CloseButton = styled.button`
+  outline: none;
+  background-color: #ffffff;
   width: 16px;
   height: 16px;
   object-fit: contain;
@@ -56,6 +59,7 @@ export const CloseButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #ffffff;
 `;
 
 export const CloseButtonImage = styled.span`
@@ -97,43 +101,43 @@ type SubTitleProps = {
 };
 
 export const SubTitle = styled.div<SubTitleProps>`
-    transition: width 1s;
-    overflow: hidden; 
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    ${({ contour, color, effect }) =>
-      contour &&
-      css`
-        margin: 2.5rem 0 3.125rem 0;
-        width: ${effect ? '0' : '9.375'}rem;
-        height: 0.125rem;
-        background-color: ${color};
-      `}
-    ${({ error, effect }) =>
-      error &&
-      css`
-        width: ${effect ? '0' : '14.25'}rem;
-        margin: 2.125rem 0 2.625rem 0;
-        height: 1rem;
-        font-family: NanumSquareR;
-        font-size: 0.857rem;
-        text-align: center;
-        color: #ff5c5c;
-        line-height: 1rem;
-      `}
-    ${({ normal, effect }) =>
-      normal &&
-      css`
-        width: ${effect ? '0' : '3.5'}rem;
-        height: 1.375rem;
-        font-family: NanumSquareB;
-        font-size: 20px;
-        line-height: 1.375rem;
-        text-align: right;
-        color: #46b2c6;
-        margin: 1.875rem 0 2.5rem 0;
-      `}
+  transition: width 1s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  width: 0;
+  ${({ contour, color, effect }) =>
+    contour &&
+    css`
+      margin: 2.5rem 0 3.125rem 0;
+      width: ${effect ? '0' : '9.375'}rem;
+      height: 0.125rem;
+      background-color: ${color};
+    `}
+  ${({ error, effect }) =>
+    error &&
+    css`
+      width: ${effect ? '0' : '17.25'}rem;
+      margin: 2.125rem 0 2.625rem 0;
+      height: 1rem;
+      font-family: NanumSquareR;
+      font-size: 0.857rem;
+      color: #ff5c5c;
+      line-height: 1rem;
+    `}
+    ${({ normal }) =>
+    normal &&
+    css`
+      width: 3.75rem;
+      height: 1.375rem;
+      font-family: NanumSquareB;
+      font-size: 20px;
+      line-height: 1.375rem;
+      color: #46b2c6;
+      margin: 1.875rem 0 2.5rem 0;
+      background-color: transparent;
+    `};
 `;
 
 export const ModalInputWrapper = styled.div`
@@ -251,7 +255,6 @@ export const ETCSentence = styled.p`
   font-size: 12px;
   text-align: center;
   color: #78cede;
-  cursor: pointer;
   &:last-child {
     margin-top: 0.75rem;
   }
@@ -409,4 +412,47 @@ export const SearchModalContentText = styled.p`
     font-size: 0.875rem;
     font-weight: 300;
   }
+`;
+
+export const NoticeModal = styled.div`
+  padding: 0px 0px 40px 40px;
+  box-sizing: border-box;
+  width: 1200px;
+  height: 770px;
+  background-color: white;
+  margin-top: 50px;
+`;
+
+export const NoticeModalTitle = styled.h1`
+  font-size: 30px;
+  font-weight: normal;
+  margin: 20px 0px 10px 0px;
+`;
+
+export const NoticeTitleBar = styled.div`
+  width: 270px;
+  height: 2px;
+  background-color: #ff6969;
+`;
+
+export const NoticeTitleWrapper = styled.div`
+  margin-bottom: 50px;
+`;
+
+export const NoticeModalBody = styled.div`
+  > p.title {
+    font-size: 20px;
+    margin: 30px 0px 20px 0px;
+  }
+  > p.text {
+    font-size: 16px;
+  }
+`;
+
+export const NoticeHeader = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  box-sizing: border-box;
 `;
