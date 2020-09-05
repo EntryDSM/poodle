@@ -10,7 +10,7 @@ import {
   VERIFY_CODE as RESET_VERIFY_CODE,
   RESET_PASSWORD,
 } from '../../actions/ResetPassword';
-import { PROCESS } from '../../actions/Mypage';
+import { PROCESS, GET_DOCUMENT } from '../../actions/Mypage';
 
 type LoadingState = {
   [LOGIN]: boolean;
@@ -21,6 +21,7 @@ type LoadingState = {
   [RESET_VERIFY_CODE]: boolean;
   [RESET_PASSWORD]: boolean;
   [PROCESS]: boolean;
+  [GET_DOCUMENT]: boolean;
 };
 
 const initialState: LoadingState = {
@@ -32,6 +33,7 @@ const initialState: LoadingState = {
   [RESET_VERIFY_CODE]: false,
   [RESET_PASSWORD]: false,
   [PROCESS]: false,
+  [GET_DOCUMENT]: false,
 };
 
 export default function loading(

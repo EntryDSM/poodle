@@ -8,7 +8,6 @@ export const LOGIN_SUCCESS = 'header/LOGIN_SUCCESS' as const;
 export const LOGIN_FAILURE = 'header/LOGIN_FAILURE' as const;
 export const LOGOUT = 'header/LOGOUT' as const;
 export const LOGIN_ERROR_RESET = 'header/LOGIN_ERROR_RESET' as const;
-
 export const RE_GENERATE_TOKEN = 'header/RE_GENERATE_TOKEN' as const;
 export const RE_GENERATE_TOKEN_SUCCESS = 'header/RE_GENERATE_TOKEN_SUCCESS' as const;
 export const RE_GENERATE_TOKEN_FAILURE = 'header/RE_GENERATE_TOKEN_FAILURE' as const;

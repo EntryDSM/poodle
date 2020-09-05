@@ -5,7 +5,7 @@ import {
 import { SchoolType } from '@/core/redux/actions/SearchSchool';
 
 export interface gradeServerType {
-  volanteer_time: number | null;
+  volunteer_time: number | null;
   full_cut_count: number | null;
   period_cut_count: number | null;
   late_count: number | null;
@@ -21,7 +21,7 @@ export interface gradeServerType {
 }
 
 export interface gradeResponseType {
-  volanteer_time: number | null;
+  volunteer_time: number | null;
   full_cut_count: number | null;
   period_cut_count: number | null;
   late_count: number | null;
@@ -69,6 +69,7 @@ export interface userInfoServerType {
   photo: string | null;
   post_code: string | null;
   detail_address: string | null;
+  school_code: string | null;
 }
 
 export interface userInfoResponseType {
@@ -86,6 +87,7 @@ export interface userInfoResponseType {
   post_code: string | null;
   detail_address: string | null;
   grade_type: GraduationStatusType | null;
+  school_code: string | null;
 }
 
 export interface selfIntroductionServerType {
@@ -154,5 +156,3 @@ export interface searchSchoolResponseType {
 export interface submitType {
   is_final_submit: boolean;
 }
-
-export interface previewType {}

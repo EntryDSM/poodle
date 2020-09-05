@@ -1,10 +1,12 @@
 import ErrorType from '@/lib/utils/type';
+import { PreviewState } from '../../reducer/Preview';
 
 export const PREVIEW = 'Preview/PREVIEW' as const;
 
 export const PREVIEW_CALL = 'Preview/PREVIEW_CALL' as const;
 export const PREVIEW_CALL_FAILURE = 'Preview/PREVIEW_CALL_FAILURE' as const;
 export const PREVIEW_CALL_SUCCESS = 'Preview/PREVIEW_CALL_SUCCESS' as const;
+export const PAGEMOVE = 'Preview/PAGEMOVE' as const;
 
 export const SUBMIT_CALL = 'Preview/SUBMIT' as const;
 export const SUBMIT_FAILURE = 'Preview/SUBMIT_FAILURE' as const;
@@ -24,7 +26,7 @@ export const previewFailure = (payload: ErrorType) => ({
   payload,
 });
 
-export const previewSuccess = (payload: string) => ({
+export const previewSuccess = (payload: PreviewState) => ({
   type: PREVIEW_CALL_SUCCESS,
   payload,
 });
@@ -43,6 +45,11 @@ export const submitSuccess = (payload: boolean) => ({
   payload,
 });
 
+export const setPageMove = (payload: { pageMove: boolean }) => ({
+  type: PAGEMOVE,
+  payload,
+});
+
 export type PreviewAction =
   | ReturnType<typeof setPreview>
   | ReturnType<typeof previewCall>
@@ -50,4 +57,5 @@ export type PreviewAction =
   | ReturnType<typeof previewSuccess>
   | ReturnType<typeof submitCall>
   | ReturnType<typeof submitFailure>
-  | ReturnType<typeof submitSuccess>;
+  | ReturnType<typeof submitSuccess>
+  | ReturnType<typeof setPageMove>;

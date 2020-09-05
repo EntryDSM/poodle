@@ -1,6 +1,6 @@
 import { RootState } from '@/core/redux/reducer';
 import { GradeType, SubjectType, ScoreType } from '@/core/redux/actions/Grade';
-import client, { getClientWithAccessToken } from './client';
+import { getClientWithAccessToken } from './client';
 import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import {
   userTypeServerType,
@@ -9,9 +9,7 @@ import {
   selfIntroductionServerType,
   studyPlanServerType,
   SubjectsType,
-  gedInfoServerType,
   gedGradeServerType,
-  previewType,
   submitType,
   userTypeResponseType,
   selfIntroductionRequestType,
@@ -21,6 +19,7 @@ import {
 } from './ApiType';
 import { GRADESEMESTERLIST } from '@/components/Grade/constance';
 import { PreviewState } from '@/core/redux/reducer/Preview';
+import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 
 export const errorTypeCheck = (error: ErrorType): void => {
   if (error.status === 401 || error.status === 403) {
@@ -31,8 +30,12 @@ export const errorTypeCheck = (error: ErrorType): void => {
 };
 
 export const nullAndNumberToString = (value: null | number): string => {
-  if (!value) return '';
-  return value.toString();
+  try {
+    if (value === null || value === undefined) return '';
+    return value.toString();
+  } catch (error) {
+    return '';
+  }
 };
 
 export const nullAbleStringToString = (value: null | string) => {
@@ -70,6 +73,15 @@ export const setPostToServer = async <RequestType>(
   payload: RequestType,
 ) => {
   const response = await getClientWithAccessToken().post(url, payload);
+  return response.data;
+};
+
+export const getPdfToServer = async <ResponseType>(
+  url: string,
+): Promise<ResponseType> => {
+  const response = await getClientWithAccessToken('application/pdf').get<
+    ResponseType
+  >(url, { responseType: 'blob' });
   return response.data;
 };
 
@@ -126,6 +138,8 @@ export const typeResponseToState = ({
   successTime: null,
   getTypeError: errorInitialState,
   setTypeError: errorInitialState,
+  setTypeAndMovePageError: errorInitialState,
+  pageMove: false,
 });
 
 const isGED = (grade_type: string | null) => {
@@ -201,22 +215,31 @@ export const infoStateToRequest = (
     address: stringToStringOrNull(state.address),
     detail_address: stringToStringOrNull(state.detailAddress),
     post_code: stringToStringOrNull(state.postNum),
+    school_code: stringToStringOrNull(state.schoolCode),
   };
 };
 
 export const infoStateToGedRequest = (
   state: RootState['InfoState'],
-): gedInfoServerType => ({
-  applicant_tel: state.name,
-  parent_tel: state.protectorPhoneNum,
-  address: state.address,
-  photo: state.picture,
-  post_code: state.postNum,
-  parent_name: state.protectorName,
-  name: state.name,
-  sex: state.gender,
-  birth_date: state.birthday,
-});
+): userInfoServerType => {
+  const dateString = `${state.year}-${state.month}-${state.day}`;
+  return {
+    name: stringToStringOrNull(state.name),
+    sex: stringToStringOrNull(state.gender),
+    student_number: null,
+    parent_name: stringToStringOrNull(state.protectorName),
+    parent_tel: stringToStringOrNull(state.protectorPhoneNum),
+    school_name: null,
+    applicant_tel: stringToStringOrNull(state.phoneNum),
+    school_tel: null,
+    photo: stringToStringOrNull(state.picture),
+    birth_date: infoDateStringToStateDateString(dateString),
+    address: stringToStringOrNull(state.address),
+    detail_address: stringToStringOrNull(state.detailAddress),
+    post_code: stringToStringOrNull(state.postNum),
+    school_code: null,
+  };
+};
 
 const infoDateStringToStateDateString = (str: string): string | null => {
   const splitedString = str.split('-');
@@ -267,6 +290,8 @@ export const infoResponseToState = (
   year: getYearFromDateString(response.birth_date),
   month: getMonthFromDateString(response.birth_date),
   day: getDayFromDateString(response.birth_date),
+  schoolCode: nullAbleStringToString(response.school_code),
+  pageMove: false,
 });
 
 const infoResponseDateStringToStateDateString = (
@@ -301,13 +326,13 @@ const infoStringToNumber = (str: string | null): string => {
 
 export const setInitalGradeState = () => {
   const initialSubjectGrade: SubjectsType = {
-    korean: 'XXXXX',
-    science: 'XXXXX',
-    society: 'XXXXX',
-    math: 'XXXXX',
-    english: 'XXXXX',
-    history: 'XXXXX',
-    tech: 'XXXXX',
+    korean: 'XXXXXX',
+    science: 'XXXXXX',
+    society: 'XXXXXX',
+    math: 'XXXXXX',
+    english: 'XXXXXX',
+    history: 'XXXXXX',
+    tech: 'XXXXXX',
   };
   return responseGradeToStateGrade(initialSubjectGrade);
 };
@@ -315,6 +340,7 @@ export const setInitalGradeState = () => {
 const gradeArrayToString = (
   gradeList: GradeType[],
   subject: SubjectType,
+  gradeType: GraduationStatusType,
 ): string => {
   const filteredGradeList = gradeList.filter(
     grade => grade.subject === subject,
@@ -324,7 +350,17 @@ const gradeArrayToString = (
     (str: string, grade: GradeType) => str + grade.score,
     '',
   );
-  return stringedGradeList;
+  if (gradeType === 'UNGRADUATED')
+    return graduatedGradeStringToUngraduatedGradeString(stringedGradeList);
+  else return stringedGradeList;
+};
+
+const graduatedGradeStringToUngraduatedGradeString = (gradeString: string) => {
+  const splitedString = gradeString.split('');
+  let buffer = '';
+  splitedString[5] = 'X';
+  splitedString.map(string => (buffer = buffer + string));
+  return buffer;
 };
 
 const gradeSort = (gradeList: GradeType[]) => {
@@ -349,8 +385,9 @@ export const gradeResponseToState = (
   response: gradeResponseType,
 ): RootState['GradeState'] => {
   const subjects = responseToSubjects(response);
+  console.log(response);
   return {
-    serviceTime: nullAndNumberToString(response.volanteer_time),
+    serviceTime: nullAndNumberToString(response.volunteer_time),
     absentDay: nullAndNumberToString(response.full_cut_count),
     perceptionDay: nullAndNumberToString(response.late_count),
     cutClassDay: nullAndNumberToString(response.period_cut_count),
@@ -362,6 +399,7 @@ export const gradeResponseToState = (
     getGradeError: errorInitialState,
     setGradeError: errorInitialState,
     gradeType: response.grade_type ? response.grade_type : 'GED',
+    pageMove: false,
   };
 };
 
@@ -432,18 +470,18 @@ const gradeSortCompareFunc = (current: GradeType, next: GradeType) => {
 export const gradeStateToRequest = (
   state: RootState['GradeState'],
 ): gradeServerType => ({
-  volanteer_time: strintToNumberOrNull(state.serviceTime),
+  volunteer_time: strintToNumberOrNull(state.serviceTime),
   full_cut_count: strintToNumberOrNull(state.absentDay),
   period_cut_count: strintToNumberOrNull(state.cutClassDay),
   early_leave_count: strintToNumberOrNull(state.leaveLateDay),
   late_count: strintToNumberOrNull(state.perceptionDay),
-  korean: gradeArrayToString(state.grade, 'korean'),
-  social: gradeArrayToString(state.grade, 'society'),
-  history: gradeArrayToString(state.grade, 'history'),
-  math: gradeArrayToString(state.grade, 'math'),
-  science: gradeArrayToString(state.grade, 'science'),
-  tech_and_home: gradeArrayToString(state.grade, 'tech'),
-  english: gradeArrayToString(state.grade, 'english'),
+  korean: gradeArrayToString(state.grade, 'korean', state.gradeType),
+  social: gradeArrayToString(state.grade, 'society', state.gradeType),
+  history: gradeArrayToString(state.grade, 'history', state.gradeType),
+  math: gradeArrayToString(state.grade, 'math', state.gradeType),
+  science: gradeArrayToString(state.grade, 'science', state.gradeType),
+  tech_and_home: gradeArrayToString(state.grade, 'tech', state.gradeType),
+  english: gradeArrayToString(state.grade, 'english', state.gradeType),
   ged_average_score: strintToNumberOrNull(state.score),
 });
 
@@ -485,7 +523,7 @@ export const getSearchSchoolUrl = (
   page: number,
   size: number,
 ) => {
-  return `school?eduOffice=${eduOffice}&name=${name}&page=${page}&size=${size}`;
+  return `schools?eduOffice=${eduOffice}&name=${name}&page=${page}&size=${size}`;
 };
 
 export const previewStateToRequest = (isSubmit: boolean): submitType => {
@@ -494,13 +532,15 @@ export const previewStateToRequest = (isSubmit: boolean): submitType => {
   };
 };
 
-export const pdfResponseToState = (response: previewType): PreviewState => {
+export const pdfResponseToState = (response: Blob): PreviewState => {
+  const file = new Blob([response], { type: 'application/pdf' });
+  const url = URL.createObjectURL(file);
   return {
-    preview: '',
-    // i will fix
+    preview: url,
     error: null,
     isSubmit: false,
     getPreviewError: errorInitialState,
-    setUserStatus: errorInitialState,
+    setUserStatusError: errorInitialState,
+    pageMove: false,
   };
 };

@@ -83,7 +83,27 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
   .react-pdf__Page {
     position: unset !important;
   }
-  #toastDiv {
+  #toastDivInfo {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+  }
+  #toastDivType {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+  }
+  #toastDivGrade {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+  }
+  #toastDivPreview {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+  }
+  #toastDivIntroduction {
     position: fixed;
     right: 20px;
     top: 80px;

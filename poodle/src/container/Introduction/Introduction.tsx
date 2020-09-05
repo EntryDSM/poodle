@@ -23,26 +23,28 @@ type Props = ReturnType<typeof mapDispatchToProps> &
   RouteComponentProps;
 
 type MapStateToProps = ReturnType<typeof mapStateToProps>;
-const TOAST_DIV_ID = 'toastDiv';
+const TOAST_DIV_ID = 'toastDivIntroduction';
 
-const Introduction: FC<Props> = ({
-  setSelfIntroduction,
-  setStudyPlan,
-  selfIntroduction,
-  studyPlan,
-  history,
-  error,
-  page,
-  getStudyPlanToServer,
-  setStudyPlanToServer,
-  setSelfIntroductionToServer,
-  getSelfIntroductionToServer,
-  successDate,
-  setSelfIntroductionError,
-  setStudyPlanError,
-  getSelfIntroductionError,
-  getStudyPlanError,
-}) => {
+const Introduction: FC<Props> = props => {
+  const {
+    setSelfIntroduction,
+    setStudyPlan,
+    selfIntroduction,
+    studyPlan,
+    history,
+    error,
+    getStudyPlanToServer,
+    setStudyPlanToServer,
+    setSelfIntroductionToServer,
+    getSelfIntroductionToServer,
+    successDate,
+    setSelfIntroductionError,
+    setStudyPlanError,
+    getSelfIntroductionError,
+    getStudyPlanError,
+    pageMoveChange,
+    pageMove,
+  } = props;
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
     ({ selfIntroduction, studyPlan }) =>
@@ -50,7 +52,7 @@ const Introduction: FC<Props> = ({
     [],
   );
   const goNextPage = useCallback(
-    async (state: MapStateToProps) => {
+    async (state: Props) => {
       const isError = isStateAble(state);
       if (isError) {
         modalController.createNewToast('ERROR');
@@ -67,7 +69,7 @@ const Introduction: FC<Props> = ({
   );
   const goCurrentPage = useCallback(() => {
     history.push('/grade');
-  }, [page]);
+  }, []);
   const getSelfIntroductionGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
     getSelfIntroductionToServer,
   );
@@ -85,11 +87,6 @@ const Introduction: FC<Props> = ({
     getSelfIntroductionToServer();
   }, []);
   useEffect(() => {
-    if (page != null) {
-      history.push(`/${page}`);
-    }
-  }, [page]);
-  useEffect(() => {
     if (!error) return;
     if (error.status === 401) {
       if (setSelfIntroductionError.status === 401)
@@ -103,11 +100,24 @@ const Introduction: FC<Props> = ({
       return;
     }
     modalController.createNewToast('SERVER_ERROR');
-  }, [error]);
+  }, [
+    error,
+    getSelfIntroductionError,
+    getStudyPlanError,
+    setSelfIntroductionError,
+    setStudyPlanError,
+  ]);
   useEffect(() => {
     if (!successDate) return;
     modalController.createNewToast('SUCCESS');
   }, [successDate]);
+  useEffect(() => {
+    if (pageMove) {
+      history.push('/preview');
+      modalController.resetToast();
+      pageMoveChange(false);
+    }
+  }, [pageMove]);
   return (
     <IntroductionDiv>
       <div id={TOAST_DIV_ID} />
@@ -128,19 +138,7 @@ const Introduction: FC<Props> = ({
         <DefaultlNavigation
           page='introduction'
           currentPageClickHandler={goCurrentPage}
-          nextPageClickHandler={() =>
-            goNextPage({
-              selfIntroduction,
-              studyPlan,
-              error,
-              page,
-              successDate,
-              setSelfIntroductionError,
-              getSelfIntroductionError,
-              setStudyPlanError,
-              getStudyPlanError,
-            })
-          }
+          nextPageClickHandler={() => goNextPage(props)}
         />
       </IntroductionMain>
     </IntroductionDiv>

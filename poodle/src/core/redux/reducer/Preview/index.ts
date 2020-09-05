@@ -6,6 +6,7 @@ import {
   PREVIEW_CALL_SUCCESS,
   SUBMIT_FAILURE,
   SUBMIT_SUCCESS,
+  PAGEMOVE,
 } from '../../actions/Preview';
 
 export interface PreviewState {
@@ -13,7 +14,8 @@ export interface PreviewState {
   error: ErrorType | null;
   isSubmit: boolean;
   getPreviewError: ErrorType;
-  setUserStatus: ErrorType;
+  setUserStatusError: ErrorType;
+  pageMove: boolean;
 }
 
 const initialState: PreviewState = {
@@ -21,7 +23,8 @@ const initialState: PreviewState = {
   error: null,
   isSubmit: false,
   getPreviewError: errorInitialState,
-  setUserStatus: errorInitialState,
+  setUserStatusError: errorInitialState,
+  pageMove: false,
 };
 
 const PreviewState = (
@@ -40,26 +43,30 @@ const PreviewState = (
         ...state,
         error: action.payload,
         getPreviewError: action.payload,
-        setUserStatus: errorInitialState,
+        setUserStatusError: errorInitialState,
       };
     }
     case PREVIEW_CALL_SUCCESS: {
-      return {
-        ...state,
-        preview: action.payload,
-      };
+      return action.payload;
     }
     case SUBMIT_SUCCESS: {
       return {
         ...state,
         isSubmit: action.payload,
+        pageMove: true,
+      };
+    }
+    case PAGEMOVE: {
+      return {
+        ...state,
+        pageMove: action.payload.pageMove,
       };
     }
     case SUBMIT_FAILURE: {
       return {
         ...state,
         error: action.payload,
-        setUserStatus: action.payload,
+        setUserStatusError: action.payload,
         getPreviewError: errorInitialState,
       };
     }

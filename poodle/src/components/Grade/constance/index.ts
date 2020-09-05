@@ -19,4 +19,8 @@ export const GRADESEMESTERLIST = [
     grade: 3,
     semester: 1,
   },
+  {
+    grade: 3,
+    semester: 2,
+  },
 ];

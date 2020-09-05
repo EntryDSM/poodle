@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps, useHistory } from 'react-router-dom';
 import { errorTypeCheck } from '@/lib/api/ApplicationApplyApi';
 import ModalContainer from '@/container/common/ModalContainer/ModalContainer';
 import { modalOff, REDERRORMODAL } from '@/core/redux/actions/Modal';
@@ -23,9 +23,10 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 type MapStateToProps = ReturnType<typeof mapStateToProps>;
 
-const TOAST_DIV_ID = 'toastDiv';
+const TOAST_DIV_ID = 'toastDivInfo';
 
 const Info: FC<Props> = props => {
+  const history = useHistory();
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const dispatch = useDispatch();
   const [isError, errorChange] = useState<boolean>(false);
@@ -41,7 +42,6 @@ const Info: FC<Props> = props => {
       address,
       number,
       name,
-      birthday,
       gender,
       middleSchool,
       protectorName,
@@ -50,16 +50,15 @@ const Info: FC<Props> = props => {
       protectorPhoneNum,
       phoneNum,
       postNum,
+      gradeType,
       detailAddress,
     }: MapStateToProps): boolean => {
-      if (props.gradeType === 'GED') {
+      if (gradeType === 'GED') {
         return (
           isEmptyCheck(address) ||
           isEmptyCheck(postNum) ||
           isEmptyCheck(detailAddress) ||
           isEmptyCheck(name) ||
-          isEmptyCheck(birthday) ||
-          isEmptyCheck(protectorName) ||
           isEmptyCheck(protectorName) ||
           isEmptyCheck(phoneNum) ||
           isEmptyCheck(gender) ||
@@ -72,7 +71,6 @@ const Info: FC<Props> = props => {
         isEmptyCheck(detailAddress) ||
         isEmptyCheck(address) ||
         isEmptyCheck(name) ||
-        isEmptyCheck(birthday) ||
         isEmptyCheck(middleSchool) ||
         isEmptyCheck(protectorName) ||
         isEmptyCheck(schoolPhoneNum) ||
@@ -130,11 +128,6 @@ const Info: FC<Props> = props => {
     props.getInfoToServer();
   }, []);
   useEffect(() => {
-    if (props.page !== null) {
-      props.history.push(`/${props.page}`);
-    }
-  }, [props.page]);
-  useEffect(() => {
     if (!props.error) return;
     if (props.error.status === 401) {
       if (props.setInfoError.status === 401)
@@ -149,6 +142,13 @@ const Info: FC<Props> = props => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');
   }, [props.successTime]);
+  useEffect(() => {
+    if (props.pageMove) {
+      history.push('/grade');
+      modalController.resetToast();
+      props.pageMoveChange(false);
+    }
+  }, [props.pageMove]);
   return (
     <InfoDiv>
       <div id={TOAST_DIV_ID} />

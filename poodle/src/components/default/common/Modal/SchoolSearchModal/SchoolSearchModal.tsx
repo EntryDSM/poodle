@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchModalBox from '../SearchModalBox';
 import {
@@ -9,7 +9,7 @@ import {
 } from '@/styles/common/Modal';
 import SchoolSearchContent from './SchoolSearchContent';
 import { Dropdown } from '@/components/default/ApplicationFormDefault';
-import { setMiddleSchool } from '@/core/redux/actions/Info';
+import { setMiddleSchool, setSchoolCode } from '@/core/redux/actions/Info';
 import eduOfficeList from './SchoolSearchConstance';
 import { ReducerType } from '@/core/redux/store';
 import {
@@ -18,21 +18,23 @@ import {
   schoolSearchInputChange,
   SchoolType,
   getSchoolCall,
+  schoolInfoChange,
 } from '@/core/redux/actions/SearchSchool';
 import { getSearchSchoolUrl } from '@/lib/api/ApplicationApplyApi';
+import { useReGenerateTokenAndDoCallback } from '@/lib/utils/function';
 
 interface Props {
   modalOff: () => void;
 }
 
 const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
-  const { eduOffice, page, schoolSearchInput, SchoolInfo } = useSelector(
+  const { eduOffice, page, schoolSearchInput, SchoolInfo, error } = useSelector(
     (state: ReducerType) => state.SearchSchool,
   );
   const dispatch = useDispatch();
-  const middleSchoolNameChange = (schoolName: string) => {
-    const action = setMiddleSchool({ schoolName });
-    dispatch(action);
+  const middleSchoolNameChange = (schoolName: string, code: string) => {
+    dispatch(setMiddleSchool({ schoolName }));
+    dispatch(setSchoolCode({ code }));
     modalOff();
   };
   const eduOfficeChangeHandler = useCallback((eduOffice: string) => {
@@ -47,11 +49,15 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
   );
   const inputKeyPressHandler = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter') searchSchool(eduOffice, schoolSearchInput);
+      if (e.key === 'Enter') {
+        setSchoolInfo([]);
+        searchSchool(eduOffice, schoolSearchInput);
+      }
     },
     [eduOffice, schoolSearchInput],
   );
   const buttonClickHandler = useCallback(() => {
+    setSchoolInfo([]);
     searchSchool(eduOffice, schoolSearchInput);
   }, []);
   const dispatchPageChange = useCallback((page: number) => {
@@ -60,15 +66,27 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
   const dispatchGetSchoolCall = useCallback((url: string) => {
     dispatch(getSchoolCall({ url }));
   }, []);
+  const setSchoolInfo = useCallback((schoolInfo: SchoolType[]) => {
+    dispatch(schoolInfoChange({ info: schoolInfo }));
+  }, []);
+  const getSearchSchoolGenerateTokenAdnDoCallback = useReGenerateTokenAndDoCallback(
+    () =>
+      dispatch(
+        getSchoolCall({
+          url: getSearchSchoolUrl(eduOffice, schoolSearchInput, page, 10),
+        }),
+      ),
+  );
   const schoolSearchContent = useCallback(
     (schoolInfo: SchoolType[]): React.ReactNode => {
       if (schoolInfo.length <= 0) return <p>결과가 없습니다.</p>;
       return schoolInfo.map(data => {
-        const { schoolName, schoolAddress } = data;
+        const { school_name, school_address, school_code } = data;
         return (
           <SchoolSearchContent
-            schoolName={schoolName}
-            address={schoolAddress}
+            schoolName={school_name}
+            address={school_address}
+            schoolCode={school_code}
             onClick={middleSchoolNameChange}
           />
         );
@@ -92,12 +110,15 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
   );
   const searchSchool = useCallback(
     (eduOffice: string, schoolSearchInput: string) => {
-      const url = getSearchSchoolUrl(eduOffice, schoolSearchInput, 0, 10);
+      const url = getSearchSchoolUrl(eduOffice, schoolSearchInput, page, 10);
       dispatchPageChange(0);
       dispatchGetSchoolCall(url);
     },
     [eduOffice, schoolSearchInput],
   );
+  useEffect(() => {
+    getSearchSchoolGenerateTokenAdnDoCallback();
+  }, [error]);
   return (
     <ModalWrapper>
       <SearchModalBox title='학교 검색' onModalChange={modalOff}>
