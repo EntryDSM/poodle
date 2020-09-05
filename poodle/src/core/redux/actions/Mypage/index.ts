@@ -13,6 +13,8 @@ export const GET_DOCUMENT = 'mypage/GET_DOCUMENT' as const;
 export const GET_DOCUMENT_SUCCESS = 'mypage/GET_DOCUMENT_SUCCESS' as const;
 export const GET_DOCUMENT_FAILURE = 'mypage/GET_DOCUMENT_FAILURE' as const;
 
+export const RESET_MYPAGE = 'mypage/RESET_MYPAGE' as const;
+
 export const process = () => ({
   type: PROCESS,
 });
@@ -62,6 +64,10 @@ export const getDocumentFailure = (error: ErrorType) => ({
   payload: error,
 });
 
+export const resetMypage = () => ({
+  type: RESET_MYPAGE,
+});
+
 export type MypageAction =
   | ReturnType<typeof process>
   | ReturnType<typeof processSuccess>
@@ -70,4 +76,5 @@ export type MypageAction =
   | ReturnType<typeof userStatusFailure>
   | ReturnType<typeof getDocument>
   | ReturnType<typeof getDocumentSuccess>
-  | ReturnType<typeof getDocumentFailure>;
+  | ReturnType<typeof getDocumentFailure>
+  | ReturnType<typeof resetMypage>;
