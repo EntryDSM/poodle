@@ -5,10 +5,12 @@ interface Props {
   src: string;
 }
 
-const PreviewFile: FC<Props> = ({ src }) => (
-  <PreviewPdfDiv>
-    <embed src={src} width='1170px' height='1072px' />
-  </PreviewPdfDiv>
-);
+const PreviewFile: FC<Props> = ({ src }) => {
+  return (
+    <PreviewPdfDiv>
+      <embed width='1170px' height='1072px' type='application/pdf' src={src} />
+    </PreviewPdfDiv>
+  );
+};
 
 export default PreviewFile;

@@ -7,11 +7,11 @@ const client = axios.create({
   },
 });
 
-export const getClientWithAccessToken = () =>
+export const getClientWithAccessToken = (contentType?: string) =>
   axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': contentType ? contentType : 'application/json',
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
   });

@@ -156,5 +156,3 @@ export interface searchSchoolResponseType {
 export interface submitType {
   is_final_submit: boolean;
 }
-
-export interface previewType {}
