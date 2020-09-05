@@ -1,6 +1,5 @@
 import { put, call, select } from 'redux-saga/effects';
 import { setDataToServer } from '@/lib/api/ApplicationApplyApi';
-import { PAGE_MOVE, PageType } from '@/core/redux/actions/Page';
 import ErrorType from '../type';
 
 const createMovePageSaga = (
@@ -8,7 +7,7 @@ const createMovePageSaga = (
   url: string,
   type: string,
   getStateFunc: (state: any) => any,
-  nextPage: PageType,
+  nextPage: string,
 ) => {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
@@ -19,14 +18,11 @@ const createMovePageSaga = (
       const response = yield call(setDataToServer, url, request);
       yield put({
         type: SUCCESS,
-        payload: response.data,
+        payload: {
+          pageMove: action.payload.pageMove,
+          date: new Date(),
+        },
       });
-      if (action.payload.pageMove) {
-        yield put({
-          type: PAGE_MOVE,
-          payload: { page: nextPage },
-        });
-      }
     } catch (error) {
       yield put({
         type: FAILURE,

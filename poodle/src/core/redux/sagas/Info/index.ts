@@ -106,13 +106,22 @@ const getInfoSaga = createGetSaga(
   infoResponseToState,
 );
 
+const splitImgUrl = (url: string) => {
+  const rxg = /https:\/\/image.entrydsm.hs.kr.s3.ap-northeast-2.amazonaws.com(\/{1}([a-z]|[A-Z]|[1-9]|\-|\.)+)/;
+  const splitedUrl = rxg.exec(url);
+  return splitedUrl ? splitedUrl[1] : '';
+};
+
 function* setImgSaga(action: SetPictureCall) {
   try {
     const formData = new FormData();
     const picture = action.payload.picture;
     formData.append('file', picture);
     const response = yield call(setPostToServer, SET_PICTURE_URL, formData);
-    yield put({ type: SET_PICTURE_SUCCESS, payload: { url: response } });
+    yield put({
+      type: SET_PICTURE_SUCCESS,
+      payload: { url: splitImgUrl(response) },
+    });
   } catch (error) {
     yield put({ type: SET_PICTURE_FAILURE, payload: { error: error } });
   }

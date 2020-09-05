@@ -10,10 +10,10 @@ export const PAGE = 'SearchScool/PAGE' as const;
 export const LOADING = 'SearchSchool/LOADING' as const;
 
 export type SchoolType = {
-  schoolCode: string;
-  schoolName: string;
-  schoolFullName: string;
-  schoolAddress: string;
+  school_code: string;
+  school_name: string;
+  school_full_name: string;
+  school_address: string;
 };
 
 export interface GetSchoolCall {
@@ -65,7 +65,6 @@ export type SearchSchoolType =
   | SchoolSearchInputChange
   | PageChange
   | Loading;
-
 export const getSchoolCall = (payload: { url: string }): SearchSchoolType => ({
   type: GET_SCHOOL_CALL,
   payload,

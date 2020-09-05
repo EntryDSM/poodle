@@ -8,6 +8,7 @@ export const LEAVELATE_DAY = 'Grade/LEAVELATE_DAY' as const;
 export const PERCEPTION_DAY = 'Grade/PERCEPTION_DAY' as const;
 export const GRADE = 'Grade/GRADE' as const;
 export const SCORE = 'Grade/SCORE' as const;
+export const PAGEMOVE = 'Grade/PAGEMOVE' as const;
 export const ALL = 'Grade/ALL' as const;
 
 export const GRADE_CALL = 'Grade/GRADE_CALL' as const;
@@ -72,7 +73,10 @@ export interface SetScore {
 
 export interface GradeSuccess {
   type: typeof GRADE_SUCCESS;
-  payload: Date;
+  payload: {
+    date: Date;
+    pageMove: boolean;
+  };
 }
 
 export interface GradeFailure {
@@ -104,6 +108,11 @@ export interface GradeCall {
   payload: { pageMove: boolean };
 }
 
+export interface PageMove {
+  type: typeof PAGEMOVE;
+  payload: { pageMove: boolean };
+}
+
 export type GradeActionType =
   | SetServiceTime
   | SetAbsentDay
@@ -118,7 +127,8 @@ export type GradeActionType =
   | GradeCall
   | GetGradeCall
   | GetGradeFailure
-  | GetGradeSuccess;
+  | GetGradeSuccess
+  | PageMove;
 
 export const setServiceTime = (payload: {
   serviceTime: string;
@@ -161,7 +171,10 @@ export const setScore = (payload: { score: string }): GradeActionType => ({
   payload,
 });
 
-export const gradeSuccess = (payload: Date): GradeActionType => ({
+export const gradeSuccess = (payload: {
+  date: Date;
+  pageMove: boolean;
+}): GradeActionType => ({
   type: GRADE_SUCCESS,
   payload,
 });
@@ -196,5 +209,10 @@ export const gradeCall = (payload: { pageMove: boolean }): GradeActionType => ({
 
 export const setAll = (payload: { all: State }): GradeActionType => ({
   type: ALL,
+  payload,
+});
+
+export const pageMove = (payload: { pageMove: boolean }) => ({
+  type: PAGEMOVE,
   payload,
 });

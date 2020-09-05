@@ -1,5 +1,5 @@
 import React, { FC, useState, useCallback, useEffect, useMemo } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router';
+import { withRouter, RouteComponentProps, useHistory } from 'react-router';
 import { GradeDiv, GradeMain } from '@/styles/Grade';
 import {
   Title,
@@ -10,6 +10,8 @@ import {
   NonTransferSemester,
   GradeInput,
   QualificationScore,
+  GraduatedGradeInput,
+  GraduatedNonTransferSemester,
 } from '@/components/Grade';
 import { mapDispatchToProps, mapStateToProps } from './ConnectionGrade';
 import {
@@ -28,6 +30,7 @@ type MapStateToProps = ReturnType<typeof mapStateToProps>;
 const TOAST_DIV_ID = 'toastDiv';
 
 const Grade: FC<Props> = props => {
+  const history = useHistory();
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const [isError, errorChange] = useState<boolean>(false);
   const isStateAble = useCallback(
@@ -75,18 +78,32 @@ const Grade: FC<Props> = props => {
   const setGradeGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
     () => props.setGradeToServer(false),
   );
-
+  const renderPage = useCallback(() => {
+    if (props.gradeType === 'GED')
+      return <QualificationScore {...props} isError={isError} />;
+    else if (props.gradeType === 'GRADUATED')
+      return (
+        <>
+          <VolanteerWorkTimeAttend {...props} isError={isError} />
+          <GraduatedNonTransferSemester {...props} />
+          <GraduatedGradeInput {...props} />
+        </>
+      );
+    else
+      return (
+        <>
+          <VolanteerWorkTimeAttend {...props} isError={isError} />
+          <NonTransferSemester {...props} />
+          <GradeInput {...props} />
+        </>
+      );
+  }, [props]);
   const moveCurrentPage = useCallback(() => {
     props.history.push('/info');
   }, []);
   useEffect(() => {
     props.getGradeToServer();
   }, []);
-  useEffect(() => {
-    if (props.page !== null) {
-      props.history.push(`/${props.page}`);
-    }
-  }, [props.page]);
   useEffect(() => {
     if (!props.error) return;
     if (props.error.status === 401) {
@@ -102,20 +119,18 @@ const Grade: FC<Props> = props => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');
   }, [props.successTime]);
+  useEffect(() => {
+    if (props.pageMove) {
+      history.push('/introduction');
+      props.pageMoveChange(false);
+    }
+  }, [props.pageMove]);
   return (
     <GradeDiv>
       <div id={TOAST_DIV_ID} />
       <GradeMain>
         <Title margin='100px'>성적 입력</Title>
-        {props.gradeType === 'GED' ? (
-          <QualificationScore {...props} isError={isError} />
-        ) : (
-          <>
-            <VolanteerWorkTimeAttend {...props} isError={isError} />
-            <NonTransferSemester {...props} />
-            <GradeInput {...props} />
-          </>
-        )}
+        {renderPage()}
         <DefaultlNavigation
           page='grade'
           currentPageClickHandler={moveCurrentPage}

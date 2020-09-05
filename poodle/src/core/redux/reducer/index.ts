@@ -6,7 +6,6 @@ import ChoiceTypeState from './ChoiceType';
 import IntroductionState from './Introduction';
 import InfoState from './Info';
 import GradeState from './Grade';
-import PageState from './Page';
 import Join from './Join';
 import SearchSchool from './SearchSchool';
 import Preview from './Preview';
@@ -22,7 +21,6 @@ const rootReducer = combineReducers({
   IntroductionState,
   InfoState,
   GradeState,
-  PageState,
   SearchSchool,
   Preview,
   ResetPassword,

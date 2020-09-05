@@ -27,6 +27,8 @@ import {
   YEAR,
   MONTH,
   DAY,
+  SCHOOL_CODE,
+  PAGEMOVE,
 } from '../../actions/Info';
 
 export interface State {
@@ -53,6 +55,8 @@ export interface State {
   year: string;
   month: string;
   day: string;
+  schoolCode: string;
+  pageMove: boolean;
 }
 
 const initialState: State = {
@@ -79,6 +83,8 @@ const initialState: State = {
   year: '2020',
   month: '01',
   day: '01',
+  schoolCode: '',
+  pageMove: false,
 };
 
 const InfoState = (
@@ -179,13 +185,15 @@ const InfoState = (
     case INFO_SUCCESS: {
       return {
         ...state,
-        successDate: action.payload,
+        successDate: action.payload.date,
+        pageMove: action.payload.pageMove,
       };
     }
     case INFO_FAILURE: {
       return {
         ...state,
         error: action.payload.error,
+        pageMove: false,
       };
     }
     case GET_INFO_FAILURE: {
@@ -232,6 +240,18 @@ const InfoState = (
       return {
         ...state,
         day: action.payload.day,
+      };
+    }
+    case SCHOOL_CODE: {
+      return {
+        ...state,
+        schoolCode: action.payload.code,
+      };
+    }
+    case PAGEMOVE: {
+      return {
+        ...state,
+        pageMove: action.payload.pageMove,
       };
     }
     default: {

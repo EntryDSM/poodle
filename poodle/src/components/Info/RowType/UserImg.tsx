@@ -9,6 +9,8 @@ interface Props {
   img: string;
 }
 
+const IMG_URL = 'https://image.entrydsm.hs.kr.s3.ap-northeast-2.amazonaws.com';
+
 const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000';
 
 const UserImg: FC<Props> = ({ img }) => {
@@ -54,7 +56,7 @@ const UserImg: FC<Props> = ({ img }) => {
           accept='.gif, .jpg, .png, .jpeg, .jpeg2000'
         />
         {img ? (
-          <img src={img} alt='사진' />
+          <img src={`${IMG_URL}${img}`} alt='사진' />
         ) : (
           <div>
             <p>증명사진을 첨부해주세요</p>

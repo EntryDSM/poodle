@@ -6,6 +6,8 @@ import { setPictureCall } from '@/core/redux/actions/Info';
 
 const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000';
 
+const IMG_URL = 'https://image.entrydsm.hs.kr.s3.ap-northeast-2.amazonaws.com';
+
 interface Props {
   valueChangeHandler: (value: string) => void;
   img: string;
@@ -55,7 +57,7 @@ const QualificationUserImg: FC<Props> = ({ valueChangeHandler, img }) => {
           accept={ACCEPT_FILE_TYPE}
         />
         {img ? (
-          <img src={img} alt='사진' />
+          <img src={`${IMG_URL}${img}`} alt='사진' />
         ) : (
           <div>
             <p>증명사진을 첨부해주세요</p>

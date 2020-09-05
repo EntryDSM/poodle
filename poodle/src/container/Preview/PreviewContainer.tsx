@@ -8,7 +8,11 @@ import {
 } from '@/components/default/ApplicationFormDefault';
 import ModalContainer from '../common/ModalContainer/ModalContainer';
 import { modalOn, BLUECHECKMODAL } from '@/core/redux/actions/Modal';
-import { previewCall, submitCall } from '@/core/redux/actions/Preview';
+import {
+  previewCall,
+  setPageMove,
+  submitCall,
+} from '@/core/redux/actions/Preview';
 import { useHistory } from 'react-router-dom';
 import { ReducerType } from '@/core/redux/store';
 import ToastController from '../common/ToastContainer';
@@ -17,8 +21,9 @@ const TOAST_DIV_ID = 'toastDiv';
 
 const PreviewContainer: FC = () => {
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
-  const { error, preview } = useSelector((state: ReducerType) => state.Preview);
-  const { page } = useSelector((state: ReducerType) => state.PageState);
+  const { error, preview, pageMove } = useSelector(
+    (state: ReducerType) => state.Preview,
+  );
   const history = useHistory();
   const dispatch = useDispatch();
   const goCurrentPage = useCallback(() => {
@@ -31,11 +36,6 @@ const PreviewContainer: FC = () => {
     dispatch(submitCall());
   }, []);
   useEffect(() => {
-    if (page != null) {
-      history.push(`/${page}`);
-    }
-  }, [page]);
-  useEffect(() => {
     if (error) {
       modalController.createNewToast('SERVER_ERROR');
     }
@@ -43,6 +43,12 @@ const PreviewContainer: FC = () => {
   useEffect(() => {
     dispatch(previewCall());
   }, []);
+  useEffect(() => {
+    if (pageMove) {
+      history.push('/');
+      dispatch(setPageMove({ pageMove: false }));
+    }
+  }, [pageMove]);
   return (
     <PreviewDiv>
       <div id={TOAST_DIV_ID} />

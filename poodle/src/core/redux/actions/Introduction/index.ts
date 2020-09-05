@@ -9,6 +9,7 @@ export const STUDY_PLAN_CALL = 'Introduction/STUDY_PLAN_CALL' as const;
 export const GET_STUDY_PLAN_SUCCESS = 'Introduction/GET_STUDY_PLAN_SUCCESS' as const;
 export const GET_STUDY_PLAN_FAILURE = 'Introduction/GET_STUDY_PLAN_FAILURE' as const;
 export const GET_STUDY_PLAN_CALL = 'Introduction/GET_STUDY_PLAN_CALL' as const;
+export const PAGEMOVE = 'Introduction/PAGEMOVE' as const;
 
 export const SELF_INTRODUCTION_SUCCESS = 'Introduction/SELF_INTRODUCTION_SUCCESS' as const;
 export const SELF_INTRODUCTION_FAILURE = 'Introduction/SELF_INTRODUCTION_FAILURE' as const;
@@ -39,7 +40,10 @@ export interface SelfIntroductionFailure {
 
 export interface SelfIntroductionSuccess {
   type: typeof SELF_INTRODUCTION_SUCCESS;
-  payload: Date;
+  payload: {
+    date: Date;
+    pageMove: boolean;
+  };
 }
 
 export interface GetSelfIntroductionCall {
@@ -68,7 +72,10 @@ export interface StudyPlanFailure {
 
 export interface StudyPlanSuccess {
   type: typeof STUDY_PLAN_SUCCESS;
-  payload: Date;
+  payload: {
+    date: Date;
+    pageMove: boolean;
+  };
 }
 
 export interface GetStudyPlanCall {
@@ -85,6 +92,11 @@ export interface GetStudyPlanSuccess {
   payload: { studyPlan: string };
 }
 
+export interface PageMove {
+  type: typeof PAGEMOVE;
+  payload: { pageMove: boolean };
+}
+
 export type IntroductionActionType =
   | SetStudyPlan
   | SetSelfIntoduction
@@ -99,7 +111,8 @@ export type IntroductionActionType =
   | GetStudyPlanSuccess
   | StudyPlanCall
   | StudyPlanFailure
-  | StudyPlanSuccess;
+  | StudyPlanSuccess
+  | PageMove;
 
 export const setSelfIntoduction = (payload: {
   selfIntroduction: string;
@@ -129,9 +142,10 @@ export const selfIntroductionFailure = (payload: {
   payload,
 });
 
-export const selfIntroductionSuccess = (
-  payload: Date,
-): IntroductionActionType => ({
+export const selfIntroductionSuccess = (payload: {
+  date: Date;
+  pageMove: boolean;
+}): IntroductionActionType => ({
   type: SELF_INTRODUCTION_SUCCESS,
   payload,
 });
@@ -168,7 +182,10 @@ export const studyPlanFailure = (payload: {
   payload,
 });
 
-export const studyPlanSuccess = (payload: Date): IntroductionActionType => ({
+export const studyPlanSuccess = (payload: {
+  date: Date;
+  pageMove: boolean;
+}): IntroductionActionType => ({
   type: STUDY_PLAN_SUCCESS,
   payload,
 });
@@ -188,5 +205,10 @@ export const getStudyPlanSuccess = (payload: {
   studyPlan: string;
 }): IntroductionActionType => ({
   type: GET_STUDY_PLAN_SUCCESS,
+  payload,
+});
+
+export const pageMove = (payload: { pageMove: boolean }) => ({
+  type: PAGEMOVE,
   payload,
 });
