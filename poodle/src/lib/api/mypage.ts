@@ -13,3 +13,11 @@ export interface UserStatus {
 }
 export const getUserStatus = () =>
   getClientWithAccessToken().get<UserStatus>('/users/me/status');
+
+export const getDocument = () =>
+  getClientWithAccessToken('application/pdf').get<Blob>(
+    '/grade/application/final',
+    {
+      responseType: 'blob',
+    },
+  );

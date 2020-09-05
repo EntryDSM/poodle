@@ -1,4 +1,5 @@
 import ErrorType from '@/lib/utils/type';
+import { PreviewState } from '../../reducer/Preview';
 
 export const PREVIEW = 'Preview/PREVIEW' as const;
 
@@ -25,7 +26,7 @@ export const previewFailure = (payload: ErrorType) => ({
   payload,
 });
 
-export const previewSuccess = (payload: string) => ({
+export const previewSuccess = (payload: PreviewState) => ({
   type: PREVIEW_CALL_SUCCESS,
   payload,
 });

@@ -1,6 +1,6 @@
 import { RootState } from '@/core/redux/reducer';
 import { GradeType, SubjectType, ScoreType } from '@/core/redux/actions/Grade';
-import client, { getClientWithAccessToken } from './client';
+import { getClientWithAccessToken } from './client';
 import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import {
   userTypeServerType,
@@ -9,9 +9,7 @@ import {
   selfIntroductionServerType,
   studyPlanServerType,
   SubjectsType,
-  gedInfoServerType,
   gedGradeServerType,
-  previewType,
   submitType,
   userTypeResponseType,
   selfIntroductionRequestType,
@@ -36,7 +34,6 @@ export const nullAndNumberToString = (value: null | number): string => {
     if (value === null || value === undefined) return '';
     return value.toString();
   } catch (error) {
-    console.log(error);
     return '';
   }
 };
@@ -76,6 +73,15 @@ export const setPostToServer = async <RequestType>(
   payload: RequestType,
 ) => {
   const response = await getClientWithAccessToken().post(url, payload);
+  return response.data;
+};
+
+export const getPdfToServer = async <ResponseType>(
+  url: string,
+): Promise<ResponseType> => {
+  const response = await getClientWithAccessToken('application/pdf').get<
+    ResponseType
+  >(url, { responseType: 'blob' });
   return response.data;
 };
 
@@ -215,17 +221,25 @@ export const infoStateToRequest = (
 
 export const infoStateToGedRequest = (
   state: RootState['InfoState'],
-): gedInfoServerType => ({
-  applicant_tel: state.name,
-  parent_tel: state.protectorPhoneNum,
-  address: state.address,
-  photo: state.picture,
-  post_code: state.postNum,
-  parent_name: state.protectorName,
-  name: state.name,
-  sex: state.gender,
-  birth_date: state.birthday,
-});
+): userInfoServerType => {
+  const dateString = `${state.year}-${state.month}-${state.day}`;
+  return {
+    name: stringToStringOrNull(state.name),
+    sex: stringToStringOrNull(state.gender),
+    student_number: null,
+    parent_name: stringToStringOrNull(state.protectorName),
+    parent_tel: stringToStringOrNull(state.protectorPhoneNum),
+    school_name: null,
+    applicant_tel: stringToStringOrNull(state.phoneNum),
+    school_tel: null,
+    photo: stringToStringOrNull(state.picture),
+    birth_date: infoDateStringToStateDateString(dateString),
+    address: stringToStringOrNull(state.address),
+    detail_address: stringToStringOrNull(state.detailAddress),
+    post_code: stringToStringOrNull(state.postNum),
+    school_code: null,
+  };
+};
 
 const infoDateStringToStateDateString = (str: string): string | null => {
   const splitedString = str.split('-');
@@ -518,14 +532,15 @@ export const previewStateToRequest = (isSubmit: boolean): submitType => {
   };
 };
 
-export const pdfResponseToState = (response: previewType): PreviewState => {
+export const pdfResponseToState = (response: Blob): PreviewState => {
+  const file = new Blob([response], { type: 'application/pdf' });
+  const url = URL.createObjectURL(file);
   return {
-    preview: '',
-    // i will fix
+    preview: url,
     error: null,
     isSubmit: false,
     getPreviewError: errorInitialState,
-    setUserStatus: errorInitialState,
+    setUserStatusError: errorInitialState,
     pageMove: false,
   };
 };

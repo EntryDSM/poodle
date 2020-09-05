@@ -7,6 +7,8 @@ import { Process } from '@/core/redux/actions/Mypage';
 import ErrorType from '@/lib/utils/type';
 import { useReGenerateTokenAndDoCallback, useUser } from '@/lib/utils/function';
 import { UserStatus } from '@/lib/api/mypage';
+import queryString from 'query-string';
+import DocumentContainer from '@/container/MypageContainer/DocumentContainer/DocumentContainer';
 
 enum Sex {
   'FEMALE' = '여자',
@@ -32,6 +34,7 @@ const Mypage: FC<Props> = ({
   userStatus,
   userStatusError,
 }) => {
+  const { document } = queryString.parse(window.location.search);
   const { grade_type } = useUser();
   const history = useHistory();
   const reGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
@@ -39,7 +42,7 @@ const Mypage: FC<Props> = ({
   );
   const goSubmitDocumentPageHandler = () => {
     if (userStatus.final_submit) {
-      history.push('/mypage/document');
+      history.push('/mypage?document=true');
     } else {
       alert('최종 제출하지 않으셨습니다.');
     }
@@ -101,24 +104,28 @@ const Mypage: FC<Props> = ({
 
   return (
     <S.Wrapper>
-      <S.Container>
-        <ContentHeader
-          padding='100px 0 70px'
-          subTitle='2021 입학원서 작성'
-          title='마이페이지'
-          underLineLength={153}
-          titleFontSize={36}
-        />
-        <S.MyInfoWrapper>
-          {myInfos.map(props => (
-            <MyInfoItem key={props.label} {...props} />
-          ))}
-        </S.MyInfoWrapper>
-        <S.ExplainSentence>
-          단계를 누르면 해당 페이지로 이동합니다
-        </S.ExplainSentence>
-        <ProgressBar process={process} />
-      </S.Container>
+      {document === 'true' ? (
+        <DocumentContainer />
+      ) : (
+        <S.Container>
+          <ContentHeader
+            padding='100px 0 70px'
+            subTitle='2021 입학원서 작성'
+            title='마이페이지'
+            underLineLength={153}
+            titleFontSize={36}
+          />
+          <S.MyInfoWrapper>
+            {myInfos.map(props => (
+              <MyInfoItem key={props.label} {...props} />
+            ))}
+          </S.MyInfoWrapper>
+          <S.ExplainSentence>
+            단계를 누르면 해당 페이지로 이동합니다
+          </S.ExplainSentence>
+          <ProgressBar process={process} />
+        </S.Container>
+      )}
     </S.Wrapper>
   );
 };

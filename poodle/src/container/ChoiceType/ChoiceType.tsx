@@ -30,7 +30,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 type MapStateToProps = ReturnType<typeof mapStateToProps>;
 
-const TOAST_DIV_ID = 'toastDiv';
+const TOAST_DIV_ID = 'toastDivType';
 let isButtonClick = false;
 
 const ChoiceType: FC<Props> = props => {
@@ -85,7 +85,7 @@ const ChoiceType: FC<Props> = props => {
     [],
   );
   const goNextPage = useCallback(
-    async (state: MapStateToProps) => {
+    async (state: Props) => {
       const isError = isStateAble(state);
       if (isError) {
         modalController.createNewToast('ERROR');
@@ -158,6 +158,7 @@ const ChoiceType: FC<Props> = props => {
   useEffect(() => {
     if (pageMove) {
       history.push('/info');
+      modalController.resetToast();
       pageMoveChange(false);
     }
   }, [pageMove]);
@@ -205,22 +206,7 @@ const ChoiceType: FC<Props> = props => {
             history.push('/');
           }}
           nextPageClickHandler={() => {
-            goNextPage({
-              qualificationExam,
-              applyType,
-              district,
-              graduationStatus,
-              graduationYear,
-              graduationMonth,
-              additionalType,
-              error,
-              gedSuccessMonth,
-              gedSuccessYear,
-              successTime,
-              setTypeError,
-              getTypeError,
-              pageMove,
-            });
+            goNextPage(props);
           }}
         />
       </TypeMain>

@@ -23,7 +23,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 type MapStateToProps = ReturnType<typeof mapStateToProps>;
 
-const TOAST_DIV_ID = 'toastDiv';
+const TOAST_DIV_ID = 'toastDivInfo';
 
 const Info: FC<Props> = props => {
   const history = useHistory();
@@ -42,7 +42,6 @@ const Info: FC<Props> = props => {
       address,
       number,
       name,
-      birthday,
       gender,
       middleSchool,
       protectorName,
@@ -51,16 +50,15 @@ const Info: FC<Props> = props => {
       protectorPhoneNum,
       phoneNum,
       postNum,
+      gradeType,
       detailAddress,
     }: MapStateToProps): boolean => {
-      if (props.gradeType === 'GED') {
+      if (gradeType === 'GED') {
         return (
           isEmptyCheck(address) ||
           isEmptyCheck(postNum) ||
           isEmptyCheck(detailAddress) ||
           isEmptyCheck(name) ||
-          isEmptyCheck(birthday) ||
-          isEmptyCheck(protectorName) ||
           isEmptyCheck(protectorName) ||
           isEmptyCheck(phoneNum) ||
           isEmptyCheck(gender) ||
@@ -73,7 +71,6 @@ const Info: FC<Props> = props => {
         isEmptyCheck(detailAddress) ||
         isEmptyCheck(address) ||
         isEmptyCheck(name) ||
-        isEmptyCheck(birthday) ||
         isEmptyCheck(middleSchool) ||
         isEmptyCheck(protectorName) ||
         isEmptyCheck(schoolPhoneNum) ||
@@ -148,6 +145,7 @@ const Info: FC<Props> = props => {
   useEffect(() => {
     if (props.pageMove) {
       history.push('/grade');
+      modalController.resetToast();
       props.pageMoveChange(false);
     }
   }, [props.pageMove]);

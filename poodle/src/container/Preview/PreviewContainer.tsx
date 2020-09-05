@@ -11,23 +11,30 @@ import { modalOn, BLUECHECKMODAL } from '@/core/redux/actions/Modal';
 import {
   previewCall,
   setPageMove,
+  setPreview,
   submitCall,
 } from '@/core/redux/actions/Preview';
 import { useHistory } from 'react-router-dom';
 import { ReducerType } from '@/core/redux/store';
 import ToastController from '../common/ToastContainer';
+import { useReGenerateTokenAndDoCallback } from '@/lib/utils/function';
 
-const TOAST_DIV_ID = 'toastDiv';
+const TOAST_DIV_ID = 'toastDivPreview';
 
 const PreviewContainer: FC = () => {
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
-  const { error, preview, pageMove } = useSelector(
-    (state: ReducerType) => state.Preview,
-  );
+  const {
+    error,
+    preview,
+    pageMove,
+    getPreviewError,
+    setUserStatusError,
+  } = useSelector((state: ReducerType) => state.Preview);
   const history = useHistory();
   const dispatch = useDispatch();
   const goCurrentPage = useCallback(() => {
     history.push('/introduction');
+    dispatch(setPreview(''));
   }, []);
   const goNextPage = useCallback(() => {
     dispatch(modalOn(BLUECHECKMODAL));
@@ -35,17 +42,28 @@ const PreviewContainer: FC = () => {
   const modalClickHandler = useCallback(() => {
     dispatch(submitCall());
   }, []);
+  const getPdfGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(() =>
+    dispatch(previewCall()),
+  );
+  const setUserStatusGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    () => dispatch(submitCall()),
+  );
   useEffect(() => {
-    if (error) {
-      modalController.createNewToast('SERVER_ERROR');
+    if (!error) return;
+    if (error.status === 401) {
+      if (getPreviewError.status === 401) getPdfGenerateTokenAndDoCallback();
+      if (setUserStatusError.status === 401)
+        setUserStatusGenerateTokenAndDoCallback();
     }
-  }, [error]);
+    modalController.createNewToast('SERVER_ERROR');
+  }, [error, getPreviewError, setUserStatusError]);
   useEffect(() => {
     dispatch(previewCall());
   }, []);
   useEffect(() => {
     if (pageMove) {
       history.push('/');
+      modalController.resetToast();
       dispatch(setPageMove({ pageMove: false }));
     }
   }, [pageMove]);
@@ -55,7 +73,7 @@ const PreviewContainer: FC = () => {
       <ModalContainer onClick={modalClickHandler} />
       <PreviewMain>
         <Title margin='55px'>미리보기</Title>
-        <PreviewFile src='/example.pdf' />
+        <PreviewFile src={preview} />
         <DefaultlNavigation
           page='preview'
           currentPageClickHandler={goCurrentPage}
