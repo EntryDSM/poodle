@@ -27,7 +27,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 type MapStateToProps = ReturnType<typeof mapStateToProps>;
 
-const TOAST_DIV_ID = 'toastDiv';
+const TOAST_DIV_ID = 'toastDivGrade';
 
 const Grade: FC<Props> = props => {
   const history = useHistory();
@@ -41,8 +41,9 @@ const Grade: FC<Props> = props => {
       cutClassDay,
       absentDay,
       score,
+      gradeType,
     }: MapStateToProps) => {
-      if (props.gradeType === 'GED') {
+      if (gradeType === 'GED') {
         return isEmptyCheck(score);
       }
       return (
@@ -62,11 +63,7 @@ const Grade: FC<Props> = props => {
         errorChange(isError);
         modalController.createNewToast('ERROR');
       } else {
-        try {
-          await props.setGradeToServer(true);
-        } catch (error) {
-          errorTypeCheck(error);
-        }
+        await props.setGradeToServer(true);
       }
     },
     [props],
@@ -122,6 +119,7 @@ const Grade: FC<Props> = props => {
   useEffect(() => {
     if (props.pageMove) {
       history.push('/introduction');
+      modalController.resetToast();
       props.pageMoveChange(false);
     }
   }, [props.pageMove]);
