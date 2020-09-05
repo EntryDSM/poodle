@@ -113,6 +113,9 @@ class ToastController {
       this.renderToastWithIds(updateIds);
     }, 5000);
   }
+  resetToast() {
+    this.toastInfos = [];
+  }
 }
 
 export default ToastController;

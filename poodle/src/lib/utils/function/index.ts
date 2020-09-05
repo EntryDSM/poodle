@@ -21,6 +21,17 @@ export const isEmptyCheck = (text: string) => {
   return true;
 };
 
+export const useAuth = () => {
+  const {
+    token: { access_token },
+    isLogin,
+  } = useSelector((state: RootState) => state.Header);
+  return {
+    accessToken: access_token,
+    isLogin,
+  };
+};
+
 export const getYEAR = (
   startYear: number,
   lastYear: number,
