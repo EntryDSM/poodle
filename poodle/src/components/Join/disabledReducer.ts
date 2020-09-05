@@ -22,9 +22,7 @@ export const setDisabledPassword = (payload: boolean) => ({
   type: SET_DISABLED_PASSWORD,
   payload,
 });
-export const setDisabledPasswordCheck = (
-  payload: boolean
-) => ({
+export const setDisabledPasswordCheck = (payload: boolean) => ({
   type: SET_DISABLED_PASSWORD_CHECK,
   payload,
 });
@@ -48,7 +46,7 @@ export type DisabledtInitialState = {
 
 export const disabledReducer = (
   state: DisabledtInitialState = disabledInitialState,
-  action: DisabledAction
+  action: DisabledAction,
 ) => {
   switch (action.type) {
     case SET_DISABLED_EMAIL:

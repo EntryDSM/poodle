@@ -1,8 +1,8 @@
 import {
-createGlobalStyle,
-GlobalStyleComponent,
-DefaultTheme
-} from "styled-components";
+  createGlobalStyle,
+  GlobalStyleComponent,
+  DefaultTheme,
+} from 'styled-components';
 
 const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
   @import 'https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css';
@@ -80,6 +80,14 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
     display: inline-block;
     transition: 0.5s;
   }
+  .react-pdf__Page {
+    position: unset !important;
+  }
+  #toastDiv {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+  }
 `;
 
-export default GlobalStyle; 
+export default GlobalStyle;

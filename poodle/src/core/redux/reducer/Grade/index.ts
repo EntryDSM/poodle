@@ -1,3 +1,4 @@
+import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import {
   SERVICE_TIME,
   ABSENT_DAY,
@@ -8,26 +9,46 @@ import {
   SCORE,
   GradeActionType,
   GradeType,
+  GRADE_FAILURE,
+  GRADE_SUCCESS,
+  ALL,
+  GET_GRADE_FAILURE,
+  GET_GRADE_SUCCESS,
+  PAGEMOVE,
 } from '../../actions/Grade';
+import { setInitalGradeState } from '@/lib/api/ApplicationApplyApi';
+import { GraduationStatusType } from '../../actions/ChoiceType';
 
 export interface State {
-    serviceTime: string,
-    absentDay: string,
-    cutclassDay: string,
-    leaveLateDay: string,
-    perceptionDay: string,
-    grade: GradeType[],
-    score: string,
+  serviceTime: string;
+  absentDay: string;
+  cutClassDay: string;
+  leaveLateDay: string;
+  perceptionDay: string;
+  grade: GradeType[];
+  score: string;
+  error: ErrorType | null;
+  successTime: Date | null;
+  getGradeError: ErrorType;
+  setGradeError: ErrorType;
+  gradeType: GraduationStatusType;
+  pageMove: boolean;
 }
 
 export const initialState: State = {
   serviceTime: '',
   absentDay: '',
-  cutclassDay: '',
+  cutClassDay: '',
   leaveLateDay: '',
   perceptionDay: '',
-  grade: [],
+  grade: setInitalGradeState(),
   score: '',
+  error: null,
+  successTime: null,
+  getGradeError: errorInitialState,
+  setGradeError: errorInitialState,
+  gradeType: 'UNGRADUATED',
+  pageMove: false,
 };
 
 const GradeState = (
@@ -50,7 +71,7 @@ const GradeState = (
     case CUTCLASS_DAY: {
       return {
         ...state,
-        cutclassDay: action.payload.cutClassDay,
+        cutClassDay: action.payload.cutClassDay,
       };
     }
     case LEAVELATE_DAY: {
@@ -75,6 +96,42 @@ const GradeState = (
       return {
         ...state,
         score: action.payload.score,
+      };
+    }
+    case GRADE_SUCCESS: {
+      return {
+        ...state,
+        successTime: action.payload.date,
+        pageMove: action.payload.pageMove,
+      };
+    }
+    case ALL: {
+      return action.payload.all;
+    }
+    case GRADE_FAILURE: {
+      return {
+        ...state,
+        error: action.payload.error,
+        setGradeError: action.payload.error,
+        getGradeError: errorInitialState,
+        pageMove: false,
+      };
+    }
+    case GET_GRADE_FAILURE: {
+      return {
+        ...state,
+        error: action.payload.error,
+        getGradeError: action.payload.error,
+        setGradeError: errorInitialState,
+      };
+    }
+    case GET_GRADE_SUCCESS: {
+      return action.payload;
+    }
+    case PAGEMOVE: {
+      return {
+        ...state,
+        pageMove: action.payload.pageMove,
       };
     }
     default: {

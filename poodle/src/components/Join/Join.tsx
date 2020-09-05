@@ -16,7 +16,7 @@ import {
   AGREEMENT_2,
   AGREEMENT_3,
 } from './JoinConstance';
-import ErrorType from '@/lib/utils/type/ErrorType';
+import ErrorType from '@/lib/utils/type';
 import {
   inputReducer,
   inputInitialState,
@@ -43,7 +43,8 @@ import {
   setFocusedPassword,
   setFocusedPasswordCheck,
 } from './focusedReducer';
-import { useRedirect } from '@/lib/utils/function';
+import { useRedirect, useTimer } from '@/lib/utils/function';
+import { emailRegExp, passwordRegExp } from '@/lib/RegExp';
 type JoinReduxType = {
   success: boolean;
   error: ErrorType;
@@ -60,13 +61,6 @@ export type JoinProps = {
   joinValue: JoinReduxType;
 };
 
-const emailRegExp = new RegExp('.{1}@.{1}');
-const passwordRegExp = new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9]).{8,15}$');
-const lPad = (str: string, padLen: Number, padStr: string) => {
-  while (str.length < padLen) str = padStr + str;
-  return str;
-};
-
 const Join: React.FC<JoinProps> = ({
   sendEmail,
   sendEmailValue,
@@ -77,6 +71,13 @@ const Join: React.FC<JoinProps> = ({
   joinValue,
 }) => {
   const redirectToLink = useRedirect();
+  const [
+    timer,
+    startTimer,
+    resetTimer,
+    remainedTime,
+    getFormatedTime,
+  ] = useTimer();
   const goToMain = useCallback(() => {
     redirectToLink('/');
   }, []);
@@ -97,7 +98,7 @@ const Join: React.FC<JoinProps> = ({
     email: false,
     code: false,
   });
-  const [remainedTime, setRemainedTime] = useState(0);
+
   const [inputFocused, setInputFocused] = useState({
     password: false,
     passwordCheck: false,
@@ -117,15 +118,7 @@ const Join: React.FC<JoinProps> = ({
     inputState.passwordCheck,
     isAgrreed,
   ]);
-  const getFormatedTime = useMemo(() => {
-    const ONE_MINUTE = 60;
-    const minute = Math.floor(remainedTime / ONE_MINUTE) + '';
-    const second = (remainedTime % ONE_MINUTE) + '';
 
-    return `${lPad(minute, 2, '0')}:${lPad(second, 2, '0')}`;
-  }, [remainedTime]);
-
-  const timer = useRef(0);
   const emailPrevRef = useRef<null | any>(null);
   const codePrevRef = useRef<null | any>(null);
   const passwordPrevRef = useRef<null | any>(null);
@@ -147,7 +140,6 @@ const Join: React.FC<JoinProps> = ({
           setTimeout(() => codePrevRef.current.nextSibling.focus(), 1);
         }
         public static password() {
-          console.log(10100101);
           this.focusAndDisableRelatedPassword();
           setTimeout(() => passwordPrevRef.current.nextSibling.focus(), 1);
         }
@@ -174,7 +166,6 @@ const Join: React.FC<JoinProps> = ({
           ((key === 'password' || key === 'passwordCheck') &&
             !passwordRegExp.exec(value))
         ) {
-          console.log(key);
           Emphasizer[key]();
           break;
         }
@@ -188,11 +179,7 @@ const Join: React.FC<JoinProps> = ({
     focusedDispatch(resetFocusedState());
     disabledDispatch(resetDisabledState());
   }, [isAgrreed, disabledState, focusedState, inputState]);
-  const resetTimer = useCallback(() => {
-    clearInterval(timer.current);
-    timer.current = 0;
-    setRemainedTime(0);
-  }, []);
+
   const sendEmailClickHandler = useCallback(() => {
     if (isChecked.code) return null;
     const email = inputState.email.trim();
@@ -221,13 +208,7 @@ const Join: React.FC<JoinProps> = ({
   useEffect(() => {
     if (sendEmailValue.success) {
       let validitySecond = 10;
-      if (!timer.current) {
-        setRemainedTime(validitySecond);
-        timer.current = setInterval(() => {
-          if (!validitySecond) return resetTimer();
-          setRemainedTime(--validitySecond);
-        }, 1000);
-      }
+      startTimer(validitySecond);
       setTimeout(() => {
         codePrevRef.current.nextSibling.focus();
       }, 1);
@@ -277,7 +258,7 @@ const Join: React.FC<JoinProps> = ({
               *해당 이메일로 인증코드를 전송했습니다.
             </S.ExplainSentence>
           )}
-          {sendEmailValue.error.response.status ? (
+          {sendEmailValue.error.status ? (
             <S.ExplainSentence error>
               *이메일 전송에 실패하였습니다.
             </S.ExplainSentence>
@@ -290,7 +271,7 @@ const Join: React.FC<JoinProps> = ({
 
   const getCodeExplainJSX = useCallback(() => {
     if (focusedState.code) {
-      if (verifyCodeValue.error.response.status) {
+      if (verifyCodeValue.error.status) {
         return (
           <S.ExplainSentence error>*잘못된 인증코드입니다.</S.ExplainSentence>
         );
@@ -303,7 +284,7 @@ const Join: React.FC<JoinProps> = ({
                 *해당 이메일로 인증코드를 재전송했습니다.
               </S.ExplainSentence>
             )}
-            {sendEmailValue.error.response.status ? (
+            {sendEmailValue.error.status ? (
               <S.ExplainSentence error>
                 *이메일 재전송에 실패하였습니다.
               </S.ExplainSentence>

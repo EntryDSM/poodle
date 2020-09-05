@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import * as S from '../../styles/Join';
+import * as S from '@/styles/Join';
 import { InputAction } from './inputReducer';
 
 type JoinInputProps = {
@@ -38,7 +38,7 @@ function JoinInput({
   isFocused,
   inputDispatch,
   inputFocused,
-  setInputFocused
+  setInputFocused,
 }: JoinInputProps) {
   const isPasswordType = label === 'password' || label === 'passwordCheck';
   const onChange = useCallback(
@@ -46,20 +46,20 @@ function JoinInput({
       if (!isFocused[label]) return;
       inputDispatch(setValue(e.target.value));
     },
-    [isFocused]
+    [isFocused],
   );
   const onFocus = useCallback(() => {
     if (setInputFocused)
       setInputFocused({
         ...inputFocused,
-        [label]: true
+        [label]: true,
       });
   }, [inputFocused]);
   const onBlur = useCallback(() => {
     if (setInputFocused)
       setInputFocused({
         ...inputFocused,
-        [label]: false
+        [label]: false,
       });
   }, [inputFocused]);
   return (

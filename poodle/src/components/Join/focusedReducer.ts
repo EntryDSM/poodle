@@ -22,9 +22,7 @@ export const setFocusedPassword = (payload: boolean) => ({
   type: SET_FOCUSED_PASSWORD,
   payload,
 });
-export const setFocusedPasswordCheck = (
-  payload: boolean
-) => ({
+export const setFocusedPasswordCheck = (payload: boolean) => ({
   type: SET_FOCUSED_PASSWORD_CHECK,
   payload,
 });
@@ -48,7 +46,7 @@ export type FocusedInitialState = {
 
 export const focusedReducer = (
   state: FocusedInitialState = focusedInitialState,
-  action: FocusedAction
+  action: FocusedAction,
 ) => {
   switch (action.type) {
     case SET_FOCUSED_EMAIL:

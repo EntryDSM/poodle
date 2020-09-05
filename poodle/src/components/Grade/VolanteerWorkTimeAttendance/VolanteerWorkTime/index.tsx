@@ -1,16 +1,12 @@
-import React, {
-  FC,
-  useEffect,
-  useState,
-} from 'react';
-import { VolanteerWorkTimeRow } from '../../../../styles/Grade';
-import { Input } from '../../../default/ApplicationFormDefault/Input';
-import { isEmptyCheck } from '../../../../lib/utils/function';
+import React, { FC, useEffect, useState } from 'react';
+import { VolanteerWorkTimeRow } from '@/styles/Grade';
+import { Input } from '@/components/default/ApplicationFormDefault/Input';
+import { isEmptyCheck } from '@/lib/utils/function';
 
 interface Props {
-    serviceTime: string,
-    serviceTimeChange: (serviceTime: string) => void,
-    isError: boolean,
+  serviceTime: string;
+  serviceTimeChange: (serviceTime: string) => void;
+  isError: boolean;
 }
 
 const VolanteerWorkTime: FC<Props> = ({
@@ -28,24 +24,22 @@ const VolanteerWorkTime: FC<Props> = ({
   }, [isError, serviceTime]);
   return (
     <VolanteerWorkTimeRow>
-      <td className="header">
-        봉사시간
-      </td>
-      <td className="element">
+      <td className='header'>봉사시간</td>
+      <td className='element'>
         <div>
           <Input
-            width="76px"
-            height="36px"
+            width='76px'
+            height='36px'
             valueChangeHandler={serviceTimeChange}
             isEmpty={isEmpty}
             isCenter
-            type="number"
+            type='number'
             value={serviceTime}
           />
           시간
         </div>
       </td>
-      <td className="element" />
+      <td className='element' />
     </VolanteerWorkTimeRow>
   );
 };

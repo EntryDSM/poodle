@@ -1,22 +1,19 @@
 import React, { FC } from 'react';
-import {
-  GradeTable,
-  GradeSubTitle,
-} from '../../../styles/Grade';
+import { GradeTable, GradeSubTitle } from '@/styles/Grade';
 import VolanteerWorkTime from './VolanteerWorkTime';
 import Attendance from './Attendance';
 import {
   mapStateToProps,
   mapDispatchToProps,
-} from '../../../container/Grade/ConnectionGrade';
+} from '@/container/Grade/ConnectionGrade';
 
 type Props = ReturnType<typeof mapStateToProps> &
-ReturnType<typeof mapDispatchToProps>
-& otherProps;
+  ReturnType<typeof mapDispatchToProps> &
+  otherProps;
 
 type otherProps = {
-    isError: boolean,
-}
+  isError: boolean;
+};
 
 const VolanteerWorkTimeAttendance: FC<Props> = ({
   setServiceTime,
@@ -32,9 +29,7 @@ const VolanteerWorkTimeAttendance: FC<Props> = ({
   isError,
 }) => (
   <>
-    <GradeSubTitle>
-      봉사 & 출석
-    </GradeSubTitle>
+    <GradeSubTitle>봉사 & 출석</GradeSubTitle>
     <GradeTable>
       <tbody>
         <VolanteerWorkTime

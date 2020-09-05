@@ -41,7 +41,7 @@ export type InputInitialState = {
 
 export const inputReducer = (
   state: InputInitialState = inputInitialState,
-  action: InputAction
+  action: InputAction,
 ) => {
   switch (action.type) {
     case SET_INPUT_EMAIL:

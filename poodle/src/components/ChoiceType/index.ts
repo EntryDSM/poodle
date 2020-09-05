@@ -1,3 +1,3 @@
 import DefaultRow from './RowType/defaultRow';
 
-export { DefaultRow }
+export { DefaultRow };

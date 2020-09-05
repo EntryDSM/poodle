@@ -1,65 +1,128 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import SearchModalBox from '../SearchModalBox';
-import { 
-    setAddress,
-    setPostNum,
-} from '../../../../../core/redux/actions/Info';
 import {
-    ModalWrapper,
-    SearchModalInput,
-    SearchModalInputDiv,
-    SearchModalResult,
+  SearchModalInput,
+  SearchModalInputDiv,
+  SearchModalResult,
 } from '@/styles/common/Modal';
+import SearchModalBox from '../SearchModalBox';
+import { setAddress, setPostNum } from '@/core/redux/actions/Info';
 import AddressSearchContent from './AddressSearchContent';
+import getSearchedAddressApi from '@/lib/api/kakao';
+import { kakaoSearchedAddressType } from '@/lib/api/ApiType';
 
 interface Props {
-    onModalChange: (value: boolean)=> void
+  modalOff: () => void;
 }
 
-const dummyData = [
-    {
-        schoolName: "구미중학교", 
-        address: "경기도 남양주시 진접읍 금곡리 68 금강펜테리움아파트",    
-    }
-]
-
-const SchoolSearchModal: FC<Props> = ({ onModalChange }) => {
-    const dispatch = useDispatch();
-    const addressChange = (address: string, postNum: string) => {
-        const addressAction = setAddress({ address });
-        const postNumAction = setPostNum({ postNum })
-        dispatch(addressAction);
-        dispatch(postNumAction);
-        onModalChange(false);
-    }
-    return (
-        <ModalWrapper>
-            <SearchModalBox
-                title="우편 번호 검색"
-            >
-                <SearchModalInputDiv>
-                    <SearchModalInput>
-                        <input placeholder="주소를 입력해 주세요."/>
-                        <img/>
-                    </SearchModalInput>
-                </SearchModalInputDiv>
-                <SearchModalResult>
-                    {
-                        dummyData.map((data)=> {
-                            const { schoolName, address } = data;
-                            return <AddressSearchContent 
-                                loadNameAddress={schoolName}
-                                address={address}
-                                postNumber="34111"
-                                onClick={addressChange}
-                            />
-                        })
-                    }
-                </SearchModalResult>
-            </SearchModalBox>
-        </ModalWrapper>
-    )
-}
+const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
+  const dispatch = useDispatch();
+  const [searchedAddresses, searchedAddressChange] = useState<
+    kakaoSearchedAddressType[]
+  >([]);
+  const [params, paramsChange] = useState<string>('');
+  const [isFirst, firstChange] = useState<boolean>(true);
+  const addressChange = (address: string, postNum: string) => {
+    const addressAction = setAddress({ address });
+    const postNumAction = setPostNum({ postNum });
+    dispatch(addressAction);
+    dispatch(postNumAction);
+    modalOff();
+  };
+  const getSearchedAddress = useCallback(async (params: string) => {
+    const response = await getSearchedAddressApi(params);
+    return response;
+  }, []);
+  const paramInputChangeHandler = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      paramsChange(event.target.value);
+    },
+    [],
+  );
+  const paramsInputKeyPressHandler = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key == 'Enter') {
+        searchAddress();
+      }
+    },
+    [params],
+  );
+  const searchAddress = useCallback(async () => {
+    const response = await getSearchedAddress(params);
+    searchedAddressChange(response);
+    firstChange(false);
+  }, [params]);
+  const isHaveAddress = useCallback((response: kakaoSearchedAddressType) => {
+    return response.road_address && response.road_address.zone_no;
+  }, []);
+  const responseToAddress = useCallback(
+    (response: kakaoSearchedAddressType) => {
+      const {
+        road_address: {
+          region_1depth_name,
+          region_2depth_name,
+          region_3depth_name,
+          building_name,
+        },
+      } = response;
+      const address = `${region_1depth_name} ${region_2depth_name} ${region_3depth_name} ${building_name}`;
+      return address;
+    },
+    [],
+  );
+  const setAddressComponent = useCallback(
+    (addresses: kakaoSearchedAddressType[]) => {
+      const buf: React.ReactChild[] = [];
+      addresses.map(data => {
+        if (!isHaveAddress(data)) return;
+        buf.push(
+          <AddressSearchContent
+            loadNameAddress={data.road_address.address_name}
+            address={responseToAddress(data)}
+            postNumber={data.road_address.zone_no}
+            onClick={addressChange}
+            key={data.road_address.zone_no}
+          />,
+        );
+      });
+      return buf;
+    },
+    [],
+  );
+  const isListEmpty = useCallback((list: Array<any>) => {
+    if (list.length <= 0) return true;
+    return false;
+  }, []);
+  const checkAddressCompisEmptyAndSetErr = useCallback(
+    (addresses: kakaoSearchedAddressType[]) => {
+      const addressComponents = setAddressComponent(addresses);
+      if (isFirst) {
+        return '검색어를 입력해 주세요.';
+      } else if (isListEmpty(addressComponents)) {
+        return '검색된 결과가 없습니다.';
+      }
+      return addressComponents;
+    },
+    [isFirst],
+  );
+  return (
+    <SearchModalBox title='우편 번호 검색' onModalChange={modalOff}>
+      <SearchModalInputDiv>
+        <SearchModalInput>
+          <input
+            placeholder='주소를 입력해 주세요.'
+            value={params}
+            onChange={paramInputChangeHandler}
+            onKeyPress={paramsInputKeyPressHandler}
+          />
+          <img onClick={searchAddress} />
+        </SearchModalInput>
+      </SearchModalInputDiv>
+      <SearchModalResult>
+        {checkAddressCompisEmptyAndSetErr(searchedAddresses)}
+      </SearchModalResult>
+    </SearchModalBox>
+  );
+};
 
 export default SchoolSearchModal;
