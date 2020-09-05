@@ -14,7 +14,7 @@ export interface PreviewState {
   error: ErrorType | null;
   isSubmit: boolean;
   getPreviewError: ErrorType;
-  setUserStatus: ErrorType;
+  setUserStatusError: ErrorType;
   pageMove: boolean;
 }
 
@@ -23,7 +23,7 @@ const initialState: PreviewState = {
   error: null,
   isSubmit: false,
   getPreviewError: errorInitialState,
-  setUserStatus: errorInitialState,
+  setUserStatusError: errorInitialState,
   pageMove: false,
 };
 
@@ -43,14 +43,11 @@ const PreviewState = (
         ...state,
         error: action.payload,
         getPreviewError: action.payload,
-        setUserStatus: errorInitialState,
+        setUserStatusError: errorInitialState,
       };
     }
     case PREVIEW_CALL_SUCCESS: {
-      return {
-        ...state,
-        preview: action.payload,
-      };
+      return action.payload;
     }
     case SUBMIT_SUCCESS: {
       return {
@@ -69,7 +66,7 @@ const PreviewState = (
       return {
         ...state,
         error: action.payload,
-        setUserStatus: action.payload,
+        setUserStatusError: action.payload,
         getPreviewError: errorInitialState,
       };
     }
