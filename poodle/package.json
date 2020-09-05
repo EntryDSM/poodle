@@ -19,6 +19,7 @@
     "axios": "^0.19.2",
     "craco-alias": "^2.1.1",
     "dotenv": "^8.2.0",
+    "query-string": "^6.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",

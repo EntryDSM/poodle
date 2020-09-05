@@ -9,6 +9,10 @@ export const USER_STATUS = 'mypage/USER_STATUS' as const;
 export const USER_STATUS_SUCCESS = 'mypage/USER_STATUS_SUCCESS' as const;
 export const USER_STATUS_FAILURE = 'mypage/USER_STATUS_FAILURE' as const;
 
+export const GET_DOCUMENT = 'mypage/GET_DOCUMENT' as const;
+export const GET_DOCUMENT_SUCCESS = 'mypage/GET_DOCUMENT_SUCCESS' as const;
+export const GET_DOCUMENT_FAILURE = 'mypage/GET_DOCUMENT_FAILURE' as const;
+
 export const process = () => ({
   type: PROCESS,
 });
@@ -44,9 +48,26 @@ export const userStatusFailure = (error: ErrorType) => ({
   payload: error,
 });
 
+export const getDocument = () => ({
+  type: GET_DOCUMENT,
+});
+
+export const getDocumentSuccess = (payload: Blob) => ({
+  type: GET_DOCUMENT_SUCCESS,
+  payload,
+});
+
+export const getDocumentFailure = (error: ErrorType) => ({
+  type: GET_DOCUMENT_FAILURE,
+  payload: error,
+});
+
 export type MypageAction =
   | ReturnType<typeof process>
   | ReturnType<typeof processSuccess>
   | ReturnType<typeof processFailure>
   | ReturnType<typeof userStatusSuccess>
-  | ReturnType<typeof userStatusFailure>;
+  | ReturnType<typeof userStatusFailure>
+  | ReturnType<typeof getDocument>
+  | ReturnType<typeof getDocumentSuccess>
+  | ReturnType<typeof getDocumentFailure>;
