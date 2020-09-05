@@ -117,7 +117,9 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
     [eduOffice, schoolSearchInput],
   );
   useEffect(() => {
-    getSearchSchoolGenerateTokenAdnDoCallback();
+    if (error?.status === 401) {
+      getSearchSchoolGenerateTokenAdnDoCallback();
+    }
   }, [error]);
   return (
     <ModalWrapper>
