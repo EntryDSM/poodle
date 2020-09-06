@@ -193,6 +193,8 @@ const InfoState = (
       return {
         ...state,
         error: action.payload.error,
+        getInfoError: errorInitialState,
+        setInfoError: action.payload.error,
         pageMove: false,
       };
     }
