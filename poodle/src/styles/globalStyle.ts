@@ -64,11 +64,9 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
   }
   a {
     &:link{
-      color: #000;
       text-decoration: none;
     }
     &:visited{
-      color: #000;
       text-decoration: none;
     }
   }
