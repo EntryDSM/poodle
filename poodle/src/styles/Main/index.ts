@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Container, Wrapper } from '@/styles/common';
 import { RightArrowImage, Background } from '@/assets/Main';
@@ -48,16 +48,31 @@ export const WhiteSpace = styled.span`
   font-size: 10px;
 `;
 
-export const Footer = styled.footer``;
+interface FooterProps {
+  isAble: boolean;
+}
+
+export const Footer = styled.footer<FooterProps>`
+  > a {
+    ${({ isAble }) =>
+      isAble
+        ? css`
+            background-color: #62d3e8;
+            cursor: pointer;
+          `
+        : css`
+            background-color: #afafaf;
+            cursor: not-allowed;
+          `}
+  }
+`;
 
 export const StepLink = styled(Link)`
   width: 350px;
   height: 80px;
   padding: 28px 20px;
-  background-color: #62d3e8;
   outline: none;
   border: none;
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
