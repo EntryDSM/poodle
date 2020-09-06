@@ -107,9 +107,8 @@ const getInfoSaga = createGetSaga(
 );
 
 const splitImgUrl = (url: string) => {
-  const rxg = /https:\/\/image.entrydsm.hs.kr.s3.ap-northeast-2.amazonaws.com(\/{1}([a-z]|[A-Z]|[1-9]|\-|\.)+)/;
-  const splitedUrl = rxg.exec(url);
-  return splitedUrl ? splitedUrl[1] : '';
+  const splitedString = url.split('/')
+  return '/' + splitedString[3];
 };
 
 function* setImgSaga(action: SetPictureCall) {
