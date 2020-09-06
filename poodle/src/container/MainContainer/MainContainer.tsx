@@ -1,25 +1,20 @@
 import React, { FC } from 'react';
 import Main from '@/components/Main/Main';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/core/redux/reducer';
-import { schedules as createSchedulesAction } from '@/core/redux/actions/Main';
+import { useSchedules } from '@/lib/utils/function';
 
 const MainContainer: FC = () => {
-  const dispatch = useDispatch();
-  const { schedules, isLoading } = useSelector(
-    ({ Main: main, Loading: loading }: RootState) => ({
-      schedules: main.schedules,
-      isLoading: loading['main/SCHEDULES'],
-    }),
-  );
-  const getScheduls = () => {
-    dispatch(createSchedulesAction());
-  };
+  const [
+    schedules,
+    getSchedulesError,
+    isLoading,
+    getSchedules,
+  ] = useSchedules();
   return (
     <Main
       schedules={schedules}
       isLoading={isLoading}
-      getScheduls={getScheduls}
+      getSchedulesError={getSchedulesError}
+      getSchedules={getSchedules}
     />
   );
 };
