@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom';
 export const ApplyStatusWrapper = styled(Wrapper)`
   background-image: url(${Background});
 `;
-export { Container };
+export const SchedulesContainer = styled(Container)`
+  min-height: 890px;
+`;
 
 export const ContentBlock = styled.div`
   padding: 139px 0 88px;
@@ -31,14 +33,16 @@ export const Title = styled.h1`
   letter-spacing: -0.88px;
 `;
 
-export const Explain = styled.pre`
-  width: 280px;
-  height: 56px;
+export const Explain = styled.p`
+  height: 20px;
   font-family: NanumSquareB;
   font-size: 18px;
   letter-spacing: normal;
   text-align: center;
   color: #46b2c6;
+  & + & {
+    margin-top: 12px;
+  }
 `;
 
 export const ButtonLink = styled(Link)`
