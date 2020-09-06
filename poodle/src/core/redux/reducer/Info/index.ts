@@ -52,6 +52,7 @@ export interface State {
   gradeType: GraduationStatusType | '';
   setInfoError: ErrorType;
   getInfoError: ErrorType;
+  setImgError: ErrorType;
   year: string;
   month: string;
   day: string;
@@ -80,6 +81,7 @@ const initialState: State = {
   gradeType: '',
   setInfoError: errorInitialState,
   getInfoError: errorInitialState,
+  setImgError: errorInitialState,
   year: '2020',
   month: '01',
   day: '01',
@@ -186,7 +188,10 @@ const InfoState = (
       return {
         ...state,
         successDate: action.payload.date,
+        setInfoError: errorInitialState,
+        getInfoError: errorInitialState,
         pageMove: action.payload.pageMove,
+        error: null,
       };
     }
     case INFO_FAILURE: {
@@ -207,7 +212,12 @@ const InfoState = (
       };
     }
     case GET_INFO_SUCCESS: {
-      return action.payload;
+      return {
+        ...action.payload,
+        setInfoError: errorInitialState,
+        getInfoError: errorInitialState,
+        error: null,
+      };
     }
     case ALL: {
       return action.payload.all;
@@ -217,13 +227,17 @@ const InfoState = (
         ...state,
         error: action.payload.error,
         getInfoError: errorInitialState,
-        setInfoError: action.payload.error,
+        setInfoError: errorInitialState,
+        setImgError: action.payload.error,
       };
     }
     case SET_PICTURE_SUCCESS: {
       return {
         ...state,
         picture: action.payload.url,
+        getInfoError: errorInitialState,
+        setInfoError: errorInitialState,
+        setImgError: errorInitialState,
       };
     }
     case YEAR: {

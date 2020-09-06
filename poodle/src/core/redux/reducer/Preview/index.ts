@@ -53,6 +53,8 @@ const PreviewState = (
       return {
         ...state,
         isSubmit: action.payload,
+        setUserStatusError: errorInitialState,
+        getPreviewError: errorInitialState,
         pageMove: true,
       };
     }
