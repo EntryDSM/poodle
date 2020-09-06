@@ -21,6 +21,13 @@ export const isEmptyCheck = (text: string) => {
   return true;
 };
 
+export const phoneNumCheck = (phoneNum: string) => {
+  const rxg = /^\(?0[1-9]\d\)?[1-9]\d{2,3}\d{4}$/;
+  const result = rxg.test(phoneNum);
+  if (!result) return false;
+  return true;
+};
+
 export const useAuth = () => {
   const {
     token: { access_token },

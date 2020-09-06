@@ -13,6 +13,7 @@ import { mapStateToProps, mapDispatchToProps } from './ConnectInfo';
 import { QualificationPage, DefaultPage } from '../../components/Info/Page';
 import {
   isEmptyCheck,
+  phoneNumCheck,
   useReGenerateTokenAndDoCallback,
 } from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
@@ -37,6 +38,21 @@ const Info: FC<Props> = props => {
     return false;
   }, []);
 
+  const allPhoneNumCheck = useCallback(
+    ({ protectorPhoneNum, phoneNum, schoolPhoneNum, gradeType }: Props) => {
+      if (gradeType === 'GED') {
+        return phoneNumCheck(protectorPhoneNum) && phoneNumCheck(phoneNum);
+      } else {
+        return (
+          phoneNumCheck(protectorPhoneNum) &&
+          phoneNumCheck(phoneNum) &&
+          phoneNumCheck(schoolPhoneNum)
+        );
+      }
+    },
+    [],
+  );
+
   const isStateAble = useCallback(
     ({
       address,
@@ -52,7 +68,7 @@ const Info: FC<Props> = props => {
       postNum,
       gradeType,
       detailAddress,
-    }: MapStateToProps): boolean => {
+    }: Props): boolean => {
       if (gradeType === 'GED') {
         return (
           isEmptyCheck(address) ||
@@ -86,12 +102,16 @@ const Info: FC<Props> = props => {
   );
 
   const goNextPage = useCallback(
-    async (state: MapStateToProps) => {
-      const isError = isStateAble(state);
+    async (props: Props) => {
+      const isError = isStateAble(props);
+      const isPhoneNumError = allPhoneNumCheck(props);
       if (isError) {
         errorChange(isError);
         modalController.createNewToast('ERROR');
+      } else if (!isPhoneNumError) {
+        modalController.createNewToast('PHONE_NUM_ERROR');
       } else {
+        console.log('hihi');
         try {
           await props.setInfoToServer(true);
         } catch (error) {
@@ -99,7 +119,7 @@ const Info: FC<Props> = props => {
         }
       }
     },
-    [isStateAble, props],
+    [isStateAble],
   );
   const modalOffDispatch = useCallback(() => {
     dispatch(modalOff(REDERRORMODAL));
