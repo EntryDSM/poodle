@@ -3,6 +3,11 @@ import { useCallback, useState, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { reGenerateToken } from '@/core/redux/actions/Header';
 import { RootState } from '@/core/redux/reducer';
+import { Schedule } from '@/core/redux/actions/Main';
+import { schedules as createSchedulesAction } from '@/core/redux/actions/Main';
+import ErrorType from '../type';
+import { userStatus as createUserStatusAction } from '@/core/redux/actions/Mypage';
+import { UserStatus } from '@/lib/api/mypage';
 
 export const allPhoneNumCheck = ({
   protectorPhoneNum,
@@ -160,8 +165,120 @@ export const clearLocalStorageAboutToken = () => {
 
 export const useUser = () => {
   const { user } = useSelector(({ Header }: RootState) => ({
-    user: Header.user,
+    user: {
+      ...Header.user,
+      isLogin: Header.isLogin,
+    },
   }));
 
   return user;
+};
+
+export const TIME = '2020-11-28';
+
+export const getDateObject = (date: string = TIME) =>
+  date ? new Date(date) : new Date();
+
+export const getTime = (date: string = TIME) => getDateObject(date).getTime();
+
+export const getScheduleTimes = (schedule: Schedule) => {
+  const startTime = getTime(schedule.start_date);
+  const endTime = getTime(schedule.end_date);
+  const nowTime = getTime();
+
+  return [startTime, nowTime, endTime];
+};
+
+export const isNotStartedSchedule = (schedule: Schedule) => {
+  const [startTime, nowTime] = getScheduleTimes(schedule);
+
+  return nowTime < startTime;
+};
+
+export const isFinishedSchedule = (schedule: Schedule) => {
+  const [, nowTime, endTime] = getScheduleTimes(schedule);
+
+  return endTime < nowTime;
+};
+
+export const isProgressingSchedule = (schedule: Schedule) => {
+  const [startTime, nowTime, endTime] = getScheduleTimes(schedule);
+
+  return startTime <= nowTime && nowTime <= endTime;
+};
+
+export const getDate = (timeString: string) => {
+  const time = new Date(timeString);
+  const year = time.getFullYear().toString();
+  const month = (time.getMonth() + 1).toString().padStart(2, '0');
+  const date = time.getDate().toString().padStart(2, '0');
+  const hours = time.getHours().toString().padStart(2, '0');
+  const minutes = time.getMinutes().toString().padStart(2, '0');
+
+  return [year, month, date, hours, minutes];
+};
+
+export const getDifferenceDate = (date1: Date, date2: Date) => {
+  const date1Time = new Date(
+    date1.getFullYear(),
+    date1.getMonth(),
+    date1.getDate(),
+  ).getTime();
+  const date2Time = new Date(
+    date2.getFullYear(),
+    date2.getMonth(),
+    date2.getDate(),
+  ).getTime();
+  const difference = Math.abs(date2Time - date1Time);
+
+  return Math.ceil(difference / (1000 * 3600 * 24));
+};
+
+export const useSchedules = (): [
+  Schedule[],
+  ErrorType,
+  boolean,
+  () => void,
+] => {
+  const dispatch = useDispatch();
+  const { schedules, getSchedulesError, isLoading } = useSelector(
+    ({ Main: main, Loading: loading }: RootState) => ({
+      schedules: main.schedules,
+      isLoading: loading['main/SCHEDULES'],
+      getSchedulesError: main.error,
+    }),
+  );
+  const getSchedules = () => {
+    dispatch(createSchedulesAction());
+  };
+
+  return [schedules, getSchedulesError, isLoading, getSchedules];
+};
+
+export const getFullDateText = (time: string) => {
+  const [year, month, date, hours, minutes] = getDate(time);
+
+  return `${year}년 ${month}월 ${date}일 ${hours}:${minutes}`;
+};
+
+export const useUserStatus = (): [
+  UserStatus,
+  ErrorType,
+  () => void,
+  boolean,
+] => {
+  const dispatch = useDispatch();
+  const { userStatus, userStatusError, isLoading } = useSelector(
+    ({ Mypage: mypage, Loading: loading }: RootState) => ({
+      userStatus: mypage.userStatus,
+      userStatusError: mypage.userStatueError,
+      isLoading: loading['mypage/USER_STATUS'],
+    }),
+  );
+
+  const getUserStatus = () => {
+    dispatch(createUserStatusAction());
+  };
+
+  return [userStatus, userStatusError, getUserStatus, isLoading];
 };
