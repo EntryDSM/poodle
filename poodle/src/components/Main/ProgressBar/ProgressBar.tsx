@@ -16,9 +16,9 @@ export enum Progress {
 
 enum Uri {
   'application' = '/type',
-  'first_apply' = '/applystatus',
-  'interview' = '/applystatus',
-  'notice' = '/applystatus',
+  'first_apply' = '/schedules?type=first_apply',
+  'interview' = '/schedules?type=interview',
+  'notice' = '/schedules?type=notice',
 }
 
 interface Props {
@@ -37,7 +37,7 @@ const ProgressBar: FC<Props> = ({ schedules, isLoading }) => {
             <ProgressItem
               key={schedule.id}
               index={index}
-              schedule={schedule}
+              schedules={schedules}
               isAllFinish={isFinishedSchedule(schedules[schedules.length - 1])}
             />
           ))
@@ -51,16 +51,18 @@ export default ProgressBar;
 
 interface ProgressItemProps {
   index: number;
-  schedule: Schedule;
+  schedules: Schedule[];
   isAllFinish: boolean;
 }
 
 const ProgressItem: FC<ProgressItemProps> = ({
   index,
-  schedule,
+  schedules,
   isAllFinish,
 }) => {
+  const schedule = schedules[index];
   const FIRST_INDEX = 0;
+  const isApplication = schedule.id === 'application';
   const isProgressing = isProgressingSchedule(schedule);
   const isFinished = isFinishedSchedule(schedule);
   return (
@@ -70,13 +72,42 @@ const ProgressItem: FC<ProgressItemProps> = ({
           isBlue={isAllFinish ? false : isProgressing || isFinished}
         />
       )}
-      <S.ProgressItemWrapper isAble={isProgressing}>
-        <Link to={isProgressing ? Uri[schedule.id] : ''}>
+      <S.ProgressItemWrapper
+        isAble={
+          isApplication
+            ? isProgressing
+            : isFinishedSchedule(schedules[index - 1]) &&
+              !isFinishedSchedule(schedules[index])
+        }
+      >
+        <Link
+          to={
+            isApplication
+              ? isProgressing
+                ? '/type'
+                : ''
+              : isFinishedSchedule(schedules[index - 1]) &&
+                !isFinishedSchedule(schedules[index])
+              ? Uri[schedule.id]
+              : ''
+          }
+        >
           <S.ProgressTitle isBlue={isProgressing}>
             {Progress[schedule.id]}
           </S.ProgressTitle>
         </Link>
-        <Link to={isProgressing ? Uri[schedule.id] : ''}>
+        <Link
+          to={
+            isApplication
+              ? isProgressing
+                ? '/type'
+                : ''
+              : isFinishedSchedule(schedules[index - 1]) &&
+                !isFinishedSchedule(schedules[index])
+              ? Uri[schedule.id]
+              : ''
+          }
+        >
           <S.StatusImage
             isFinish={isFinished}
             isProgressing={isProgressing}
