@@ -111,7 +111,7 @@ const Info: FC<Props> = props => {
   const setInfoGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
     () => props.setInfoToServer(false),
   );
-  const getInfoGenerateTokenAdnDoCallback = useReGenerateTokenAndDoCallback(
+  const getInfoGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
     props.getInfoToServer,
   );
   const renderPage = useCallback(
@@ -133,7 +133,7 @@ const Info: FC<Props> = props => {
       if (props.setInfoError.status === 401)
         setInfoGenerateTokenAndDoCallback();
       if (props.getInfoError.status === 401)
-        getInfoGenerateTokenAdnDoCallback();
+        getInfoGenerateTokenAndDoCallback();
       return;
     }
     modalController.createNewToast('SERVER_ERROR');
