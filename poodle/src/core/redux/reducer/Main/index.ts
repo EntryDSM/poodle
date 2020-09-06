@@ -22,26 +22,26 @@ export default function main(
 ) {
   switch (action.type) {
     case SCHEDULES_SUCCESS:
-      const newSortedSchedules: Schedule[] = [];
+      const sortedSchedules: Schedule[] = [];
       action.payload.forEach(schedule => {
         switch (schedule.id) {
           case 'application':
-            newSortedSchedules[0] = schedule;
+            sortedSchedules[0] = schedule;
             break;
           case 'first_apply':
-            newSortedSchedules[1] = schedule;
+            sortedSchedules[1] = schedule;
             break;
           case 'interview':
-            newSortedSchedules[2] = schedule;
+            sortedSchedules[2] = schedule;
             break;
           case 'notice':
-            newSortedSchedules[3] = schedule;
+            sortedSchedules[3] = schedule;
             break;
         }
       });
       return {
         ...state,
-        schedules: newSortedSchedules,
+        schedules: sortedSchedules,
       };
     case SCHEDULES_FAILURE:
       return {
