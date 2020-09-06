@@ -13,7 +13,7 @@ import { mapStateToProps, mapDispatchToProps } from './ConnectInfo';
 import { QualificationPage, DefaultPage } from '../../components/Info/Page';
 import {
   isEmptyCheck,
-  phoneNumCheck,
+  allPhoneNumCheck,
   useReGenerateTokenAndDoCallback,
 } from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
@@ -37,21 +37,6 @@ const Info: FC<Props> = props => {
     }
     return false;
   }, []);
-
-  const allPhoneNumCheck = useCallback(
-    ({ protectorPhoneNum, phoneNum, schoolPhoneNum, gradeType }: Props) => {
-      if (gradeType === 'GED') {
-        return phoneNumCheck(protectorPhoneNum) && phoneNumCheck(phoneNum);
-      } else {
-        return (
-          phoneNumCheck(protectorPhoneNum) &&
-          phoneNumCheck(phoneNum) &&
-          phoneNumCheck(schoolPhoneNum)
-        );
-      }
-    },
-    [],
-  );
 
   const isStateAble = useCallback(
     ({
@@ -148,6 +133,7 @@ const Info: FC<Props> = props => {
     props.getInfoToServer();
   }, []);
   useEffect(() => {
+    console.log(props.error);
     if (!props.error) return;
     if (props.error.status === 401) {
       if (props.setInfoError.status === 401)

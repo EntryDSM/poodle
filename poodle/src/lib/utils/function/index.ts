@@ -4,6 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { reGenerateToken } from '@/core/redux/actions/Header';
 import { RootState } from '@/core/redux/reducer';
 
+export const allPhoneNumCheck = ({
+  protectorPhoneNum,
+  phoneNum,
+  schoolPhoneNum,
+  gradeType,
+}: any) => {
+  if (gradeType === 'GED') {
+    return phoneNumCheck(protectorPhoneNum) && phoneNumCheck(phoneNum);
+  } else {
+    return (
+      phoneNumCheck(protectorPhoneNum) &&
+      phoneNumCheck(phoneNum) &&
+      phoneNumCheck(schoolPhoneNum)
+    );
+  }
+};
+
 export const useRedirect = () => {
   const history = useHistory();
   const redirectToLink = useCallback(
