@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import * as S from '@/styles/ApplyStatus';
+import * as S from '@/styles/Schedules';
 import ContentHeader from '@/components/default/common/ContentHeader';
-import { ERROR_INFO } from '@/components/ApplyStatus/ApplyStatusConstance';
+import { ERROR_INFO } from '@/components/Schedules/SchedulesConstance';
 
 const Error: React.FC<{}> = () => (
   <S.ApplyStatusWrapper>
-    <S.Container>
+    <S.SchedulesContainer>
       <ContentHeader
         padding='180px 0 92px'
         title='404 NOT FOUND'
@@ -14,10 +14,14 @@ const Error: React.FC<{}> = () => (
       />
       <S.ContentBlock>
         <S.Title>{ERROR_INFO.title}</S.Title>
-        <S.Explain>{ERROR_INFO.explain}</S.Explain>
+        <div>
+          {ERROR_INFO.explains.map((explain, index) => (
+            <S.Explain key={index}>{explain}</S.Explain>
+          ))}
+        </div>
         <S.ButtonLink to='/'>메인으로 이동</S.ButtonLink>
       </S.ContentBlock>
-    </S.Container>
+    </S.SchedulesContainer>
   </S.ApplyStatusWrapper>
 );
 
