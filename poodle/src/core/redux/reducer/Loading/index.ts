@@ -11,6 +11,7 @@ import {
   RESET_PASSWORD,
 } from '../../actions/ResetPassword';
 import { PROCESS, GET_DOCUMENT } from '../../actions/Mypage';
+import { SCHEDULES } from '../../actions/Main';
 
 type LoadingState = {
   [LOGIN]: boolean;
@@ -21,6 +22,7 @@ type LoadingState = {
   [RESET_VERIFY_CODE]: boolean;
   [RESET_PASSWORD]: boolean;
   [PROCESS]: boolean;
+  [SCHEDULES]: boolean;
   [GET_DOCUMENT]: boolean;
 };
 
@@ -33,6 +35,7 @@ const initialState: LoadingState = {
   [RESET_VERIFY_CODE]: false,
   [RESET_PASSWORD]: false,
   [PROCESS]: false,
+  [SCHEDULES]: false,
   [GET_DOCUMENT]: false,
 };
 
