@@ -22,6 +22,7 @@
     "dotenv": "^8.2.0",
     "entry-maltese": "git+https://github.com/EntryDSM/Maltese.git",
     "prettier": "^2.0.5",
+    "query-string": "^6.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-infinite-scroller": "^1.2.4",

@@ -12,7 +12,7 @@ import {
   PreviewContainer,
   MypageContainer,
 } from './container';
-import { Footer, ApplyStatus, Document, Error } from './components';
+import { Footer, ApplyStatus, Error } from './components';
 import './';
 import Maltese from 'entry-maltese';
 
@@ -30,7 +30,6 @@ function App() {
         <Route path='/join' component={JoinContainer} />
         <Route path='/grade' component={ConnectGrade} />
         <Route exact path='/mypage' component={MypageContainer} />
-        <Route path='/mypage/document' component={Document} />
         <Route path='/preview' component={PreviewContainer} />
         <Route path='/Introduction' component={ConnectIntroduction} />
         <Route path='/Type' component={ConnectChoiceType} />
