@@ -45,6 +45,7 @@ export const mapStateToProps = (state: RootState) => ({
   setInfoError: state.InfoState.setInfoError,
   getInfoError: state.InfoState.getInfoError,
   pageMove: state.InfoState.pageMove,
+  setImgError: state.InfoState.setImgError,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({

@@ -99,7 +99,6 @@ export const typeStateToRequest = (
     gedSuccessMonth,
     gedSuccessYear,
   } = state;
-  console.log(qualificationExam, graduationStatus);
   const gradeType = getGradeType(qualificationExam, graduationStatus);
   return {
     grade_type: gradeType,
@@ -243,7 +242,6 @@ export const infoStateToGedRequest = (
 
 const infoDateStringToStateDateString = (str: string): string | null => {
   const splitedString = str.split('-');
-  console.log(splitedString);
   const changedMonth = checkSingleTextAddZero(splitedString[1]);
   const changedDay = checkSingleTextAddZero(splitedString[2]);
   return `${splitedString[0]}-${changedMonth}-${changedDay}`;
@@ -260,7 +258,6 @@ const infoStateToRequestStudentNumber = (
 };
 
 const checkSingleTextAddZero = (text: string) => {
-  console.log(text);
   return text.padStart(2, '0');
 };
 
@@ -286,6 +283,7 @@ export const infoResponseToState = (
   successDate: null,
   gradeType: response.grade_type ? response.grade_type : 'GED',
   getInfoError: errorInitialState,
+  setImgError: errorInitialState,
   setInfoError: errorInitialState,
   year: getYearFromDateString(response.birth_date),
   month: getMonthFromDateString(response.birth_date),
@@ -385,7 +383,6 @@ export const gradeResponseToState = (
   response: gradeResponseType,
 ): RootState['GradeState'] => {
   const subjects = responseToSubjects(response);
-  console.log(response);
   return {
     serviceTime: nullAndNumberToString(response.volunteer_time),
     absentDay: nullAndNumberToString(response.full_cut_count),
