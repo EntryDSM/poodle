@@ -7,6 +7,7 @@ import {
   USER_STATUS_FAILURE,
   GET_DOCUMENT_SUCCESS,
   GET_DOCUMENT_FAILURE,
+  RESET_MYPAGE,
 } from '../../actions/Mypage';
 import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import { UserStatus } from '@/lib/api/mypage';
@@ -82,6 +83,8 @@ export default function mypage(
         ...state,
         getDocumentError: action.payload,
       };
+    case RESET_MYPAGE:
+      return initialState;
     default:
       return state;
   }
