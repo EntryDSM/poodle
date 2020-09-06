@@ -9,6 +9,7 @@ import SearchShcool from './SearchSchool';
 import previewSaga from './Preview';
 import ResetPasswordSaga from './ResetPassword';
 import MypageSaga from './Mypage';
+import MainSaga from './Main';
 
 export default function* rootSaga() {
   yield all([
@@ -22,5 +23,6 @@ export default function* rootSaga() {
     previewSaga(),
     ResetPasswordSaga(),
     MypageSaga(),
+    MainSaga(),
   ]);
 }
