@@ -137,7 +137,7 @@ const Info: FC<Props> = props => {
       return;
     }
     modalController.createNewToast('SERVER_ERROR');
-  }, [props.error]);
+  }, [props.error, props.getInfoError, props.setInfoError]);
   useEffect(() => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');

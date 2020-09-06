@@ -47,9 +47,13 @@ const getPdfSaga = function* () {
       payload: state,
     });
   } catch (error) {
+    console.log(error.response);
     yield put({
       type: FAILURE,
-      payload: { error: error.response.data as ErrorType },
+      payload: {
+        message: '',
+        status: error.response.status,
+      } as ErrorType,
     });
   }
 };

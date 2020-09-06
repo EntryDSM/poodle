@@ -54,6 +54,7 @@ const PreviewContainer: FC = () => {
       if (getPreviewError.status === 401) getPdfGenerateTokenAndDoCallback();
       if (setUserStatusError.status === 401)
         setUserStatusGenerateTokenAndDoCallback();
+      return;
     }
     modalController.createNewToast('SERVER_ERROR');
   }, [error, getPreviewError, setUserStatusError]);
@@ -73,7 +74,11 @@ const PreviewContainer: FC = () => {
       <ModalContainer onClick={modalClickHandler} />
       <PreviewMain>
         <Title margin='55px'>미리보기</Title>
-        <PreviewFile src={preview} />
+        {preview.length > 0 ? (
+          <PreviewFile src={preview} />
+        ) : (
+          '생성중입니다. 잠시만 기다려 주세요...'
+        )}
         <DefaultlNavigation
           page='preview'
           currentPageClickHandler={goCurrentPage}

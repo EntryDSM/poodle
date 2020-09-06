@@ -14,12 +14,16 @@ import {
 } from './container';
 import { Footer, ApplyStatus, Error } from './components';
 import './';
+import Maltese from 'entry-maltese';
 
 function App() {
+  const token = localStorage.getItem('accessToken');
+  const isLogin = token !== null ? true : false;
   return (
     <BrowserRouter>
       <GlobalStyle />
       <HeaderContainer />
+      <Maltese isLogin={isLogin} token={token !== null ? token : ''} />
       <Switch>
         <Route exact path='/' component={MainContainer} />
         <Route path='/applystatus' component={ApplyStatus} />
