@@ -2,7 +2,12 @@ import React from 'react';
 import ReactDOM, { createPortal } from 'react-dom';
 import Toast from '@/components/default/common/Toast';
 
-export type ToastType = 'ERROR' | 'SUCCESS' | 'SERVER_ERROR' | 'NETWORK_ERROR';
+export type ToastType =
+  | 'ERROR'
+  | 'SUCCESS'
+  | 'SERVER_ERROR'
+  | 'NETWORK_ERROR'
+  | 'PHONE_NUM_ERROR';
 
 interface ToastInfo {
   title: string;
@@ -44,6 +49,14 @@ const getNetworkError = (id: string): ToastInfo => ({
   isSuccess: false,
 });
 
+const getPhoneNumError = (id: string): ToastInfo => ({
+  type: 'PHONE_NUM_ERROR',
+  description: '전화번호 형식이 잘못 되었습니다',
+  title: '다시 한번 확인해 주세요.',
+  id,
+  isSuccess: false,
+});
+
 const getToastInfo = (type: ToastType, id: string) => {
   if (type === 'ERROR') {
     return getFailToastInfo(id);
@@ -51,6 +64,8 @@ const getToastInfo = (type: ToastType, id: string) => {
     return getServerFailToastInfo(id);
   } else if (type === 'NETWORK_ERROR') {
     return getNetworkError(id);
+  } else if (type === 'PHONE_NUM_ERROR') {
+    return getPhoneNumError(id);
   }
   return getSuccessToastInfo(id);
 };

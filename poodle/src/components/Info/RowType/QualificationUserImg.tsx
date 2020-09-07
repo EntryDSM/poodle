@@ -1,8 +1,11 @@
-import React, { FC, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { QuilificationUserPicture } from '../../../styles/Info';
 import { modalOn, REDERRORMODAL } from '@/core/redux/actions/Modal';
 import { setPictureCall } from '@/core/redux/actions/Info';
+import { RootState } from '@/core/redux/reducer';
+import { url } from 'inspector';
+import { useReGenerateTokenAndDoCallback } from '@/lib/utils/function';
 
 const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000';
 
@@ -15,6 +18,11 @@ interface Props {
 
 const QualificationUserImg: FC<Props> = ({ valueChangeHandler, img }) => {
   const dispatch = useDispatch();
+  const [file, fileChange] = useState<File>(new File([],"dummy.txt"));
+  const { setImgError } = useSelector((state:RootState) => state.InfoState);
+  const setImgGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    () => dispatch(setPictureCall({ picture: file }))
+  )
   const inputChangeHandler = useCallback((event: React.ChangeEvent) => {
     const target = event.target as HTMLInputElement;
     const files = target.files;
@@ -25,9 +33,8 @@ const QualificationUserImg: FC<Props> = ({ valueChangeHandler, img }) => {
       dispatch(modalOn(REDERRORMODAL));
       return;
     }
+    fileChange(file);
     dispatch(setPictureCall({ picture: file }));
-    const url = URL.createObjectURL(file);
-    valueChangeHandler(url);
   }, []);
   const isFileTypeAble = useCallback((file: File) => {
     if (!file) return false;
@@ -48,6 +55,11 @@ const QualificationUserImg: FC<Props> = ({ valueChangeHandler, img }) => {
     },
     [],
   );
+  useEffect(() => {
+    if(setImgError.status === 401){
+      setImgGenerateTokenAndDoCallback();
+    }
+  }, [setImgError]);
   return (
     <QuilificationUserPicture>
       <label>

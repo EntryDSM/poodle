@@ -102,7 +102,10 @@ const GradeState = (
       return {
         ...state,
         successTime: action.payload.date,
+        setGradeError: errorInitialState,
+        getGradeError: errorInitialState,
         pageMove: action.payload.pageMove,
+        error: null,
       };
     }
     case ALL: {
@@ -126,7 +129,12 @@ const GradeState = (
       };
     }
     case GET_GRADE_SUCCESS: {
-      return action.payload;
+      return {
+        ...action.payload,
+        setGradeError: errorInitialState,
+        getGradeError: errorInitialState,
+        error: null,
+      };
     }
     case PAGEMOVE: {
       return {

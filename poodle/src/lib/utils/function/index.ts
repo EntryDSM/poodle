@@ -9,6 +9,23 @@ import ErrorType from '../type';
 import { userStatus as createUserStatusAction } from '@/core/redux/actions/Mypage';
 import { UserStatus } from '@/lib/api/mypage';
 
+export const allPhoneNumCheck = ({
+  protectorPhoneNum,
+  phoneNum,
+  schoolPhoneNum,
+  gradeType,
+}: any) => {
+  if (gradeType === 'GED') {
+    return phoneNumCheck(protectorPhoneNum) && phoneNumCheck(phoneNum);
+  } else {
+    return (
+      phoneNumCheck(protectorPhoneNum) &&
+      phoneNumCheck(phoneNum) &&
+      phoneNumCheck(schoolPhoneNum)
+    );
+  }
+};
+
 export const useRedirect = () => {
   const history = useHistory();
   const redirectToLink = useCallback(
@@ -26,13 +43,21 @@ export const isEmptyCheck = (text: string) => {
   return true;
 };
 
+export const phoneNumCheck = (phoneNum: string) => {
+  const rxg = /^\(?0[1-9]\d\)?[1-9]\d{2,3}\d{4}$/;
+  const result = rxg.test(phoneNum);
+  if (!result) return false;
+  return true;
+};
+
 export const useAuth = () => {
   const {
-    token: { access_token },
+    token: { access_token, refresh_token },
     isLogin,
   } = useSelector((state: RootState) => state.Header);
   return {
     accessToken: access_token,
+    refreshToken: refresh_token,
     isLogin,
   };
 };
@@ -257,4 +282,11 @@ export const useUserStatus = (): [
   };
 
   return [userStatus, userStatusError, getUserStatus, isLoading];
+};
+
+export const getIsFinish = () => {
+  const time = getTime();
+  const finishTime = getTime('2020-11-30');
+
+  return finishTime <= time;
 };

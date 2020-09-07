@@ -1,8 +1,10 @@
-import React, { FC, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { InfoPicture } from '../../../styles/Info';
 import { modalOn, REDERRORMODAL } from '@/core/redux/actions/Modal';
 import { setPictureCall } from '@/core/redux/actions/Info';
+import { useReGenerateTokenAndDoCallback } from '@/lib/utils/function';
+import { RootState } from '@/core/redux/reducer';
 
 interface Props {
   valueChangeHandler: (value: string) => void;
@@ -14,7 +16,12 @@ const IMG_URL = 'https://image.entrydsm.hs.kr.s3.ap-northeast-2.amazonaws.com';
 const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000';
 
 const UserImg: FC<Props> = ({ img }) => {
+  const [file, fileChange] = useState<File>(new File([],"dummy.txt"));
   const dispatch = useDispatch();
+  const { setImgError } = useSelector((state:RootState) => state.InfoState);
+  const setImgGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+    () => dispatch(setPictureCall({ picture: file }))
+  )
   const inputChangeHandler = useCallback((event: React.ChangeEvent) => {
     const target = event.target as HTMLInputElement;
     const files = target.files;
@@ -24,7 +31,7 @@ const UserImg: FC<Props> = ({ img }) => {
       dispatch(modalOn(REDERRORMODAL));
       return;
     }
-    const url = URL.createObjectURL(file);
+    fileChange(file);
     dispatch(setPictureCall({ picture: file }));
   }, []);
   const isFileTypeAble = useCallback((file: File) => {
@@ -47,6 +54,11 @@ const UserImg: FC<Props> = ({ img }) => {
   const getFileName = useCallback((file: File) => {
     return file.name;
   }, []);
+  useEffect(() => {
+    if(setImgError.status === 401){
+      setImgGenerateTokenAndDoCallback();
+    }
+  }, [setImgError]);
   return (
     <InfoPicture>
       <label>

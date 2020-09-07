@@ -4,6 +4,7 @@ import {
   infoStateToGedRequest,
   infoResponseToState,
   setPostToServer,
+  setDataToServer,
 } from '@/lib/api/ApplicationApplyApi';
 import { USERINFO_URL, SET_PICTURE_URL } from '@/lib/api/ServerUrl';
 import {
@@ -36,6 +37,8 @@ import {
   SET_PICTURE_FAILURE,
   SET_PICTURE_SUCCESS,
 } from '../../actions/Info';
+import ErrorType from '@/lib/utils/type';
+import { allPhoneNumCheck } from '@/lib/utils/function';
 
 const actionArray = [
   NAME,
@@ -59,19 +62,51 @@ const DELAY_TIME = 3000;
 const getStateFunc = (state: RootState): RootState['InfoState'] =>
   state.InfoState;
 
-const defaultSaveSaga = createSaveSaga(
-  infoStateToRequest,
-  USERINFO_URL,
-  `${PAGENAME}/${ACTIONNAME}`,
-  getStateFunc,
-);
+const defaultSaveSaga = function* () {
+  const SUCCESS = `Info/INFO_SUCCESS`;
+  const FAILURE = `Info/INFO_FAILURE`;
+  const state = yield select(getStateFunc);
+  if (!allPhoneNumCheck(state)) return;
+  const request = infoStateToRequest(state);
+  try {
+    yield call(setDataToServer, USERINFO_URL, request);
+    yield put({
+      type: SUCCESS,
+      payload: {
+        date: new Date(),
+        pageMove: false,
+      },
+    });
+  } catch (error) {
+    yield put({
+      type: FAILURE,
+      payload: { error: error.response.data as ErrorType },
+    });
+  }
+};
 
-const gedSaveSaga = createSaveSaga(
-  infoStateToGedRequest,
-  `${USERINFO_URL}/ged`,
-  `${PAGENAME}/${ACTIONNAME}`,
-  getStateFunc,
-);
+const gedSaveSaga = function* () {
+  const SUCCESS = `Info/INFO_SUCCESS`;
+  const FAILURE = `Info/INFO_FAILURE`;
+  const state = yield select(getStateFunc);
+  if (!allPhoneNumCheck(state)) return;
+  const request = infoStateToGedRequest(state);
+  try {
+    yield call(setDataToServer, `${USERINFO_URL}/ged`, request);
+    yield put({
+      type: SUCCESS,
+      payload: {
+        date: new Date(),
+        pageMove: false,
+      },
+    });
+  } catch (error) {
+    yield put({
+      type: FAILURE,
+      payload: { error: error.response.data as ErrorType },
+    });
+  }
+};
 
 const defaultSaveAndMovePageSaga = createMovePageSaga(
   infoStateToRequest,
@@ -107,9 +142,8 @@ const getInfoSaga = createGetSaga(
 );
 
 const splitImgUrl = (url: string) => {
-  const rxg = /https:\/\/image.entrydsm.hs.kr.s3.ap-northeast-2.amazonaws.com(\/{1}([a-z]|[A-Z]|[1-9]|\-|\.)+)/;
-  const splitedUrl = rxg.exec(url);
-  return splitedUrl ? splitedUrl[1] : '';
+  const splitedString = url.split('/')
+  return '/' + splitedString[3];
 };
 
 function* setImgSaga(action: SetPictureCall) {
