@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useEffect } from 'react';
 import * as S from '@/styles/Schedules';
 import ContentHeader from '@/components/default/common/ContentHeader';
 import queryString from 'query-string';
@@ -9,9 +9,8 @@ import {
   FirstApplyContainer,
   Interviewcontainer,
   NoticeContainer,
-  FinalContainer,
 } from '@/container/SchedulesContainer';
-import { isFinishedSchedule } from '@/lib/utils/function';
+import { isFinishedSchedule, getFirstApplyStatus } from '@/lib/utils/function';
 
 interface Props {
   schedules: Schedule[];
@@ -52,7 +51,7 @@ const Schedules: FC<Props> = ({
             ? '일정을 불러오는 중입니다...'
             : (type === 'first_apply' &&
                 isFinishedSchedule(schedules[0]) &&
-                !isFinishedSchedule(schedules[1]) && (
+                !getFirstApplyStatus(schedules[1]).isFinished && (
                   <FirstApplyContainer schedules={schedules} />
                 )) ||
               (type === 'interview' &&
@@ -60,13 +59,8 @@ const Schedules: FC<Props> = ({
                 !isFinishedSchedule(schedules[2]) && (
                   <Interviewcontainer schedules={schedules} />
                 )) ||
-              (type === 'notice' &&
-                isFinishedSchedule(schedules[2]) &&
-                !isFinishedSchedule(schedules[3]) && (
-                  <NoticeContainer schedules={schedules} />
-                )) ||
-              (type === 'final' && isFinishedSchedule(schedules[3]) && (
-                <FinalContainer />
+              (type === 'notice' && isFinishedSchedule(schedules[2]) && (
+                <NoticeContainer schedules={schedules} />
               )) || <Redirect to='/error' />}
         </S.SchedulesContainer>
       </S.ApplyStatusWrapper>
