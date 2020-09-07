@@ -2,11 +2,10 @@ import React, { FC, useEffect } from 'react';
 import ScheduleDetail from './ScheduleDetail';
 import { Schedule } from '@/core/redux/actions/Main';
 import ErrorType from '@/lib/utils/type';
-import { isProgressingSchedule, getFullDateText } from '@/lib/utils/function';
+import { getFullDateText, isNotStartedSchedule } from '@/lib/utils/function';
 import {
   FAIL_INFO,
   WAIT_INFO,
-  FINAL_PASS_INFO,
   INTERVIEW_PASS_INFO,
 } from './SchedulesConstance';
 
@@ -27,7 +26,7 @@ const NoticeDetail: FC<Props> = ({
   getUserStatus,
   isLoading,
 }) => {
-  const isProgressing = isProgressingSchedule(schedules[NOTICE_INDEX]);
+  const isStarted = !isNotStartedSchedule(schedules[NOTICE_INDEX]);
   const wait = WAIT_INFO(getFullDateText(schedules[NOTICE_INDEX].start_date));
   const notice = INTERVIEW_PASS_INFO(
     getFullDateText(schedules[NOTICE_INDEX].end_date),
@@ -50,12 +49,10 @@ const NoticeDetail: FC<Props> = ({
         '합격 여부를 불러오는 중입니다...'
       ) : (
         <ScheduleDetail
-          title={
-            isPass ? (isProgressing ? notice.title : wait.title) : fail.title
-          }
+          title={isPass ? (isStarted ? notice.title : wait.title) : fail.title}
           explains={
             isPass
-              ? isProgressing
+              ? isStarted
                 ? notice.explains
                 : wait.explains
               : fail.explains
