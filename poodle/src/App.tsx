@@ -17,14 +17,16 @@ import SchedulesContainer from './container/SchedulesContainer/SchedulesContaine
 import './';
 import Maltese from 'entry-maltese';
 import AllFinish from './components/Schedules/AllFinish';
-import { getTime } from './lib/utils/function';
+import { getIsFinish, useAuth } from './lib/utils/function';
 
 function App() {
-  const token = localStorage.getItem('accessToken');
-  const isLogin = token !== null ? true : false;
-  const time = getTime();
-  const finishTime = getTime('2020-11-20');
-  const isFinish = finishTime <= time;
+  const { isLogin, accessToken } = useAuth();
+  const isFinish = getIsFinish();
+
+  const chattingError = (err: number) => {
+    alert(`Error code:${err} 채팅에 문제가 있습니다.`);
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -34,7 +36,11 @@ function App() {
         <BrowserRouter>
           <HeaderContainer />
           <>
-            <Maltese isLogin={isLogin} token={token !== null ? token : ''} />
+            <Maltese
+              isLogin={isLogin}
+              token={accessToken !== null ? accessToken : ''}
+              errorHandler={chattingError}
+            />
             <Switch>
               <Route exact path='/' component={MainContainer} />
               <Route path='/schedules' component={SchedulesContainer} />
