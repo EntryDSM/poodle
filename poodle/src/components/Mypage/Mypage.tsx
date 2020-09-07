@@ -53,8 +53,8 @@ const Mypage: FC<Props> = ({
   const myInfos = useMemo(() => {
     const { name, sex, final_submit, paid, passed_first_apply } = userStatus;
     const infos = [
-      { label: '이름', value: name },
-      { label: '성별', value: Sex[sex] },
+      { label: '이름', value: name ? name : '미작성' },
+      { label: '성별', value: sex ? Sex[sex] : '미작성' },
       {
         label: '최종제출',
         value: final_submit ? '완료' : '미완료',
