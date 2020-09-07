@@ -13,7 +13,7 @@ interface Props {
   isProgressing: boolean;
 }
 
-const Eplain: FC<Props> = ({ schedule, isProgressing }) => {
+const Explain: FC<Props> = ({ schedule, isProgressing }) => {
   const isApplication = schedule.id === 'application';
   const [year, month, date, hours, minutes] = getDate(schedule.start_date);
   return (
@@ -68,4 +68,4 @@ const Eplain: FC<Props> = ({ schedule, isProgressing }) => {
   );
 };
 
-export default Eplain;
+export default Explain;
