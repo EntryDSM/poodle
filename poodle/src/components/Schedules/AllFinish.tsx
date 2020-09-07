@@ -10,7 +10,7 @@ const Wrapper = styled.div`
     cursor: auto;
   }
   main > div > div {
-    margin-bottom: 150px;
+    margin-bottom: 154px;
   }
 `;
 
@@ -27,9 +27,10 @@ const AllFinish: FC = () => {
       <S.ApplyStatusWrapper>
         <S.SchedulesContainer>
           <ContentHeader
-            padding='180px 0 92px'
-            title='404 NOT FOUND'
-            underLineLength={313}
+            padding='160px 0 78px'
+            subTitle='대덕소프트웨어마이스터고등학교'
+            title='2021 신입생 모집'
+            underLineLength={315}
             titleFontSize={46}
           />
           <S.ContentBlock>
