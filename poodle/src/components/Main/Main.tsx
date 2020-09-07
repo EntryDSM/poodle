@@ -8,6 +8,7 @@ import {
   isNotStartedSchedule,
   isProgressingSchedule,
   isFinishedSchedule,
+  getFirstApplyStatus,
 } from '@/lib/utils/function';
 import ErrorType from '@/lib/utils/type';
 
@@ -65,6 +66,8 @@ const Main: FC<Props> = ({
               <Explain schedule={schedules[0]} isProgressing={false} />
             ) : isFinishedSchedule(schedules[3]) ? (
               <AllFinishExplain />
+            ) : getFirstApplyStatus(schedules[1]).isApplying ? (
+              <Explain schedule={schedules[1]} isProgressing={true} />
             ) : isProgressingSchedule(schedules[nextScheduleIndex - 1]) ? (
               <Explain
                 schedule={schedules[nextScheduleIndex - 1]}

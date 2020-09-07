@@ -9,8 +9,6 @@ import {
 } from '../../actions/Header';
 import createRequestSaga from '@/lib/utils/saga/createRequestSaga';
 import * as authCtrl from '@/lib/api/auth';
-import { finishLoading, startLoading } from '../../actions/Loading';
-import ErrorType from '@/lib/utils/type';
 
 let flag = false;
 

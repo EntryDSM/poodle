@@ -16,7 +16,7 @@ const AllFinishExplain: FC = () => {
         <S.DetailedPeriod />
       </S.Article>
       <S.Footer isAble={isLogin}>
-        <S.StepLink to={isLogin ? '/schedules?type=final' : '/'}>
+        <S.StepLink to={isLogin ? '/schedules?type=notice' : '/'}>
           <S.StepTitle>합격 여부 확인하기</S.StepTitle>
           <S.RightArrow />
         </S.StepLink>

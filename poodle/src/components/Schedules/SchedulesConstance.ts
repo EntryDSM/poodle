@@ -15,7 +15,7 @@ export const PASS_INFO = (date: string) => ({
 });
 
 export const INTERVIEW_PASS_INFO = (time: string) => ({
-  title: '축하드립니다 2차 면접에 합격하셨습니다',
+  title: '축하드립니다 최종 합격하셨습니다',
   explains: [
     `합격자 등록 - ${time} 까지`,
     '그 밖에 자세한 내용은 홈페이지를 참고해주세요.',
@@ -53,19 +53,3 @@ export const INTERVIEWING_INFO = (time: string) => ({
     `합격자 발표는 ${time} 에 발표됩니다.`,
   ],
 });
-
-export const FINAL_PASS_INFO = {
-  title: '축하드립니다 최종 합격하셨습니다',
-  explains: [
-    '그 밖의 정보는 대덕소프트웨어마이스터고등학교 홈페이지와',
-    '개인 메세지를 확인해 주세요.',
-  ],
-};
-
-export const FINAL_FAIL_INFO = {
-  title: '합격자 등록을 하지 않으셨습니다.',
-  explains: [
-    '지원해주셔서 다시 한 번 감사합니다.',
-    '앞으로 많은 성장을 하시리라 기대하고, 응원합니다.',
-  ],
-};

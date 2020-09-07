@@ -175,7 +175,7 @@ export const useUser = () => {
   return user;
 };
 
-export const TIME = '2020-11-28';
+export const TIME = '2020-10-10 10:00';
 
 export const getDateObject = (date: string = TIME) =>
   date ? new Date(date) : new Date();
@@ -208,7 +208,7 @@ export const isProgressingSchedule = (schedule: Schedule) => {
   return startTime <= nowTime && nowTime <= endTime;
 };
 
-export const getDate = (timeString: string) => {
+export const getDate = (timeString: string = TIME) => {
   const time = new Date(timeString);
   const year = time.getFullYear().toString();
   const month = (time.getMonth() + 1).toString().padStart(2, '0');
@@ -286,7 +286,21 @@ export const useUserStatus = (): [
 
 export const getIsFinish = () => {
   const time = getTime();
-  const finishTime = getTime('2020-11-30');
+  const finishTime = getTime('2020-11-24');
 
   return finishTime <= time;
+};
+
+export const getFirstApplyStatus = (schedule: Schedule) => {
+  const [year, month, date] = getDate(schedule.start_date);
+  const startTime = getTime(schedule.start_date);
+  const nowTime = getTime();
+  const endTime = getTime(`${year}-${month}-${date} 23:59`);
+  const isApplying = startTime <= nowTime && nowTime <= endTime;
+  const isFinished = endTime < nowTime;
+
+  return {
+    isApplying,
+    isFinished,
+  };
 };

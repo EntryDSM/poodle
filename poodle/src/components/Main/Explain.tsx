@@ -13,9 +13,9 @@ interface Props {
   isProgressing: boolean;
 }
 
-const NotStartedExplain: FC<Props> = ({ schedule, isProgressing }) => {
+const Explain: FC<Props> = ({ schedule, isProgressing }) => {
   const isApplication = schedule.id === 'application';
-  const [year, month, date] = getDate(schedule.start_date);
+  const [year, month, date, hours, minutes] = getDate(schedule.start_date);
   return (
     <>
       <S.Article>
@@ -30,7 +30,8 @@ const NotStartedExplain: FC<Props> = ({ schedule, isProgressing }) => {
           <S.EmphasizeLetters>
             {year.slice(2)}년<S.WhiteSpace> </S.WhiteSpace>
             {month}월<S.WhiteSpace> </S.WhiteSpace>
-            {date}일
+            {date}일<S.WhiteSpace> </S.WhiteSpace>
+            {hours}:{minutes}
           </S.EmphasizeLetters>
           부터이며
           {'\r\n'}
@@ -67,4 +68,4 @@ const NotStartedExplain: FC<Props> = ({ schedule, isProgressing }) => {
   );
 };
 
-export default NotStartedExplain;
+export default Explain;
