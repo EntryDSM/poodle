@@ -1,10 +1,11 @@
-import React, { FC, useState, useEffect, useMemo } from 'react';
+import React, { FC } from 'react';
 import * as S from '@/styles/Main/ProgressBar';
 import { Link } from 'react-router-dom';
 import { Schedule } from '@/core/redux/actions/Main';
 import {
   isFinishedSchedule,
   isProgressingSchedule,
+  getFirstApplyStatus,
 } from '@/lib/utils/function';
 
 export enum Progress {
@@ -63,7 +64,11 @@ const ProgressItem: FC<ProgressItemProps> = ({
   const schedule = schedules[index];
   const FIRST_INDEX = 0;
   const isApplication = schedule.id === 'application';
-  const isProgressing = isProgressingSchedule(schedule);
+  const isFirstApply = schedule.id === 'first_apply';
+  let isProgressing = isProgressingSchedule(schedule);
+  isProgressing = isFirstApply
+    ? getFirstApplyStatus(schedule).isApplying
+    : isProgressing;
   const isFinished = isFinishedSchedule(schedule);
   return (
     <>
@@ -76,6 +81,10 @@ const ProgressItem: FC<ProgressItemProps> = ({
         isAble={
           isApplication
             ? isProgressing
+            : isFirstApply &&
+              isFinishedSchedule(schedules[0]) &&
+              !getFirstApplyStatus(schedule).isFinished
+            ? true
             : isFinishedSchedule(schedules[index - 1]) &&
               !isFinishedSchedule(schedules[index])
         }
@@ -86,6 +95,10 @@ const ProgressItem: FC<ProgressItemProps> = ({
               ? isProgressing
                 ? '/type'
                 : ''
+              : isFirstApply &&
+                isFinishedSchedule(schedules[0]) &&
+                !getFirstApplyStatus(schedule).isFinished
+              ? Uri['first_apply']
               : isFinishedSchedule(schedules[index - 1]) &&
                 !isFinishedSchedule(schedules[index])
               ? Uri[schedule.id]
@@ -102,6 +115,10 @@ const ProgressItem: FC<ProgressItemProps> = ({
               ? isProgressing
                 ? '/type'
                 : ''
+              : isFirstApply &&
+                isFinishedSchedule(schedules[0]) &&
+                !getFirstApplyStatus(schedule).isFinished
+              ? Uri['first_apply']
               : isFinishedSchedule(schedules[index - 1]) &&
                 !isFinishedSchedule(schedules[index])
               ? Uri[schedule.id]
