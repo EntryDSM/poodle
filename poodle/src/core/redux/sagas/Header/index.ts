@@ -14,35 +14,7 @@ import ErrorType from '@/lib/utils/type';
 
 let flag = false;
 
-const loginSaga = function* (action: any) {
-  const SUCCESS = `${LOGIN}_SUCCESS`;
-  const FAILURE = `${LOGIN}_FAILURE`;
-  yield put(startLoading(LOGIN));
-  try {
-    const response = yield call(authCtrl.login, action.payload);
-    yield put({
-      type: SUCCESS,
-      payload: response.data,
-    });
-    window.location.href = '/';
-  } catch (e) {
-    if (e.response?.data) {
-      yield put({
-        type: FAILURE,
-        payload: e.response.data as ErrorType,
-      });
-    } else {
-      yield put({
-        type: FAILURE,
-        payload: {
-          message: `TypeError: Cannot read property 'data' of undefined`,
-          status: 500,
-        } as ErrorType,
-      });
-    }
-  }
-  yield put(finishLoading(LOGIN));
-};
+const loginSaga = createRequestSaga(LOGIN, authCtrl.login);
 const reGenerateTokenSaga = function* ({
   payload,
 }: ReturnType<typeof reGenerateToken>) {
