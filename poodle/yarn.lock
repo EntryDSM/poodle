@@ -5103,7 +5103,7 @@ entities@^2.0.0:
 
 "entry-maltese@git+https://github.com/EntryDSM/Maltese.git":
   version "1.0.0"
-  resolved "git+https://github.com/EntryDSM/Maltese.git#ef875d0ba1f7bffb232de0f991825e6724bb1e84"
+  resolved "git+https://github.com/EntryDSM/Maltese.git#837a744a0c2df12aaec6440b2367de80d26f0508"
 
 errno@^0.1.3, errno@~0.1.7:
   version "0.1.7"
