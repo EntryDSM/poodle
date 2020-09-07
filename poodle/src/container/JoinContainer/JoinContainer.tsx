@@ -36,7 +36,7 @@ function JoinContainer() {
   }, []);
 
   const verifyCodeHandler = useCallback(
-    (data: { email: string; code: string }) => {
+    (data: { email: string; auth_code: string }) => {
       dispatch(verifyCode(data));
     },
     [],
