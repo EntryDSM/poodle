@@ -52,11 +52,12 @@ export const phoneNumCheck = (phoneNum: string) => {
 
 export const useAuth = () => {
   const {
-    token: { access_token },
+    token: { access_token, refresh_token },
     isLogin,
   } = useSelector((state: RootState) => state.Header);
   return {
     accessToken: access_token,
+    refreshToken: refresh_token,
     isLogin,
   };
 };
@@ -281,4 +282,11 @@ export const useUserStatus = (): [
   };
 
   return [userStatus, userStatusError, getUserStatus, isLoading];
+};
+
+export const getIsFinish = () => {
+  const time = getTime();
+  const finishTime = getTime('2020-11-30');
+
+  return finishTime <= time;
 };
