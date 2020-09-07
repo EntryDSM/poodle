@@ -6,10 +6,22 @@ export type ModalButtonProps = {
   title: string;
   size: string;
   onClick: () => void;
+  enabled?: boolean;
 };
 
-const ModalButton: FC<ModalButtonProps> = ({ color, title, size, onClick }) => (
-  <S.StyledModalButton color={color} size={size} onClick={onClick}>
+const ModalButton: FC<ModalButtonProps> = ({
+  color,
+  title,
+  size,
+  onClick,
+  enabled = true,
+}) => (
+  <S.StyledModalButton
+    color={color}
+    size={size}
+    onClick={onClick}
+    enabled={enabled}
+  >
     {title}
   </S.StyledModalButton>
 );
