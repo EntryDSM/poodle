@@ -338,7 +338,7 @@ export const setInitalGradeState = () => {
 const gradeArrayToString = (
   gradeList: GradeType[],
   subject: SubjectType,
-  gradeType: GraduationStatusType,
+  gradeType: GraduationStatusType | '',
 ): string => {
   const filteredGradeList = gradeList.filter(
     grade => grade.subject === subject,
