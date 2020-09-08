@@ -31,7 +31,7 @@ export interface State {
   successTime: Date | null;
   getGradeError: ErrorType;
   setGradeError: ErrorType;
-  gradeType: GraduationStatusType;
+  gradeType: GraduationStatusType | '';
   pageMove: boolean;
 }
 
@@ -47,7 +47,7 @@ export const initialState: State = {
   successTime: null,
   getGradeError: errorInitialState,
   setGradeError: errorInitialState,
-  gradeType: 'UNGRADUATED',
+  gradeType: '',
   pageMove: false,
 };
 
