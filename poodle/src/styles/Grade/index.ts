@@ -274,6 +274,24 @@ export const GradeButtonList = styled.ul`
 export const QualificationScoreRow = styled(GradeScoreRow)`
   width: 1170px;
   height: 80px;
+  display: flex;
+  align-items: center;
+  > div {
+    width: 1010px;
+    padding: 0px 30px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    > span {
+      color: #606060;
+      font-size: 13px;
+      float: right;
+      justify-self: flex-end;
+    }
+    > div {
+      height: 100%;
+    }
+  }
   > td {
     height: 100%;
   }
