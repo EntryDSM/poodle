@@ -12,6 +12,7 @@ import {
   UserSchoolPhoneNumRow,
   UserPhoneNumRow,
   UserAddressRow,
+  UserHomePhoneNumber,
 } from './RowType';
 
 export {
@@ -28,4 +29,5 @@ export {
   UserSchoolPhoneNumRow,
   UserPhoneNumRow,
   UserAddressRow,
+  UserHomePhoneNumber,
 };
