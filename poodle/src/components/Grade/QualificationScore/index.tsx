@@ -33,18 +33,21 @@ const QualificationScorePage: FC<Props> = ({ score, setScore, isError }) => {
       <GradeTable>
         <tbody>
           <QualificationScoreRow>
-            <td className='subject'>총점</td>
-            <td className='grade'>
-              <Input
-                width='76px'
-                valueChangeHandler={setScore}
-                isEmpty={isEmpty}
-                value={score}
-                isCenter
-                type='number'
-              />
-              점
-            </td>
+            <td className='subject'>평균 점수</td>
+            <div>
+              <div className='grade'>
+                <Input
+                  width='76px'
+                  valueChangeHandler={setScore}
+                  isEmpty={isEmpty}
+                  value={score}
+                  isCenter
+                  type='number'
+                />
+                점
+              </div>
+              <span>*100점에서 60점까지 입력해 주세요.</span>
+            </div>
           </QualificationScoreRow>
         </tbody>
       </GradeTable>
