@@ -3,6 +3,7 @@ import {
   UserProtectorPhoneNumRow,
   UserPhoneNumRow,
   UserAddressRow,
+  UserHomePhoneNumber,
 } from '../RowType';
 
 type dispatchFuncType = (value: string) => void;
@@ -17,6 +18,8 @@ interface Props {
   isError: boolean;
   detailAddress: string;
   postNum: string;
+  setHomePhoneNumber: dispatchFuncType;
+  homePhoneNumber: string;
 }
 
 const QualificationAnotherRows: FC<Props> = ({
@@ -29,6 +32,8 @@ const QualificationAnotherRows: FC<Props> = ({
   isError,
   postNum,
   detailAddress,
+  setHomePhoneNumber,
+  homePhoneNumber,
 }) => (
   <>
     <UserProtectorPhoneNumRow
@@ -41,6 +46,12 @@ const QualificationAnotherRows: FC<Props> = ({
       describe='*‘-’문자를 제외한 숫자만 입력해주세요.'
       valueChangeHandler={setPhoneNum}
       phoneNum={phoneNum}
+      isError={isError}
+    />
+    <UserHomePhoneNumber
+      describe='*‘-’문자를 제외한 숫자만 입력해주세요.'
+      valueChangeHandler={setHomePhoneNumber}
+      homeNumber={homePhoneNumber}
       isError={isError}
     />
     <UserAddressRow
