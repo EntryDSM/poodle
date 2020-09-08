@@ -141,11 +141,6 @@ const getInfoSaga = createGetSaga(
   infoResponseToState,
 );
 
-const splitImgUrl = (url: string) => {
-  const splitedString = url.split('/')
-  return '/' + splitedString[3];
-};
-
 function* setImgSaga(action: SetPictureCall) {
   try {
     const formData = new FormData();
@@ -153,8 +148,8 @@ function* setImgSaga(action: SetPictureCall) {
     formData.append('file', picture);
     const response = yield call(setPostToServer, SET_PICTURE_URL, formData);
     yield put({
-      type: SET_PICTURE_SUCCESS,
-      payload: { url: splitImgUrl(response) },
+      type: PICTURE,
+      payload: { picture: response ? response : '' },
     });
   } catch (error) {
     yield put({ type: SET_PICTURE_FAILURE, payload: { error: error } });
