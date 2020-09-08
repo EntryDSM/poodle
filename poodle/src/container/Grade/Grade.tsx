@@ -86,7 +86,7 @@ const Grade: FC<Props> = props => {
           <GraduatedGradeInput {...props} />
         </>
       );
-    else
+    else if (props.gradeType === 'UNGRADUATED')
       return (
         <>
           <VolanteerWorkTimeAttend {...props} isError={isError} />
@@ -94,6 +94,9 @@ const Grade: FC<Props> = props => {
           <GradeInput {...props} />
         </>
       );
+    else {
+      return <></>;
+    }
   }, [props]);
   const moveCurrentPage = useCallback(() => {
     props.history.push('/info');
