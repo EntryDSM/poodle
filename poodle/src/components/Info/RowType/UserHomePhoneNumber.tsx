@@ -7,32 +7,32 @@ import { isEmptyCheck } from '@/lib/utils/function';
 interface Props {
   describe: string;
   valueChangeHandler: (value: string) => void;
-  protectorPhoneNum: string;
+  homeNumber: string;
   isError: boolean;
 }
 
 const UserProtectorPhoneNumRow: FC<Props> = ({
   describe,
   valueChangeHandler,
-  protectorPhoneNum,
+  homeNumber,
   isError,
 }) => {
   const [isEmpty, emptyChange] = useState<boolean>(false);
   useEffect(() => {
-    if (isError && isEmptyCheck(protectorPhoneNum)) {
+    if (isError && isEmptyCheck(homeNumber)) {
       emptyChange(true);
     } else {
       emptyChange(false);
     }
-  }, [isError, protectorPhoneNum]);
+  }, [isError, homeNumber]);
   return (
-    <DefaultRow title='보호자 연락처'>
+    <DefaultRow title='자택 연락처'>
       <InfoElementContent>
         <Input
           valueChangeHandler={valueChangeHandler}
           width='250px'
           isEmpty={isEmpty}
-          value={protectorPhoneNum}
+          value={homeNumber}
         />
         <div>
           <p>{describe}</p>

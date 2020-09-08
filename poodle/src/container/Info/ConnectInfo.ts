@@ -21,6 +21,7 @@ import {
   getInfoCall,
   infoCall,
   pageMove,
+  setHomePhoneNumber,
 } from '@/core/redux/actions/Info';
 
 export const mapStateToProps = (state: RootState) => ({
@@ -46,6 +47,7 @@ export const mapStateToProps = (state: RootState) => ({
   getInfoError: state.InfoState.getInfoError,
   pageMove: state.InfoState.pageMove,
   setImgError: state.InfoState.setImgError,
+  homePhoneNumber: state.InfoState.homePhoneNumber,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
@@ -76,6 +78,8 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setInfoToServer: (pageMove: boolean) => dispatch(infoCall({ pageMove })),
   pageMoveChange: (isPageMove: boolean) =>
     dispatch(pageMove({ pageMove: isPageMove })),
+  setHomePhoneNumber: (homePhoneNumber: string) =>
+    dispatch(setHomePhoneNumber({ homePhoneNumber })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Info);

@@ -133,7 +133,6 @@ const Info: FC<Props> = props => {
     props.getInfoToServer();
   }, []);
   useEffect(() => {
-    console.log(props.error);
     if (!props.error) return;
     if (props.error.status === 401) {
       if (props.setInfoError.status === 401)

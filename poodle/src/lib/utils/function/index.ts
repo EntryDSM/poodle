@@ -44,7 +44,10 @@ export const isEmptyCheck = (text: string) => {
 };
 
 export const phoneNumCheck = (phoneNum: string) => {
-  const rxg = /^\(?0[1-9]\d\)?[1-9]\d{2,3}\d{4}$/;
+  if (phoneNum.length === 0) return true;
+  const rxg = new RegExp(
+    '(^\\+82[.-][1-9]\\d?[.-]|^\\(?0[1-9]\\d?\\)?[.-]?)?[1-9]\\d{2,3}[.-]\\d{4}$',
+  );
   const result = rxg.test(phoneNum);
   if (!result) return false;
   return true;
@@ -303,4 +306,38 @@ export const getFirstApplyStatus = (schedule: Schedule) => {
     isApplying,
     isFinished,
   };
+};
+
+export const phoneNumSetForm = (
+  event: React.KeyboardEvent<HTMLInputElement>,
+  phoneNum: string,
+  valueChangeHandler: (value: string) => void,
+) => {
+  const parsedValue = getParsedFormPhoneNum(phoneNum);
+  valueChangeHandler(parsedValue);
+};
+
+export const getParsedFormPhoneNum = (phoneNum: string) => {
+  return phoneNum
+    .replace(/[^0-9]/g, '')
+    .replace(
+      /(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,
+      '$1-$2-$3',
+    )
+    .replace('--', '-');
+};
+
+export const isLastTextBar = (text: string) => {
+  const secondLastText = text[text.length - 2];
+  const lastText = text[text.length - 1];
+  if (secondLastText === '-' || lastText === '-') return true;
+  return false;
+};
+
+export const arrayToString = (array: any[]) => {
+  let buffer = '';
+  array.map(data => {
+    buffer = buffer + data;
+  });
+  return buffer;
 };

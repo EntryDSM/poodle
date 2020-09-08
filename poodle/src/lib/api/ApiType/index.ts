@@ -70,6 +70,7 @@ export interface userInfoServerType {
   post_code: string | null;
   detail_address: string | null;
   school_code: string | null;
+  home_tel: string | null;
 }
 
 export interface userInfoResponseType {
@@ -88,6 +89,7 @@ export interface userInfoResponseType {
   detail_address: string | null;
   grade_type: GraduationStatusType | null;
   school_code: string | null;
+  home_tel: string | null;
 }
 
 export interface selfIntroductionServerType {
