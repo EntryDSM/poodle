@@ -45,6 +45,8 @@ const DefaultPage: FC<Props> = ({
   classNumber,
   gradeNumber,
   setDetailAddress,
+  setHomePhoneNumber,
+  homePhoneNumber,
 }) => {
   return (
     <li>
@@ -81,6 +83,8 @@ const DefaultPage: FC<Props> = ({
         isError={isError}
         postNum={postNum}
         detailAddress={detailAddress}
+        setHomePhoneNumber={setHomePhoneNumber}
+        homePhoneNumber={homePhoneNumber}
       />
     </li>
   );
