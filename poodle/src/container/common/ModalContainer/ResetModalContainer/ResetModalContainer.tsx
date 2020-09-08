@@ -29,11 +29,6 @@ enum VerifyCodeError {
 
 const ResetModalContainer: FC<{}> = () => {
   const [page, setPage] = useState<number>(0);
-  const ExplainSentenceList = [
-    {
-      explain: (sendSuccess: boolean) => (sendSuccess ? '' : ''),
-    },
-  ];
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordCheck, setPasswordCheck] = useState<string>('');
@@ -49,7 +44,7 @@ const ResetModalContainer: FC<{}> = () => {
     resetTimer();
     dispatch(sendEmail(email));
   };
-  const verifyCodeHandler = (data: { email: string; code: string }) => {
+  const verifyCodeHandler = (data: { email: string; auth_code: string }) => {
     if (!timer.current) return alert('인증 시간이 만료되었습니다.');
     dispatch(verifyCode(data));
   };
@@ -115,7 +110,7 @@ const ResetModalContainer: FC<{}> = () => {
             return '이메일 재전송에 실패하였습니다.';
           return '';
         case 3:
-          if (password !== passwordCheck)
+          if (passwordCheck && password !== passwordCheck)
             return '비밀번호가 일치하지 않습니다.';
           if (!passwordRegExp.exec(passwordCheck))
             return '조건에 맞지 않는 비밀번호 입니다.';
@@ -140,7 +135,8 @@ const ResetModalContainer: FC<{}> = () => {
   }, []);
   useEffect(() => {
     if (sendEmailValue.success) {
-      startTimer(10);
+      let validitySecond = 180;
+      startTimer(validitySecond);
     }
   }, [sendEmailValue.success]);
   useEffect(() => {
