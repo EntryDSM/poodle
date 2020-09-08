@@ -31,10 +31,12 @@ const EmailPage: FC<EmailPageProps> = ({
 }) => {
   const { success } = sendEmailValue;
   const emailSubmit = useCallback(() => {
-    if (!email) return alert('빈칸은 입력할 수 없습니다.');
-    if (!emailRegExp.exec(email)) return alert('잘못된 형식의 이메일입니다.');
-    sendEmail(email);
-  }, [email]);
+    if (!success) {
+      if (!email) return alert('빈칸은 입력할 수 없습니다.');
+      if (!emailRegExp.exec(email)) return alert('잘못된 형식의 이메일입니다.');
+      sendEmail(email);
+    }
+  }, [email, success]);
   const goNextPage = useCallback(() => {
     if (!success) return alert('이메일 전송을 해야 합니다.');
     setPage(prev => prev + 1);
@@ -56,6 +58,7 @@ const EmailPage: FC<EmailPageProps> = ({
           title='전송'
           size='middle'
           onClick={emailSubmit}
+          enabled={!success}
         />
         <ModalButton
           color={MAINCOLOR}

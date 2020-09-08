@@ -225,6 +225,7 @@ export const ModalButtonListWrapper = styled.div`
 export type ModalButtonProps = {
   color: string;
   size: string;
+  enabled?: boolean;
 };
 
 export const StyledModalButton = styled.button<ModalButtonProps>`
@@ -232,7 +233,7 @@ export const StyledModalButton = styled.button<ModalButtonProps>`
   height: 2.5rem;
   border-radius: 0.25rem;
   width: 17rem;
-  background-color: ${props => props.color};
+  background-color: ${({ color, enabled }) => (enabled ? color : '#afafaf')};
   font-family: NanumSquareB;
   font-size: 16px;
   line-height: 1.13;
@@ -240,7 +241,7 @@ export const StyledModalButton = styled.button<ModalButtonProps>`
   border: none;
   outline: none;
   padding: 3px 0 0 0;
-  cursor: pointer;
+  cursor: ${({ enabled }) => (enabled ? 'pointer' : 'default')};
   margin-right: 0.625rem;
   &:last-child {
     margin-right: 0;

@@ -1,12 +1,10 @@
 import client from './client';
 
 export const sendEmail = (email: string) =>
-  client.post('/email/password/verify', {
-    email,
-  });
+  client.post(`/users/email/password/verify?email=${email}`, {});
 
-export const verifyCode = (data: { email: string; code: string }) =>
-  client.put('/email/verify', data);
+export const verifyCode = (data: { email: string; auth_cod: string }) =>
+  client.put('/users/email/verify', data);
 
 export const resetPassword = (data: { email: string; password: string }) =>
-  client.post('/user/password/reset?/api없어요', data);
+  client.put('/users/password', data);
