@@ -6,11 +6,13 @@ interface Props {
   placeholder?: string;
   isCenter?: boolean;
   type?: string;
-  valueChangeHandler: Function;
+  valueChangeHandler?: Function;
   isEmpty: boolean;
   value?: string;
   height?: string;
   disable?: boolean;
+  keyPressHandler?: Function;
+  keyPressDownHandler?: Function;
 }
 
 const Input: FC<Props> = ({
@@ -23,10 +25,21 @@ const Input: FC<Props> = ({
   height,
   value,
   disable,
+  keyPressHandler,
+  keyPressDownHandler,
 }) => {
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
+    if (!valueChangeHandler) return;
     valueChangeHandler(value);
+  };
+  const onKeyPressHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!keyPressHandler) return;
+    keyPressHandler(event);
+  };
+  const onKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!keyPressDownHandler) return;
+    keyPressDownHandler(event);
   };
   return (
     <DefaultInput
@@ -36,6 +49,8 @@ const Input: FC<Props> = ({
       isCenter={isCenter}
       type={type}
       onChange={inputChangeHandler}
+      onKeyPress={onKeyPressHandler}
+      onKeyDown={onKeyDownHandler}
       height={height}
       value={value}
       required
