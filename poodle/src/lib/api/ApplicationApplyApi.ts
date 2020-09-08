@@ -65,7 +65,7 @@ export const setDataToServer = async <RequestType>(
   payload: RequestType,
 ) => {
   const response = await getClientWithAccessToken().patch(url, payload);
-  return response;
+  return response.data;
 };
 
 export const setPostToServer = async <RequestType>(
@@ -215,6 +215,7 @@ export const infoStateToRequest = (
     detail_address: stringToStringOrNull(state.detailAddress),
     post_code: stringToStringOrNull(state.postNum),
     school_code: stringToStringOrNull(state.schoolCode),
+    home_tel: stringToStringOrNull(state.homePhoneNumber),
   };
 };
 
@@ -237,6 +238,7 @@ export const infoStateToGedRequest = (
     detail_address: stringToStringOrNull(state.detailAddress),
     post_code: stringToStringOrNull(state.postNum),
     school_code: null,
+    home_tel: stringToStringOrNull(state.homePhoneNumber),
   };
 };
 
@@ -276,7 +278,7 @@ export const infoResponseToState = (
   postNum: nullAbleStringToString(response.post_code),
   address: nullAbleStringToString(response.address),
   detailAddress: nullAbleStringToString(response.detail_address),
-  picture: nullAbleStringToString(response.photo),
+  picture: '',
   gradeNumber: infoStringToGradeNumber(response.student_number),
   classNumber: infoStringToClassNumber(response.student_number),
   error: null,
@@ -290,6 +292,8 @@ export const infoResponseToState = (
   day: getDayFromDateString(response.birth_date),
   schoolCode: nullAbleStringToString(response.school_code),
   pageMove: false,
+  homePhoneNumber: nullAbleStringToString(response.home_tel),
+  pictureUrl: nullAbleStringToString(response.photo),
 });
 
 const infoResponseDateStringToStateDateString = (
