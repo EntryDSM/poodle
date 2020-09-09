@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PreviewFile } from '@/components/Preview';
-import { PreviewDiv, PreviewMain } from '@/styles/Preview';
+import { EmptyPreview, PreviewDiv, PreviewMain } from '@/styles/Preview';
 import {
   Title,
   DefaultlNavigation,
@@ -30,6 +30,7 @@ const PreviewContainer: FC = () => {
     getPreviewError,
     setUserStatusError,
   } = useSelector((state: ReducerType) => state.Preview);
+  const { status } = useSelector((state: ReducerType) => state.Header);
   const history = useHistory();
   const dispatch = useDispatch();
   const goCurrentPage = useCallback(() => {
@@ -62,6 +63,13 @@ const PreviewContainer: FC = () => {
     dispatch(previewCall());
   }, []);
   useEffect(() => {
+    console.log(status);
+    if (status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    }
+  }, [status]);
+  useEffect(() => {
     if (pageMove) {
       history.push('/');
       modalController.resetToast();
@@ -74,11 +82,7 @@ const PreviewContainer: FC = () => {
       <ModalContainer onClick={modalClickHandler} />
       <PreviewMain>
         <Title margin='55px'>미리보기</Title>
-        {preview.length > 0 ? (
-          <PreviewFile src={preview} />
-        ) : (
-          '생성중입니다. 잠시만 기다려 주세요...'
-        )}
+        {preview.length > 0 ? <PreviewFile src={preview} /> : <EmptyPreview />}
         <DefaultlNavigation
           page='preview'
           currentPageClickHandler={goCurrentPage}
