@@ -6,6 +6,7 @@ import {
   RE_GENERATE_TOKEN_FAILURE,
   reGenerateToken,
   GET_USER,
+  GET_STATUS,
 } from '../../actions/Header';
 import createRequestSaga from '@/lib/utils/saga/createRequestSaga';
 import * as authCtrl from '@/lib/api/auth';
@@ -37,9 +38,11 @@ const reGenerateTokenSaga = function* ({
   flag = false;
 };
 const getUserSaga = createRequestSaga(GET_USER, authCtrl.getUser);
+const getStatusSaga = createRequestSaga(GET_STATUS, authCtrl.getStatus);
 
 export default function* headerSaga() {
   yield takeLatest(LOGIN, loginSaga);
+  yield takeLatest(GET_STATUS, getStatusSaga);
   yield takeEvery(RE_GENERATE_TOKEN, reGenerateTokenSaga);
   yield takeLatest(GET_USER, getUserSaga);
 }
