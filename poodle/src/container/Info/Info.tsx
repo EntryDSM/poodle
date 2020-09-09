@@ -53,6 +53,8 @@ const Info: FC<Props> = props => {
       postNum,
       gradeType,
       detailAddress,
+      pictureUrl,
+      homePhoneNumber,
     }: Props): boolean => {
       if (gradeType === 'GED') {
         return (
@@ -64,7 +66,8 @@ const Info: FC<Props> = props => {
           isEmptyCheck(phoneNum) ||
           isEmptyCheck(gender) ||
           isEmptyCheck(protectorPhoneNum) ||
-          isEmptyCheck(picture)
+          isEmptyCheck(pictureUrl) ||
+          isEmptyCheck(homePhoneNumber)
         );
       }
       return (
@@ -80,7 +83,8 @@ const Info: FC<Props> = props => {
         isEmptyCheck(gender) ||
         isEmptyCheck(protectorPhoneNum) ||
         isEmptyCheck(number) ||
-        isEmptyCheck(picture)
+        isEmptyCheck(pictureUrl) ||
+        isEmptyCheck(homePhoneNumber)
       );
     },
     [isEmptyCheck, isFileAble],
@@ -96,7 +100,6 @@ const Info: FC<Props> = props => {
       } else if (!isPhoneNumError) {
         modalController.createNewToast('PHONE_NUM_ERROR');
       } else {
-        console.log('hihi');
         try {
           await props.setInfoToServer(true);
         } catch (error) {
@@ -132,6 +135,12 @@ const Info: FC<Props> = props => {
   useEffect(() => {
     props.getInfoToServer();
   }, []);
+  useEffect(() => {
+    if (props.status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    }
+  }, [props.status]);
   useEffect(() => {
     if (!props.error) return;
     if (props.error.status === 401) {

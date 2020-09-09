@@ -55,7 +55,7 @@ const ChoiceType: FC<Props> = props => {
     history,
     error,
     modalOn,
-    successTime,
+    status,
     getTypeError,
     setTypeError,
     setTypeToServer,
@@ -149,6 +149,13 @@ const ChoiceType: FC<Props> = props => {
     getTypeToServer();
     modalOn();
   }, []);
+
+  useEffect(() => {
+    if (status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    }
+  }, [status]);
 
   useEffect(() => {
     if (!props.successTime) return;

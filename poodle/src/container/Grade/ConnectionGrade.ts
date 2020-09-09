@@ -31,6 +31,7 @@ export const mapStateToProps = (state: RootState) => ({
   setGradeError: state.GradeState.setGradeError,
   getGradeError: state.GradeState.getGradeError,
   pageMove: state.GradeState.pageMove,
+  status: state.Header.status.final_submit,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({

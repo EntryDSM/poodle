@@ -48,6 +48,8 @@ export const mapStateToProps = (state: RootState) => ({
   pageMove: state.InfoState.pageMove,
   setImgError: state.InfoState.setImgError,
   homePhoneNumber: state.InfoState.homePhoneNumber,
+  pictureUrl: state.InfoState.pictureUrl,
+  status: state.Header.status.final_submit,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({

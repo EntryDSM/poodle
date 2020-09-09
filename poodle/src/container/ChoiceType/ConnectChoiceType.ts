@@ -35,6 +35,7 @@ export const mapStateToProps = (state: RootState) => ({
   getTypeError: state.ChoiceTypeState.getTypeError,
   setTypeError: state.ChoiceTypeState.setTypeError,
   pageMove: state.ChoiceTypeState.pageMove,
+  status: state.Header.status.final_submit,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
