@@ -45,13 +45,11 @@ const NoticeModal: FC<Props> = ({ modalOff }) => {
               다. 주소 입력 시 도로명을 전부 입력해주셔야 합니다.
           </p>
           <p className='text'>
+            &nbsp;&nbsp;라. 전화번호 입력 시 -를 넣지 않고 숫자만 입력하시길
+            바랍니다.
+          </p>
+          <p className='text'>
               마. 자동저장은 입력 후 3초 동안 변화가 없으면 저장됩니다.
-          </p>
-          <p className='text'>
-            4. 전화번호 입력 시 -를 넣지 않고 숫자만 입력하시길 바랍니다.
-          </p>
-          <p className='text'>
-            5. 자동저장은 입력하고 3초동안 변화가 없으면 저장됩니다.
           </p>
           <p className='title'>성적 입력 </p>
           <p className='text'>
