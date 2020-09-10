@@ -16,6 +16,7 @@ import {
 import { mapDispatchToProps, mapStateToProps } from './ConnectionGrade';
 import {
   isEmptyCheck,
+  isScoreRangeAble,
   useReGenerateTokenAndDoCallback,
 } from '@/lib/utils/function';
 import ToastController from '@/container/common/ToastContainer';
@@ -32,6 +33,7 @@ const Grade: FC<Props> = props => {
   const history = useHistory();
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const [isError, errorChange] = useState<boolean>(false);
+
   const isStateAble = useCallback(
     ({
       serviceTime,
@@ -43,7 +45,7 @@ const Grade: FC<Props> = props => {
       gradeType,
     }: MapStateToProps) => {
       if (gradeType === 'GED') {
-        return isEmptyCheck(score);
+        return !isScoreRangeAble(parseInt(score));
       }
       return (
         isEmptyCheck(serviceTime) ||
