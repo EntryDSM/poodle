@@ -255,6 +255,10 @@ export const GradeButtonList = styled.ul`
     > li {
       padding: 0px 5px 0px 5px;
       cursor: pointer;
+      transition: all 0.3s;
+    }
+    > li:hover {
+      color: #62d3e8;
     }
   }
   > label > input[type='checkbox'] {
@@ -268,6 +272,10 @@ export const GradeButtonList = styled.ul`
   }
   > label > li {
     cursor: pointer;
+    transition: all 0.3s;
+  }
+  > label > li:hover {
+    color: #62d3e8;
   }
 `;
 
