@@ -1,0 +1,33 @@
+import {
+  DefaultRow,
+  DefaultRowWithPicture,
+  UserNameRow,
+  UserGenderRow,
+  UserBirthDayRow,
+  UserNumberRow,
+  UserMiddleSchool,
+  UserImg,
+  UserProtector,
+  UserProtectorPhoneNumRow,
+  UserSchoolPhoneNumRow,
+  UserPhoneNumRow,
+  UserAddressRow,
+  UserHomePhoneNumber,
+} from './RowType';
+
+export {
+  DefaultRow,
+  DefaultRowWithPicture,
+  UserNameRow,
+  UserGenderRow,
+  UserBirthDayRow,
+  UserNumberRow,
+  UserMiddleSchool,
+  UserImg,
+  UserProtector,
+  UserProtectorPhoneNumRow,
+  UserSchoolPhoneNumRow,
+  UserPhoneNumRow,
+  UserAddressRow,
+  UserHomePhoneNumber,
+};
