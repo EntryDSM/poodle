@@ -84,27 +84,32 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
   #toastDivInfo {
     position: fixed;
     right: 20px;
+    z-index: 100;
     top: 80px;
   }
   #toastDivType {
     position: fixed;
     right: 20px;
     top: 80px;
+    z-index: 100;
   }
   #toastDivGrade {
     position: fixed;
     right: 20px;
     top: 80px;
+    z-index: 100;
   }
   #toastDivPreview {
     position: fixed;
     right: 20px;
     top: 80px;
+    z-index: 100;
   }
   #toastDivIntroduction {
     position: fixed;
     right: 20px;
     top: 80px;
+    z-index: 100;
   }
 `;
 

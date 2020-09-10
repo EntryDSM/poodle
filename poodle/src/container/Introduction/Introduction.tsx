@@ -118,6 +118,12 @@ const Introduction: FC<Props> = props => {
       pageMoveChange(false);
     }
   }, [pageMove]);
+  useEffect(() => {
+    if (props.status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    }
+  }, [props.status]);
   return (
     <IntroductionDiv>
       <div id={TOAST_DIV_ID} />

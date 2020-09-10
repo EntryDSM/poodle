@@ -18,7 +18,6 @@ import {
   isEmptyCheck,
   useReGenerateTokenAndDoCallback,
 } from '@/lib/utils/function';
-import { errorTypeCheck } from '@/lib/api/ApplicationApplyApi';
 import ToastController from '@/container/common/ToastContainer';
 
 type Props = ReturnType<typeof mapStateToProps> &
@@ -115,6 +114,13 @@ const Grade: FC<Props> = props => {
     }
     modalController.createNewToast('SERVER_ERROR');
   }, [props.error, props.setGradeError, props.getGradeError]);
+
+  useEffect(() => {
+    if (props.status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    }
+  }, [props.status]);
   useEffect(() => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');

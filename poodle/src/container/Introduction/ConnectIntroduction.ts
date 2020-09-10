@@ -21,6 +21,7 @@ export const mapStateToProps = (state: RootState) => ({
   getStudyPlanError: state.IntroductionState.getStudyPlanError,
   setStudyPlanError: state.IntroductionState.setStudyPlanError,
   pageMove: state.IntroductionState.pageMove,
+  status: state.Header.status.final_submit,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({

@@ -16,6 +16,21 @@ export const GET_USER = 'header/GET_USER' as const;
 export const GET_USER_SUCCESS = 'header/GET_USER_SUCCESS' as const;
 export const GET_USER_FAILURE = 'header/GET_USER_FAILURE' as const;
 
+export const GET_STATUS = 'header/GET_STATUS' as const;
+export const GET_STATUS_FAILURE = 'header/GET_STATUS_FAILURE' as const;
+export const GET_STATUS_SUCCESS = 'header/GET_STATUS_SUCCESS' as const;
+
+export type StatusType = {
+  name: string;
+  sex: string;
+  paid: boolean;
+  printed_application_arrived: boolean;
+  passed_first_apply: boolean;
+  passed_interview: boolean;
+  final_submit: boolean;
+  submitted_at: Date | null;
+};
+
 export const reset = () => ({
   type: RESET,
 });
@@ -75,6 +90,20 @@ export const getUserFailure = (e: ErrorType) => ({
   payload: e,
 });
 
+export const getStatus = () => ({
+  type: GET_STATUS,
+});
+
+export const getStatusSuccess = (e: StatusType) => ({
+  type: GET_STATUS_SUCCESS,
+  payload: e,
+});
+
+export const getStatusFailure = (e: ErrorType) => ({
+  type: GET_STATUS_FAILURE,
+  payload: e,
+});
+
 export type HeaderAction =
   | ReturnType<typeof reset>
   | ReturnType<typeof login>
@@ -87,4 +116,7 @@ export type HeaderAction =
   | ReturnType<typeof reGenerateTokenFailure>
   | ReturnType<typeof getUser>
   | ReturnType<typeof getUserSuccess>
-  | ReturnType<typeof getUserFailure>;
+  | ReturnType<typeof getUserFailure>
+  | ReturnType<typeof getStatus>
+  | ReturnType<typeof getStatusSuccess>
+  | ReturnType<typeof getStatusFailure>;

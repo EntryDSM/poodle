@@ -85,5 +85,8 @@ export const ToastBody = styled.div<{ isSuccess: boolean }>`
     font-size: 10px;
     color: #606060;
     margin: 6px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 `;
