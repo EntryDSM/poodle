@@ -23,3 +23,10 @@ export const PreviewPdfDiv = styled.div`
   overflow: hidden;
   margin-bottom: 40px;
 `;
+
+export const EmptyPreview = styled.div`
+  width: 1170px;
+  height: 1072px;
+  background-color: #d6d5d2;
+  margin-bottom: 40px;
+`;
