@@ -2,6 +2,7 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { PdfViewer } from './pdf';
 import { PreviewPdfDiv, PreviewHeader, PreviewPdf } from '../../styles/Preview';
 import { User } from '@/lib/api/auth';
+import { downloadArrow } from '@/assets/Preview';
 
 interface Props {
   pdfFile: string;
@@ -33,6 +34,12 @@ const PreviewFile: FC<Props> = ({ pdfFile, user }) => {
   useEffect(() => {
     pageChange(1);
   }, []);
+  const downloadButtonClick = useCallback(() => {
+    const newAElement = document.createElement('a');
+    newAElement.download = `${user.student_number}_${user.name}_입학원서.pdf`;
+    newAElement.href = pdfFile;
+    newAElement.click();
+  }, []);
   return (
     <PreviewPdfDiv>
       <PreviewHeader>
@@ -42,7 +49,9 @@ const PreviewFile: FC<Props> = ({ pdfFile, user }) => {
         <p>
           {pdfPage}/{pdfAllPage}
         </p>
-        <p />
+        <div>
+          <img src={downloadArrow} onClick={downloadButtonClick} />
+        </div>
       </PreviewHeader>
       <PreviewPdf onScroll={pdfScrollHandler}>
         <PdfViewer pdfFile={pdfFile} />
