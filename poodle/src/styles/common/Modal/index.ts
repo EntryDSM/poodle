@@ -419,7 +419,7 @@ export const NoticeModal = styled.div`
   padding: 0px 0px 40px 40px;
   box-sizing: border-box;
   width: 1200px;
-  height: 770px;
+  height: 900px;
   background-color: white;
   margin-top: 50px;
 `;
@@ -427,7 +427,7 @@ export const NoticeModal = styled.div`
 export const NoticeModalTitle = styled.h1`
   font-size: 30px;
   font-weight: normal;
-  margin: 20px 0px 10px 0px;
+  margin: 100px 0px 10px 0px;
 `;
 
 export const NoticeTitleBar = styled.div`
@@ -456,4 +456,71 @@ export const NoticeHeader = styled.div`
   justify-content: flex-end;
   padding: 20px;
   box-sizing: border-box;
+`;
+
+export const NoticeApprove = styled.label`
+  font-size: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 43px;
+  box-sizing: border-box;
+`;
+
+export const NoticeApproveButtonWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  padding: 0px 43px;
+  box-sizing: border-box;
+  outline: none;
+`;
+
+export const CheckboxDiv = styled.label`
+  display: flex;
+  align-items: center;
+  > div {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    border: solid 1px #ff6969;
+    background-color: #ffffff;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+  }
+  > div:after {
+    content: '';
+    display: none;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg) translate(-1px, -1px);
+    transition: 0.3s;
+  }
+  > input {
+    display: none;
+  }
+  > input[type='checkbox']:checked ~ div {
+    background-color: #ff6969;
+  }
+  > input[type='checkbox']:checked ~ div:after {
+    display: block;
+  }
+  > p {
+    font-size: 18px;
+  }
+`;
+
+export const NoticeApproveButton = styled.button`
+  width: 240px;
+  height: 40px;
+  border-radius: 4px;
+  background-color: #ff6969;
+  border: none;
+  color: white;
+  font-size: 16px;
 `;
