@@ -134,7 +134,7 @@ const Grade: FC<Props> = props => {
   useEffect(() => {
     if (props.status) {
       alert('최종 제출 하셨습니다.');
-      // history.push('/');
+      history.push('/');
     } else if (getIsFinish()) {
       alert('종료 되었습니다.');
       history.push('/');

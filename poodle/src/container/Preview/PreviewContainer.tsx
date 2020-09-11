@@ -17,7 +17,11 @@ import {
 import { useHistory } from 'react-router-dom';
 import { ReducerType } from '@/core/redux/store';
 import ToastController from '../common/ToastContainer';
-import { useReGenerateTokenAndDoCallback } from '@/lib/utils/function';
+import {
+  getIsFinish,
+  getIsStarted,
+  useReGenerateTokenAndDoCallback,
+} from '@/lib/utils/function';
 
 const TOAST_DIV_ID = 'toastDivPreview';
 
@@ -51,6 +55,9 @@ const PreviewContainer: FC = () => {
   );
   useEffect(() => {
     if (!error) return;
+    if (error.status === 406) {
+      modalController.createNewToast('SUBMIT_ERROR');
+    }
     if (error.status === 401) {
       if (getPreviewError.status === 401) getPdfGenerateTokenAndDoCallback();
       if (setUserStatusError.status === 401)
@@ -69,6 +76,12 @@ const PreviewContainer: FC = () => {
     if (status.final_submit) {
       alert('최종 제출 하셨습니다.');
       history.push('/');
+    } else if (getIsFinish()) {
+      alert('종료 되었습니다.');
+      history.push('/');
+    } else if (!getIsStarted()) {
+      alert('시작 하지 않았습니다.');
+      history.push('/');
     }
   }, [status]);
   useEffect(() => {
@@ -85,7 +98,7 @@ const PreviewContainer: FC = () => {
       <PreviewMain>
         <Title margin='55px'>미리보기</Title>
         {preview.length > 0 ? (
-          <PreviewFile pdfFile={preview} user={user} />
+          <PreviewFile pdfFile={preview} />
         ) : (
           <EmptyPreview />
         )}

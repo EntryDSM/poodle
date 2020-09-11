@@ -1,7 +1,6 @@
 import React, { FC, useCallback, useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter, RouteComponentProps, useHistory } from 'react-router-dom';
-import { errorTypeCheck } from '@/lib/api/ApplicationApplyApi';
 import ModalContainer from '@/container/common/ModalContainer/ModalContainer';
 import { modalOff, REDERRORMODAL } from '@/core/redux/actions/Modal';
 import { InfoDiv, InfoBody } from '../../styles/Info';
@@ -15,6 +14,8 @@ import {
   isEmptyCheck,
   allPhoneNumCheck,
   useReGenerateTokenAndDoCallback,
+  getIsFinish,
+  getIsStarted,
 } from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
 
@@ -100,11 +101,7 @@ const Info: FC<Props> = props => {
       } else if (!isPhoneNumError) {
         modalController.createNewToast('PHONE_NUM_ERROR');
       } else {
-        try {
-          await props.setInfoToServer(true);
-        } catch (error) {
-          errorTypeCheck(error);
-        }
+        await props.setInfoToServer(true);
       }
     },
     [isStateAble],
@@ -136,12 +133,6 @@ const Info: FC<Props> = props => {
     props.getInfoToServer();
   }, []);
   useEffect(() => {
-    if (props.status) {
-      alert('최종 제출 하셨습니다.');
-      history.push('/');
-    }
-  }, [props.status]);
-  useEffect(() => {
     if (!props.error) return;
     if (props.error.status === 401) {
       if (props.setInfoError.status === 401)
@@ -152,6 +143,18 @@ const Info: FC<Props> = props => {
     }
     modalController.createNewToast('SERVER_ERROR');
   }, [props.error, props.getInfoError, props.setInfoError]);
+  useEffect(() => {
+    if (props.status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    } else if (getIsFinish()) {
+      alert('종료 되었습니다.');
+      history.push('/');
+    } else if (!getIsStarted()) {
+      alert('시작 하지 않았습니다.');
+      history.push('/');
+    }
+  }, [props.status]);
   useEffect(() => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');
