@@ -42,7 +42,7 @@ const PreviewFile: FC<Props> = ({ pdfFile, user }) => {
   }, []);
   return (
     <PreviewPdfDiv>
-      <PreviewHeader>
+      <PreviewHeader className='pdfHeader'>
         <p>
           {user.student_number}_{user.name}_입학원서
         </p>
