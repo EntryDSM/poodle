@@ -102,9 +102,7 @@ type SubTitleProps = {
 
 export const SubTitle = styled.div<SubTitleProps>`
   transition: width 1s;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: break-spaces;
   text-align: center;
   width: 0;
   ${({ contour, color, effect }) =>
@@ -118,7 +116,7 @@ export const SubTitle = styled.div<SubTitleProps>`
   ${({ error, effect }) =>
     error &&
     css`
-      width: ${effect ? '0' : '17.25'}rem;
+      width: ${effect ? '0' : '19.25'}rem;
       margin: 2.125rem 0 2.625rem 0;
       height: 1rem;
       font-family: NanumSquareR;
@@ -262,10 +260,11 @@ export const ETCSentence = styled.p`
 `;
 
 export const ExplainSentence = styled.p`
+  white-space: normal;
   margin: 1.125rem 0 2.25rem 0;
   width: auto;
   height: 0.8125rem;
-  line-height: 0.8125rem;
+  line-height: 1.3rem;
   font-family: NanumSquareL;
   font-size: 12px;
   text-align: center;
