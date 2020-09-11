@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import * as S from '@/styles/common/Modal';
 
 interface Props {
@@ -6,6 +6,7 @@ interface Props {
 }
 
 const NoticeModal: FC<Props> = ({ modalOff }) => {
+  const [isAble, ableChange] = useState<boolean>(false);
   const preventBubling = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       e.stopPropagation();
@@ -15,11 +16,6 @@ const NoticeModal: FC<Props> = ({ modalOff }) => {
   return (
     <S.ModalContentWrapper>
       <S.NoticeModal onClick={preventBubling}>
-        <S.NoticeHeader>
-          <S.CloseButton onClick={modalOff}>
-            <S.CloseButtonImage />
-          </S.CloseButton>
-        </S.NoticeHeader>
         <S.NoticeTitleWrapper>
           <S.NoticeModalTitle>원서 접수 시 유의사항</S.NoticeModalTitle>
           <S.NoticeTitleBar />
@@ -66,6 +62,22 @@ const NoticeModal: FC<Props> = ({ modalOff }) => {
               나. 제출되지 않는 경우 작성 및 입력한 부분을 확인해주세요.
           </p>
         </S.NoticeModalBody>
+        <S.NoticeApprove>
+          <S.CheckboxDiv>
+            <p>위 내용을 잘 숙지하였고, 동의합니다</p>
+            <input
+              type='checkbox'
+              checked={isAble}
+              onClick={() => ableChange(!isAble)}
+            />
+            <div />
+          </S.CheckboxDiv>
+        </S.NoticeApprove>
+        <S.NoticeApproveButtonWrapper>
+          <S.NoticeApproveButton onClick={() => (isAble ? modalOff() : '')}>
+            확인
+          </S.NoticeApproveButton>
+        </S.NoticeApproveButtonWrapper>
       </S.NoticeModal>
     </S.ModalContentWrapper>
   );
