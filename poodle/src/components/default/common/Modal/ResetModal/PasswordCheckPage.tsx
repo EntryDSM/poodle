@@ -27,7 +27,7 @@ const PasswordCheckPage: FC<OneMorePasswordPageProps> = ({
 }) => {
   const passwordCheckSubmit = useCallback(() => {
     if (!passwordCheck) return alert('빈칸은 입력할 수 없습니다.');
-    if (password === passwordCheck || passwordRegExp.exec(passwordCheck))
+    if (password === passwordCheck && passwordRegExp.exec(passwordCheck))
       resetPassword(passwordCheck);
   }, [password, passwordCheck]);
   return (
