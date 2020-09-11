@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { downloadArrow } from '@/assets/Preview';
 
 export const PREVIEW_HEADER_COLOR = '#353b3e';
 
@@ -19,9 +20,14 @@ export const PreviewPdfDiv = styled.div`
   height: 982px;
   display: flex;
   justify-content: center;
+  position: relative;
   flex-wrap: wrap;
   overflow: hidden;
   margin-bottom: 40px;
+  &:hover > div.pdfHeader {
+    height: 50px;
+    opacity: 1;
+  }
 `;
 
 export const EmptyPreview = styled.div`
@@ -47,16 +53,33 @@ export const PreviewPdf = styled.div`
 
 export const PreviewHeader = styled.div`
   width: 100%;
-  height: 50px;
+  height: 0px;
   background-color: ${PREVIEW_HEADER_COLOR};
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: absolute;
+  transition: all 0.5s;
+  opacity: 0;
   > p {
     color: white;
     font-size: 16px;
     width: 200px;
     text-align: center;
     margin: 20px;
+  }
+  > div {
+    width: 200px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0px 20px;
+    > img {
+      width: 30px;
+      height: 30px;
+    }
+    > img:hover {
+      width: 31px;
+      height: 31x;
+    }
   }
 `;
