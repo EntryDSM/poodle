@@ -31,6 +31,8 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: ./poodle
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
 
       - name: Deploy to S3
         working-directory: ./poodle
