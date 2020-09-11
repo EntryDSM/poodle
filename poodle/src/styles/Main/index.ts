@@ -15,6 +15,7 @@ export const MainWrapper = styled(Wrapper)`
 `;
 
 export const LeftBackgroundImage = styled.div`
+  z-index: -1;
   background-color: #fcfcfc;
   min-width: 50px;
   width: calc((100vw - 1170px) / 2);
@@ -64,6 +65,7 @@ export const StepPeriod = styled.aside`
 `;
 
 export const DetailedPeriod = styled.pre`
+  font-family: 'NanumSquare', sans-serif;
   font-size: 30px;
   line-height: 34px;
   letter-spacing: -1.2px;
@@ -75,7 +77,7 @@ export const EmphasizeLetters = styled.span`
 `;
 
 export const WhiteSpace = styled.span`
-  font-size: 10px;
+  font-size: 33px;
 `;
 
 interface FooterProps {
