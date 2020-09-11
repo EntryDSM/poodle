@@ -30,7 +30,7 @@ const PreviewContainer: FC = () => {
     getPreviewError,
     setUserStatusError,
   } = useSelector((state: ReducerType) => state.Preview);
-  const { status } = useSelector((state: ReducerType) => state.Header);
+  const { status, user } = useSelector((state: ReducerType) => state.Header);
   const history = useHistory();
   const dispatch = useDispatch();
   const goCurrentPage = useCallback(() => {
@@ -61,10 +61,12 @@ const PreviewContainer: FC = () => {
   }, [error, getPreviewError, setUserStatusError]);
   useEffect(() => {
     dispatch(previewCall());
+    return () => {
+      dispatch(setPreview(''));
+    };
   }, []);
   useEffect(() => {
-    console.log(status);
-    if (status) {
+    if (status.final_submit) {
       alert('최종 제출 하셨습니다.');
       history.push('/');
     }
@@ -82,7 +84,11 @@ const PreviewContainer: FC = () => {
       <ModalContainer onClick={modalClickHandler} />
       <PreviewMain>
         <Title margin='55px'>미리보기</Title>
-        {preview.length > 0 ? <PreviewFile src={preview} /> : <EmptyPreview />}
+        {preview.length > 0 ? (
+          <PreviewFile pdfFile={preview} user={user} />
+        ) : (
+          <EmptyPreview />
+        )}
         <DefaultlNavigation
           page='preview'
           currentPageClickHandler={goCurrentPage}

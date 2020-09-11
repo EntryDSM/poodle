@@ -43,6 +43,13 @@ export const isEmptyCheck = (text: string) => {
   return true;
 };
 
+export const isScoreRangeAble = (score: number) => {
+  if (score > 100 || score < 60) {
+    return false;
+  }
+  return true;
+};
+
 export const phoneNumCheck = (phoneNum: string) => {
   if (phoneNum.length === 0) return true;
   const rxg = new RegExp(

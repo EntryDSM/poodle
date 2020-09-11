@@ -1,4 +1,4 @@
-import { debounce, takeLatest } from 'redux-saga/effects';
+import { call, debounce, takeLatest } from 'redux-saga/effects';
 import { GRADE_URL } from '@/lib/api/ServerUrl';
 import {
   createSaveSaga,
@@ -22,7 +22,9 @@ import {
   SCORE,
   GRADE_CALL,
   GET_GRADE_CALL,
+  SetScore,
 } from '../../actions/Grade';
+import { isScoreRangeAble } from '@/lib/utils/function';
 
 const PAGENAME = 'Grade';
 const ACTIONNAME = 'GRADE';
@@ -38,12 +40,17 @@ const defaultSaveSaga = createSaveSaga(
   getStateFunc,
 );
 
-const gedSaveSaga = createSaveSaga(
-  gradeStateToGedRequest,
-  `${GRADE_URL}/ged`,
-  `${PAGENAME}/${ACTIONNAME}`,
-  getStateFunc,
-);
+const gedSaveSaga = function* (action: SetScore) {
+  const saveSaga = createSaveSaga(
+    gradeStateToGedRequest,
+    `${GRADE_URL}/ged`,
+    `${PAGENAME}/${ACTIONNAME}`,
+    getStateFunc,
+  );
+  if (isScoreRangeAble(parseInt(action.payload.score))) {
+    yield call(saveSaga, action);
+  }
+};
 
 const getDataSaga = createGetSaga(
   GRADE_URL,
