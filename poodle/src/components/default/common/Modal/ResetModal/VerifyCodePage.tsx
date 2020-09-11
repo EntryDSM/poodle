@@ -37,8 +37,10 @@ const VerifyCodePage: FC<VerifyCodePageProps> = ({
   const codeSubmit = useCallback(() => {
     if (!code) return alert('빈칸은 입력할 수 없습니다.');
     if (code.length !== 6) return alert('코드는 6자리입니다.');
+    if (verifyCodeValue.success) return alert('이미 인증에 성공하였습니다.');
+
     verifyCode({ email, auth_code: code });
-  }, [email, code]);
+  }, [email, code, verifyCodeValue]);
   const goNextPage = useCallback(() => {
     if (!success) return alert('이메일 인증을 해야 합니다.');
     setPage(prev => prev + 1);

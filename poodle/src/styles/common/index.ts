@@ -48,11 +48,11 @@ export const Global = createGlobalStyle`
 export const Wrapper = styled.div`
   min-width: 1270px;
   margin-top: -60px;
+  min-height: 100vh;
 `;
 
 export const Container = styled.main`
-  width: 1270px;
+  width: 1170px;
   margin: 0 auto;
-  padding: 0 50px;
   box-sizing: border-box;
 `;

@@ -10,6 +10,7 @@ export interface UserStatus {
   passed_first_apply: boolean;
   passed_interview: boolean;
   final_submit: boolean;
+  submitted_at: string;
 }
 export const getUserStatus = () =>
   getClientWithAccessToken().get<UserStatus>('/users/me/status');

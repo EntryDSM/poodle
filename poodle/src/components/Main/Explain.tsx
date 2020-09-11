@@ -25,7 +25,8 @@ const Explain: FC<Props> = ({ schedule, isProgressing }) => {
           기간입니다.
         </S.StepPeriod>
         <S.DetailedPeriod>
-          <S.EmphasizeLetters>{Progress[schedule.id]}</S.EmphasizeLetters>은
+          <S.EmphasizeLetters>{Progress[schedule.id]}</S.EmphasizeLetters>
+          {schedule.id === 'first_apply' ? '는' : '은'}
           <S.WhiteSpace> </S.WhiteSpace>
           <S.EmphasizeLetters>
             {year.slice(2)}년<S.WhiteSpace> </S.WhiteSpace>

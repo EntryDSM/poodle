@@ -27,6 +27,10 @@ enum VerifyCodeError {
   '잘못된 인증코드입니다.' = 400,
 }
 
+enum ResetPasswordError {
+  '유효시간이 만료 되었습니다. 닫기 후 다시 시도해 주세요.' = 400,
+}
+
 const ResetModalContainer: FC<{}> = () => {
   const [page, setPage] = useState<number>(0);
   const [email, setEmail] = useState<string>('');
@@ -112,10 +116,13 @@ const ResetModalContainer: FC<{}> = () => {
         case 3:
           if (passwordCheck && password !== passwordCheck)
             return '비밀번호가 일치하지 않습니다.';
-          if (!passwordRegExp.exec(passwordCheck))
+          console.log(passwordCheck, !passwordRegExp.exec(passwordCheck));
+          if (passwordCheck && !passwordRegExp.exec(passwordCheck))
             return '조건에 맞지 않는 비밀번호 입니다.';
           if (resetPasswordValue.error.status)
-            return '비밀번호 변경에 실패하였습니다.';
+            return ResetPasswordError[resetPasswordValue.error.status]
+              ? ResetPasswordError[resetPasswordValue.error.status]
+              : '비밀번호 변경에 실패하였습니다.';
         default:
           return '';
       }
