@@ -301,6 +301,12 @@ export const getIsFinish = () => {
   return finishTime <= time;
 };
 
+export const getIsStarted = () => {
+  const time = getTime();
+  const startTime = getTime('2020-10-10');
+  return startTime <= time;
+};
+
 export const getFirstApplyStatus = (schedule: Schedule) => {
   const [year, month, date] = getDate(schedule.start_date);
   const startTime = getTime(schedule.start_date);
