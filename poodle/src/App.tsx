@@ -18,6 +18,7 @@ import './';
 import Maltese from 'entry-maltese';
 import AllFinish from './components/Schedules/AllFinish';
 import { getIsFinish, useAuth } from './lib/utils/function';
+import { AppWrapper } from './style';
 
 function App() {
   const { isLogin, accessToken } = useAuth();
@@ -28,7 +29,7 @@ function App() {
   };
 
   return (
-    <>
+    <AppWrapper>
       <GlobalStyle />
       {isFinish ? (
         <AllFinish />
@@ -57,7 +58,7 @@ function App() {
           <Footer />
         </BrowserRouter>
       )}
-    </>
+    </AppWrapper>
   );
 }
 export default App;
