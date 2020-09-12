@@ -185,7 +185,8 @@ export const useUser = () => {
   return user;
 };
 
-export const TIME = '2020-10-10 10:00';
+// export const TIME = '2020-11-20 15:00';
+export const TIME = '';
 
 export const getDateObject = (date: string = TIME) =>
   date ? new Date(date) : new Date();
@@ -296,7 +297,7 @@ export const useUserStatus = (): [
 
 export const getIsFinish = () => {
   const time = getTime();
-  const finishTime = getTime('2020-11-24');
+  const finishTime = getTime('2020-11-20');
 
   return finishTime <= time;
 };

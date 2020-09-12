@@ -6,7 +6,6 @@ import {
   InfoContent,
   InfoTitle,
 } from '@/styles/Join';
-import { Link } from 'react-router-dom';
 
 export { Wrapper };
 export { Container };
@@ -32,13 +31,28 @@ export const MyInfoValue = styled(MyInfoTitle)`
   text-align: left;
   color: #000000;
   height: 22px;
-  line-height: 1.425;
+  line-height: 1;
   margin-left: 79px;
+  width: 78px;
 `;
 
 interface SubmitDocumentProps {
   isSubmited: boolean;
 }
+
+export const TimeStamp = styled.div`
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: 22px;
+  line-height: 1.6;
+  font-family: NanumSquareR;
+  font-size: 16px;
+  font-weight: normal;
+  text-align: left;
+  color: #606060;
+  margin-left: 18px;
+`;
 
 export const SubmitDocument = styled.button<SubmitDocumentProps>`
   width: 100px;
