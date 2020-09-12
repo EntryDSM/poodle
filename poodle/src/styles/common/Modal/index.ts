@@ -10,6 +10,7 @@ export const ModalWrapper = styled.div`
   height: 100%;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.25);
+  overflow: scroll;
 `;
 
 export const ModalBox = styled.div`
@@ -421,13 +422,13 @@ export const NoticeModal = styled.div`
   width: 1200px;
   height: 900px;
   background-color: white;
-  margin-top: 50px;
+  margin-top: 20px;
 `;
 
 export const NoticeModalTitle = styled.h1`
   font-size: 30px;
   font-weight: normal;
-  margin: 100px 0px 10px 0px;
+  margin: 50px 0px 10px 0px;
 `;
 
 export const NoticeTitleBar = styled.div`
@@ -436,17 +437,19 @@ export const NoticeTitleBar = styled.div`
   background-color: #ff6969;
 `;
 
-export const NoticeTitleWrapper = styled.div`
-  margin-bottom: 50px;
-`;
+export const NoticeTitleWrapper = styled.div``;
 
 export const NoticeModalBody = styled.div`
-  > p.title {
-    font-size: 20px;
-    margin: 30px 0px 20px 0px;
-  }
-  > p.text {
-    font-size: 16px;
+  overflow: scroll;
+  height: 650px;
+  > div {
+    > p.title {
+      font-size: 20px;
+      margin: 30px 0px 20px 0px;
+    }
+    > p.text {
+      font-size: 16px;
+    }
   }
 `;
 
@@ -463,7 +466,7 @@ export const NoticeApprove = styled.label`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  padding: 43px;
+  padding: 20px 43px;
   box-sizing: border-box;
 `;
 
