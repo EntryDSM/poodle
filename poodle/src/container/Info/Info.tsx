@@ -55,7 +55,6 @@ const Info: FC<Props> = props => {
       gradeType,
       detailAddress,
       pictureUrl,
-      homePhoneNumber,
     }: Props): boolean => {
       if (gradeType === 'GED') {
         return (
@@ -67,8 +66,7 @@ const Info: FC<Props> = props => {
           isEmptyCheck(phoneNum) ||
           isEmptyCheck(gender) ||
           isEmptyCheck(protectorPhoneNum) ||
-          isEmptyCheck(pictureUrl) ||
-          isEmptyCheck(homePhoneNumber)
+          isEmptyCheck(pictureUrl)
         );
       }
       return (
@@ -84,8 +82,7 @@ const Info: FC<Props> = props => {
         isEmptyCheck(gender) ||
         isEmptyCheck(protectorPhoneNum) ||
         isEmptyCheck(number) ||
-        isEmptyCheck(pictureUrl) ||
-        isEmptyCheck(homePhoneNumber)
+        isEmptyCheck(pictureUrl)
       );
     },
     [isEmptyCheck, isFileAble],
