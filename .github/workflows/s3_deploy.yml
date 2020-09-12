@@ -33,6 +33,8 @@ jobs:
         working-directory: ./poodle
         env:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+          REACT_APP_KAKAO_API_URL: ${{ secrets.REACT_APP_KAKAO_API_URL }}
+          REACT_APP_KAKAO_HEADER_TOKEN: ${{ secrets.REACT_APP_KAKAO_HEADER_TOKEN }}
 
       - name: Deploy to S3
         working-directory: ./poodle
