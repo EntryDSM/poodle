@@ -18,7 +18,7 @@ import {
   setIsQualification,
   pageMove,
 } from '@/core/redux/actions/ChoiceType';
-import { NOTICE_MODAL, modalOn } from '@/core/redux/actions/Modal';
+import { NOTICE_MODAL, modalOn, modalOff } from '@/core/redux/actions/Modal';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 export const mapStateToProps = (state: RootState) => ({
   qualificationExam: state.ChoiceTypeState.qualificationExam,
@@ -56,7 +56,6 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setGEDSuccessMonth: (month: string) =>
     dispatch(setGEDSuccessMonth({ month })),
   setGEDSuccessYear: (year: string) => dispatch(setGEDSuccessYear({ year })),
-  modalOn: () => dispatch(modalOn(NOTICE_MODAL)),
   pageMoveChange: (isPageMove: boolean) =>
     dispatch(pageMove({ pageMove: isPageMove })),
 });

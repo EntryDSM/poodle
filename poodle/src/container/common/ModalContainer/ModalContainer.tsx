@@ -84,7 +84,7 @@ const ModalContainer: FC<Props> = ({ onClick }) => {
   );
 
   if (!modalList.some(m => m)) return null;
-  return (
+  return !notice ? (
     <Modal modalClear={() => dispatch(modalClear())}>
       {login && (
         <ModalBox modalOff={() => dispatch(modalOff(LOGINMODAL))}>
@@ -126,9 +126,10 @@ const ModalContainer: FC<Props> = ({ onClick }) => {
           modalOff={() => dispatch(modalOff(SCHOOL_SEARCH_MODAL))}
         />
       )}
-      {notice && (
-        <NoticeModal modalOff={() => dispatch(modalOff(NOTICE_MODAL))} />
-      )}
+    </Modal>
+  ) : (
+    <Modal modalClear={() => {}}>
+      <NoticeModal modalOff={() => dispatch(modalOff(NOTICE_MODAL))} />
     </Modal>
   );
 };

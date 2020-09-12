@@ -15,7 +15,10 @@ import {
 } from '@/components/Grade';
 import { mapDispatchToProps, mapStateToProps } from './ConnectionGrade';
 import {
+  getIsFinish,
+  getIsStarted,
   isEmptyCheck,
+  isScoreRangeAble,
   useReGenerateTokenAndDoCallback,
 } from '@/lib/utils/function';
 import ToastController from '@/container/common/ToastContainer';
@@ -32,6 +35,7 @@ const Grade: FC<Props> = props => {
   const history = useHistory();
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const [isError, errorChange] = useState<boolean>(false);
+
   const isStateAble = useCallback(
     ({
       serviceTime,
@@ -43,7 +47,7 @@ const Grade: FC<Props> = props => {
       gradeType,
     }: MapStateToProps) => {
       if (gradeType === 'GED') {
-        return isEmptyCheck(score);
+        return !isScoreRangeAble(parseInt(score));
       }
       return (
         isEmptyCheck(serviceTime) ||
@@ -74,6 +78,7 @@ const Grade: FC<Props> = props => {
   const setGradeGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
     () => props.setGradeToServer(false),
   );
+
   const renderPage = useCallback(() => {
     if (props.gradeType === 'GED')
       return <QualificationScore {...props} isError={isError} />;
@@ -82,7 +87,7 @@ const Grade: FC<Props> = props => {
         <>
           <VolanteerWorkTimeAttend {...props} isError={isError} />
           <GraduatedNonTransferSemester {...props} />
-          <GraduatedGradeInput {...props} />
+          <GraduatedGradeInput {...props} isGradeAllX={props.isGradeFirst} />
         </>
       );
     else if (props.gradeType === 'UNGRADUATED')
@@ -90,7 +95,7 @@ const Grade: FC<Props> = props => {
         <>
           <VolanteerWorkTimeAttend {...props} isError={isError} />
           <NonTransferSemester {...props} />
-          <GradeInput {...props} />
+          <GradeInput {...props} isGradeAllX={props.isGradeFirst} />
         </>
       );
     else {
@@ -114,13 +119,6 @@ const Grade: FC<Props> = props => {
     }
     modalController.createNewToast('SERVER_ERROR');
   }, [props.error, props.setGradeError, props.getGradeError]);
-
-  useEffect(() => {
-    if (props.status) {
-      alert('최종 제출 하셨습니다.');
-      history.push('/');
-    }
-  }, [props.status]);
   useEffect(() => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');
@@ -132,6 +130,19 @@ const Grade: FC<Props> = props => {
       props.pageMoveChange(false);
     }
   }, [props.pageMove]);
+
+  useEffect(() => {
+    if (props.status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    } else if (getIsFinish()) {
+      alert('종료 되었습니다.');
+      history.push('/');
+    } else if (!getIsStarted()) {
+      alert('시작 하지 않았습니다.');
+      history.push('/');
+    }
+  }, [props.status]);
   return (
     <GradeDiv>
       <div id={TOAST_DIV_ID} />

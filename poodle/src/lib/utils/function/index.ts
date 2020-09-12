@@ -43,6 +43,13 @@ export const isEmptyCheck = (text: string) => {
   return true;
 };
 
+export const isScoreRangeAble = (score: number) => {
+  if (score > 100 || score < 60) {
+    return false;
+  }
+  return true;
+};
+
 export const phoneNumCheck = (phoneNum: string) => {
   if (phoneNum.length === 0) return true;
   const rxg = new RegExp(
@@ -293,6 +300,12 @@ export const getIsFinish = () => {
   const finishTime = getTime('2020-11-20');
 
   return finishTime <= time;
+};
+
+export const getIsStarted = () => {
+  const time = getTime();
+  const startTime = getTime('2020-10-10');
+  return startTime <= time;
 };
 
 export const getFirstApplyStatus = (schedule: Schedule) => {

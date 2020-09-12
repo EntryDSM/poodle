@@ -62,6 +62,9 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
     content: '';
     content: none;
   }
+  p, aside, span, pre {
+    font-family: 'Nanum Gothic Coding', monospace;
+  }
   a {
     &:link{
       text-decoration: none;

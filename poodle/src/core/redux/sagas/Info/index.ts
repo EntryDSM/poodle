@@ -8,7 +8,6 @@ import {
 } from '@/lib/api/ApplicationApplyApi';
 import { USERINFO_URL, SET_PICTURE_URL } from '@/lib/api/ServerUrl';
 import {
-  createSaveSaga,
   createProxySaga,
   createGetSaga,
   createMovePageSaga,
@@ -35,7 +34,7 @@ import {
   SetPictureCall,
   SET_PICTURE,
   SET_PICTURE_FAILURE,
-  SET_PICTURE_SUCCESS,
+  HOME_PHONE_NUMBER,
 } from '../../actions/Info';
 import ErrorType from '@/lib/utils/type';
 import { allPhoneNumCheck } from '@/lib/utils/function';
@@ -53,6 +52,7 @@ const actionArray = [
   SCHOOL_PHONE_NUM,
   MIDDLESCHOOL,
   BIRTHDAY,
+  HOME_PHONE_NUMBER,
 ];
 const numberActionArray = [CLASS_NUMBER, GRADE_NUMBER, NUMBER];
 const PAGENAME = 'Info';

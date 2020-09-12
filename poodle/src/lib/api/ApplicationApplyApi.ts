@@ -21,14 +21,6 @@ import { GRADESEMESTERLIST } from '@/components/Grade/constance';
 import { PreviewState } from '@/core/redux/reducer/Preview';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 
-export const errorTypeCheck = (error: ErrorType): void => {
-  if (error.status === 401 || error.status === 403) {
-    console.log('token expired');
-  } else {
-    console.log('unknown error');
-  }
-};
-
 export const nullAndNumberToString = (value: null | number): string => {
   try {
     if (value === null || value === undefined) return '';
@@ -401,6 +393,7 @@ export const gradeResponseToState = (
     setGradeError: errorInitialState,
     gradeType: response.grade_type ? response.grade_type : 'GED',
     pageMove: false,
+    isGradeFirst: false,
   };
 };
 

@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import {
   Title,
@@ -15,6 +15,8 @@ import {
 } from '@/components/ChoiceType/RowType';
 import { mapStateToProps, mapDispatchToProps } from './ConnectChoiceType';
 import {
+  getIsFinish,
+  getIsStarted,
   isEmptyCheck,
   useReGenerateTokenAndDoCallback,
 } from '@/lib/utils/function';
@@ -54,7 +56,6 @@ const ChoiceType: FC<Props> = props => {
     setGEDSuccessYear,
     history,
     error,
-    modalOn,
     status,
     getTypeError,
     setTypeError,
@@ -147,16 +148,20 @@ const ChoiceType: FC<Props> = props => {
 
   useEffect(() => {
     getTypeToServer();
-    modalOn();
   }, []);
 
   useEffect(() => {
     if (status) {
       alert('최종 제출 하셨습니다.');
       history.push('/');
+    } else if (getIsFinish()) {
+      alert('종료 되었습니다.');
+      history.push('/');
+    } else if (!getIsStarted()) {
+      alert('시작 하지 않았습니다.');
+      history.push('/');
     }
   }, [status]);
-
   useEffect(() => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');

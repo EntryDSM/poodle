@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
-import { PreviewPdfDiv } from '@/styles/Preview';
+import { PreviewPdfDiv } from '../../styles/Preview';
 
 interface Props {
-  src: string;
+  pdfFile: string;
 }
 
-const PreviewFile: FC<Props> = ({ src }) => {
+const PreviewFile: FC<Props> = ({ pdfFile }) => {
   return (
     <PreviewPdfDiv>
-      <embed width='1170px' height='1072px' type='application/pdf' src={src} />
+      <embed src={`${pdfFile}#toolbar=0`} width='1170px' />
     </PreviewPdfDiv>
   );
 };
