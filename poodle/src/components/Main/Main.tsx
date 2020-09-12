@@ -52,39 +52,43 @@ const Main: FC<Props> = ({
 
   return (
     <S.MainWrapper>
-      <S.MainContainer>
-        <S.ContentBlock>
-          <ContentHeader
-            padding='160px 0 220px'
-            subTitle='대덕소프트웨어마이스터고등학교'
-            title='2021 신입생 모집'
-            underLineLength={315}
-            titleFontSize={46}
-          />
-          {!!schedules.length ? (
-            isNotStartedSchedule(schedules[0]) ? (
-              <Explain schedule={schedules[0]} isProgressing={false} />
-            ) : isFinishedSchedule(schedules[3]) ? (
-              <AllFinishExplain />
-            ) : getFirstApplyStatus(schedules[1]).isApplying ? (
-              <Explain schedule={schedules[1]} isProgressing={true} />
-            ) : isProgressingSchedule(schedules[nextScheduleIndex - 1]) ? (
-              <Explain
-                schedule={schedules[nextScheduleIndex - 1]}
-                isProgressing={true}
-              />
+      <div>
+        <S.LeftBackgroundImage />
+        <S.MainContainer>
+          <S.ContentBlock>
+            <ContentHeader
+              padding='160px 0 220px'
+              subTitle='대덕소프트웨어마이스터고등학교'
+              title='2021 신입생 모집'
+              underLineLength={315}
+              titleFontSize={46}
+            />
+            {!!schedules.length ? (
+              isNotStartedSchedule(schedules[0]) ? (
+                <Explain schedule={schedules[0]} isProgressing={false} />
+              ) : isFinishedSchedule(schedules[3]) ? (
+                <AllFinishExplain />
+              ) : getFirstApplyStatus(schedules[1]).isApplying ? (
+                <Explain schedule={schedules[1]} isProgressing={true} />
+              ) : isProgressingSchedule(schedules[nextScheduleIndex - 1]) ? (
+                <Explain
+                  schedule={schedules[nextScheduleIndex - 1]}
+                  isProgressing={true}
+                />
+              ) : (
+                <Explain
+                  schedule={schedules[nextScheduleIndex]}
+                  isProgressing={false}
+                />
+              )
             ) : (
-              <Explain
-                schedule={schedules[nextScheduleIndex]}
-                isProgressing={false}
-              />
-            )
-          ) : (
-            ''
-          )}
-        </S.ContentBlock>
-        <ProgressBar schedules={schedules} isLoading={isLoading} />
-      </S.MainContainer>
+              ''
+            )}
+          </S.ContentBlock>
+          <ProgressBar schedules={schedules} isLoading={isLoading} />
+        </S.MainContainer>
+        <S.RightBackgroundImage />
+      </div>
     </S.MainWrapper>
   );
 };
