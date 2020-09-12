@@ -56,8 +56,6 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setGEDSuccessMonth: (month: string) =>
     dispatch(setGEDSuccessMonth({ month })),
   setGEDSuccessYear: (year: string) => dispatch(setGEDSuccessYear({ year })),
-  modalOn: () => dispatch(modalOn(NOTICE_MODAL)),
-  modalOff: () => dispatch(modalOff(NOTICE_MODAL)),
   pageMoveChange: (isPageMove: boolean) =>
     dispatch(pageMove({ pageMove: isPageMove })),
 });

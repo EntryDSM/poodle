@@ -56,8 +56,6 @@ const ChoiceType: FC<Props> = props => {
     setGEDSuccessYear,
     history,
     error,
-    modalOn,
-    modalOff,
     status,
     getTypeError,
     setTypeError,
@@ -150,10 +148,6 @@ const ChoiceType: FC<Props> = props => {
 
   useEffect(() => {
     getTypeToServer();
-    modalOn();
-    return () => {
-      modalOff();
-    };
   }, []);
 
   useEffect(() => {
