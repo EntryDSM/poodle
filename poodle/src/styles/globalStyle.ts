@@ -63,7 +63,7 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
     content: none;
   }
   p, aside, span, pre {
-    font-family: 'Nanum Gothic Coding', monospace;
+    font-family: 'NanumSquare', sans-serif;
   }
   a {
     &:link{
