@@ -10,7 +10,11 @@ export const ModalWrapper = styled.div`
   height: 100%;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.25);
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const ModalBox = styled.div`
@@ -439,7 +443,6 @@ export const NoticeTitleBar = styled.div`
 export const NoticeTitleWrapper = styled.div``;
 
 export const NoticeModalBody = styled.div`
-  overflow: scroll;
   height: 650px;
   > div {
     > p.title {

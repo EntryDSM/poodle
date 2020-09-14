@@ -114,6 +114,17 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
     top: 80px;
     z-index: 100;
   }
+  ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+  ::-webkit-scrollbar-track-piece {
+    background-color: white;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #62d3e8;
+  }
 `;
 
 export default GlobalStyle;

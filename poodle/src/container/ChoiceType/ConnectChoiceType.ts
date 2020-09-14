@@ -18,7 +18,6 @@ import {
   setIsQualification,
   pageMove,
 } from '@/core/redux/actions/ChoiceType';
-import { NOTICE_MODAL, modalOn, modalOff } from '@/core/redux/actions/Modal';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 export const mapStateToProps = (state: RootState) => ({
   qualificationExam: state.ChoiceTypeState.qualificationExam,
