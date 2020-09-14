@@ -37,7 +37,6 @@ let isButtonClick = false;
 
 const ChoiceType: FC<Props> = props => {
   const {
-    qualificationExam,
     applyType,
     district,
     graduationStatus,
