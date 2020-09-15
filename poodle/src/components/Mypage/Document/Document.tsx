@@ -29,7 +29,7 @@ const Document: FC<Props> = ({ isLoading, pdf, getPdf, getPdfError }) => {
     link.href = url;
     link.download = `대덕소프트웨어마이스터고등학교_입학원서_${userName}.pdf`;
     link.click();
-  }, [pdf]);
+  }, [pdf, userName]);
 
   useEffect(() => {
     if (name && !final_submit) {
