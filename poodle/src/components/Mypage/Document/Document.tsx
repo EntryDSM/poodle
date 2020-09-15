@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/core/redux/reducer';
 import { useHistory } from 'react-router-dom';
 import ErrorType from '@/lib/utils/type';
-import { useReGenerateTokenAndDoCallback } from '@/lib/utils/function';
+import { useReGenerateTokenAndDoCallback, useUser } from '@/lib/utils/function';
 
 interface Props {
   isLoading: boolean;
@@ -18,6 +18,7 @@ interface Props {
 const Document: FC<Props> = ({ isLoading, pdf, getPdf, getPdfError }) => {
   const reGenerateTokenAndGetPdf = useReGenerateTokenAndDoCallback(getPdf);
   const history = useHistory();
+  const { name: userName } = useUser();
   const { name, final_submit } = useSelector(
     (state: RootState) => state.Mypage.userStatus,
   );
@@ -26,7 +27,7 @@ const Document: FC<Props> = ({ isLoading, pdf, getPdf, getPdfError }) => {
     const link: HTMLAnchorElement = document.createElement('a');
     const url: string = `${(URL.createObjectURL(pdf) as unknown) as string}`;
     link.href = url;
-    link.download = '테스트.pdf';
+    link.download = `대덕소프트웨어마이스터고등학교_입학원서_${userName}.pdf`;
     link.click();
   }, [pdf]);
 
