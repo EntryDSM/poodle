@@ -114,7 +114,7 @@ const Mypage: FC<Props> = ({
 
   useEffect(() => {
     if (process.error.status === 401) {
-      reGenerateTokenAndGetUserStatus();
+      reGenerateTokenAndGetProcess();
     }
   }, [process.error]);
 
