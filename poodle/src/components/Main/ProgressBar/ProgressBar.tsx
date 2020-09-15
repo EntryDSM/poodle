@@ -70,6 +70,7 @@ const ProgressItem: FC<ProgressItemProps> = ({
     ? getFirstApplyStatus(schedule).isApplying
     : isProgressing;
   const isFinished = isFinishedSchedule(schedule);
+
   return (
     <>
       {index !== FIRST_INDEX && (

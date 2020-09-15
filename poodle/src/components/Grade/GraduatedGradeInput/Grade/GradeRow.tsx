@@ -5,17 +5,48 @@ import { GraduatedGradeScoreRow } from '@/styles/Grade';
 
 interface Props {
   subject: SubjectType;
+  isGradeAllX: boolean;
 }
 
-const GradeRow: FC<Props> = ({ children, subject }) => (
+const GradeRow: FC<Props> = ({ children, subject, isGradeAllX }) => (
   <GraduatedGradeScoreRow>
     <SubjectColumn>{children}</SubjectColumn>
-    <GradeColumn subject={subject} semester={1} grade={1} />
-    <GradeColumn subject={subject} semester={2} grade={1} />
-    <GradeColumn subject={subject} semester={1} grade={2} />
-    <GradeColumn subject={subject} semester={2} grade={2} />
-    <GradeColumn subject={subject} semester={1} grade={3} />
-    <GradeColumn subject={subject} semester={2} grade={3} />
+    <GradeColumn
+      subject={subject}
+      semester={1}
+      grade={1}
+      isGradeAllX={isGradeAllX}
+    />
+    <GradeColumn
+      subject={subject}
+      semester={2}
+      grade={1}
+      isGradeAllX={isGradeAllX}
+    />
+    <GradeColumn
+      subject={subject}
+      semester={1}
+      grade={2}
+      isGradeAllX={isGradeAllX}
+    />
+    <GradeColumn
+      subject={subject}
+      semester={2}
+      grade={2}
+      isGradeAllX={isGradeAllX}
+    />
+    <GradeColumn
+      subject={subject}
+      semester={1}
+      grade={3}
+      isGradeAllX={isGradeAllX}
+    />
+    <GradeColumn
+      subject={subject}
+      semester={2}
+      grade={3}
+      isGradeAllX={isGradeAllX}
+    />
   </GraduatedGradeScoreRow>
 );
 

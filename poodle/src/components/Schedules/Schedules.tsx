@@ -7,7 +7,7 @@ import { Schedule } from '@/core/redux/actions/Main';
 import ErrorType from '@/lib/utils/type';
 import {
   FirstApplyContainer,
-  Interviewcontainer,
+  InterviewContainer,
   NoticeContainer,
 } from '@/container/SchedulesContainer';
 import { isFinishedSchedule, getFirstApplyStatus } from '@/lib/utils/function';
@@ -57,7 +57,7 @@ const Schedules: FC<Props> = ({
               (type === 'interview' &&
                 isFinishedSchedule(schedules[1]) &&
                 !isFinishedSchedule(schedules[2]) && (
-                  <Interviewcontainer schedules={schedules} />
+                  <InterviewContainer schedules={schedules} />
                 )) ||
               (type === 'notice' && isFinishedSchedule(schedules[2]) && (
                 <NoticeContainer schedules={schedules} />

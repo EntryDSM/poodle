@@ -1,12 +1,43 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Container, Wrapper } from '@/styles/common';
-import { RightArrowImage, Background } from '@/assets/Main';
+import {
+  RightArrowImage,
+  LeftBackground,
+  RightBackground,
+} from '@/assets/Main';
 
 export const MainWrapper = styled(Wrapper)`
-  background-image: url(${Background});
-  background-repeat: no-repeat;
+  min-height: 100vh;
+  > div {
+    position: relative;
+  }
+`;
+
+export const LeftBackgroundImage = styled.div`
+  z-index: -1;
+  background-color: #fcfcfc;
+  min-width: 50px;
+  width: calc((100vw - 1170px) / 2);
+  height: 1020px;
+  position: absolute;
+  top: 0;
+  left: 0;
   background-size: cover;
+  background-image: url(${LeftBackground});
+`;
+
+export const RightBackgroundImage = styled.div`
+  z-index: -1;
+  background-color: #c2f3fa;
+  min-width: 50px;
+  width: calc((100vw - 1170px) / 2);
+  height: 1020px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-size: cover;
+  background-image: url(${RightBackground});
 `;
 
 export const MainContainer = styled(Container)`
@@ -16,7 +47,7 @@ export const MainContainer = styled(Container)`
 export const ContentBlock = styled.div`
   width: 885px;
   height: 1020px;
-  background-color: white;
+  background-color: #fcfcfc;
 `;
 
 export const Article = styled.article``;
@@ -34,6 +65,7 @@ export const StepPeriod = styled.aside`
 `;
 
 export const DetailedPeriod = styled.pre`
+  font-family: 'NanumSquare', sans-serif;
   font-size: 30px;
   line-height: 34px;
   letter-spacing: -1.2px;
@@ -45,7 +77,7 @@ export const EmphasizeLetters = styled.span`
 `;
 
 export const WhiteSpace = styled.span`
-  font-size: 10px;
+  font-size: 33px;
 `;
 
 interface FooterProps {

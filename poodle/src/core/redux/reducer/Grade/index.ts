@@ -33,6 +33,7 @@ export interface State {
   setGradeError: ErrorType;
   gradeType: GraduationStatusType | '';
   pageMove: boolean;
+  isGradeFirst: boolean;
 }
 
 export const initialState: State = {
@@ -49,6 +50,16 @@ export const initialState: State = {
   setGradeError: errorInitialState,
   gradeType: '',
   pageMove: false,
+  isGradeFirst: false,
+};
+
+const isGradeAllX = (grades: GradeType[]) => {
+  for (let i = 0; i < grades.length; i++) {
+    if (grades[i].score !== 'X') {
+      return false;
+    }
+  }
+  return true;
 };
 
 const GradeState = (
@@ -134,6 +145,7 @@ const GradeState = (
         setGradeError: errorInitialState,
         getGradeError: errorInitialState,
         error: null,
+        isGradeFirst: isGradeAllX(action.payload.grade),
       };
     }
     case PAGEMOVE: {

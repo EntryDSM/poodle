@@ -9,16 +9,16 @@ import {
 } from '@/container/Grade/ConnectionGrade';
 
 type Props = ReturnType<typeof mapStateToProps> &
-  ReturnType<typeof mapDispatchToProps>;
+  ReturnType<typeof mapDispatchToProps> & { isGradeAllX: boolean };
 
-const GradeInput: FC<Props> = () => {
+const GradeInput: FC<Props> = ({ isGradeAllX }) => {
   return (
     <>
       <GradeHeader />
       <GradeTable>
         <tbody>
           <SchoolYear />
-          <GradeScore />
+          <GradeScore isGradeAllX={isGradeAllX} />
         </tbody>
       </GradeTable>
     </>

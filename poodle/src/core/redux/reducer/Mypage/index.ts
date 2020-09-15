@@ -29,6 +29,7 @@ const userStatusInitialState: UserStatus = {
   passed_first_apply: false,
   passed_interview: false,
   final_submit: false,
+  submitted_at: '',
 };
 
 const initialState: MypageState = {
