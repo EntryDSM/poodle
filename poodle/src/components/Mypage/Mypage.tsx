@@ -43,7 +43,10 @@ const Mypage: FC<Props> = ({
   const { document } = queryString.parse(window.location.search);
   const { grade_type } = useUser();
   const history = useHistory();
-  const reGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
+  const reGenerateTokenAndGetUserStatus = useReGenerateTokenAndDoCallback(
+    getUserStatus,
+  );
+  const reGenerateTokenAndGetProcess = useReGenerateTokenAndDoCallback(
     getProcess,
   );
   const goSubmitDocumentPageHandler = () => {
@@ -111,12 +114,14 @@ const Mypage: FC<Props> = ({
 
   useEffect(() => {
     if (process.error.status === 401) {
-      reGenerateTokenAndDoCallback();
+      reGenerateTokenAndGetUserStatus();
     }
   }, [process.error]);
 
   useEffect(() => {
-    if (userStatusError.status) {
+    if (userStatusError.status === 401) {
+      reGenerateTokenAndGetUserStatus();
+    } else if (userStatusError.status) {
       alert(
         `Error code: ${userStatusError.status} 유저 상태를 불러오지 못했습니다.`,
       );

@@ -5,8 +5,8 @@ import {
   MypageAction,
   USER_STATUS_SUCCESS,
   USER_STATUS_FAILURE,
-  GET_DOCUMENT_SUCCESS,
-  GET_DOCUMENT_FAILURE,
+  GET_PDF_SUCCESS,
+  GET_PDF_FAILURE,
   RESET_MYPAGE,
 } from '../../actions/Mypage';
 import ErrorType, { errorInitialState } from '@/lib/utils/type';
@@ -17,8 +17,8 @@ type MypageState = {
   processError: ErrorType;
   userStatus: UserStatus;
   userStatueError: ErrorType;
-  document: Blob;
-  getDocumentError: ErrorType;
+  pdf: Blob;
+  getPdfError: ErrorType;
 };
 
 const userStatusInitialState: UserStatus = {
@@ -42,8 +42,8 @@ const initialState: MypageState = {
   processError: errorInitialState,
   userStatus: userStatusInitialState,
   userStatueError: errorInitialState,
-  document: new Blob(),
-  getDocumentError: errorInitialState,
+  pdf: new Blob(),
+  getPdfError: errorInitialState,
 };
 
 export default function mypage(
@@ -73,16 +73,16 @@ export default function mypage(
         ...state,
         userStatueError: action.payload,
       };
-    case GET_DOCUMENT_SUCCESS:
+    case GET_PDF_SUCCESS:
       return {
         ...state,
-        getDocumentError: errorInitialState,
-        document: action.payload,
+        getPdfError: errorInitialState,
+        pdf: action.payload,
       };
-    case GET_DOCUMENT_FAILURE:
+    case GET_PDF_FAILURE:
       return {
         ...state,
-        getDocumentError: action.payload,
+        getPdfError: action.payload,
       };
     case RESET_MYPAGE:
       return initialState;

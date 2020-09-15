@@ -2,7 +2,11 @@ import React, { FC, useEffect } from 'react';
 import ScheduleDetail from './ScheduleDetail';
 import { Schedule } from '@/core/redux/actions/Main';
 import ErrorType from '@/lib/utils/type';
-import { getFullDateText, isNotStartedSchedule } from '@/lib/utils/function';
+import {
+  getFullDateText,
+  isNotStartedSchedule,
+  useReGenerateTokenAndDoCallback,
+} from '@/lib/utils/function';
 import {
   FAIL_INFO,
   WAIT_INFO,
@@ -26,6 +30,9 @@ const NoticeDetail: FC<Props> = ({
   getUserStatus,
   isLoading,
 }) => {
+  const reGenerateTokenAndGetUserStatus = useReGenerateTokenAndDoCallback(
+    getUserStatus,
+  );
   const isStarted = !isNotStartedSchedule(schedules[NOTICE_INDEX]);
   const wait = WAIT_INFO(getFullDateText(schedules[NOTICE_INDEX].start_date));
   const notice = INTERVIEW_PASS_INFO(
@@ -38,7 +45,9 @@ const NoticeDetail: FC<Props> = ({
   }, []);
 
   useEffect(() => {
-    if (userStatusError.status) {
+    if (userStatusError.status === 401) {
+      reGenerateTokenAndGetUserStatus();
+    } else if (userStatusError.status) {
       alert(`Error code: ${userStatusError.status} 상태 불러오기 실패!`);
     }
   }, [userStatusError]);

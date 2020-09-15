@@ -9,9 +9,9 @@ export const USER_STATUS = 'mypage/USER_STATUS' as const;
 export const USER_STATUS_SUCCESS = 'mypage/USER_STATUS_SUCCESS' as const;
 export const USER_STATUS_FAILURE = 'mypage/USER_STATUS_FAILURE' as const;
 
-export const GET_DOCUMENT = 'mypage/GET_DOCUMENT' as const;
-export const GET_DOCUMENT_SUCCESS = 'mypage/GET_DOCUMENT_SUCCESS' as const;
-export const GET_DOCUMENT_FAILURE = 'mypage/GET_DOCUMENT_FAILURE' as const;
+export const GET_PDF = 'mypage/GET_PDF' as const;
+export const GET_PDF_SUCCESS = 'mypage/GET_PDF_SUCCESS' as const;
+export const GET_PDF_FAILURE = 'mypage/GET_PDF_FAILURE' as const;
 
 export const RESET_MYPAGE = 'mypage/RESET_MYPAGE' as const;
 
@@ -50,17 +50,17 @@ export const userStatusFailure = (error: ErrorType) => ({
   payload: error,
 });
 
-export const getDocument = () => ({
-  type: GET_DOCUMENT,
+export const getPdf = () => ({
+  type: GET_PDF,
 });
 
-export const getDocumentSuccess = (payload: Blob) => ({
-  type: GET_DOCUMENT_SUCCESS,
+export const getPdfSuccess = (payload: Blob) => ({
+  type: GET_PDF_SUCCESS,
   payload,
 });
 
-export const getDocumentFailure = (error: ErrorType) => ({
-  type: GET_DOCUMENT_FAILURE,
+export const getPdfError = (error: ErrorType) => ({
+  type: GET_PDF_FAILURE,
   payload: error,
 });
 
@@ -74,7 +74,7 @@ export type MypageAction =
   | ReturnType<typeof processFailure>
   | ReturnType<typeof userStatusSuccess>
   | ReturnType<typeof userStatusFailure>
-  | ReturnType<typeof getDocument>
-  | ReturnType<typeof getDocumentSuccess>
-  | ReturnType<typeof getDocumentFailure>
+  | ReturnType<typeof getPdf>
+  | ReturnType<typeof getPdfSuccess>
+  | ReturnType<typeof getPdfError>
   | ReturnType<typeof resetMypage>;
