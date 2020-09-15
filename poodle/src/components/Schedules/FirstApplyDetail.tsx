@@ -6,7 +6,11 @@ import {
   PASS_INFO,
   FAIL_INFO,
 } from '@/components/Schedules/SchedulesConstance';
-import { isProgressingSchedule, getFullDateText } from '@/lib/utils/function';
+import {
+  isProgressingSchedule,
+  getFullDateText,
+  useReGenerateTokenAndDoCallback,
+} from '@/lib/utils/function';
 import ErrorType from '@/lib/utils/type';
 
 interface Props {
@@ -27,6 +31,9 @@ const FirstApplyDetail: FC<Props> = ({
   getUserStatus,
   isLoading,
 }) => {
+  const reGenerateTokenAndGetUserStatus = useReGenerateTokenAndDoCallback(
+    getUserStatus,
+  );
   const isProgressing = isProgressingSchedule(schedules[FIRST_APPLY_INDEX]);
   const wait = WAIT_INFO(
     getFullDateText(schedules[FIRST_APPLY_INDEX].start_date),
@@ -43,7 +50,9 @@ const FirstApplyDetail: FC<Props> = ({
   }, [schedules]);
 
   useEffect(() => {
-    if (userStatusError.status) {
+    if (userStatusError.status === 401) {
+      reGenerateTokenAndGetUserStatus();
+    } else if (userStatusError.status) {
       alert(`Error code: ${userStatusError.status} 상태 불러오기 실패!`);
     }
   }, [userStatusError]);
