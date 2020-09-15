@@ -58,7 +58,7 @@ const Document: FC<Props> = ({ isLoading, pdf, getPdf, getPdfError }) => {
           titleFontSize={36}
         />
         {isLoading ? (
-          'pdf를 불러오는 중입니다...'
+          'pdf를 불러오는 중입니다...(네트워크 환경에 따라 10 ~ 15초 가량 소요 될 예정입니다.)'
         ) : (
           <S.DocumentWrapper>
             <iframe
