@@ -11,7 +11,6 @@ export const ALL = 'ChoiceType/ALL' as const;
 export const ADDITIONALTYPE = 'ChoiceType/ADDITIONALTYPE' as const;
 export const GED_SUCCESS_YEAR = 'ChoiceType/GED_SUCCESS_YEAR' as const;
 export const GED_SUCCESS_MONTH = 'ChoiceType/GED_SUCCESS_MONTH' as const;
-export const GED_SUCCESS_DATE = 'ChoiceType/GED_SUCCESS_DATE' as const;
 export const PAGEMOVE = 'ChoiceType/PAGEMOVE' as const;
 
 export const GET_TYPE_CALL = 'ChoiceType/GET_TYPE_CALL' as const;
