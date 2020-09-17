@@ -113,6 +113,7 @@ const Introduction: FC<Props> = props => {
       history.push('/preview');
       modalController.resetToast();
       pageMoveChange(false);
+      props.setSuccessDate(null);
     }
   }, [pageMove]);
   useEffect(() => {

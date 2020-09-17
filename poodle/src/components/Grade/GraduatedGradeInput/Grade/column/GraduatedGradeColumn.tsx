@@ -87,6 +87,7 @@ const GraduatedGradeColumn: FC<Props> = ({
   );
   useEffect(() => {
     if (isGradeAllX) isCheckedChange(true);
+    else isCheckedChange(false);
   }, [isGradeAllX]);
   return (
     <td colSpan={1} className='grade'>

@@ -32,6 +32,7 @@ import {
   PAGEMOVE,
   HOME_PHONE_NUMBER,
   PICTURE_URL,
+  SUCCESS_DATE,
 } from '../../actions/Info';
 
 export interface State {
@@ -289,6 +290,12 @@ const InfoState = (
       return {
         ...state,
         pictureUrl: action.payload.pictureUrl,
+      };
+    }
+    case SUCCESS_DATE: {
+      return {
+        ...state,
+        successDate: action.payload.successDate,
       };
     }
     default: {

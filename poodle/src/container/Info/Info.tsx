@@ -161,11 +161,13 @@ const Info: FC<Props> = props => {
       history.push('/grade');
       modalController.resetToast();
       props.pageMoveChange(false);
+      props.setSuccessDate(null);
     }
   }, [props.pageMove]);
   return (
     <InfoDiv>
       <div id={TOAST_DIV_ID} />
+      <ModalContainer onClick={modalOffDispatch} />
       <InfoBody>
         <Title margin='80px'>인적사항</Title>
         {renderPage(props.gradeType)}
@@ -177,7 +179,6 @@ const Info: FC<Props> = props => {
           }}
         />
       </InfoBody>
-      <ModalContainer onClick={modalOffDispatch} />
     </InfoDiv>
   );
 };
