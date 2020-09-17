@@ -68,6 +68,7 @@ export const phoneNumCheck = (phoneNum: string) => {
 
 export const phoneNumCheckExceptLength = (phoneNum: string) => {
   if (phoneNum.length === 0) return true;
+
   const rxg = new RegExp(
     '(^\\+82[.-][1-9]\\d?[.-]|^\\(?0[1-9]\\d?\\)?[.-]?)?[1-9]\\d{2,3}[.-]\\d{4}$',
   );
@@ -91,9 +92,14 @@ export const useAuth = () => {
 export const getYEAR = (
   startYear: number,
   lastYear: number,
+  orderBy?: 'desc' | 'asc',
 ): { VALUE: string; LABEL: string }[] => {
   const buf = [];
-  for (let YEAR = startYear; YEAR <= lastYear; YEAR++) {
+  for (
+    let YEAR = setStart(startYear, lastYear, orderBy);
+    setRule(YEAR, startYear, lastYear, orderBy);
+    YEAR = setIncreaseOrDecrease(YEAR, orderBy)
+  ) {
     const stringedYEAR = YEAR.toString();
     buf.push({
       VALUE: stringedYEAR,
@@ -103,12 +109,39 @@ export const getYEAR = (
   return buf;
 };
 
+const setRule = (
+  value: number,
+  start: number,
+  last: number,
+  orderBy: 'desc' | 'asc' | undefined,
+) => {
+  return orderBy === 'desc' ? value >= start : value <= last;
+};
+const setStart = (
+  start: number,
+  last: number,
+  orderBy: 'desc' | 'asc' | undefined,
+) => {
+  return orderBy === 'desc' ? last : start;
+};
+const setIncreaseOrDecrease = (
+  value: number,
+  orderBy: 'desc' | 'asc' | undefined,
+) => {
+  return orderBy === 'desc' ? value - 1 : value + 1;
+};
+
 export const getMONTH = (
   startMonth: number,
   lastMonth: number,
+  orderBy?: 'desc' | 'asc',
 ): { VALUE: string; LABEL: string }[] => {
   const buf = [];
-  for (let MONTH = startMonth; MONTH <= lastMonth; MONTH++) {
+  for (
+    let MONTH = setStart(startMonth, lastMonth, orderBy);
+    setRule(MONTH, startMonth, lastMonth, orderBy);
+    MONTH = setIncreaseOrDecrease(MONTH, orderBy)
+  ) {
     const stringedMONTH = MONTH.toString();
     const value = stringedMONTH.padStart(2, '0');
     buf.push({
@@ -122,9 +155,14 @@ export const getMONTH = (
 export const getDAY = (
   startDay: number,
   lastDay: number,
+  orderBy?: 'desc' | 'asc',
 ): { VALUE: string; LABEL: string }[] => {
   const buf = [];
-  for (let DAY = startDay; DAY <= lastDay; DAY++) {
+  for (
+    let DAY = setStart(startDay, lastDay, orderBy);
+    setRule(DAY, startDay, lastDay, orderBy);
+    DAY = setIncreaseOrDecrease(DAY, orderBy)
+  ) {
     const stringedDAY = DAY.toString();
     const value = stringedDAY.padStart(2, '0');
     buf.push({
@@ -320,7 +358,7 @@ export const getIsFinish = () => {
 
 export const getIsStarted = () => {
   const time = getTime();
-  const startTime = getTime('2020-10-10');
+  const startTime = getTime('2020-09-10');
   return startTime <= time;
 };
 

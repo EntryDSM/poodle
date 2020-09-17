@@ -20,7 +20,7 @@ const ChoiceGEDYear: FC<Props> = ({
   month,
 }) => {
   return (
-    <DefaultRow title='합격 연도'>
+    <DefaultRow title='합격 연월'>
       <TypeElementContent>
         <div>
           <Dropdown

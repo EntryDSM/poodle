@@ -99,16 +99,18 @@ const ChoiceType: FC<Props> = props => {
   const graduationStatusChangeHandler = useCallback((status: string) => {
     if (status === 'UNGRADUATED') {
       setGraduationYear('2021');
+      setGraduationMonth('01');
       setIsQualification({ qualification: false });
     } else if (status === 'GRADUATED') {
       setGraduationYear('2020');
+      setGraduationMonth('01');
       setIsQualification({ qualification: false });
     }
     setIsQualification({ qualification: true });
     setGraduationStatus(status as GraduationStatusType);
   }, []);
   const getYearRow = (): React.ReactNode => {
-    if (graduationStatus === 'GRADUATED') {
+    if (graduationStatus !== 'GED') {
       return (
         <GraduationYear
           describe='*졸업자의 경우 졸업연도를 선택해주세요.'
@@ -116,6 +118,7 @@ const ChoiceType: FC<Props> = props => {
           graduationMonthChange={setGraduationMonth}
           graduationMonth={graduationMonth}
           graduationYear={graduationYear}
+          isUngraduated={graduationStatus !== 'UNGRADUATED'}
         />
       );
     } else if (graduationStatus === 'GED') {

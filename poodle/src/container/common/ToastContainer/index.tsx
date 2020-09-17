@@ -38,8 +38,8 @@ const getFailToastInfo = (id: string): ToastInfo => ({
 
 const getServerFailToastInfo = (id: string): ToastInfo => ({
   type: 'SERVER_ERROR',
-  description: '다시 시도해 주세요.',
-  title: '서버에서 에러가 발생하였습니다.',
+  description: '수정 후 시도해 주세요.',
+  title: '형식에 맞지 않는 값이 있습니다.',
   id,
   isSuccess: false,
 });

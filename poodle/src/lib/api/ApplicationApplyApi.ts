@@ -1,7 +1,7 @@
 import { RootState } from '@/core/redux/reducer';
 import { GradeType, SubjectType, ScoreType } from '@/core/redux/actions/Grade';
 import { getClientWithAccessToken } from './client';
-import ErrorType, { errorInitialState } from '@/lib/utils/type';
+import { errorInitialState } from '@/lib/utils/type';
 import {
   userTypeServerType,
   gradeServerType,
@@ -40,9 +40,10 @@ export const stringToStringOrNull = (value: string): string | null => {
   return value;
 };
 
-export const strintToNumberOrNull = (value: string): number | null => {
+export const stringToNumberOrNull = (value: string): number | null => {
   if (value.length === 0) return null;
-  return parseInt(value);
+  console.log(value);
+  return parseFloat(value);
 };
 
 export const getDataToServer = async <ResponseType>(
@@ -98,7 +99,7 @@ export const typeStateToRequest = (
     is_daejeon: isDaejeon(district),
     additional_type: additionalType,
     graduated_date:
-      gradeType === 'GRADUATED'
+      gradeType !== 'GED'
         ? yearMonthToOne(graduationYear, graduationMonth)
         : null,
     ged_pass_date:
@@ -193,21 +194,21 @@ export const infoStateToRequest = (
 ): userInfoServerType => {
   const dateString = `${state.year}-${state.month}-${state.day}`;
   return {
-    name: stringToStringOrNull(state.name),
+    name: state.name,
     sex: stringToStringOrNull(state.gender),
     student_number: infoStateToRequestStudentNumber(state),
-    parent_name: stringToStringOrNull(state.protectorName),
+    parent_name: state.protectorName,
     parent_tel: stringToStringOrNull(state.protectorPhoneNum),
-    school_name: stringToStringOrNull(state.schoolPhoneNum),
+    school_name: state.schoolPhoneNum,
     applicant_tel: stringToStringOrNull(state.phoneNum),
     school_tel: stringToStringOrNull(state.schoolPhoneNum),
     photo: stringToStringOrNull(state.picture),
     birth_date: infoDateStringToStateDateString(dateString),
     address: stringToStringOrNull(state.address),
-    detail_address: stringToStringOrNull(state.detailAddress),
+    detail_address: state.detailAddress,
     post_code: stringToStringOrNull(state.postNum),
     school_code: stringToStringOrNull(state.schoolCode),
-    home_tel: stringToStringOrNull(state.homePhoneNumber),
+    home_tel: state.homePhoneNumber,
   };
 };
 
@@ -216,21 +217,21 @@ export const infoStateToGedRequest = (
 ): userInfoServerType => {
   const dateString = `${state.year}-${state.month}-${state.day}`;
   return {
-    name: stringToStringOrNull(state.name),
+    name: state.name,
     sex: stringToStringOrNull(state.gender),
     student_number: null,
-    parent_name: stringToStringOrNull(state.protectorName),
+    parent_name: state.protectorName,
     parent_tel: stringToStringOrNull(state.protectorPhoneNum),
     school_name: null,
     applicant_tel: stringToStringOrNull(state.phoneNum),
     school_tel: null,
     photo: stringToStringOrNull(state.picture),
     birth_date: infoDateStringToStateDateString(dateString),
-    address: stringToStringOrNull(state.address),
-    detail_address: stringToStringOrNull(state.detailAddress),
-    post_code: stringToStringOrNull(state.postNum),
+    address: state.address,
+    detail_address: state.detailAddress,
+    post_code: state.postNum,
     school_code: null,
-    home_tel: stringToStringOrNull(state.homePhoneNumber),
+    home_tel: state.homePhoneNumber,
   };
 };
 
@@ -464,11 +465,11 @@ const gradeSortCompareFunc = (current: GradeType, next: GradeType) => {
 export const gradeStateToRequest = (
   state: RootState['GradeState'],
 ): gradeServerType => ({
-  volunteer_time: strintToNumberOrNull(state.serviceTime),
-  full_cut_count: strintToNumberOrNull(state.absentDay),
-  period_cut_count: strintToNumberOrNull(state.cutClassDay),
-  early_leave_count: strintToNumberOrNull(state.leaveLateDay),
-  late_count: strintToNumberOrNull(state.perceptionDay),
+  volunteer_time: stringToNumberOrNull(state.serviceTime),
+  full_cut_count: stringToNumberOrNull(state.absentDay),
+  period_cut_count: stringToNumberOrNull(state.cutClassDay),
+  early_leave_count: stringToNumberOrNull(state.leaveLateDay),
+  late_count: stringToNumberOrNull(state.perceptionDay),
   korean: gradeArrayToString(state.grade, 'korean', state.gradeType),
   social: gradeArrayToString(state.grade, 'society', state.gradeType),
   history: gradeArrayToString(state.grade, 'history', state.gradeType),
@@ -476,13 +477,13 @@ export const gradeStateToRequest = (
   science: gradeArrayToString(state.grade, 'science', state.gradeType),
   tech_and_home: gradeArrayToString(state.grade, 'tech', state.gradeType),
   english: gradeArrayToString(state.grade, 'english', state.gradeType),
-  ged_average_score: strintToNumberOrNull(state.score),
+  ged_average_score: stringToNumberOrNull(state.score),
 });
 
 export const gradeStateToGedRequest = (
   state: RootState['GradeState'],
 ): gedGradeServerType => ({
-  ged_average_score: Number(state.score),
+  ged_average_score: stringToNumberOrNull(state.score),
 });
 
 export const selfIntroductionStateToRequest = (
