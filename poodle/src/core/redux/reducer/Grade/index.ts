@@ -55,9 +55,14 @@ export const initialState: State = {
 
 const isGradeAllX = (grades: GradeType[]) => {
   for (let i = 0; i < grades.length; i++) {
-    if (grades[i].score !== 'X') {
-      return false;
-    }
+    if (grades[i].score !== 'X') return false;
+  }
+  return true;
+};
+
+const isGradeNotAllX = (grades: GradeType[]) => {
+  for (let i = 0; i < grades.length; i++) {
+    if (grades[i].score === 'X') return false;
   }
   return true;
 };
@@ -101,6 +106,7 @@ const GradeState = (
       return {
         ...state,
         grade: action.payload.grade,
+        isGradeFirst: !isGradeNotAllX(action.payload.grade),
       };
     }
     case SCORE: {
