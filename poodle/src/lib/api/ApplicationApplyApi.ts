@@ -244,11 +244,11 @@ const infoDateStringToStateDateString = (str: string): string | null => {
 
 const infoStateToRequestStudentNumber = (
   state: RootState['InfoState'],
-): string | null => {
+): string => {
   const changedClassNum = checkSingleTextAddZero(state.classNumber);
   const changedNumber = checkSingleTextAddZero(state.number);
   const grade = stringToStringOrNull(state.gradeNumber);
-  if (!(grade && changedNumber && changedClassNum)) return null;
+  if (!(grade && changedNumber && changedClassNum)) return '';
   return `${grade}${changedClassNum}${changedNumber}`;
 };
 
@@ -297,12 +297,12 @@ const infoResponseDateStringToStateDateString = (
 };
 
 const infoStringToGradeNumber = (str: string | null): string => {
-  if (str === null) return '';
+  if (str === '' || str === null) return '';
   return str.split('')[0];
 };
 
 const infoStringToClassNumber = (str: string | null) => {
-  if (str === null) return '';
+  if (str === '' || str === null) return '';
   const splitString = str.split('');
   if (splitString[1] === '0') {
     return splitString[2];
@@ -311,7 +311,7 @@ const infoStringToClassNumber = (str: string | null) => {
 };
 
 const infoStringToNumber = (str: string | null): string => {
-  if (str === null) return '';
+  if (str === '' || str === null) return '';
   const splitString = str.split('');
   if (splitString[3] === '0') {
     return splitString[4];
