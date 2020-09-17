@@ -15,6 +15,7 @@ import {
   GET_GRADE_FAILURE,
   GET_GRADE_SUCCESS,
   PAGEMOVE,
+  setGrade,
 } from '../../actions/Grade';
 import { setInitalGradeState } from '@/lib/api/ApplicationApplyApi';
 import { GraduationStatusType } from '../../actions/ChoiceType';
@@ -67,6 +68,12 @@ const isGradeNotAllX = (grades: GradeType[]) => {
   return true;
 };
 
+const setGradeIsFirst = (grades: GradeType[]) => {
+  if (isGradeAllX(grades)) return true;
+  if (isGradeNotAllX(grades)) return false;
+  return true;
+};
+
 const GradeState = (
   state: State = initialState,
   action: GradeActionType,
@@ -106,7 +113,7 @@ const GradeState = (
       return {
         ...state,
         grade: action.payload.grade,
-        isGradeFirst: !isGradeNotAllX(action.payload.grade),
+        isGradeFirst: setGradeIsFirst(action.payload.grade),
       };
     }
     case SCORE: {
@@ -151,7 +158,7 @@ const GradeState = (
         setGradeError: errorInitialState,
         getGradeError: errorInitialState,
         error: null,
-        isGradeFirst: isGradeAllX(action.payload.grade),
+        isGradeFirst: setGradeIsFirst(action.payload.grade),
       };
     }
     case PAGEMOVE: {
