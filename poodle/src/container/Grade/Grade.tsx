@@ -101,7 +101,7 @@ const Grade: FC<Props> = props => {
     else {
       return <></>;
     }
-  }, [props]);
+  }, [props, isError]);
   const moveCurrentPage = useCallback(() => {
     props.history.push('/info');
   }, []);

@@ -8,7 +8,6 @@ import {
   createGetSaga,
   createMovePageSaga,
   createSaveSaga,
-  createProxySaga,
 } from '@/lib/utils/saga';
 import {
   APPLYTYPE,
@@ -18,10 +17,10 @@ import {
   ADDITIONALTYPE,
   GET_TYPE_CALL,
   TYPE_CALL,
-  GED_SUCCESS_DATE,
   GED_SUCCESS_MONTH,
   GED_SUCCESS_YEAR,
   setIsQualification,
+  GRADUATION_MONTH,
 } from '../../actions/ChoiceType';
 import { RootState } from '../../reducer';
 import { State } from '../../reducer/ChoiceType';
@@ -30,9 +29,9 @@ const actionArray = [
   APPLYTYPE,
   DISTRICT,
   GRADUATION_YEAR,
+  GRADUATION_MONTH,
   GRADUATION_STATUS,
   ADDITIONALTYPE,
-  GED_SUCCESS_DATE,
   GED_SUCCESS_MONTH,
   GED_SUCCESS_YEAR,
 ];
