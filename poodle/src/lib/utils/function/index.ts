@@ -13,15 +13,21 @@ export const allPhoneNumCheck = ({
   protectorPhoneNum,
   phoneNum,
   schoolPhoneNum,
+  homePhoneNumber,
   gradeType,
 }: any) => {
   if (gradeType === 'GED') {
-    return phoneNumCheck(protectorPhoneNum) && phoneNumCheck(phoneNum);
+    return (
+      phoneNumCheck(protectorPhoneNum) &&
+      phoneNumCheck(phoneNum) &&
+      phoneNumCheckExceptLength(homePhoneNumber)
+    );
   } else {
     return (
       phoneNumCheck(protectorPhoneNum) &&
       phoneNumCheck(phoneNum) &&
-      phoneNumCheck(schoolPhoneNum)
+      phoneNumCheck(schoolPhoneNum) &&
+      phoneNumCheckExceptLength(homePhoneNumber)
     );
   }
 };
@@ -51,6 +57,16 @@ export const isScoreRangeAble = (score: number) => {
 };
 
 export const phoneNumCheck = (phoneNum: string) => {
+  if (phoneNum.length === 0) return false;
+  const rxg = new RegExp(
+    '(^\\+82[.-][1-9]\\d?[.-]|^\\(?0[1-9]\\d?\\)?[.-]?)?[1-9]\\d{2,3}[.-]\\d{4}$',
+  );
+  const result = rxg.test(phoneNum);
+  if (!result) return false;
+  return true;
+};
+
+export const phoneNumCheckExceptLength = (phoneNum: string) => {
   if (phoneNum.length === 0) return true;
   const rxg = new RegExp(
     '(^\\+82[.-][1-9]\\d?[.-]|^\\(?0[1-9]\\d?\\)?[.-]?)?[1-9]\\d{2,3}[.-]\\d{4}$',
