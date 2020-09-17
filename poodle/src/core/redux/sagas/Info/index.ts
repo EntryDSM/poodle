@@ -166,12 +166,17 @@ function* numberChangeSaga() {
 
 function isNumberStateAble(state: RootState['InfoState']) {
   if (
+    !isEmptyCheck(state.number) &&
+    !isEmptyCheck(state.gradeNumber) &&
+    !isEmptyCheck(state.classNumber)
+  )
+    return true;
+  if (
     isEmptyCheck(state.number) &&
     isEmptyCheck(state.gradeNumber) &&
     isEmptyCheck(state.classNumber)
-  ) {
+  )
     return true;
-  }
   return false;
 }
 
