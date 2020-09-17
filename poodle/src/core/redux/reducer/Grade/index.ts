@@ -16,6 +16,7 @@ import {
   GET_GRADE_SUCCESS,
   PAGEMOVE,
   setGrade,
+  SUCCESS_DATE,
 } from '../../actions/Grade';
 import { setInitalGradeState } from '@/lib/api/ApplicationApplyApi';
 import { GraduationStatusType } from '../../actions/ChoiceType';
@@ -165,6 +166,12 @@ const GradeState = (
       return {
         ...state,
         pageMove: action.payload.pageMove,
+      };
+    }
+    case SUCCESS_DATE: {
+      return {
+        ...state,
+        successTime: action.payload.successDate,
       };
     }
     default: {

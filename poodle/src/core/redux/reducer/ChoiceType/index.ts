@@ -16,6 +16,7 @@ import {
   GRADUATION_MONTH,
   ISQUALIFICATION,
   PAGEMOVE,
+  SUCCESS_DATE,
 } from '../../actions/ChoiceType';
 import { AdditionalType } from '../../actions/ChoiceType';
 
@@ -164,6 +165,12 @@ const ChoiceTypeState = (
       return {
         ...state,
         pageMove: action.payload.pageMove,
+      };
+    }
+    case SUCCESS_DATE: {
+      return {
+        ...state,
+        successTime: action.payload.successDate,
       };
     }
     default: {

@@ -12,6 +12,7 @@ import {
   GET_STUDY_PLAN_FAILURE,
   GET_SELF_INTRODUCTION_FAILURE,
   PAGEMOVE,
+  SUCCESS_DATE,
 } from '../../actions/Introduction';
 
 export interface State {
@@ -147,6 +148,12 @@ const IntroductionState = (
       return {
         ...state,
         pageMove: action.payload.pageMove,
+      };
+    }
+    case SUCCESS_DATE: {
+      return {
+        ...state,
+        successDate: action.payload.successDate,
       };
     }
     default: {
