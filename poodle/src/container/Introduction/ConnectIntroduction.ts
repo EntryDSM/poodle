@@ -9,6 +9,7 @@ import {
   getSelfIntroductionCall,
   selfIntroductionCall,
   pageMove,
+  setSuccessDate,
 } from '@/core/redux/actions/Introduction';
 
 export const mapStateToProps = (state: RootState) => ({
@@ -36,6 +37,8 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   getSelfIntroductionToServer: () => dispatch(getSelfIntroductionCall()),
   pageMoveChange: (isPageMove: boolean) =>
     dispatch(pageMove({ pageMove: isPageMove })),
+  setSuccessDate: (successDate: Date | null) =>
+    dispatch(setSuccessDate({ successDate })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Introduction);

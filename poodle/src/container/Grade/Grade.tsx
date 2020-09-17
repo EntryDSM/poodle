@@ -128,6 +128,7 @@ const Grade: FC<Props> = props => {
       history.push('/introduction');
       modalController.resetToast();
       props.pageMoveChange(false);
+      props.setSuccessDate(null);
     }
   }, [props.pageMove]);
 

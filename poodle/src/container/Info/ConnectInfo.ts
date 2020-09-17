@@ -22,6 +22,7 @@ import {
   infoCall,
   pageMove,
   setHomePhoneNumber,
+  setSuccessDate,
 } from '@/core/redux/actions/Info';
 
 export const mapStateToProps = (state: RootState) => ({
@@ -82,6 +83,8 @@ export const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(pageMove({ pageMove: isPageMove })),
   setHomePhoneNumber: (homePhoneNumber: string) =>
     dispatch(setHomePhoneNumber({ homePhoneNumber })),
+  setSuccessDate: (successDate: Date | null) =>
+    dispatch(setSuccessDate({ successDate })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Info);
