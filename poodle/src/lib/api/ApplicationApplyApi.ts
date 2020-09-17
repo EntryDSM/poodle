@@ -208,7 +208,7 @@ export const infoStateToRequest = (
     detail_address: state.detailAddress,
     post_code: stringToStringOrNull(state.postNum),
     school_code: stringToStringOrNull(state.schoolCode),
-    home_tel: state.homePhoneNumber,
+    home_tel: stringToStringOrNull(state.homePhoneNumber),
   };
 };
 
@@ -231,7 +231,7 @@ export const infoStateToGedRequest = (
     detail_address: state.detailAddress,
     post_code: state.postNum,
     school_code: null,
-    home_tel: state.homePhoneNumber,
+    home_tel: stringToStringOrNull(state.homePhoneNumber),
   };
 };
 
