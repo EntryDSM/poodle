@@ -13,6 +13,7 @@ import {
   getGradeCall,
   gradeCall,
   pageMove,
+  setSuccessDate,
 } from '@/core/redux/actions/Grade';
 import { State } from '@/core/redux/reducer/Grade';
 import Grade from './Grade';
@@ -52,6 +53,8 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setGradeToServer: (pageMove: boolean) => dispatch(gradeCall({ pageMove })),
   pageMoveChange: (isPageMove: boolean) =>
     dispatch(pageMove({ pageMove: isPageMove })),
+  setSuccessDate: (successDate: Date | null) =>
+    dispatch(setSuccessDate({ successDate })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Grade);

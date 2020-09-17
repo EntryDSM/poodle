@@ -161,6 +161,7 @@ const Info: FC<Props> = props => {
       history.push('/grade');
       modalController.resetToast();
       props.pageMoveChange(false);
+      props.setSuccessDate(null);
     }
   }, [props.pageMove]);
   return (

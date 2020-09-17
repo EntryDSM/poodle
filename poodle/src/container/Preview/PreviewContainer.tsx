@@ -34,7 +34,7 @@ const PreviewContainer: FC = () => {
     getPreviewError,
     setUserStatusError,
   } = useSelector((state: ReducerType) => state.Preview);
-  const { status, user } = useSelector((state: ReducerType) => state.Header);
+  const { status } = useSelector((state: ReducerType) => state.Header);
   const history = useHistory();
   const dispatch = useDispatch();
   const goCurrentPage = useCallback(() => {
@@ -86,9 +86,9 @@ const PreviewContainer: FC = () => {
   }, [status]);
   useEffect(() => {
     if (pageMove) {
+      dispatch(setPageMove({ pageMove: false }));
       history.push('/');
       modalController.resetToast();
-      dispatch(setPageMove({ pageMove: false }));
     }
   }, [pageMove]);
   return (
