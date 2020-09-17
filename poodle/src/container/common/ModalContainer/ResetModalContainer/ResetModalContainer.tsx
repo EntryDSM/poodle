@@ -116,7 +116,6 @@ const ResetModalContainer: FC<{}> = () => {
         case 3:
           if (passwordCheck && password !== passwordCheck)
             return '비밀번호가 일치하지 않습니다.';
-          console.log(passwordCheck, !passwordRegExp.exec(passwordCheck));
           if (passwordCheck && !passwordRegExp.exec(passwordCheck))
             return '조건에 맞지 않는 비밀번호 입니다.';
           if (resetPasswordValue.error.status)
