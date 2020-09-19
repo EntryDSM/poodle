@@ -28,16 +28,13 @@ const HeaderContainer: FC = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <ModalContainer onClick={() => {}} />
-      <Header
-        isLogin={isLogin}
-        token={token}
-        loginLoading={loginLoading}
-        login={loginHandler}
-        logout={logoutHandler}
-      />
-    </>
+    <Header
+      isLogin={isLogin}
+      token={token}
+      loginLoading={loginLoading}
+      login={loginHandler}
+      logout={logoutHandler}
+    />
   );
 };
 

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375.002" height="1124.249" viewBox="0 0 375.002 1124.249">
+    <defs>
+        <style>
+            .cls-2,.cls-4{fill:#c2f3fa}.cls-2{stroke:#c2f3fa}.cls-5{stroke:none}.cls-6{fill:none}
+        </style>
+    </defs>
+    <g id="그룹_35" transform="translate(.002)">
+        <path id="사각형_220" fill="#fcfcfc" d="M0 0H375V1080H0z"/>
+        <g id="사각형_211" class="cls-2">
+            <path d="M0 0H20V20H0z" class="cls-5" transform="rotate(-45 254.687 -75.269)"/>
+            <path d="M0.5 0.5H19.5V19.5H0.5z" class="cls-6" transform="rotate(-45 254.687 -75.269)"/>
+        </g>
+        <g id="사각형_210" class="cls-2">
+            <path d="M0 0H20V5H0z" class="cls-5" transform="rotate(-45 249.343 -115.482)"/>
+            <path d="M0.5 0.5H19.5V4.5H0.5z" class="cls-6" transform="rotate(-45 249.343 -115.482)"/>
+        </g>
+        <g id="사각형_213" class="cls-2">
+            <path d="M0 0H20V5H0z" class="cls-5" transform="rotate(-45 279.343 -43.055)"/>
+            <path d="M0.5 0.5H19.5V4.5H0.5z" class="cls-6" transform="rotate(-45 279.343 -43.055)"/>
+        </g>
+        <g id="빼기_3" fill="#c2f3fa">
+            <path d="M5167.697 2950.317L5042.5 2825.119v-5.657l128.026 128.027-2.83 2.828z" class="cls-5" transform="translate(-5042 -2805)"/>
+            <path d="M5167.697 2949.61l2.122-2.122L5043 2820.67v4.242l124.697 124.698m0 1.414L5042 2825.326v-7.07l129.233 129.233-3.536 3.534z" transform="translate(-5042 -2805)"/>
+        </g>
+        <g id="사각형_214" class="cls-2">
+            <path d="M0 0H5V20H0z" class="cls-5" transform="rotate(-45 287.4 -98.719)"/>
+            <path d="M0.5 0.5H4.5V19.5H0.5z" class="cls-6" transform="rotate(-45 287.4 -98.719)"/>
+        </g>
+        <g id="사각형_189" class="cls-2">
+            <path d="M0 0H30V30H0z" class="cls-5" transform="rotate(-45 1070.221 215.913)"/>
+            <path d="M0.5 0.5H29.5V29.5H0.5z" class="cls-6" transform="rotate(-45 1070.221 215.913)"/>
+        </g>
+        <g id="사각형_198" class="cls-2">
+            <path d="M0 0H20V20H0z" class="cls-5" transform="rotate(-45 1251.585 351.802)"/>
+            <path d="M0.5 0.5H19.5V19.5H0.5z" class="cls-6" transform="rotate(-45 1251.585 351.802)"/>
+        </g>
+        <g id="사각형_203" class="cls-2">
+            <path d="M0 0H20V5H0z" class="cls-5" transform="rotate(-45 1246.241 311.589)"/>
+            <path d="M0.5 0.5H19.5V4.5H0.5z" class="cls-6" transform="rotate(-45 1246.241 311.589)"/>
+        </g>
+        <path id="빼기_5" d="M5001 2928.477v-7.068 7.072zm44.248-44.248h-7.07l79.228-79.229 3.536 3.537-75.691 75.691z" class="cls-4" transform="translate(-5001.002 -1804.228)"/>
+        <g id="사각형_193" class="cls-2">
+            <path d="M0 0H10V40H0z" class="cls-5" transform="rotate(-45 1119.541 181.342)"/>
+            <path d="M0.5 0.5H9.5V39.5H0.5z" class="cls-6" transform="rotate(-45 1119.541 181.342)"/>
+        </g>
+        <g id="사각형_195" class="cls-2">
+            <path d="M0 0H10V40H0z" class="cls-5" transform="rotate(-45 998.83 231.342)"/>
+            <path d="M0.5 0.5H9.5V39.5H0.5z" class="cls-6" transform="rotate(-45 998.83 231.342)"/>
+        </g>
+        <g id="사각형_199" class="cls-2">
+            <path d="M0 0H5V20H0z" class="cls-5" transform="rotate(-45 1211.872 358.352)"/>
+            <path d="M0.5 0.5H4.5V19.5H0.5z" class="cls-6" transform="rotate(-45 1211.872 358.352)"/>
+        </g>
+        <g id="사각형_202" class="cls-2">
+            <path d="M0 0H5V20H0z" class="cls-5" transform="rotate(-45 1284.298 328.352)"/>
+            <path d="M0.5 0.5H4.5V19.5H0.5z" class="cls-6" transform="rotate(-45 1284.298 328.352)"/>
+        </g>
+        <g id="사각형_194" class="cls-2">
+            <path d="M0 0H40V10H0z" class="cls-5" transform="rotate(-45 1059.792 156.593)"/>
+            <path d="M0.5 0.5H39.5V9.5H0.5z" class="cls-6" transform="rotate(-45 1059.792 156.593)"/>
+        </g>
+        <path id="빼기_2" d="M5042 2976.393v-14.143L5199.251 2805l7.072 7.072z" class="cls-4" transform="translate(-5042 -1967.322)"/>
+    </g>
+</svg>

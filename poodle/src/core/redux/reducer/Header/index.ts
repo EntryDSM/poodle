@@ -10,6 +10,10 @@ import {
   RE_GENERATE_TOKEN_FAILURE,
   GET_USER_SUCCESS,
   GET_USER_FAILURE,
+  StatusType,
+  GET_STATUS,
+  GET_STATUS_FAILURE,
+  GET_STATUS_SUCCESS,
 } from '../../actions/Header';
 import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import { Token, User } from '@/lib/api/auth';
@@ -38,12 +42,25 @@ const userInitialState: User = {
   post_code: null,
 };
 
+const statusInitialState: StatusType = {
+  name: '',
+  sex: '',
+  paid: false,
+  printed_application_arrived: false,
+  passed_first_apply: false,
+  passed_interview: false,
+  final_submit: false,
+  submitted_at: null,
+};
+
 type HeaderState = {
   isLogin: boolean;
   token: Token;
   user: User;
   error: ErrorType;
   getUserError: ErrorType;
+  getStatusError: ErrorType;
+  status: StatusType;
 };
 
 const initialStateWithLocalStorage: HeaderState = {
@@ -52,6 +69,8 @@ const initialStateWithLocalStorage: HeaderState = {
   user: userInitialState,
   error: errorInitialState,
   getUserError: errorInitialState,
+  getStatusError: errorInitialState,
+  status: statusInitialState,
 };
 
 const initialState = {
@@ -64,6 +83,8 @@ const initialState = {
   user: userInitialState,
   error: errorInitialState,
   getUserError: errorInitialState,
+  getStatusError: errorInitialState,
+  status: statusInitialState,
 };
 
 export default function header(
@@ -118,6 +139,18 @@ export default function header(
         ...state,
         getUserError: action.payload,
       };
+    case GET_STATUS_FAILURE: {
+      return {
+        ...state,
+        getStatusError: action.payload,
+      };
+    }
+    case GET_STATUS_SUCCESS: {
+      return {
+        ...state,
+        status: action.payload,
+      };
+    }
     default:
       return state;
   }

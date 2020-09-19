@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useCallback } from 'react';
 import * as S from '@/styles/Mypage/Document';
 import ContentHeader from '@/components/default/common/ContentHeader/';
 import { getClientWithAccessToken } from '@/lib/api/client';
@@ -6,34 +6,47 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/core/redux/reducer';
 import { useHistory } from 'react-router-dom';
 import ErrorType from '@/lib/utils/type';
+import { useReGenerateTokenAndDoCallback, useUser } from '@/lib/utils/function';
 
 interface Props {
   isLoading: boolean;
-  document: Blob;
-  getDocument: () => void;
-  getDocumentError: ErrorType;
+  pdf: Blob;
+  getPdf: () => void;
+  getPdfError: ErrorType;
 }
 
-const Document: FC<Props> = ({
-  isLoading,
-  document,
-  getDocument,
-  getDocumentError,
-}) => {
+const Document: FC<Props> = ({ isLoading, pdf, getPdf, getPdfError }) => {
+  const reGenerateTokenAndGetPdf = useReGenerateTokenAndDoCallback(getPdf);
   const history = useHistory();
-  const [pdf, setPdf] = useState();
+  const { name: userName } = useUser();
   const { name, final_submit } = useSelector(
     (state: RootState) => state.Mypage.userStatus,
   );
+
+  const onClickDownloadHandler = useCallback(() => {
+    const link: HTMLAnchorElement = document.createElement('a');
+    const url: string = `${(URL.createObjectURL(pdf) as unknown) as string}`;
+    link.href = url;
+    link.download = `대덕소프트웨어마이스터고등학교_입학원서_${userName}.pdf`;
+    link.click();
+  }, [pdf, userName]);
 
   useEffect(() => {
     if (name && !final_submit) {
       alert('최종 제출하지 않으셨습니다.');
       history.push('/');
     } else if (final_submit) {
-      getDocument();
+      getPdf();
     }
   }, [final_submit]);
+
+  useEffect(() => {
+    if (getPdfError.status === 401) {
+      reGenerateTokenAndGetPdf();
+    } else if (getPdfError.status) {
+      alert(`Error code: ${getPdfError.status} pdf불러오기 실패!`);
+    }
+  }, [getPdfError]);
 
   return (
     <S.Wrapper>
@@ -46,14 +59,19 @@ const Document: FC<Props> = ({
           titleFontSize={36}
         />
         {isLoading ? (
-          'pdf를 불러오는 중입니다...'
+          'pdf를 불러오는 중입니다...(네트워크 환경에 따라 10 ~ 15초 가량 소요 될 예정입니다.)'
         ) : (
-          <iframe
-            title='미리보기'
-            src={document && URL.createObjectURL(document)}
-            width='1170px'
-            height='1072px'
-          />
+          <S.DocumentWrapper>
+            <iframe
+              title='미리보기'
+              src={`${document && URL.createObjectURL(pdf)}#toolbar=0`}
+              width='1170px'
+              height='1072px'
+            />
+            <S.DownloadButton onClick={onClickDownloadHandler}>
+              다운로드
+            </S.DownloadButton>
+          </S.DocumentWrapper>
         )}
       </S.DocumentContainer>
     </S.Wrapper>

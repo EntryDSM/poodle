@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GradeButtonList } from '@/styles/Grade';
 import { ReducerType } from '@/core/redux/store';
@@ -13,9 +13,11 @@ interface Props {
   subject: SubjectType;
   semester: number;
   grade: number;
+  isGradeAllX: boolean;
 }
 
-const GradeColumn: FC<Props> = ({ subject, semester, grade }) => {
+const GradeColumn: FC<Props> = ({ subject, semester, grade, isGradeAllX }) => {
+  const [isChecked, isCheckedChange] = useState<boolean>(false);
   const dispatch = useDispatch();
   const gradeState = useSelector(
     (state: ReducerType) => state.GradeState.grade,
@@ -78,11 +80,19 @@ const GradeColumn: FC<Props> = ({ subject, semester, grade }) => {
       )),
     [gradeState],
   );
+  useEffect(() => {
+    if (isGradeAllX) isCheckedChange(true);
+    else isCheckedChange(false);
+  }, [isGradeAllX]);
   return (
     <td colSpan={1} className='grade'>
       <GradeButtonList>
         <label>
-          <input type='checkbox' />
+          <input
+            checked={isChecked}
+            onChange={() => isCheckedChange(!isChecked)}
+            type='checkbox'
+          />
           <li>{getScore(gradeState)}</li>
           <div>{setScoreList(scoreList)}</div>
         </label>

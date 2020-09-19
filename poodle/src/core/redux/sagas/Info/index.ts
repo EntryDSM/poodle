@@ -8,7 +8,6 @@ import {
 } from '@/lib/api/ApplicationApplyApi';
 import { USERINFO_URL, SET_PICTURE_URL } from '@/lib/api/ServerUrl';
 import {
-  createSaveSaga,
   createProxySaga,
   createGetSaga,
   createMovePageSaga,
@@ -35,7 +34,7 @@ import {
   SetPictureCall,
   SET_PICTURE,
   SET_PICTURE_FAILURE,
-  SET_PICTURE_SUCCESS,
+  HOME_PHONE_NUMBER,
 } from '../../actions/Info';
 import ErrorType from '@/lib/utils/type';
 import { allPhoneNumCheck } from '@/lib/utils/function';
@@ -53,6 +52,7 @@ const actionArray = [
   SCHOOL_PHONE_NUM,
   MIDDLESCHOOL,
   BIRTHDAY,
+  HOME_PHONE_NUMBER,
 ];
 const numberActionArray = [CLASS_NUMBER, GRADE_NUMBER, NUMBER];
 const PAGENAME = 'Info';
@@ -141,11 +141,6 @@ const getInfoSaga = createGetSaga(
   infoResponseToState,
 );
 
-const splitImgUrl = (url: string) => {
-  const splitedString = url.split('/')
-  return '/' + splitedString[3];
-};
-
 function* setImgSaga(action: SetPictureCall) {
   try {
     const formData = new FormData();
@@ -153,8 +148,8 @@ function* setImgSaga(action: SetPictureCall) {
     formData.append('file', picture);
     const response = yield call(setPostToServer, SET_PICTURE_URL, formData);
     yield put({
-      type: SET_PICTURE_SUCCESS,
-      payload: { url: splitImgUrl(response) },
+      type: PICTURE,
+      payload: { picture: response ? response : '' },
     });
   } catch (error) {
     yield put({ type: SET_PICTURE_FAILURE, payload: { error: error } });
@@ -171,12 +166,17 @@ function* numberChangeSaga() {
 
 function isNumberStateAble(state: RootState['InfoState']) {
   if (
+    !isEmptyCheck(state.number) &&
+    !isEmptyCheck(state.gradeNumber) &&
+    !isEmptyCheck(state.classNumber)
+  )
+    return true;
+  if (
     isEmptyCheck(state.number) &&
     isEmptyCheck(state.gradeNumber) &&
     isEmptyCheck(state.classNumber)
-  ) {
+  )
     return true;
-  }
   return false;
 }
 

@@ -26,17 +26,25 @@ const UserAddressRow: FC<Props> = ({
   describe,
 }) => {
   const [isEmpty, emptyChange] = useState<boolean>(false);
+  const [isDetailAddressEmpty, detailAddressEmptyChange] = useState<boolean>(
+    false,
+  );
   const dispatch = useDispatch();
   const isEmptyCheck = useCallback((text: string) => {
     return text.length > 0;
   }, []);
   useEffect(() => {
-    if (isError && isEmptyCheck(address)) {
+    if (isError && !isEmptyCheck(address)) {
       emptyChange(true);
-    } else {
-      emptyChange(false);
+      return;
     }
-  }, [isError, address]);
+    if (isError && !isEmptyCheck(detailAddress)) {
+      detailAddressEmptyChange(true);
+      return;
+    }
+    emptyChange(false);
+    detailAddressEmptyChange(false);
+  }, [isError, address, detailAddress]);
   const addressSearchModalOn = useCallback(() => {
     dispatch(modalOn(ADDRESS_SEARCH_MODAL));
   }, [dispatch]);
@@ -66,7 +74,7 @@ const UserAddressRow: FC<Props> = ({
             <Input
               width='580px'
               valueChangeHandler={valueChangeHandler}
-              isEmpty={isEmpty}
+              isEmpty={isDetailAddressEmpty}
               value={detailAddress}
             />
           </div>

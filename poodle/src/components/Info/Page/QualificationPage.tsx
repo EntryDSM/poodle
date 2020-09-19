@@ -35,6 +35,8 @@ const QualificationPage: FC<Props> = ({
   isError,
   postNum,
   detailAddress,
+  setHomePhoneNumber,
+  homePhoneNumber,
 }) => {
   return (
     <li>
@@ -61,6 +63,8 @@ const QualificationPage: FC<Props> = ({
         isError={isError}
         postNum={postNum}
         detailAddress={detailAddress}
+        setHomePhoneNumber={setHomePhoneNumber}
+        homePhoneNumber={homePhoneNumber}
       />
     </li>
   );

@@ -17,8 +17,8 @@ import {
   typeCall,
   setIsQualification,
   pageMove,
+  setSuccessDate,
 } from '@/core/redux/actions/ChoiceType';
-import { NOTICE_MODAL, modalOn } from '@/core/redux/actions/Modal';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 export const mapStateToProps = (state: RootState) => ({
   qualificationExam: state.ChoiceTypeState.qualificationExam,
@@ -35,6 +35,7 @@ export const mapStateToProps = (state: RootState) => ({
   getTypeError: state.ChoiceTypeState.getTypeError,
   setTypeError: state.ChoiceTypeState.setTypeError,
   pageMove: state.ChoiceTypeState.pageMove,
+  status: state.Header.status.final_submit,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
@@ -55,9 +56,10 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setGEDSuccessMonth: (month: string) =>
     dispatch(setGEDSuccessMonth({ month })),
   setGEDSuccessYear: (year: string) => dispatch(setGEDSuccessYear({ year })),
-  modalOn: () => dispatch(modalOn(NOTICE_MODAL)),
   pageMoveChange: (isPageMove: boolean) =>
     dispatch(pageMove({ pageMove: isPageMove })),
+  setSuccessDate: (successDate: Date | null) =>
+    dispatch(setSuccessDate({ successDate })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChoiceType);

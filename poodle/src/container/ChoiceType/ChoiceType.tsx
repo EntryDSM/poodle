@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import {
   Title,
@@ -15,6 +15,8 @@ import {
 } from '@/components/ChoiceType/RowType';
 import { mapStateToProps, mapDispatchToProps } from './ConnectChoiceType';
 import {
+  getIsFinish,
+  getIsStarted,
   isEmptyCheck,
   useReGenerateTokenAndDoCallback,
 } from '@/lib/utils/function';
@@ -35,7 +37,6 @@ let isButtonClick = false;
 
 const ChoiceType: FC<Props> = props => {
   const {
-    qualificationExam,
     applyType,
     district,
     graduationStatus,
@@ -54,14 +55,14 @@ const ChoiceType: FC<Props> = props => {
     setGEDSuccessYear,
     history,
     error,
-    modalOn,
-    successTime,
+    status,
     getTypeError,
     setTypeError,
     setTypeToServer,
     getTypeToServer,
     pageMove,
     pageMoveChange,
+    setSuccessDate,
   } = props;
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
@@ -99,16 +100,18 @@ const ChoiceType: FC<Props> = props => {
   const graduationStatusChangeHandler = useCallback((status: string) => {
     if (status === 'UNGRADUATED') {
       setGraduationYear('2021');
+      setGraduationMonth('01');
       setIsQualification({ qualification: false });
     } else if (status === 'GRADUATED') {
       setGraduationYear('2020');
+      setGraduationMonth('01');
       setIsQualification({ qualification: false });
     }
     setIsQualification({ qualification: true });
     setGraduationStatus(status as GraduationStatusType);
   }, []);
   const getYearRow = (): React.ReactNode => {
-    if (graduationStatus === 'GRADUATED') {
+    if (graduationStatus !== 'GED') {
       return (
         <GraduationYear
           describe='*졸업자의 경우 졸업연도를 선택해주세요.'
@@ -116,6 +119,7 @@ const ChoiceType: FC<Props> = props => {
           graduationMonthChange={setGraduationMonth}
           graduationMonth={graduationMonth}
           graduationYear={graduationYear}
+          isUngraduated={graduationStatus !== 'UNGRADUATED'}
         />
       );
     } else if (graduationStatus === 'GED') {
@@ -147,9 +151,20 @@ const ChoiceType: FC<Props> = props => {
 
   useEffect(() => {
     getTypeToServer();
-    modalOn();
   }, []);
 
+  useEffect(() => {
+    if (status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    } else if (getIsFinish()) {
+      alert('종료 되었습니다.');
+      history.push('/');
+    } else if (!getIsStarted()) {
+      alert('시작 하지 않았습니다.');
+      history.push('/');
+    }
+  }, [status]);
   useEffect(() => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');
@@ -160,6 +175,7 @@ const ChoiceType: FC<Props> = props => {
       history.push('/info');
       modalController.resetToast();
       pageMoveChange(false);
+      setSuccessDate(null);
     }
   }, [pageMove]);
 

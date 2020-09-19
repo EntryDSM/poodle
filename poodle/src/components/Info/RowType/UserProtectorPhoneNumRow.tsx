@@ -32,7 +32,6 @@ const UserProtectorPhoneNumRow: FC<Props> = ({
           valueChangeHandler={valueChangeHandler}
           width='250px'
           isEmpty={isEmpty}
-          type='number'
           value={protectorPhoneNum}
         />
         <div>

@@ -1,6 +1,5 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
-import { errorTypeCheck } from '@/lib/api/ApplicationApplyApi';
 import {
   Title,
   DefaultlNavigation,
@@ -13,6 +12,8 @@ import {
 } from '@/components/Introduction/constance';
 import { mapDispatchToProps, mapStateToProps } from './ConnectIntroduction';
 import {
+  getIsFinish,
+  getIsStarted,
   isEmptyCheck,
   useReGenerateTokenAndDoCallback,
 } from '../../lib/utils/function';
@@ -58,12 +59,8 @@ const Introduction: FC<Props> = props => {
         modalController.createNewToast('ERROR');
         return;
       }
-      try {
-        await setSelfIntroductionToServer(true);
-        await setStudyPlanToServer(true);
-      } catch (error) {
-        errorTypeCheck(error);
-      }
+      await setSelfIntroductionToServer(true);
+      await setStudyPlanToServer(true);
     },
     [history],
   );
@@ -116,8 +113,21 @@ const Introduction: FC<Props> = props => {
       history.push('/preview');
       modalController.resetToast();
       pageMoveChange(false);
+      props.setSuccessDate(null);
     }
   }, [pageMove]);
+  useEffect(() => {
+    if (props.status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    } else if (getIsFinish()) {
+      alert('종료 되었습니다.');
+      history.push('/');
+    } else if (!getIsStarted()) {
+      alert('시작 하지 않았습니다.');
+      history.push('/');
+    }
+  }, [props.status]);
   return (
     <IntroductionDiv>
       <div id={TOAST_DIV_ID} />

@@ -1,15 +1,33 @@
 import React, { FC } from 'react';
 import GradeRow from './GradeRow';
 
-const GradeScore: FC = () => (
+interface Props {
+  isGradeAllX: boolean;
+}
+
+const GradeScore: FC<Props> = ({ isGradeAllX }) => (
   <>
-    <GradeRow subject='korean'>국어</GradeRow>
-    <GradeRow subject='society'>사회</GradeRow>
-    <GradeRow subject='history'>역사</GradeRow>
-    <GradeRow subject='math'>수학</GradeRow>
-    <GradeRow subject='science'>과학</GradeRow>
-    <GradeRow subject='tech'>기술가정</GradeRow>
-    <GradeRow subject='english'>영어</GradeRow>
+    <GradeRow subject='korean' isGradeAllX={isGradeAllX}>
+      국어
+    </GradeRow>
+    <GradeRow subject='society' isGradeAllX={isGradeAllX}>
+      사회
+    </GradeRow>
+    <GradeRow subject='history' isGradeAllX={isGradeAllX}>
+      역사
+    </GradeRow>
+    <GradeRow subject='math' isGradeAllX={isGradeAllX}>
+      수학
+    </GradeRow>
+    <GradeRow subject='science' isGradeAllX={isGradeAllX}>
+      과학
+    </GradeRow>
+    <GradeRow subject='tech' isGradeAllX={isGradeAllX}>
+      기술가정
+    </GradeRow>
+    <GradeRow subject='english' isGradeAllX={isGradeAllX}>
+      영어
+    </GradeRow>
   </>
 );
 

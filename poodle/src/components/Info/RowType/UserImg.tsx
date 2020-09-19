@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { InfoPicture } from '../../../styles/Info';
 import { modalOn, REDERRORMODAL } from '@/core/redux/actions/Modal';
-import { setPictureCall } from '@/core/redux/actions/Info';
+import { setPictureCall, setPictureUrl } from '@/core/redux/actions/Info';
 import { useReGenerateTokenAndDoCallback } from '@/lib/utils/function';
 import { RootState } from '@/core/redux/reducer';
 
@@ -11,17 +11,19 @@ interface Props {
   img: string;
 }
 
-const IMG_URL = 'https://image.entrydsm.hs.kr.s3.ap-northeast-2.amazonaws.com';
+const IMG_URL = 'https://image.entrydsm.hs.kr.s3.ap-northeast-2.amazonaws.com/';
 
-const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000';
+const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000,.GIF,.JPG,.PNG,.JPEG';
 
-const UserImg: FC<Props> = ({ img }) => {
-  const [file, fileChange] = useState<File>(new File([],"dummy.txt"));
+const UserImg: FC<Props> = () => {
+  const [file, fileChange] = useState<File>(new File([], 'dummy.txt'));
   const dispatch = useDispatch();
-  const { setImgError } = useSelector((state:RootState) => state.InfoState);
-  const setImgGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
-    () => dispatch(setPictureCall({ picture: file }))
-  )
+  const { setImgError, pictureUrl } = useSelector(
+    (state: RootState) => state.InfoState,
+  );
+  const setImgGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(() =>
+    dispatch(setPictureCall({ picture: file })),
+  );
   const inputChangeHandler = useCallback((event: React.ChangeEvent) => {
     const target = event.target as HTMLInputElement;
     const files = target.files;
@@ -32,6 +34,8 @@ const UserImg: FC<Props> = ({ img }) => {
       return;
     }
     fileChange(file);
+    const fileUrl = URL.createObjectURL(file);
+    dispatch(setPictureUrl({ pictureUrl: fileUrl }));
     dispatch(setPictureCall({ picture: file }));
   }, []);
   const isFileTypeAble = useCallback((file: File) => {
@@ -55,7 +59,7 @@ const UserImg: FC<Props> = ({ img }) => {
     return file.name;
   }, []);
   useEffect(() => {
-    if(setImgError.status === 401){
+    if (setImgError.status === 401) {
       setImgGenerateTokenAndDoCallback();
     }
   }, [setImgError]);
@@ -67,8 +71,8 @@ const UserImg: FC<Props> = ({ img }) => {
           onChange={inputChangeHandler}
           accept='.gif, .jpg, .png, .jpeg, .jpeg2000'
         />
-        {img ? (
-          <img src={`${IMG_URL}${img}`} alt='사진' />
+        {pictureUrl ? (
+          <img src={pictureUrl} alt='사진' />
         ) : (
           <div>
             <p>증명사진을 첨부해주세요</p>

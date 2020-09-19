@@ -30,6 +30,8 @@ export interface User {
 }
 
 export const getUser = () => getClientWithAccessToken().get<User>('/users/me');
+export const getStatus = () =>
+  getClientWithAccessToken().get('/users/me/status');
 
 export const reGenerateToken = () =>
   getClientWithRefreshToken().put<Token>('/auth');

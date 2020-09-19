@@ -5,6 +5,7 @@ import {
   UserSchoolPhoneNumRow,
   UserPhoneNumRow,
   UserAddressRow,
+  UserHomePhoneNumber,
 } from '../RowType';
 
 type dispatchFuncType = (value: string) => void;
@@ -23,6 +24,8 @@ interface Props {
   isError: boolean;
   detailAddress: string;
   postNum: string;
+  setHomePhoneNumber: dispatchFuncType;
+  homePhoneNumber: string;
 }
 
 const DefaultAnotherRows: FC<Props> = ({
@@ -39,6 +42,8 @@ const DefaultAnotherRows: FC<Props> = ({
   setSchoolPhoneNum,
   setPhoneNum,
   isError,
+  setHomePhoneNumber,
+  homePhoneNumber,
 }) => (
   <>
     <UserProtector
@@ -47,21 +52,26 @@ const DefaultAnotherRows: FC<Props> = ({
       isError={isError}
     />
     <UserSchoolPhoneNumRow
-      describe='*‘-’문자를 제외한 숫자만 입력해주세요.'
+      describe='*완벽히 입력되지 않으면 자동저장이 되지 않습니다.'
       valueChangeHandler={setSchoolPhoneNum}
       schoolPhoneNum={schoolPhoneNum}
       isError={isError}
     />
     <UserProtectorPhoneNumRow
-      describe='*‘-’문자를 제외한 숫자만 입력해주세요.'
+      describe='*완벽히 입력되지 않으면 자동저장이 되지 않습니다.'
       valueChangeHandler={setProtectorPhoneNum}
       protectorPhoneNum={protectorPhoneNum}
       isError={isError}
     />
     <UserPhoneNumRow
-      describe='*‘-’문자를 제외한 숫자만 입력해주세요.'
+      describe='*완벽히 입력되지 않으면 자동저장이 되지 않습니다.'
       valueChangeHandler={setPhoneNum}
       phoneNum={phoneNum}
+      isError={isError}
+    />
+    <UserHomePhoneNumber
+      valueChangeHandler={setHomePhoneNumber}
+      homeNumber={homePhoneNumber}
       isError={isError}
     />
     <UserAddressRow
