@@ -351,14 +351,14 @@ export const useUserStatus = (): [
 
 export const getIsFinish = () => {
   const time = getTime();
-  const finishTime = getTime('2020-11-20');
+  const finishTime = getTime('2020-09-28');
 
   return finishTime <= time;
 };
 
 export const getIsStarted = () => {
   const time = getTime();
-  const startTime = getTime('2020-09-10');
+  const startTime = getTime('2020-09-21');
   return startTime <= time;
 };
 
