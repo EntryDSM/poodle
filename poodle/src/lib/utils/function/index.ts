@@ -239,8 +239,8 @@ export const useUser = () => {
   return user;
 };
 
-// export const TIME = '2020-11-20 15:00';
-export const TIME = '';
+export const TIME = '2020-10-19 00:00';
+// export const TIME = '';
 
 export const getDateObject = (date: string = TIME) =>
   date ? new Date(date) : new Date();
