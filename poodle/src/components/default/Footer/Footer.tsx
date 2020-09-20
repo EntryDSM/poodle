@@ -35,8 +35,16 @@ const Footer: FC = () => (
           개발자 소개
         </FooterLink>
         <FooterImgButtonDiv>
-          <FooterImgLink link='' img={github} alt='github로' />
-          <FooterImgLink link='' img={facebook} alt='facebook으로' />
+          <FooterImgLink
+            link='https://github.com/EntryDSM'
+            img={github}
+            alt='github로'
+          />
+          <FooterImgLink
+            link='https://www.facebook.com/entrydsm'
+            img={facebook}
+            alt='facebook으로'
+          />
         </FooterImgButtonDiv>
       </div>
     </div>
