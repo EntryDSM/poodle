@@ -239,8 +239,8 @@ export const useUser = () => {
   return user;
 };
 
-export const TIME = '2020-10-19 00:00';
-// export const TIME = '';
+// export const TIME = '2020-11-20 15:00';
+export const TIME = '';
 
 export const getDateObject = (date: string = TIME) =>
   date ? new Date(date) : new Date();
@@ -351,14 +351,14 @@ export const useUserStatus = (): [
 
 export const getIsFinish = () => {
   const time = getTime();
-  const finishTime = getTime('2020-11-20');
+  const finishTime = getTime('2020-09-28');
 
   return finishTime <= time;
 };
 
 export const getIsStarted = () => {
   const time = getTime();
-  const startTime = getTime('2020-09-10');
+  const startTime = getTime('2020-09-21');
   return startTime <= time;
 };
 
