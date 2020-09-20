@@ -25,6 +25,8 @@ import {
   GraduationStatusType,
   setIsQualification,
 } from '@/core/redux/actions/ChoiceType';
+import { useDispatch } from 'react-redux';
+import { modalOff, modalOn, NOTICE_MODAL } from '@/core/redux/actions/Modal';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -191,6 +193,19 @@ const ChoiceType: FC<Props> = props => {
     }
     modalController.createNewToast('SERVER_ERROR');
   }, [error, getTypeError, setTypeError]);
+  const dispatch = useDispatch();
+  const noticeModalOn = useCallback(() => {
+    dispatch(modalOn(NOTICE_MODAL));
+  }, [dispatch]);
+  const noticeModalOff = useCallback(() => {
+    dispatch(modalOff(NOTICE_MODAL));
+  }, [dispatch]);
+  useEffect(() => {
+    const isReadNotice = localStorage.getItem('isReadNotice');
+    if (isReadNotice) return;
+    noticeModalOn();
+    return () => noticeModalOff();
+  }, []);
   return (
     <TypeDiv>
       <div id={TOAST_DIV_ID} />

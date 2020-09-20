@@ -18,6 +18,8 @@ import {
   useReGenerateTokenAndDoCallback,
 } from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
+import { modalOn, NOTICE_MODAL, modalOff } from '@/core/redux/actions/Modal';
+import { useDispatch } from 'react-redux';
 
 type Props = ReturnType<typeof mapDispatchToProps> &
   ReturnType<typeof mapStateToProps> &
@@ -128,6 +130,19 @@ const Introduction: FC<Props> = props => {
       history.push('/');
     }
   }, [props.status]);
+  const dispatch = useDispatch();
+  const noticeModalOn = useCallback(() => {
+    dispatch(modalOn(NOTICE_MODAL));
+  }, [dispatch]);
+  const noticeModalOff = useCallback(() => {
+    dispatch(modalOff(NOTICE_MODAL));
+  }, [dispatch]);
+  useEffect(() => {
+    const isReadNotice = localStorage.getItem('isReadNotice');
+    if (isReadNotice) return;
+    noticeModalOn();
+    return () => noticeModalOff();
+  }, []);
   return (
     <IntroductionDiv>
       <div id={TOAST_DIV_ID} />
