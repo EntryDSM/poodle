@@ -108,6 +108,7 @@ type SubTitleProps = {
 export const SubTitle = styled.div<SubTitleProps>`
   transition: width 1s;
   white-space: break-spaces;
+  overflow: hidden;
   text-align: center;
   width: 0;
   ${({ contour, color, effect }) =>
