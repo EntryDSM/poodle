@@ -36,13 +36,13 @@ const Attendance: FC<Props> = ({
         valueChangeHandler={setAbsentDay}
         value={absentDay}
         isError={isError}
-        describe='전체 무단(미인정) 결석 일수'
+        describe='전체 미인정(무단) 결석 일수'
       />
       <AttendanceColumn
         valueChangeHandler={setPerceptionDay}
         value={perceptionDay}
         isError={isError}
-        describe='전체 무단 지각 일수'
+        describe='전체 미인정(무단) 지각 일수'
       />
     </tr>
     <tr>
@@ -50,13 +50,13 @@ const Attendance: FC<Props> = ({
         valueChangeHandler={setCutClassDay}
         value={cutClassDay}
         isError={isError}
-        describe='전체 무단 결과 일수'
+        describe='전체 미인정(무단) 결과 일수'
       />
       <AttendanceColumn
         valueChangeHandler={setLeaveLateDay}
         value={leaveLateDay}
         isError={isError}
-        describe='전체 무단 조퇴 일수'
+        describe='전체 미인정(무단) 조퇴 일수'
       />
     </tr>
   </AttendanceRowDiv>
