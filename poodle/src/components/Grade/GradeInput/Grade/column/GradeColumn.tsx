@@ -14,9 +14,16 @@ interface Props {
   semester: number;
   grade: number;
   isGradeAllX: boolean;
+  isGradeFirst: boolean;
 }
 
-const GradeColumn: FC<Props> = ({ subject, semester, grade, isGradeAllX }) => {
+const GradeColumn: FC<Props> = ({
+  subject,
+  semester,
+  grade,
+  isGradeAllX,
+  isGradeFirst,
+}) => {
   const [isChecked, isCheckedChange] = useState<boolean>(false);
   const dispatch = useDispatch();
   const gradeState = useSelector(
@@ -81,9 +88,10 @@ const GradeColumn: FC<Props> = ({ subject, semester, grade, isGradeAllX }) => {
     [gradeState],
   );
   useEffect(() => {
-    if (isGradeAllX) isCheckedChange(true);
-    else isCheckedChange(false);
-  }, [isGradeAllX]);
+    console.log(isGradeFirst, isGradeAllX);
+    if (isGradeAllX && isGradeFirst) isCheckedChange(true);
+    if (!isGradeFirst) isCheckedChange(false);
+  }, [isGradeAllX, isGradeFirst]);
   return (
     <td colSpan={1} className='grade'>
       <GradeButtonList>

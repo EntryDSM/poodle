@@ -16,7 +16,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 const GraduatedNonTransferSemester: FC<Props> = () => (
   <>
-    <GradeSubTitle>미이수 학기 선택</GradeSubTitle>
+    <GradeSubTitle>자유학기(학년)제 선택</GradeSubTitle>
     <GradeTable>
       <tbody>
         <SchoolYearRow>

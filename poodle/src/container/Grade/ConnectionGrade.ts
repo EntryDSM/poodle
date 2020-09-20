@@ -34,6 +34,7 @@ export const mapStateToProps = (state: RootState) => ({
   pageMove: state.GradeState.pageMove,
   status: state.Header.status.final_submit,
   isGradeFirst: state.GradeState.isGradeFirst,
+  isGradeAllX: state.GradeState.isGradeAllX,
 });
 
 export const mapDispatchToProps = (dispatch: Function) => ({
