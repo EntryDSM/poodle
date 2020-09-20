@@ -57,7 +57,9 @@ const GradeColumn: FC<Props> = ({ children, grade, semester, isLast }) => {
   useEffect(() => {
     if (!isAllScoreX(gradeState)) {
       checkChange(false);
+      return;
     }
+    checkChange(true);
   }, [gradeState]);
   return (
     <td className={isLast ? 'big semester' : 'semester'} colSpan={1}>

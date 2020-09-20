@@ -12,19 +12,6 @@ const MainContainer: FC = () => {
     isLoading,
     getSchedules,
   ] = useSchedules();
-  const dispatch = useDispatch();
-  const noticeModalOn = useCallback(() => {
-    dispatch(modalOn(NOTICE_MODAL));
-  }, [dispatch]);
-  const noticeModalOff = useCallback(() => {
-    dispatch(modalOff(NOTICE_MODAL));
-  }, [dispatch]);
-  useEffect(() => {
-    const isReadNotice = localStorage.getItem('isReadNotice');
-    if (isReadNotice) return;
-    noticeModalOn();
-    return () => noticeModalOff();
-  }, []);
   return (
     <>
       <ModalContainer onClick={() => {}} />

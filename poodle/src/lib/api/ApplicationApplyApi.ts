@@ -395,6 +395,7 @@ export const gradeResponseToState = (
     gradeType: response.grade_type ? response.grade_type : 'GED',
     pageMove: false,
     isGradeFirst: false,
+    isGradeAllX: false,
   };
 };
 
