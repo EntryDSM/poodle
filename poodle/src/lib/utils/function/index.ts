@@ -59,7 +59,7 @@ export const isScoreRangeAble = (score: number) => {
 export const phoneNumCheck = (phoneNum: string) => {
   if (phoneNum.length === 0) return false;
   const rxg = new RegExp(
-    '(^\\+82[.-][1-9]\\d?[.-]|^\\(?0[1-9]\\d?\\)?[.-]?)?[1-9]\\d{2,3}[.-]\\d{4}$',
+    '(^\\+82[.-][1-9]\\d?[.-]|^\\(?0[0-9]\\d?\\)?[.-]?)?[0-9]\\d{2,3}[.-]\\d{4}$',
   );
   const result = rxg.test(phoneNum);
   if (!result) return false;
@@ -70,7 +70,7 @@ export const phoneNumCheckExceptLength = (phoneNum: string) => {
   if (phoneNum.length === 0) return true;
 
   const rxg = new RegExp(
-    '(^\\+82[.-][1-9]\\d?[.-]|^\\(?0[1-9]\\d?\\)?[.-]?)?[1-9]\\d{2,3}[.-]\\d{4}$',
+    '(^\\+82[.-][1-9]\\d?[.-]|^\\(?0[0-9]\\d?\\)?[.-]?)?[0-9]\\d{2,3}[.-]\\d{4}$',
   );
   const result = rxg.test(phoneNum);
   if (!result) return false;
