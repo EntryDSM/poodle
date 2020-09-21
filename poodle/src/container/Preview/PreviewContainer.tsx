@@ -10,6 +10,7 @@ import ModalContainer from '../common/ModalContainer/ModalContainer';
 import { modalOn, BLUECHECKMODAL } from '@/core/redux/actions/Modal';
 import {
   previewCall,
+  resetServerRequestStatus,
   setPageMove,
   setPreview,
   submitCall,
@@ -55,16 +56,13 @@ const PreviewContainer: FC = () => {
   );
   useEffect(() => {
     if (!error) return;
-    if (error.status === 406) {
-      modalController.createNewToast('SUBMIT_ERROR');
-    }
     if (error.status === 401) {
       if (getPreviewError.status === 401) getPdfGenerateTokenAndDoCallback();
       if (setUserStatusError.status === 401)
         setUserStatusGenerateTokenAndDoCallback();
       return;
     }
-    modalController.createNewToast('SERVER_ERROR');
+    modalController.createNewToast('SUBMIT_ERROR');
   }, [error, getPreviewError, setUserStatusError]);
   useEffect(() => {
     dispatch(previewCall());
@@ -89,6 +87,7 @@ const PreviewContainer: FC = () => {
       dispatch(setPageMove({ pageMove: false }));
       history.push('/');
       modalController.resetToast();
+      dispatch(resetServerRequestStatus());
     }
   }, [pageMove]);
   return (
