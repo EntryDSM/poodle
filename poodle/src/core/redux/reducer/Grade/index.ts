@@ -18,7 +18,10 @@ import {
   setGrade,
   SUCCESS_DATE,
 } from '../../actions/Grade';
-import { setInitalGradeState } from '@/lib/api/ApplicationApplyApi';
+import {
+  setInitalCheckedGradeState,
+  setInitalGradeState,
+} from '@/lib/api/ApplicationApplyApi';
 import { GraduationStatusType } from '../../actions/ChoiceType';
 
 export interface State {
@@ -151,6 +154,9 @@ const GradeState = (
         error: null,
         isGradeFirst: true,
         isGradeAllX: isGradeAllX(action.payload.grade),
+        grade: isGradeAllX(action.payload.grade)
+          ? setInitalCheckedGradeState()
+          : action.payload.grade,
       };
     }
     case PAGEMOVE: {

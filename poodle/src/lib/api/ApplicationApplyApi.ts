@@ -332,6 +332,39 @@ export const setInitalGradeState = () => {
   return responseGradeToStateGrade(initialSubjectGrade);
 };
 
+export const setInitalCheckedGradeState = () => {
+  const initialSubjectGrade: SubjectsType = {
+    korean: 'XXXXXX',
+    science: 'XXXXXX',
+    society: 'XXXXXX',
+    math: 'XXXXXX',
+    english: 'XXXXXX',
+    history: 'XXXXXX',
+    tech: 'XXXXXX',
+  };
+  return responseGradeToCheckedStateGrade(initialSubjectGrade);
+};
+
+export const responseGradeToCheckedStateGrade = (
+  response: SubjectsType,
+): GradeType[] => {
+  if (!gradeIsAble(response)) return setInitalGradeState();
+
+  const entriedObj = objectToString(response);
+  let grade: GradeType[] = [];
+  entriedObj.map(([key, value]) => {
+    const typeChangeKey = key as SubjectType;
+    const stringToArray = convertStringToArray(value);
+    const newGrade = stringArrayToGradeArray(
+      stringToArray,
+      typeChangeKey,
+      true,
+    );
+    grade = [...grade, ...newGrade];
+  });
+  return grade;
+};
+
 const gradeArrayToString = (
   gradeList: GradeType[],
   subject: SubjectType,
@@ -417,7 +450,11 @@ export const responseGradeToStateGrade = (
   entriedObj.map(([key, value]) => {
     const typeChangeKey = key as SubjectType;
     const stringToArray = convertStringToArray(value);
-    const newGrade = stringArrayToGradeArray(stringToArray, typeChangeKey);
+    const newGrade = stringArrayToGradeArray(
+      stringToArray,
+      typeChangeKey,
+      false,
+    );
     grade = [...grade, ...newGrade];
   });
   return grade;
@@ -430,6 +467,7 @@ const convertStringToArray = (gradeString: string) => {
 const stringArrayToGradeArray = (
   splitedStringArray: string[],
   subject: SubjectType,
+  isChecked: boolean,
 ) => {
   const buf = [];
   for (let i = 0; i < splitedStringArray.length; i++) {
@@ -440,6 +478,7 @@ const stringArrayToGradeArray = (
       semester,
       score: typeChangeScore,
       subject,
+      isChecked: isChecked,
     };
     buf.push(newGrade);
   }
