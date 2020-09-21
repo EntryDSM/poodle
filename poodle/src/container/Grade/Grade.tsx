@@ -24,6 +24,7 @@ import {
 import ToastController from '@/container/common/ToastContainer';
 import { useDispatch } from 'react-redux';
 import { modalOn, NOTICE_MODAL, modalOff } from '@/core/redux/actions/Modal';
+import ModalContainer from '../common/ModalContainer/ModalContainer';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -170,6 +171,7 @@ const Grade: FC<Props> = props => {
   return (
     <GradeDiv>
       <div id={TOAST_DIV_ID} />
+      <ModalContainer onClick={() => {}} />
       <GradeMain>
         <Title margin='100px'>성적 입력</Title>
         {renderPage()}

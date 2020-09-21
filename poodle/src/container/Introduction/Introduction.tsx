@@ -20,6 +20,7 @@ import {
 import ToastController from '../common/ToastContainer';
 import { modalOn, NOTICE_MODAL, modalOff } from '@/core/redux/actions/Modal';
 import { useDispatch } from 'react-redux';
+import ModalContainer from '../common/ModalContainer/ModalContainer';
 
 type Props = ReturnType<typeof mapDispatchToProps> &
   ReturnType<typeof mapStateToProps> &
@@ -146,6 +147,7 @@ const Introduction: FC<Props> = props => {
   return (
     <IntroductionDiv>
       <div id={TOAST_DIV_ID} />
+      <ModalContainer onClick={() => {}} />
       <IntroductionMain>
         <Title margin='80px'>자기소개서 & 학업계획서 작성</Title>
         <IntroductionInputTemplete
