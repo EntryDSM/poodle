@@ -16,6 +16,7 @@ import {
   GRADUATION_MONTH,
   ISQUALIFICATION,
   PAGEMOVE,
+  SUCCESS_DATE,
 } from '../../actions/ChoiceType';
 import { AdditionalType } from '../../actions/ChoiceType';
 
@@ -108,13 +109,21 @@ const ChoiceTypeState = (
       };
     }
     case GET_TYPE_SUCCESS: {
-      return action.payload;
+      return {
+        ...action.payload,
+        setTypeError: errorInitialState,
+        getTypeError: errorInitialState,
+        error: null,
+      };
     }
     case TYPE_SUCCESS: {
       return {
         ...state,
         successTime: action.payload.date,
+        setTypeError: errorInitialState,
+        getTypeError: errorInitialState,
         pageMove: action.payload.pageMove,
+        error: null,
       };
     }
     case GET_TYPE_FAILURE: {
@@ -156,6 +165,12 @@ const ChoiceTypeState = (
       return {
         ...state,
         pageMove: action.payload.pageMove,
+      };
+    }
+    case SUCCESS_DATE: {
+      return {
+        ...state,
+        successTime: action.payload.successDate,
       };
     }
     default: {

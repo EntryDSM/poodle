@@ -15,11 +15,16 @@ import {
 } from '@/components/Grade';
 import { mapDispatchToProps, mapStateToProps } from './ConnectionGrade';
 import {
+  getIsFinish,
+  getIsStarted,
   isEmptyCheck,
+  isScoreRangeAble,
   useReGenerateTokenAndDoCallback,
 } from '@/lib/utils/function';
-import { errorTypeCheck } from '@/lib/api/ApplicationApplyApi';
 import ToastController from '@/container/common/ToastContainer';
+import { useDispatch } from 'react-redux';
+import { modalOn, NOTICE_MODAL, modalOff } from '@/core/redux/actions/Modal';
+import ModalContainer from '../common/ModalContainer/ModalContainer';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -27,12 +32,13 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 type MapStateToProps = ReturnType<typeof mapStateToProps>;
 
-const TOAST_DIV_ID = 'toastDiv';
+const TOAST_DIV_ID = 'toastDivGrade';
 
 const Grade: FC<Props> = props => {
   const history = useHistory();
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const [isError, errorChange] = useState<boolean>(false);
+
   const isStateAble = useCallback(
     ({
       serviceTime,
@@ -41,9 +47,10 @@ const Grade: FC<Props> = props => {
       cutClassDay,
       absentDay,
       score,
+      gradeType,
     }: MapStateToProps) => {
-      if (props.gradeType === 'GED') {
-        return isEmptyCheck(score);
+      if (gradeType === 'GED') {
+        return !isScoreRangeAble(parseInt(score));
       }
       return (
         isEmptyCheck(serviceTime) ||
@@ -62,11 +69,7 @@ const Grade: FC<Props> = props => {
         errorChange(isError);
         modalController.createNewToast('ERROR');
       } else {
-        try {
-          await props.setGradeToServer(true);
-        } catch (error) {
-          errorTypeCheck(error);
-        }
+        await props.setGradeToServer(true);
       }
     },
     [props],
@@ -78,6 +81,7 @@ const Grade: FC<Props> = props => {
   const setGradeGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
     () => props.setGradeToServer(false),
   );
+
   const renderPage = useCallback(() => {
     if (props.gradeType === 'GED')
       return <QualificationScore {...props} isError={isError} />;
@@ -86,18 +90,29 @@ const Grade: FC<Props> = props => {
         <>
           <VolanteerWorkTimeAttend {...props} isError={isError} />
           <GraduatedNonTransferSemester {...props} />
-          <GraduatedGradeInput {...props} />
+          <GraduatedGradeInput
+            {...props}
+            isGradeAllX={props.isGradeAllX}
+            isGradeFirst={props.isGradeFirst}
+          />
         </>
       );
-    else
+    else if (props.gradeType === 'UNGRADUATED')
       return (
         <>
           <VolanteerWorkTimeAttend {...props} isError={isError} />
           <NonTransferSemester {...props} />
-          <GradeInput {...props} />
+          <GradeInput
+            {...props}
+            isGradeAllX={props.isGradeAllX}
+            isGradeFirst={props.isGradeFirst}
+          />
         </>
       );
-  }, [props]);
+    else {
+      return <></>;
+    }
+  }, [props, isError]);
   const moveCurrentPage = useCallback(() => {
     props.history.push('/info');
   }, []);
@@ -122,12 +137,41 @@ const Grade: FC<Props> = props => {
   useEffect(() => {
     if (props.pageMove) {
       history.push('/introduction');
+      modalController.resetToast();
       props.pageMoveChange(false);
+      props.setSuccessDate(null);
     }
   }, [props.pageMove]);
+
+  useEffect(() => {
+    if (props.status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    } else if (getIsFinish()) {
+      alert('종료 되었습니다.');
+      history.push('/');
+    } else if (!getIsStarted()) {
+      alert('시작 하지 않았습니다.');
+      history.push('/');
+    }
+  }, [props.status]);
+  const dispatch = useDispatch();
+  const noticeModalOn = useCallback(() => {
+    dispatch(modalOn(NOTICE_MODAL));
+  }, [dispatch]);
+  const noticeModalOff = useCallback(() => {
+    dispatch(modalOff(NOTICE_MODAL));
+  }, [dispatch]);
+  useEffect(() => {
+    const isReadNotice = localStorage.getItem('isReadNotice');
+    if (isReadNotice) return;
+    noticeModalOn();
+    return () => noticeModalOff();
+  }, []);
   return (
     <GradeDiv>
       <div id={TOAST_DIV_ID} />
+      <ModalContainer onClick={() => {}} />
       <GradeMain>
         <Title margin='100px'>성적 입력</Title>
         {renderPage()}

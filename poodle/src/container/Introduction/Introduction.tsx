@@ -1,6 +1,5 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
-import { errorTypeCheck } from '@/lib/api/ApplicationApplyApi';
 import {
   Title,
   DefaultlNavigation,
@@ -13,37 +12,43 @@ import {
 } from '@/components/Introduction/constance';
 import { mapDispatchToProps, mapStateToProps } from './ConnectIntroduction';
 import {
+  getIsFinish,
+  getIsStarted,
   isEmptyCheck,
   useReGenerateTokenAndDoCallback,
 } from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
+import { modalOn, NOTICE_MODAL, modalOff } from '@/core/redux/actions/Modal';
+import { useDispatch } from 'react-redux';
+import ModalContainer from '../common/ModalContainer/ModalContainer';
 
 type Props = ReturnType<typeof mapDispatchToProps> &
   ReturnType<typeof mapStateToProps> &
   RouteComponentProps;
 
 type MapStateToProps = ReturnType<typeof mapStateToProps>;
-const TOAST_DIV_ID = 'toastDiv';
+const TOAST_DIV_ID = 'toastDivIntroduction';
 
-const Introduction: FC<Props> = ({
-  setSelfIntroduction,
-  setStudyPlan,
-  selfIntroduction,
-  studyPlan,
-  history,
-  error,
-  getStudyPlanToServer,
-  setStudyPlanToServer,
-  setSelfIntroductionToServer,
-  getSelfIntroductionToServer,
-  successDate,
-  setSelfIntroductionError,
-  setStudyPlanError,
-  getSelfIntroductionError,
-  getStudyPlanError,
-  pageMoveChange,
-  pageMove,
-}) => {
+const Introduction: FC<Props> = props => {
+  const {
+    setSelfIntroduction,
+    setStudyPlan,
+    selfIntroduction,
+    studyPlan,
+    history,
+    error,
+    getStudyPlanToServer,
+    setStudyPlanToServer,
+    setSelfIntroductionToServer,
+    getSelfIntroductionToServer,
+    successDate,
+    setSelfIntroductionError,
+    setStudyPlanError,
+    getSelfIntroductionError,
+    getStudyPlanError,
+    pageMoveChange,
+    pageMove,
+  } = props;
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
     ({ selfIntroduction, studyPlan }) =>
@@ -51,18 +56,14 @@ const Introduction: FC<Props> = ({
     [],
   );
   const goNextPage = useCallback(
-    async (state: MapStateToProps) => {
+    async (state: Props) => {
       const isError = isStateAble(state);
       if (isError) {
         modalController.createNewToast('ERROR');
         return;
       }
-      try {
-        await setSelfIntroductionToServer(true);
-        await setStudyPlanToServer(true);
-      } catch (error) {
-        errorTypeCheck(error);
-      }
+      await setSelfIntroductionToServer(true);
+      await setStudyPlanToServer(true);
     },
     [history],
   );
@@ -99,7 +100,13 @@ const Introduction: FC<Props> = ({
       return;
     }
     modalController.createNewToast('SERVER_ERROR');
-  }, [error]);
+  }, [
+    error,
+    getSelfIntroductionError,
+    getStudyPlanError,
+    setSelfIntroductionError,
+    setStudyPlanError,
+  ]);
   useEffect(() => {
     if (!successDate) return;
     modalController.createNewToast('SUCCESS');
@@ -107,12 +114,40 @@ const Introduction: FC<Props> = ({
   useEffect(() => {
     if (pageMove) {
       history.push('/preview');
+      modalController.resetToast();
       pageMoveChange(false);
+      props.setSuccessDate(null);
     }
   }, [pageMove]);
+  useEffect(() => {
+    if (props.status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    } else if (getIsFinish()) {
+      alert('종료 되었습니다.');
+      history.push('/');
+    } else if (!getIsStarted()) {
+      alert('시작 하지 않았습니다.');
+      history.push('/');
+    }
+  }, [props.status]);
+  const dispatch = useDispatch();
+  const noticeModalOn = useCallback(() => {
+    dispatch(modalOn(NOTICE_MODAL));
+  }, [dispatch]);
+  const noticeModalOff = useCallback(() => {
+    dispatch(modalOff(NOTICE_MODAL));
+  }, [dispatch]);
+  useEffect(() => {
+    const isReadNotice = localStorage.getItem('isReadNotice');
+    if (isReadNotice) return;
+    noticeModalOn();
+    return () => noticeModalOff();
+  }, []);
   return (
     <IntroductionDiv>
       <div id={TOAST_DIV_ID} />
+      <ModalContainer onClick={() => {}} />
       <IntroductionMain>
         <Title margin='80px'>자기소개서 & 학업계획서 작성</Title>
         <IntroductionInputTemplete
@@ -130,19 +165,7 @@ const Introduction: FC<Props> = ({
         <DefaultlNavigation
           page='introduction'
           currentPageClickHandler={goCurrentPage}
-          nextPageClickHandler={() =>
-            goNextPage({
-              selfIntroduction,
-              studyPlan,
-              error,
-              successDate,
-              setSelfIntroductionError,
-              getSelfIntroductionError,
-              setStudyPlanError,
-              getStudyPlanError,
-              pageMove,
-            })
-          }
+          nextPageClickHandler={() => goNextPage(props)}
         />
       </IntroductionMain>
     </IntroductionDiv>

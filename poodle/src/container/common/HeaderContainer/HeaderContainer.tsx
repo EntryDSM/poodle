@@ -5,8 +5,10 @@ import { LOGIN, logout, reset } from '@/core/redux/actions/Header';
 import ModalContainer from '../ModalContainer/ModalContainer';
 import { Header } from '@/components/default/Header';
 import { modalOn, LOGINMODAL } from '@/core/redux/actions/Modal';
+import { useHistory } from 'react-router-dom';
 
 const HeaderContainer: FC = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { isLogin, loginLoading, token } = useSelector(
     ({ Header: header, Loading: loading }: RootState) => ({
@@ -21,20 +23,18 @@ const HeaderContainer: FC = () => {
   }, [dispatch]);
 
   const logoutHandler = useCallback(() => {
+    history.push('/');
     dispatch(logout());
   }, [dispatch]);
 
   return (
-    <>
-      <ModalContainer onClick={() => {}} />
-      <Header
-        isLogin={isLogin}
-        token={token}
-        loginLoading={loginLoading}
-        login={loginHandler}
-        logout={logoutHandler}
-      />
-    </>
+    <Header
+      isLogin={isLogin}
+      token={token}
+      loginLoading={loginLoading}
+      login={loginHandler}
+      logout={logoutHandler}
+    />
   );
 };
 

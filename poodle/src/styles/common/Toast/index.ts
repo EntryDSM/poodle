@@ -20,7 +20,7 @@ export const ToastDiv = styled.div<{ isAble: boolean }>`
   width: 300px;
   height: 50px;
   display: ${props => (props.isAble ? 'flex' : 'none')};
-  animation: ${ToastAnimation} 5s linear 1;
+  animation: ${ToastAnimation} 3s linear 1;
   animation-fill-mode: forwards;
   position: relative;
   margin: 10px;
@@ -85,5 +85,8 @@ export const ToastBody = styled.div<{ isSuccess: boolean }>`
     font-size: 10px;
     color: #606060;
     margin: 6px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 `;

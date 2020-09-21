@@ -14,7 +14,7 @@ type VerifyCodePageProps = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   email: string;
   sendEmail: (email: string) => void;
-  verifyCode: (data: { email: string; code: string }) => void;
+  verifyCode: (data: { email: string; auth_code: string }) => void;
   verifyCodeValue: {
     success: boolean;
     error: ErrorType;
@@ -36,8 +36,11 @@ const VerifyCodePage: FC<VerifyCodePageProps> = ({
   }, [email]);
   const codeSubmit = useCallback(() => {
     if (!code) return alert('빈칸은 입력할 수 없습니다.');
-    verifyCode({ email, code });
-  }, [email, code]);
+    if (code.length !== 6) return alert('코드는 6자리입니다.');
+    if (verifyCodeValue.success) return alert('이미 인증에 성공하였습니다.');
+
+    verifyCode({ email, auth_code: code });
+  }, [email, code, verifyCodeValue]);
   const goNextPage = useCallback(() => {
     if (!success) return alert('이메일 인증을 해야 합니다.');
     setPage(prev => prev + 1);
@@ -52,7 +55,7 @@ const VerifyCodePage: FC<VerifyCodePageProps> = ({
         setValue={setCode}
         submit={codeSubmit}
         disabled={verifyCodeValue.success ? true : false}
-        maxLength={5}
+        maxLength={6}
       />
       <ModalButtonListWrapper>
         <ModalButton

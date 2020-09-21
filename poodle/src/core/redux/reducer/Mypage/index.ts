@@ -5,6 +5,9 @@ import {
   MypageAction,
   USER_STATUS_SUCCESS,
   USER_STATUS_FAILURE,
+  GET_PDF_SUCCESS,
+  GET_PDF_FAILURE,
+  RESET_MYPAGE,
 } from '../../actions/Mypage';
 import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import { UserStatus } from '@/lib/api/mypage';
@@ -14,6 +17,8 @@ type MypageState = {
   processError: ErrorType;
   userStatus: UserStatus;
   userStatueError: ErrorType;
+  pdf: Blob;
+  getPdfError: ErrorType;
 };
 
 const userStatusInitialState: UserStatus = {
@@ -24,6 +29,7 @@ const userStatusInitialState: UserStatus = {
   passed_first_apply: false,
   passed_interview: false,
   final_submit: false,
+  submitted_at: '',
 };
 
 const initialState: MypageState = {
@@ -36,6 +42,8 @@ const initialState: MypageState = {
   processError: errorInitialState,
   userStatus: userStatusInitialState,
   userStatueError: errorInitialState,
+  pdf: new Blob(),
+  getPdfError: errorInitialState,
 };
 
 export default function mypage(
@@ -65,6 +73,19 @@ export default function mypage(
         ...state,
         userStatueError: action.payload,
       };
+    case GET_PDF_SUCCESS:
+      return {
+        ...state,
+        getPdfError: errorInitialState,
+        pdf: action.payload,
+      };
+    case GET_PDF_FAILURE:
+      return {
+        ...state,
+        getPdfError: action.payload,
+      };
+    case RESET_MYPAGE:
+      return initialState;
     default:
       return state;
   }

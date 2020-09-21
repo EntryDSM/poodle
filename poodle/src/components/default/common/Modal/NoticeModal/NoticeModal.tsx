@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import * as S from '@/styles/common/Modal';
 
 interface Props {
@@ -6,74 +6,97 @@ interface Props {
 }
 
 const NoticeModal: FC<Props> = ({ modalOff }) => {
+  const [isAble, ableChange] = useState<boolean>(false);
   const preventBubling = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       e.stopPropagation();
     },
     [],
   );
+  const modalClose = useCallback(() => {
+    localStorage.setItem('isReadNotice', 'true');
+    modalOff();
+  }, []);
+  const buttonClickHandler = useCallback(() => {
+    ableChange(!isAble);
+  }, [isAble, ableChange]);
   return (
     <S.ModalContentWrapper>
       <S.NoticeModal onClick={preventBubling}>
-        <S.NoticeHeader>
-          <S.CloseButton onClick={modalOff}>
-            <S.CloseButtonImage />
-          </S.CloseButton>
-        </S.NoticeHeader>
         <S.NoticeTitleWrapper>
           <S.NoticeModalTitle>원서 접수 시 유의사항</S.NoticeModalTitle>
           <S.NoticeTitleBar />
         </S.NoticeTitleWrapper>
         <S.NoticeModalBody>
-          <p className='title'>전형 선택</p>
-          <p className='text'>
-            1. 졸업 구분 중, 졸업자는 졸업 연도와 월을 확실하게 선택해 주시고.
-            검정고시 합격자는 합격 연도와 월을 확실하게 선택해 주세요.
-          </p>
-          <p className='text'>2. 특기 사항은 1가지만 체크할 수 있습니다.</p>
-          <p className='text'>
-            3. 사회 통합 전형일 경우에 전형을 확실하게 선택해 주세요.
-          </p>
-          <p className='title'>정보 입력</p>
-          <p className='text'>
-            1. 검정고시 합격자와 졸업예정자 및 졸업자의 화면이 다릅니다.
-          </p>
-          <p className='text'>
-            검정고시 합격자이신 경우, 학교 입력창이 있으면 전형 선택을 다시한번
-            확인해 주세요.
-          </p>
-          <p className='text'>
-            2. 이미지를 삽입하실 때, 올바른 확장자를 가진 파일만 넣어주세요.
-          </p>
-          <p className='text'>
-            3. 주소 입력 시, 완벽한 도로명 주소를 입력하셔야 검색이 됩니다. 이점
-            유의하여 주세요.
-          </p>
-          <p className='text'>
-            4. 전화번호 입력 시 -를 넣지 않고 숫자만 입력하시길 바랍니다.
-          </p>
-          <p className='text'>
-            5. 자동저장은 입력하고 3초동안 변화가 없으면 저장됩니다.
-          </p>
-          <p className='title'>성적 입력 </p>
-          <p className='text'>
-            1. 학교에서 배우지 않거나, 그 학기에 배우지 않은 과목은 x 로 설정
-            하시면 됩니다.
-          </p>
-          <p className='text'>
-            2. 성적 입력 실수에 대한 책임은 작성자에게 있습니다.
-          </p>
-          <p className='text'>
-            3. 성적 입력 실수 후 수정은 되지만 최종 제출 후에는 수정이
-            불가능합니다.
-          </p>
-          <p className='title'>최종 제출 및 원서 확인 </p>
-          <p className='text'>
-            1. 이전에 작성하지 않은 부분이 있거나, 잘못 체크된 부분이 있으면
-            제출되지 않습니다. 오류가 발생할 경우 이전에 작성한 부분을 확인해
-            주세요.
-          </p>
+          <div>
+            <p className='title'>공통</p>
+            <p className='text'>
+              가. 입학 원서 작성 중 마지막 수정을 기준으로 3초 이후에 자동 저장
+              됩니다.
+            </p>
+            <p>
+              나. 문의 사항이 있으시면 우측 하단의 버튼을 눌러 QnA를 이용 하실
+              수 있습니다.
+            </p>
+            <p className='title'>전형 선택</p>
+            <p className='text'>
+              &nbsp;&nbsp;가.
+              졸업 연도·월(검정고시의 경우 합격 연도·월)을 정확하게 입력해주세요.
+            </p>
+            <p className='text'>  나. 특기 사항은 1개만 체크 할 수 있습니다.</p>
+            <p className='text'>
+                다. 사회통합 전형일 경우 세부 전형을 정확하게 입력해주세요.
+            </p>
+            <p className='title'>정보 입력</p>
+            <p className='text'>
+              &nbsp;&nbsp;가.검정고시 합격자와 졸업예정자 및 졸업자의 화면이 다르므로 전형을 정확하게 선택해주세요
+              <p />
+                    (화면에 학교 입력창이 있을 경우 검정고시 합격자 화면입니다.)
+            </p>
+            <p className='text'>  나. 이미지 첨부 시 확장자를 확인해주세요.</p>
+            <p className='text'>
+                다. 주소 입력 시 도로명을 전부 입력해주셔야 합니다.
+            </p>
+            <p className='text'>
+              &nbsp;&nbsp;라. 전화번호 입력 시 -를 넣지 않고 숫자만 입력하시길
+              바랍니다.
+            </p>
+            <p className='text'>
+                마. 자동저장은 입력 후 3초 동안 변화가 없으면 저장됩니다.
+            </p>
+            <p className='title'>성적 입력 </p>
+            <p className='text'>
+              &nbsp;&nbsp;가.배우지 않은 과목 또는 자유학기제 기간 동안의 과목은 x로 입력해주세요.
+              <p />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;즉,
+              생활기록부에 성적이 기재되어있지 않은 과목에 대해서는 x로 입력해주시면 됩니다.
+            </p>
+            <p className='title'>최종 제출 및 원서 확인 </p>
+            <p className='text'>
+                가. 작성되지 않은 부분이 있거나,
+              입력에 오류가 있는 경우 제출되지 않습니다.
+            </p>
+            <p className='text'>
+                나. 제출되지 않는 경우 작성 및 입력한 부분을 확인해주세요.
+            </p>
+          </div>
         </S.NoticeModalBody>
+        <S.NoticeApprove>
+          <S.CheckboxDiv>
+            <p>위 내용을 잘 숙지하였고, 동의합니다</p>
+            <input
+              type='checkbox'
+              checked={isAble}
+              onClick={buttonClickHandler}
+            />
+            <div />
+          </S.CheckboxDiv>
+        </S.NoticeApprove>
+        <S.NoticeApproveButtonWrapper>
+          <S.NoticeApproveButton onClick={() => (isAble ? modalClose() : '')}>
+            확인
+          </S.NoticeApproveButton>
+        </S.NoticeApproveButtonWrapper>
       </S.NoticeModal>
     </S.ModalContentWrapper>
   );

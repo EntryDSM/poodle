@@ -12,6 +12,7 @@ import UserProtectorPhoneNumRow from './UserProtectorPhoneNumRow';
 import UserPhoneNumRow from './UserPhoneNumRow';
 import UserAddressRow from './UserAddressRow';
 import QualificationUserImg from './QualificationUserImg';
+import UserHomePhoneNumber from './UserHomePhoneNumber';
 
 export {
   DefaultRow,
@@ -28,4 +29,5 @@ export {
   UserPhoneNumRow,
   UserAddressRow,
   QualificationUserImg,
+  UserHomePhoneNumber,
 };

@@ -45,6 +45,11 @@ import {
 } from './focusedReducer';
 import { useRedirect, useTimer } from '@/lib/utils/function';
 import { emailRegExp, passwordRegExp } from '@/lib/RegExp';
+
+enum SendEmailError {
+  '*이미 존재하는 이메일 입니다.' = 409,
+}
+
 type JoinReduxType = {
   success: boolean;
   error: ErrorType;
@@ -192,10 +197,11 @@ const Join: React.FC<JoinProps> = ({
   }, [isChecked.code, inputState.email, focusedState.code]);
   const verifyCodeClickHandler = useCallback(() => {
     if (isChecked.code || !focusedState.code) return null;
-    const code = inputState.code.trim();
-    if (code.length !== 5) return alert('인증코드 형식이 옳바르지 않습니다.');
+    const auth_code = inputState.code.trim();
+    if (auth_code.length !== 6)
+      return alert('인증코드 형식이 옳바르지 않습니다.');
     if (!timer.current) return alert('인증 시간이 만료되었습니다.');
-    verifyCode({ email: inputState.email, code });
+    verifyCode({ email: inputState.email, auth_code });
   }, [inputState.email, inputState.code, isChecked.code, focusedState.code]);
   const joinClickHandler = useCallback(() => {
     if (isAvailable)
@@ -207,7 +213,7 @@ const Join: React.FC<JoinProps> = ({
   }, [isAvailable, inputState]);
   useEffect(() => {
     if (sendEmailValue.success) {
-      let validitySecond = 10;
+      let validitySecond = 180;
       startTimer(validitySecond);
       setTimeout(() => {
         codePrevRef.current.nextSibling.focus();
@@ -260,7 +266,9 @@ const Join: React.FC<JoinProps> = ({
           )}
           {sendEmailValue.error.status ? (
             <S.ExplainSentence error>
-              *이메일 전송에 실패하였습니다.
+              {SendEmailError[sendEmailValue.error.status]
+                ? SendEmailError[sendEmailValue.error.status]
+                : '*이메일 전송에 실패하였습니다.'}
             </S.ExplainSentence>
           ) : null}
         </>

@@ -1,15 +1,16 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { SET_STATUS_URL, GET_PDF_URL } from '@/lib/api/ServerUrl';
 import {
+  getPdfToServer,
   getDataToServer,
   previewStateToRequest,
   setDataToServer,
+  pdfResponseToState,
 } from '@/lib/api/ApplicationApplyApi';
-import { createGetSaga } from '@/lib/utils/saga';
 import { PREVIEW_CALL, SUBMIT_CALL } from '../../actions/Preview';
 import { modalOff, BLUECHECKMODAL } from '../../actions/Modal';
-import ErrorType from '@/lib/utils/type';
 import { PAGE } from '../../actions/SearchSchool';
+import ErrorType from '@/lib/utils/type';
 
 const submitRequest = () =>
   setDataToServer(SET_STATUS_URL, previewStateToRequest(true));
@@ -35,7 +36,26 @@ function* submitSavaSaga() {
   yield put(modalOff(BLUECHECKMODAL));
 }
 
-const getPdfSaga = createGetSaga(GET_PDF_URL, PREVIEW_CALL, () => {});
+const getPdfSaga = function* () {
+  const SUCCESS = `${PREVIEW_CALL}_SUCCESS`;
+  const FAILURE = `${PREVIEW_CALL}_FAILURE`;
+  try {
+    const response = yield call(getPdfToServer, GET_PDF_URL);
+    const state = pdfResponseToState(response);
+    yield put({
+      type: SUCCESS,
+      payload: state,
+    });
+  } catch (error) {
+    yield put({
+      type: FAILURE,
+      payload: {
+        message: '',
+        status: error.response.status,
+      } as ErrorType,
+    });
+  }
+};
 
 export default function* previewSaga() {
   yield takeLatest(SUBMIT_CALL, submitSavaSaga);

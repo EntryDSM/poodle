@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import GradeScore from './Grade';
 import SchoolYear from './SchoolYear';
 import { GradeTable } from '@/styles/Grade';
@@ -9,16 +9,16 @@ import {
 } from '@/container/Grade/ConnectionGrade';
 
 type Props = ReturnType<typeof mapStateToProps> &
-  ReturnType<typeof mapDispatchToProps>;
+  ReturnType<typeof mapDispatchToProps> & { isGradeAllX: boolean };
 
-const GradeInput: FC<Props> = () => {
+const GradeInput: FC<Props> = ({ isGradeAllX, isGradeFirst }) => {
   return (
     <>
       <GradeHeader />
       <GradeTable>
         <tbody>
           <SchoolYear />
-          <GradeScore />
+          <GradeScore isGradeAllX={isGradeAllX} isGradeFirst={isGradeFirst} />
         </tbody>
       </GradeTable>
     </>

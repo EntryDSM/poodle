@@ -1,5 +1,6 @@
 import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import { GraduationStatusType } from '../../actions/ChoiceType';
+import { getParsedFormPhoneNum } from '@/lib/utils/function';
 import {
   NAME,
   GENDER,
@@ -29,6 +30,9 @@ import {
   DAY,
   SCHOOL_CODE,
   PAGEMOVE,
+  HOME_PHONE_NUMBER,
+  PICTURE_URL,
+  SUCCESS_DATE,
 } from '../../actions/Info';
 
 export interface State {
@@ -52,11 +56,14 @@ export interface State {
   gradeType: GraduationStatusType | '';
   setInfoError: ErrorType;
   getInfoError: ErrorType;
+  setImgError: ErrorType;
   year: string;
   month: string;
   day: string;
   schoolCode: string;
   pageMove: boolean;
+  homePhoneNumber: string;
+  pictureUrl: string;
 }
 
 const initialState: State = {
@@ -80,11 +87,14 @@ const initialState: State = {
   gradeType: '',
   setInfoError: errorInitialState,
   getInfoError: errorInitialState,
+  setImgError: errorInitialState,
   year: '2020',
   month: '01',
   day: '01',
   schoolCode: '',
   pageMove: false,
+  homePhoneNumber: '',
+  pictureUrl: '',
 };
 
 const InfoState = (
@@ -143,19 +153,21 @@ const InfoState = (
     case PROTECTOR_PHONE_NUM: {
       return {
         ...state,
-        protectorPhoneNum: action.payload.protectorPhoneNum,
+        protectorPhoneNum: getParsedFormPhoneNum(
+          action.payload.protectorPhoneNum,
+        ),
       };
     }
     case SCHOOL_PHONE_NUM: {
       return {
         ...state,
-        schoolPhoneNum: action.payload.schoolPhoneNum,
+        schoolPhoneNum: getParsedFormPhoneNum(action.payload.schoolPhoneNum),
       };
     }
     case PHONE_NUM: {
       return {
         ...state,
-        phoneNum: action.payload.phoneNum,
+        phoneNum: getParsedFormPhoneNum(action.payload.phoneNum),
       };
     }
     case PICTURE: {
@@ -186,13 +198,18 @@ const InfoState = (
       return {
         ...state,
         successDate: action.payload.date,
+        setInfoError: errorInitialState,
+        getInfoError: errorInitialState,
         pageMove: action.payload.pageMove,
+        error: null,
       };
     }
     case INFO_FAILURE: {
       return {
         ...state,
         error: action.payload.error,
+        getInfoError: errorInitialState,
+        setInfoError: action.payload.error,
         pageMove: false,
       };
     }
@@ -205,7 +222,12 @@ const InfoState = (
       };
     }
     case GET_INFO_SUCCESS: {
-      return action.payload;
+      return {
+        ...action.payload,
+        setInfoError: errorInitialState,
+        getInfoError: errorInitialState,
+        error: null,
+      };
     }
     case ALL: {
       return action.payload.all;
@@ -215,13 +237,17 @@ const InfoState = (
         ...state,
         error: action.payload.error,
         getInfoError: errorInitialState,
-        setInfoError: action.payload.error,
+        setInfoError: errorInitialState,
+        setImgError: action.payload.error,
       };
     }
     case SET_PICTURE_SUCCESS: {
       return {
         ...state,
         picture: action.payload.url,
+        getInfoError: errorInitialState,
+        setInfoError: errorInitialState,
+        setImgError: errorInitialState,
       };
     }
     case YEAR: {
@@ -252,6 +278,24 @@ const InfoState = (
       return {
         ...state,
         pageMove: action.payload.pageMove,
+      };
+    }
+    case HOME_PHONE_NUMBER: {
+      return {
+        ...state,
+        homePhoneNumber: getParsedFormPhoneNum(action.payload.homePhoneNumber),
+      };
+    }
+    case PICTURE_URL: {
+      return {
+        ...state,
+        pictureUrl: action.payload.pictureUrl,
+      };
+    }
+    case SUCCESS_DATE: {
+      return {
+        ...state,
+        successDate: action.payload.successDate,
       };
     }
     default: {

@@ -7,7 +7,7 @@ import {
   ScoreType,
 } from '@/core/redux/actions/Grade';
 import { GradeSubTitle, GradeHeaderDiv } from '@/styles/Grade';
-import { GradeSetAllScore } from '../GradeHeader';
+import { GradeSetAllScore } from '.';
 import { GRADESEMESTERLIST } from '../../constance';
 
 const scoreList: ScoreType[] = ['A', 'B', 'C', 'D', 'E', 'X'];
@@ -37,6 +37,7 @@ const GradeHeader: FC = () => {
           grade,
           semester,
           score,
+          isChecked: false,
         };
         gradeList.push(newGrade);
       }

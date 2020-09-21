@@ -1,53 +1,96 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import * as S from '@/styles/Main';
 import ContentHeader from '@/components/default/common/ContentHeader';
 import ProgressBar from './ProgressBar/ProgressBar';
+import { Schedule } from '@/core/redux/actions/Main';
+import { Explain, AllFinishExplain } from './';
+import {
+  isNotStartedSchedule,
+  isProgressingSchedule,
+  isFinishedSchedule,
+  getFirstApplyStatus,
+} from '@/lib/utils/function';
+import ErrorType from '@/lib/utils/type';
 
-const Main: React.FC<{}> = () => (
-  <S.MainWrapper>
-    <S.MainContainer>
-      <S.ContentBlock>
-        <ContentHeader
-          padding='160px 0 220px'
-          subTitle='대덕소프트웨어마이스터고등학교'
-          title='2021 신입생 모집'
-          underLineLength={315}
-          titleFontSize={46}
-        />
-        <S.Article>
-          <S.StepPeriod>
-            지금은 <S.EmphasizeLetters>원서 작성</S.EmphasizeLetters>{' '}
-            기간입니다.
-          </S.StepPeriod>
-          <S.DetailedPeriod>
-            <S.EmphasizeLetters>원서작성</S.EmphasizeLetters>은
-            <S.WhiteSpace> </S.WhiteSpace>
-            <S.EmphasizeLetters>
-              20년
-              <S.WhiteSpace> </S.WhiteSpace>
-              00월
-              <S.WhiteSpace> </S.WhiteSpace>
-              00일
-            </S.EmphasizeLetters>
-            까지이며
-            {'\r\n'}
-            마감일까지
-            <S.WhiteSpace> </S.WhiteSpace>
-            <S.EmphasizeLetters>00일</S.EmphasizeLetters>
-            <S.WhiteSpace> </S.WhiteSpace>
-            남았습니다.
-          </S.DetailedPeriod>
-        </S.Article>
-        <S.Footer>
-          <S.StepLink to='/applystatus'>
-            <S.StepTitle>원서 작성 페이지로 이동</S.StepTitle>
-            <S.RightArrow />
-          </S.StepLink>
-        </S.Footer>
-      </S.ContentBlock>
-      <ProgressBar />
-    </S.MainContainer>
-  </S.MainWrapper>
-);
+interface Props {
+  schedules: Schedule[];
+  getSchedulesError: ErrorType;
+  isLoading: boolean;
+  getSchedules: () => void;
+}
+
+const Main: FC<Props> = ({
+  schedules,
+  getSchedulesError,
+  isLoading,
+  getSchedules,
+}) => {
+  const nextScheduleIndex = useMemo(() => {
+    let index = -1;
+    if (
+      !schedules.some((schedule, i) => {
+        if (isNotStartedSchedule(schedule)) {
+          index = i;
+          return true;
+        }
+      })
+    ) {
+      index = 4;
+    }
+    return index;
+  }, [schedules]);
+
+  useEffect(() => {
+    getSchedules();
+  }, []);
+
+  useEffect(() => {
+    if (getSchedulesError.status) {
+      alert(`Error code: ${getSchedulesError.status} 일정 불러오기 실패!`);
+    }
+  }, [getSchedulesError]);
+
+  return (
+    <S.MainWrapper>
+      <div>
+        <S.LeftBackgroundImage />
+        <S.MainContainer>
+          <S.ContentBlock>
+            <ContentHeader
+              padding='160px 0 220px'
+              subTitle='대덕소프트웨어마이스터고등학교'
+              title='2021 신입생 모집'
+              underLineLength={315}
+              titleFontSize={46}
+            />
+            {!!schedules.length ? (
+              isNotStartedSchedule(schedules[0]) ? (
+                <Explain schedule={schedules[0]} isProgressing={false} />
+              ) : isFinishedSchedule(schedules[3]) ? (
+                <AllFinishExplain />
+              ) : getFirstApplyStatus(schedules[1]).isApplying ? (
+                <Explain schedule={schedules[1]} isProgressing={true} />
+              ) : isProgressingSchedule(schedules[nextScheduleIndex - 1]) ? (
+                <Explain
+                  schedule={schedules[nextScheduleIndex - 1]}
+                  isProgressing={true}
+                />
+              ) : (
+                <Explain
+                  schedule={schedules[nextScheduleIndex]}
+                  isProgressing={false}
+                />
+              )
+            ) : (
+              ''
+            )}
+          </S.ContentBlock>
+          <ProgressBar schedules={schedules} isLoading={isLoading} />
+        </S.MainContainer>
+        <S.RightBackgroundImage />
+      </div>
+    </S.MainWrapper>
+  );
+};
 
 export default Main;

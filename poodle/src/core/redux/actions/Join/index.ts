@@ -27,7 +27,7 @@ export const sendEmailFailure = (e: ErrorType) => ({
   error: true,
 });
 
-export const verifyCode = (payload: { email: string; code: string }) => ({
+export const verifyCode = (payload: { email: string; auth_code: string }) => ({
   type: VERIFY_CODE,
   payload,
 });

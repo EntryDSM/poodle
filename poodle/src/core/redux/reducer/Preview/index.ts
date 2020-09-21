@@ -7,6 +7,7 @@ import {
   SUBMIT_FAILURE,
   SUBMIT_SUCCESS,
   PAGEMOVE,
+  RESET_SERVER_REQUEST_STATUS,
 } from '../../actions/Preview';
 
 export interface PreviewState {
@@ -14,7 +15,7 @@ export interface PreviewState {
   error: ErrorType | null;
   isSubmit: boolean;
   getPreviewError: ErrorType;
-  setUserStatus: ErrorType;
+  setUserStatusError: ErrorType;
   pageMove: boolean;
 }
 
@@ -23,7 +24,7 @@ const initialState: PreviewState = {
   error: null,
   isSubmit: false,
   getPreviewError: errorInitialState,
-  setUserStatus: errorInitialState,
+  setUserStatusError: errorInitialState,
   pageMove: false,
 };
 
@@ -43,19 +44,18 @@ const PreviewState = (
         ...state,
         error: action.payload,
         getPreviewError: action.payload,
-        setUserStatus: errorInitialState,
+        setUserStatusError: errorInitialState,
       };
     }
     case PREVIEW_CALL_SUCCESS: {
-      return {
-        ...state,
-        preview: action.payload,
-      };
+      return action.payload;
     }
     case SUBMIT_SUCCESS: {
       return {
         ...state,
         isSubmit: action.payload,
+        setUserStatusError: errorInitialState,
+        getPreviewError: errorInitialState,
         pageMove: true,
       };
     }
@@ -69,7 +69,15 @@ const PreviewState = (
       return {
         ...state,
         error: action.payload,
-        setUserStatus: action.payload,
+        setUserStatusError: action.payload,
+        getPreviewError: errorInitialState,
+      };
+    }
+    case RESET_SERVER_REQUEST_STATUS: {
+      return {
+        ...state,
+        error: null,
+        setUserStatusError: errorInitialState,
         getPreviewError: errorInitialState,
       };
     }

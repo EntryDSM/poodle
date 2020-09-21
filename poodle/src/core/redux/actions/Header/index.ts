@@ -8,7 +8,6 @@ export const LOGIN_SUCCESS = 'header/LOGIN_SUCCESS' as const;
 export const LOGIN_FAILURE = 'header/LOGIN_FAILURE' as const;
 export const LOGOUT = 'header/LOGOUT' as const;
 export const LOGIN_ERROR_RESET = 'header/LOGIN_ERROR_RESET' as const;
-
 export const RE_GENERATE_TOKEN = 'header/RE_GENERATE_TOKEN' as const;
 export const RE_GENERATE_TOKEN_SUCCESS = 'header/RE_GENERATE_TOKEN_SUCCESS' as const;
 export const RE_GENERATE_TOKEN_FAILURE = 'header/RE_GENERATE_TOKEN_FAILURE' as const;
@@ -16,6 +15,21 @@ export const RE_GENERATE_TOKEN_FAILURE = 'header/RE_GENERATE_TOKEN_FAILURE' as c
 export const GET_USER = 'header/GET_USER' as const;
 export const GET_USER_SUCCESS = 'header/GET_USER_SUCCESS' as const;
 export const GET_USER_FAILURE = 'header/GET_USER_FAILURE' as const;
+
+export const GET_STATUS = 'header/GET_STATUS' as const;
+export const GET_STATUS_FAILURE = 'header/GET_STATUS_FAILURE' as const;
+export const GET_STATUS_SUCCESS = 'header/GET_STATUS_SUCCESS' as const;
+
+export type StatusType = {
+  name: string;
+  sex: string;
+  paid: boolean;
+  printed_application_arrived: boolean;
+  passed_first_apply: boolean;
+  passed_interview: boolean;
+  final_submit: boolean;
+  submitted_at: Date | null;
+};
 
 export const reset = () => ({
   type: RESET,
@@ -76,6 +90,20 @@ export const getUserFailure = (e: ErrorType) => ({
   payload: e,
 });
 
+export const getStatus = () => ({
+  type: GET_STATUS,
+});
+
+export const getStatusSuccess = (e: StatusType) => ({
+  type: GET_STATUS_SUCCESS,
+  payload: e,
+});
+
+export const getStatusFailure = (e: ErrorType) => ({
+  type: GET_STATUS_FAILURE,
+  payload: e,
+});
+
 export type HeaderAction =
   | ReturnType<typeof reset>
   | ReturnType<typeof login>
@@ -88,4 +116,7 @@ export type HeaderAction =
   | ReturnType<typeof reGenerateTokenFailure>
   | ReturnType<typeof getUser>
   | ReturnType<typeof getUserSuccess>
-  | ReturnType<typeof getUserFailure>;
+  | ReturnType<typeof getUserFailure>
+  | ReturnType<typeof getStatus>
+  | ReturnType<typeof getStatusSuccess>
+  | ReturnType<typeof getStatusFailure>;

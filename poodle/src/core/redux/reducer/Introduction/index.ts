@@ -12,6 +12,7 @@ import {
   GET_STUDY_PLAN_FAILURE,
   GET_SELF_INTRODUCTION_FAILURE,
   PAGEMOVE,
+  SUCCESS_DATE,
 } from '../../actions/Introduction';
 
 export interface State {
@@ -59,6 +60,11 @@ const IntroductionState = (
       return {
         ...state,
         selfIntroduction: action.payload.selfIntroduction,
+        setSelfIntroductionError: errorInitialState,
+        setStudyPlanError: errorInitialState,
+        getSelfIntroductionError: errorInitialState,
+        getStudyPlanError: errorInitialState,
+        error: null,
       };
     }
     case SELF_INTRODUCTION_SUCCESS: {
@@ -66,6 +72,11 @@ const IntroductionState = (
         ...state,
         successDate: action.payload.date,
         pageMove: action.payload.pageMove,
+        setSelfIntroductionError: errorInitialState,
+        setStudyPlanError: errorInitialState,
+        getSelfIntroductionError: errorInitialState,
+        getStudyPlanError: errorInitialState,
+        error: null,
       };
     }
     case STUDY_PLAN_SUCCESS: {
@@ -73,6 +84,11 @@ const IntroductionState = (
         ...state,
         successDate: action.payload.date,
         pageMove: action.payload.pageMove,
+        setSelfIntroductionError: errorInitialState,
+        setStudyPlanError: errorInitialState,
+        getSelfIntroductionError: errorInitialState,
+        getStudyPlanError: errorInitialState,
+        error: null,
       };
     }
     case SELF_INTRODUCTION_FAILURE: {
@@ -101,6 +117,11 @@ const IntroductionState = (
       return {
         ...state,
         studyPlan: action.payload.studyPlan,
+        setSelfIntroductionError: errorInitialState,
+        setStudyPlanError: errorInitialState,
+        getSelfIntroductionError: errorInitialState,
+        getStudyPlanError: errorInitialState,
+        error: null,
       };
     }
     case GET_STUDY_PLAN_FAILURE: {
@@ -127,6 +148,12 @@ const IntroductionState = (
       return {
         ...state,
         pageMove: action.payload.pageMove,
+      };
+    }
+    case SUCCESS_DATE: {
+      return {
+        ...state,
+        successDate: action.payload.successDate,
       };
     }
     default: {

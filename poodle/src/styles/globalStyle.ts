@@ -62,13 +62,14 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
     content: '';
     content: none;
   }
+  p, aside, span, pre {
+    font-family: 'NanumSquare', sans-serif;
+  }
   a {
     &:link{
-      color: #000;
       text-decoration: none;
     }
     &:visited{
-      color: #000;
       text-decoration: none;
     }
   }
@@ -83,10 +84,46 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
   .react-pdf__Page {
     position: unset !important;
   }
-  #toastDiv {
+  #toastDivInfo {
+    position: fixed;
+    right: 20px;
+    z-index: 100;
+    top: 80px;
+  }
+  #toastDivType {
     position: fixed;
     right: 20px;
     top: 80px;
+    z-index: 100;
+  }
+  #toastDivGrade {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    z-index: 100;
+  }
+  #toastDivPreview {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    z-index: 100;
+  }
+  #toastDivIntroduction {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    z-index: 100;
+  }
+  ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+  ::-webkit-scrollbar-track-piece {
+    background-color: white;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #62d3e8;
   }
 `;
 

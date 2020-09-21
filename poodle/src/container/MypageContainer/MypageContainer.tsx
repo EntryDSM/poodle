@@ -5,6 +5,7 @@ import { Mypage } from '@/components';
 import {
   process as createProcessAction,
   userStatus as createUserStatusAction,
+  resetMypage as createResetMypageAction,
 } from '@/core/redux/actions/Mypage';
 
 const MypageContainer: FC = () => {
@@ -29,6 +30,10 @@ const MypageContainer: FC = () => {
     dispatch(createUserStatusAction());
   };
 
+  const resetMypage = () => {
+    dispatch(createResetMypageAction());
+  };
+
   return (
     <Mypage
       process={process}
@@ -36,6 +41,7 @@ const MypageContainer: FC = () => {
       getUserStatus={getUserStatus}
       userStatus={userStatus}
       userStatusError={userStatusError}
+      resetMypage={resetMypage}
     />
   );
 };

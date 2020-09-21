@@ -255,6 +255,10 @@ export const GradeButtonList = styled.ul`
     > li {
       padding: 0px 5px 0px 5px;
       cursor: pointer;
+      transition: all 0.3s;
+    }
+    > li:hover {
+      color: #62d3e8;
     }
   }
   > label > input[type='checkbox'] {
@@ -268,12 +272,34 @@ export const GradeButtonList = styled.ul`
   }
   > label > li {
     cursor: pointer;
+    transition: all 0.3s;
+  }
+  > label > li:hover {
+    color: #62d3e8;
   }
 `;
 
 export const QualificationScoreRow = styled(GradeScoreRow)`
   width: 1170px;
   height: 80px;
+  display: flex;
+  align-items: center;
+  > div {
+    width: 1010px;
+    padding: 0px 30px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    > span {
+      color: #606060;
+      font-size: 13px;
+      float: right;
+      justify-self: flex-end;
+    }
+    > div {
+      height: 100%;
+    }
+  }
   > td {
     height: 100%;
   }

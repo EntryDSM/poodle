@@ -13,6 +13,8 @@ interface Props {
   subject: SubjectType;
   semester: number;
   grade: number;
+  isGradeAllX: boolean;
+  isGradeFirst: boolean;
 }
 
 const GradeColumn: FC<Props> = ({ subject, semester, grade }) => {
@@ -78,11 +80,27 @@ const GradeColumn: FC<Props> = ({ subject, semester, grade }) => {
       )),
     [gradeState],
   );
+  const updateScoreList = useCallback((gradeList: GradeType[]) => {
+    const copy = gradeList.map(grade => {
+      if (isSameScore(grade)) {
+        const buffer = { ...grade };
+        buffer.isChecked = !grade.isChecked;
+        return buffer;
+      }
+      return grade;
+    });
+    const action = setGrade({ grade: copy });
+    dispatch(action);
+  }, []);
   return (
     <td colSpan={1} className='grade'>
       <GradeButtonList>
         <label>
-          <input type='checkbox' />
+          <input
+            type='checkbox'
+            checked={getScoreList(gradeState)[0].isChecked}
+            onChange={() => updateScoreList(gradeState)}
+          />
           <li>{getScore(gradeState)}</li>
           <div>{setScoreList(scoreList)}</div>
         </label>

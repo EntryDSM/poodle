@@ -8,6 +8,7 @@ import {
   joinValueReset,
   join,
 } from '@/core/redux/actions/Join';
+import ModalContainer from '@/container/common/ModalContainer/ModalContainer';
 
 function JoinContainer() {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ function JoinContainer() {
   }, []);
 
   const verifyCodeHandler = useCallback(
-    (data: { email: string; code: string }) => {
+    (data: { email: string; auth_code: string }) => {
       dispatch(verifyCode(data));
     },
     [],
@@ -55,15 +56,18 @@ function JoinContainer() {
   );
 
   return (
-    <Join
-      sendEmail={sendEmailHandler}
-      sendEmailValue={sendEmailValue}
-      verifyCode={verifyCodeHandler}
-      verifyCodeValue={verifyCodeValue}
-      joinValueReset={joinValueResetHandler}
-      join={joinHandler}
-      joinValue={joinValue}
-    />
+    <>
+      <ModalContainer onClick={() => {}} />
+      <Join
+        sendEmail={sendEmailHandler}
+        sendEmailValue={sendEmailValue}
+        verifyCode={verifyCodeHandler}
+        verifyCodeValue={verifyCodeValue}
+        joinValueReset={joinValueResetHandler}
+        join={joinHandler}
+        joinValue={joinValue}
+      />
+    </>
   );
 }
 

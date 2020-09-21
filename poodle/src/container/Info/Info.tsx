@@ -1,9 +1,13 @@
 import React, { FC, useCallback, useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter, RouteComponentProps, useHistory } from 'react-router-dom';
-import { errorTypeCheck } from '@/lib/api/ApplicationApplyApi';
 import ModalContainer from '@/container/common/ModalContainer/ModalContainer';
-import { modalOff, REDERRORMODAL } from '@/core/redux/actions/Modal';
+import {
+  modalOff,
+  modalOn,
+  NOTICE_MODAL,
+  REDERRORMODAL,
+} from '@/core/redux/actions/Modal';
 import { InfoDiv, InfoBody } from '../../styles/Info';
 import {
   Title,
@@ -13,7 +17,10 @@ import { mapStateToProps, mapDispatchToProps } from './ConnectInfo';
 import { QualificationPage, DefaultPage } from '../../components/Info/Page';
 import {
   isEmptyCheck,
+  allPhoneNumCheck,
   useReGenerateTokenAndDoCallback,
+  getIsFinish,
+  getIsStarted,
 } from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
 
@@ -23,7 +30,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 type MapStateToProps = ReturnType<typeof mapStateToProps>;
 
-const TOAST_DIV_ID = 'toastDiv';
+const TOAST_DIV_ID = 'toastDivInfo';
 
 const Info: FC<Props> = props => {
   const history = useHistory();
@@ -42,7 +49,6 @@ const Info: FC<Props> = props => {
       address,
       number,
       name,
-      birthday,
       gender,
       middleSchool,
       protectorName,
@@ -51,21 +57,21 @@ const Info: FC<Props> = props => {
       protectorPhoneNum,
       phoneNum,
       postNum,
+      gradeType,
       detailAddress,
-    }: MapStateToProps): boolean => {
-      if (props.gradeType === 'GED') {
+      pictureUrl,
+    }: Props): boolean => {
+      if (gradeType === 'GED') {
         return (
           isEmptyCheck(address) ||
           isEmptyCheck(postNum) ||
           isEmptyCheck(detailAddress) ||
           isEmptyCheck(name) ||
-          isEmptyCheck(birthday) ||
-          isEmptyCheck(protectorName) ||
           isEmptyCheck(protectorName) ||
           isEmptyCheck(phoneNum) ||
           isEmptyCheck(gender) ||
           isEmptyCheck(protectorPhoneNum) ||
-          isEmptyCheck(picture)
+          isEmptyCheck(pictureUrl)
         );
       }
       return (
@@ -73,7 +79,6 @@ const Info: FC<Props> = props => {
         isEmptyCheck(detailAddress) ||
         isEmptyCheck(address) ||
         isEmptyCheck(name) ||
-        isEmptyCheck(birthday) ||
         isEmptyCheck(middleSchool) ||
         isEmptyCheck(protectorName) ||
         isEmptyCheck(schoolPhoneNum) ||
@@ -82,27 +87,26 @@ const Info: FC<Props> = props => {
         isEmptyCheck(gender) ||
         isEmptyCheck(protectorPhoneNum) ||
         isEmptyCheck(number) ||
-        isEmptyCheck(picture)
+        isEmptyCheck(pictureUrl)
       );
     },
     [isEmptyCheck, isFileAble],
   );
 
   const goNextPage = useCallback(
-    async (state: MapStateToProps) => {
-      const isError = isStateAble(state);
+    async (props: Props) => {
+      const isError = isStateAble(props);
+      const isPhoneNumError = allPhoneNumCheck(props);
       if (isError) {
         errorChange(isError);
         modalController.createNewToast('ERROR');
+      } else if (!isPhoneNumError) {
+        modalController.createNewToast('PHONE_NUM_ERROR');
       } else {
-        try {
-          await props.setInfoToServer(true);
-        } catch (error) {
-          errorTypeCheck(error);
-        }
+        await props.setInfoToServer(true);
       }
     },
-    [isStateAble, props],
+    [isStateAble],
   );
   const modalOffDispatch = useCallback(() => {
     dispatch(modalOff(REDERRORMODAL));
@@ -114,7 +118,7 @@ const Info: FC<Props> = props => {
   const setInfoGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
     () => props.setInfoToServer(false),
   );
-  const getInfoGenerateTokenAdnDoCallback = useReGenerateTokenAndDoCallback(
+  const getInfoGenerateTokenAndDoCallback = useReGenerateTokenAndDoCallback(
     props.getInfoToServer,
   );
   const renderPage = useCallback(
@@ -136,11 +140,23 @@ const Info: FC<Props> = props => {
       if (props.setInfoError.status === 401)
         setInfoGenerateTokenAndDoCallback();
       if (props.getInfoError.status === 401)
-        getInfoGenerateTokenAdnDoCallback();
+        getInfoGenerateTokenAndDoCallback();
       return;
     }
     modalController.createNewToast('SERVER_ERROR');
-  }, [props.error]);
+  }, [props.error, props.getInfoError, props.setInfoError]);
+  useEffect(() => {
+    if (props.status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    } else if (getIsFinish()) {
+      alert('종료 되었습니다.');
+      history.push('/');
+    } else if (!getIsStarted()) {
+      alert('시작 하지 않았습니다.');
+      history.push('/');
+    }
+  }, [props.status]);
   useEffect(() => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');
@@ -148,12 +164,27 @@ const Info: FC<Props> = props => {
   useEffect(() => {
     if (props.pageMove) {
       history.push('/grade');
+      modalController.resetToast();
       props.pageMoveChange(false);
+      props.setSuccessDate(null);
     }
   }, [props.pageMove]);
+  const noticeModalOn = useCallback(() => {
+    dispatch(modalOn(NOTICE_MODAL));
+  }, [dispatch]);
+  const noticeModalOff = useCallback(() => {
+    dispatch(modalOff(NOTICE_MODAL));
+  }, [dispatch]);
+  useEffect(() => {
+    const isReadNotice = localStorage.getItem('isReadNotice');
+    if (isReadNotice) return;
+    noticeModalOn();
+    return () => noticeModalOff();
+  }, []);
   return (
     <InfoDiv>
       <div id={TOAST_DIV_ID} />
+      <ModalContainer onClick={modalOffDispatch} />
       <InfoBody>
         <Title margin='80px'>인적사항</Title>
         {renderPage(props.gradeType)}
@@ -165,7 +196,6 @@ const Info: FC<Props> = props => {
           }}
         />
       </InfoBody>
-      <ModalContainer onClick={modalOffDispatch} />
     </InfoDiv>
   );
 };

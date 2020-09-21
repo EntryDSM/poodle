@@ -65,7 +65,7 @@ function JoinInput({
   return (
     <S.StyledJoinInput
       type={isPasswordType ? 'password' : 'text'}
-      maxLength={label === 'code' ? 5 : undefined}
+      maxLength={label === 'code' ? 6 : undefined}
       maxSize={maxSize}
       middleSize={middleSize}
       disabled={isDisabled}

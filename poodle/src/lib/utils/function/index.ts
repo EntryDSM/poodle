@@ -3,6 +3,34 @@ import { useCallback, useState, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { reGenerateToken } from '@/core/redux/actions/Header';
 import { RootState } from '@/core/redux/reducer';
+import { Schedule } from '@/core/redux/actions/Main';
+import { schedules as createSchedulesAction } from '@/core/redux/actions/Main';
+import ErrorType from '../type';
+import { userStatus as createUserStatusAction } from '@/core/redux/actions/Mypage';
+import { UserStatus } from '@/lib/api/mypage';
+
+export const allPhoneNumCheck = ({
+  protectorPhoneNum,
+  phoneNum,
+  schoolPhoneNum,
+  homePhoneNumber,
+  gradeType,
+}: any) => {
+  if (gradeType === 'GED') {
+    return (
+      phoneNumCheck(protectorPhoneNum) &&
+      phoneNumCheck(phoneNum) &&
+      phoneNumCheckExceptLength(homePhoneNumber)
+    );
+  } else {
+    return (
+      phoneNumCheck(protectorPhoneNum) &&
+      phoneNumCheck(phoneNum) &&
+      phoneNumCheck(schoolPhoneNum) &&
+      phoneNumCheckExceptLength(homePhoneNumber)
+    );
+  }
+};
 
 export const useRedirect = () => {
   const history = useHistory();
@@ -21,12 +49,57 @@ export const isEmptyCheck = (text: string) => {
   return true;
 };
 
+export const isScoreRangeAble = (score: number) => {
+  if (score > 100 || score < 60) {
+    return false;
+  }
+  return true;
+};
+
+export const phoneNumCheck = (phoneNum: string) => {
+  if (phoneNum.length === 0) return false;
+  const rxg = new RegExp(
+    '(^\\+82[.-][1-9]\\d?[.-]|^\\(?0[0-9]\\d?\\)?[.-]?)?[0-9]\\d{2,3}[.-]\\d{4}$',
+  );
+  const result = rxg.test(phoneNum);
+  if (!result) return false;
+  return true;
+};
+
+export const phoneNumCheckExceptLength = (phoneNum: string) => {
+  if (phoneNum.length === 0) return true;
+
+  const rxg = new RegExp(
+    '(^\\+82[.-][1-9]\\d?[.-]|^\\(?0[0-9]\\d?\\)?[.-]?)?[0-9]\\d{2,3}[.-]\\d{4}$',
+  );
+  const result = rxg.test(phoneNum);
+  if (!result) return false;
+  return true;
+};
+
+export const useAuth = () => {
+  const {
+    token: { access_token, refresh_token },
+    isLogin,
+  } = useSelector((state: RootState) => state.Header);
+  return {
+    accessToken: access_token,
+    refreshToken: refresh_token,
+    isLogin,
+  };
+};
+
 export const getYEAR = (
   startYear: number,
   lastYear: number,
+  orderBy?: 'desc' | 'asc',
 ): { VALUE: string; LABEL: string }[] => {
   const buf = [];
-  for (let YEAR = startYear; YEAR <= lastYear; YEAR++) {
+  for (
+    let YEAR = setStart(startYear, lastYear, orderBy);
+    setRule(YEAR, startYear, lastYear, orderBy);
+    YEAR = setIncreaseOrDecrease(YEAR, orderBy)
+  ) {
     const stringedYEAR = YEAR.toString();
     buf.push({
       VALUE: stringedYEAR,
@@ -36,12 +109,39 @@ export const getYEAR = (
   return buf;
 };
 
+const setRule = (
+  value: number,
+  start: number,
+  last: number,
+  orderBy: 'desc' | 'asc' | undefined,
+) => {
+  return orderBy === 'desc' ? value >= start : value <= last;
+};
+const setStart = (
+  start: number,
+  last: number,
+  orderBy: 'desc' | 'asc' | undefined,
+) => {
+  return orderBy === 'desc' ? last : start;
+};
+const setIncreaseOrDecrease = (
+  value: number,
+  orderBy: 'desc' | 'asc' | undefined,
+) => {
+  return orderBy === 'desc' ? value - 1 : value + 1;
+};
+
 export const getMONTH = (
   startMonth: number,
   lastMonth: number,
+  orderBy?: 'desc' | 'asc',
 ): { VALUE: string; LABEL: string }[] => {
   const buf = [];
-  for (let MONTH = startMonth; MONTH <= lastMonth; MONTH++) {
+  for (
+    let MONTH = setStart(startMonth, lastMonth, orderBy);
+    setRule(MONTH, startMonth, lastMonth, orderBy);
+    MONTH = setIncreaseOrDecrease(MONTH, orderBy)
+  ) {
     const stringedMONTH = MONTH.toString();
     const value = stringedMONTH.padStart(2, '0');
     buf.push({
@@ -55,9 +155,14 @@ export const getMONTH = (
 export const getDAY = (
   startDay: number,
   lastDay: number,
+  orderBy?: 'desc' | 'asc',
 ): { VALUE: string; LABEL: string }[] => {
   const buf = [];
-  for (let DAY = startDay; DAY <= lastDay; DAY++) {
+  for (
+    let DAY = setStart(startDay, lastDay, orderBy);
+    setRule(DAY, startDay, lastDay, orderBy);
+    DAY = setIncreaseOrDecrease(DAY, orderBy)
+  ) {
     const stringedDAY = DAY.toString();
     const value = stringedDAY.padStart(2, '0');
     buf.push({
@@ -125,8 +230,182 @@ export const clearLocalStorageAboutToken = () => {
 
 export const useUser = () => {
   const { user } = useSelector(({ Header }: RootState) => ({
-    user: Header.user,
+    user: {
+      ...Header.user,
+      isLogin: Header.isLogin,
+    },
   }));
 
   return user;
+};
+
+export const TIME = '2020-10-19 09:00';
+// export const TIME = '';
+
+export const getDateObject = (date: string = TIME) =>
+  date ? new Date(date) : new Date();
+
+export const getTime = (date: string = TIME) => getDateObject(date).getTime();
+
+export const getScheduleTimes = (schedule: Schedule) => {
+  const startTime = getTime(schedule.start_date);
+  const endTime = getTime(schedule.end_date);
+  const nowTime = getTime();
+
+  return [startTime, nowTime, endTime];
+};
+
+export const isNotStartedSchedule = (schedule: Schedule) => {
+  const [startTime, nowTime] = getScheduleTimes(schedule);
+
+  return nowTime < startTime;
+};
+
+export const isFinishedSchedule = (schedule: Schedule) => {
+  const [, nowTime, endTime] = getScheduleTimes(schedule);
+
+  return endTime < nowTime;
+};
+
+export const isProgressingSchedule = (schedule: Schedule) => {
+  const [startTime, nowTime, endTime] = getScheduleTimes(schedule);
+
+  return startTime <= nowTime && nowTime <= endTime;
+};
+
+export const getDate = (timeString: string = TIME) => {
+  const time = new Date(timeString);
+  const year = time.getFullYear().toString();
+  const month = (time.getMonth() + 1).toString().padStart(2, '0');
+  const date = time.getDate().toString().padStart(2, '0');
+  const hours = time.getHours().toString().padStart(2, '0');
+  const minutes = time.getMinutes().toString().padStart(2, '0');
+
+  return [year, month, date, hours, minutes];
+};
+
+export const getDifferenceDate = (date1: Date, date2: Date) => {
+  const date1Time = new Date(
+    date1.getFullYear(),
+    date1.getMonth(),
+    date1.getDate(),
+  ).getTime();
+  const date2Time = new Date(
+    date2.getFullYear(),
+    date2.getMonth(),
+    date2.getDate(),
+  ).getTime();
+  const difference = Math.abs(date2Time - date1Time);
+
+  return Math.ceil(difference / (1000 * 3600 * 24));
+};
+
+export const useSchedules = (): [
+  Schedule[],
+  ErrorType,
+  boolean,
+  () => void,
+] => {
+  const dispatch = useDispatch();
+  const { schedules, getSchedulesError, isLoading } = useSelector(
+    ({ Main: main, Loading: loading }: RootState) => ({
+      schedules: main.schedules,
+      isLoading: loading['main/SCHEDULES'],
+      getSchedulesError: main.error,
+    }),
+  );
+  const getSchedules = () => {
+    dispatch(createSchedulesAction());
+  };
+
+  return [schedules, getSchedulesError, isLoading, getSchedules];
+};
+
+export const getFullDateText = (time: string) => {
+  const [year, month, date, hours, minutes] = getDate(time);
+
+  return `${year}년 ${month}월 ${date}일 ${hours}:${minutes}`;
+};
+
+export const useUserStatus = (): [
+  UserStatus,
+  ErrorType,
+  () => void,
+  boolean,
+] => {
+  const dispatch = useDispatch();
+  const { userStatus, userStatusError, isLoading } = useSelector(
+    ({ Mypage: mypage, Loading: loading }: RootState) => ({
+      userStatus: mypage.userStatus,
+      userStatusError: mypage.userStatueError,
+      isLoading: loading['mypage/USER_STATUS'],
+    }),
+  );
+
+  const getUserStatus = () => {
+    dispatch(createUserStatusAction());
+  };
+
+  return [userStatus, userStatusError, getUserStatus, isLoading];
+};
+
+export const getIsFinish = () => {
+  const time = getTime();
+  const finishTime = getTime('2020-10-26');
+
+  return finishTime <= time;
+};
+
+export const getIsStarted = () => {
+  const time = getTime();
+  const startTime = getTime('2020-10-19');
+  return startTime <= time;
+};
+
+export const getFirstApplyStatus = (schedule: Schedule) => {
+  const [year, month, date] = getDate(schedule.start_date);
+  const startTime = getTime(schedule.start_date);
+  const nowTime = getTime();
+  const endTime = getTime(`${year}-${month}-${date} 23:59`);
+  const isApplying = startTime <= nowTime && nowTime <= endTime;
+  const isFinished = endTime < nowTime;
+
+  return {
+    isApplying,
+    isFinished,
+  };
+};
+
+export const phoneNumSetForm = (
+  event: React.KeyboardEvent<HTMLInputElement>,
+  phoneNum: string,
+  valueChangeHandler: (value: string) => void,
+) => {
+  const parsedValue = getParsedFormPhoneNum(phoneNum);
+  valueChangeHandler(parsedValue);
+};
+
+export const getParsedFormPhoneNum = (phoneNum: string) => {
+  return phoneNum
+    .replace(/[^0-9]/g, '')
+    .replace(
+      /(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,
+      '$1-$2-$3',
+    )
+    .replace('--', '-');
+};
+
+export const isLastTextBar = (text: string) => {
+  const secondLastText = text[text.length - 2];
+  const lastText = text[text.length - 1];
+  if (secondLastText === '-' || lastText === '-') return true;
+  return false;
+};
+
+export const arrayToString = (array: any[]) => {
+  let buffer = '';
+  array.map(data => {
+    buffer = buffer + data;
+  });
+  return buffer;
 };

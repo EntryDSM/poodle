@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {
   AllFinish,
   Finish,
-  isProgressing,
+  Progressing,
   XIcon,
 } from '@/assets/Main/ProgressBar';
 
@@ -19,11 +19,12 @@ export const ProgressBox = styled.div`
   align-items: flex-end;
 `;
 
-export const ProgressItemWrapper = styled.div`
+export const ProgressItemWrapper = styled.div<{ isAble: boolean }>`
   display: flex;
   align-items: center;
   height: 60px;
   > a {
+    cursor: ${({ isAble }) => (isAble ? 'pointer' : 'not-allowed')};
     text-decoration: none;
   }
   > a:last-child {
@@ -31,33 +32,49 @@ export const ProgressItemWrapper = styled.div`
   }
 `;
 
-export const ProgressTitle = styled.span<{ isProgressing: boolean }>`
+interface Status {
+  isProgressing: boolean;
+  isFinish: boolean;
+  isAllFinish: boolean;
+}
+
+interface Color {
+  isBlue: boolean;
+}
+
+export const ProgressTitle = styled.span<Color>`
   height: 26px;
   font-family: NanumSquareB;
   font-size: 24px;
   line-height: 24px;
   letter-spacing: 0.6px;
-  color: ${({ isProgressing }) => (isProgressing ? '#46b2c6' : '#7e7e7e')};
+  color: ${({ isBlue }) => (isBlue ? '#46b2c6' : '#7e7e7e')};
   display: inline-block;
   padding-top: 5px;
 `;
 
-export const StatusImage = styled.img.attrs<{ isProgressing: boolean }>(
-  props => ({
-    src: props.isProgressing && isProgressing,
+export const StatusImage = styled.img.attrs<Status>(
+  ({ isProgressing, isFinish, isAllFinish }) => ({
+    src: isAllFinish
+      ? AllFinish
+      : isProgressing
+      ? Progressing
+      : isFinish
+      ? Finish
+      : XIcon,
   }),
-)<{ isProgressing: boolean }>`
+)<Status>`
   width: 60px;
   height: 60px;
   object-fit: contain;
   margin-left: 16px;
 `;
 
-export const VerticalLine = styled.div`
+export const VerticalLine = styled.div<Color>`
   width: 3px;
-  height: 90px;
+  height: 110px;
   display: flex;
   margin-right: 27px;
-  background-color: #7e7e7e;
-  margin: 10px 27px 10px 0;
+  background-color: ${({ isBlue }) => (isBlue ? '#46b2c6' : '#7e7e7e')};
+  margin: 15px 27px 15px 0;
 `;
