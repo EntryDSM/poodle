@@ -13,8 +13,11 @@ const NoticeModal: FC<Props> = ({ modalOff }) => {
     },
     [],
   );
-  const buttonClickHandler = useCallback(() => {
+  const modalClose = useCallback(() => {
     localStorage.setItem('isReadNotice', 'true');
+    modalOff();
+  }, []);
+  const buttonClickHandler = useCallback(() => {
     ableChange(!isAble);
   }, [isAble, ableChange]);
   return (
@@ -90,7 +93,7 @@ const NoticeModal: FC<Props> = ({ modalOff }) => {
           </S.CheckboxDiv>
         </S.NoticeApprove>
         <S.NoticeApproveButtonWrapper>
-          <S.NoticeApproveButton onClick={() => (isAble ? modalOff() : '')}>
+          <S.NoticeApproveButton onClick={() => (isAble ? modalClose() : '')}>
             확인
           </S.NoticeApproveButton>
         </S.NoticeApproveButtonWrapper>

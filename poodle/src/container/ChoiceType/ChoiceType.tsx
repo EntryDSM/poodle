@@ -27,6 +27,7 @@ import {
 } from '@/core/redux/actions/ChoiceType';
 import { useDispatch } from 'react-redux';
 import { modalOff, modalOn, NOTICE_MODAL } from '@/core/redux/actions/Modal';
+import ModalContainer from '../common/ModalContainer/ModalContainer';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -209,6 +210,7 @@ const ChoiceType: FC<Props> = props => {
   return (
     <TypeDiv>
       <div id={TOAST_DIV_ID} />
+      <ModalContainer onClick={() => {}} />
       <TypeMain>
         <Title margin='80px'>전형 구분 선택</Title>
         <li>
