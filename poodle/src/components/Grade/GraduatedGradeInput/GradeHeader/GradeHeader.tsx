@@ -37,6 +37,7 @@ const GradeHeader: FC = () => {
           grade,
           semester,
           score,
+          isChecked: false,
         };
         gradeList.push(newGrade);
       }
