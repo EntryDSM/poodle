@@ -22,6 +22,7 @@ const GradeColumn: FC<Props> = ({ children, grade, semester, isLast }) => {
     buf = gradeList.map(grade => {
       if (isSameScore(grade)) {
         grade.score = 'X';
+        grade.isChecked = false;
       }
       return grade;
     });
@@ -57,9 +58,7 @@ const GradeColumn: FC<Props> = ({ children, grade, semester, isLast }) => {
   useEffect(() => {
     if (!isAllScoreX(gradeState)) {
       checkChange(false);
-      return;
     }
-    checkChange(true);
   }, [gradeState]);
   return (
     <td className={isLast ? 'big semester' : 'semester'} colSpan={1}>

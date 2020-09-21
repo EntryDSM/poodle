@@ -35,6 +35,7 @@ export interface GradeType {
   grade: number;
   semester: number;
   score: ScoreType;
+  isChecked: boolean;
 }
 
 export interface SetServiceTime {
