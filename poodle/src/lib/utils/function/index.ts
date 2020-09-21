@@ -239,7 +239,7 @@ export const useUser = () => {
   return user;
 };
 
-export const TIME = '2020-10-19 00:00';
+export const TIME = '2020-10-19 09:00';
 // export const TIME = '';
 
 export const getDateObject = (date: string = TIME) =>
@@ -359,7 +359,6 @@ export const getIsFinish = () => {
 export const getIsStarted = () => {
   const time = getTime();
   const startTime = getTime('2020-10-19');
-
   return startTime <= time;
 };
 

@@ -7,6 +7,7 @@ import {
   SUBMIT_FAILURE,
   SUBMIT_SUCCESS,
   PAGEMOVE,
+  RESET_SERVER_REQUEST_STATUS,
 } from '../../actions/Preview';
 
 export interface PreviewState {
@@ -69,6 +70,14 @@ const PreviewState = (
         ...state,
         error: action.payload,
         setUserStatusError: action.payload,
+        getPreviewError: errorInitialState,
+      };
+    }
+    case RESET_SERVER_REQUEST_STATUS: {
+      return {
+        ...state,
+        error: null,
+        setUserStatusError: errorInitialState,
         getPreviewError: errorInitialState,
       };
     }
