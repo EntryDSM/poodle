@@ -324,6 +324,16 @@ const Join: React.FC<JoinProps> = ({
     }
     return null;
   }, [verifyCodeValue, focusedState.code, sendEmailValue]);
+
+  useEffect(() => {
+    if (joinValue?.error?.status === 400) {
+      alert(
+        `이메일 인증 후 3분이 지나 회원가입에 실패하였습니다. 새로고침 후 다시 시도해주세요.`,
+      );
+    } else if (joinValue?.error?.status) {
+      alert(`Error Code: ${joinValue.error.status} 회원가입 실패!`);
+    }
+  }, [joinValue.error]);
   return (
     <S.JoinWrapper>
       <S.JoinContainer>
