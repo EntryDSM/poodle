@@ -124,7 +124,7 @@ export const SubTitle = styled.div<SubTitleProps>`
     css`
       width: ${effect ? '0' : '19.25'}rem;
       margin: 2.125rem 0 2.625rem 0;
-      height: 1rem;
+      max-height: 2rem;
       font-family: NanumSquareR;
       font-size: 0.857rem;
       color: #ff5c5c;
