@@ -4,6 +4,10 @@ about: Suggest an idea for improving poodle
 labels: 'proposal'
 ---
 
+<!--
+  The original template file is https://github.com/facebook/create-react-app/blob/master/.github/ISSUE_TEMPLATE/proposal.md
+-->
+
 ### Is your proposal related to a problem?
 
 <!--
