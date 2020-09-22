@@ -59,7 +59,7 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
   const buttonClickHandler = useCallback(() => {
     setSchoolInfo([]);
     searchSchool(eduOffice, schoolSearchInput);
-  }, []);
+  }, [eduOffice, schoolSearchInput]);
   const dispatchPageChange = useCallback((page: number) => {
     dispatch(pageChange({ page }));
   }, []);
@@ -121,6 +121,11 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
       getSearchSchoolGenerateTokenAdnDoCallback();
     }
   }, [error]);
+  useEffect(() => {
+    return () => {
+      dispatch(schoolSearchInputChange({ searchInput: '' }));
+    };
+  }, []);
   return (
     <ModalWrapper>
       <SearchModalBox title='학교 검색' onModalChange={modalOff}>
@@ -133,7 +138,7 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
           />
           <SearchModalInput width='250px' leftMargin='16px'>
             <input
-              placeholder='주소를 입력해 주세요.'
+              placeholder='학교 이름을 입력해 주세요.'
               onChange={inputChangeHandler}
               onKeyPress={inputKeyPressHandler}
             />
