@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import ClearButton from '@/assets/Modal/Button_clear@3x.png';
-import SearchButton from '@/assets/Modal/button-search.png';
+import SearchButton from '@/assets/Modal/button-search.svg';
 
 export const ModalWrapper = styled.div`
   z-index: 3;
@@ -360,7 +360,7 @@ export const SearchModalInput = styled.div<InputType>`
     color: #606060;
     box-sizing: border-box;
   }
-  > img {
+  > div {
     background-image: url(${SearchButton});
     position: absolute;
     margin: auto;
