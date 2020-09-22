@@ -142,7 +142,7 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
               onChange={inputChangeHandler}
               onKeyPress={inputKeyPressHandler}
             />
-            <img onClick={buttonClickHandler} />
+            <div onClick={buttonClickHandler} />
           </SearchModalInput>
         </SearchModalInputDiv>
         <SearchModalResult onScroll={scrollEventHandler}>

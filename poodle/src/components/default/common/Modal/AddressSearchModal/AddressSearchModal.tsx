@@ -115,7 +115,7 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
             onChange={paramInputChangeHandler}
             onKeyPress={paramsInputKeyPressHandler}
           />
-          <img onClick={searchAddress} />
+          <div onClick={searchAddress} />
         </SearchModalInput>
       </SearchModalInputDiv>
       <SearchModalResult>
