@@ -1,8 +1,12 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-labels: 'bug repord'
+labels: 'bug report'
 ---
+
+<!--
+  The original template file is https://github.com/facebook/create-react-app/blob/master/.github/ISSUE_TEMPLATE/bug_report.md
+-->
 
 <!--
     Please note that your issue will be fixed much faster if you spend about
