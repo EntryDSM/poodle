@@ -15,7 +15,7 @@ interface Props {
   img: string;
 }
 
-const QualificationUserImg: FC<Props> = ({ img }) => {
+const QualificationUserImg: FC<Props> = () => {
   const [file, fileChange] = useState<File>(new File([], 'dummy.txt'));
   const dispatch = useDispatch();
   const { setImgError, pictureUrl } = useSelector(

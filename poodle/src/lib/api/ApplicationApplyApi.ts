@@ -42,7 +42,6 @@ export const stringToStringOrNull = (value: string): string | null => {
 
 export const stringToNumberOrNull = (value: string): number | null => {
   if (value.length === 0) return null;
-  console.log(value);
   return parseFloat(value);
 };
 
