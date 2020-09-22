@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PreviewFile } from '@/components/Preview';
-import { EmptyPreview, PreviewDiv, PreviewMain } from '@/styles/Preview';
+import { Loader, PreviewDiv, PreviewMain } from '@/styles/Preview';
 import {
   Title,
   DefaultlNavigation,
@@ -99,8 +99,11 @@ const PreviewContainer: FC = () => {
         {preview.length > 0 ? (
           <PreviewFile pdfFile={preview} />
         ) : (
-          <EmptyPreview />
+          <Loader>
+            <div className='loader' />
+          </Loader>
         )}
+
         <DefaultlNavigation
           page='preview'
           currentPageClickHandler={goCurrentPage}
