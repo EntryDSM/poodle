@@ -37,7 +37,8 @@ import {
   HOME_PHONE_NUMBER,
 } from '../../actions/Info';
 import ErrorType from '@/lib/utils/type';
-import { allPhoneNumCheck } from '@/lib/utils/function';
+import { allPhoneNumCheck, isAbleAccessToken } from '@/lib/utils/function';
+import { LOGOUT } from '../../actions/Header';
 
 const actionArray = [
   NAME,
@@ -142,6 +143,13 @@ const getInfoSaga = createGetSaga(
 );
 
 function* setImgSaga(action: SetPictureCall) {
+  const isAbleToken = isAbleAccessToken();
+  if (!isAbleToken) {
+    yield put({
+      type: LOGOUT,
+    });
+    return;
+  }
   try {
     const formData = new FormData();
     const picture = action.payload.picture;

@@ -1,6 +1,8 @@
 import { put, call, select } from 'redux-saga/effects';
 import { setDataToServer } from '@/lib/api/ApplicationApplyApi';
 import ErrorType from '../type';
+import { LOGOUT } from '@/core/redux/actions/Header';
+import { isAbleAccessToken } from '../function';
 
 const createSaveSaga = (
   stateToRequest: (state: any) => any,
@@ -13,6 +15,13 @@ const createSaveSaga = (
   return function* saveSaga(action?: any) {
     const state = yield select(getStateFunc);
     const request = stateToRequest(state);
+    const isAbleToken = isAbleAccessToken();
+    if (!isAbleToken) {
+      yield put({
+        type: LOGOUT,
+      });
+      return;
+    }
     try {
       yield call(setDataToServer, url, request);
       yield put({

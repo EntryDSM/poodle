@@ -14,6 +14,8 @@ import {
 import { RootState } from '../../reducer';
 import { startLoading, finishLoading } from '@/core/redux/actions/Loading';
 import { searchSchoolResponseType } from '@/lib/api/ApiType';
+import { isAbleAccessToken } from '@/lib/utils/function';
+import { LOGOUT } from '../../actions/Header';
 
 const getStateFunc = (state: RootState): RootState['SearchSchool'] =>
   state.SearchSchool;
@@ -25,6 +27,13 @@ function* searchSchool(action: GetSchoolCall) {
     const response = await getDataToServer<searchSchoolResponseType>(url);
     return response;
   };
+  const isAbleToken = isAbleAccessToken();
+  if (!isAbleToken) {
+    yield put({
+      type: LOGOUT,
+    });
+    return;
+  }
   try {
     const response: searchSchoolResponseType = yield call(
       getSchoolToServer,
@@ -45,13 +54,8 @@ function* searchSchool(action: GetSchoolCall) {
 }
 
 function* pageChangeSaga(action: PageChange) {
-  const { eduOffice, schoolSearchInput } = yield select(getStateFunc);
-  const url = getSearchSchoolUrl(
-    eduOffice,
-    schoolSearchInput,
-    action.payload.page,
-    10,
-  );
+  const { schoolSearchInput } = yield select(getStateFunc);
+  const url = getSearchSchoolUrl(schoolSearchInput, action.payload.page, 10);
   yield put({ type: GET_SCHOOL_CALL, payload: { url } });
 }
 
