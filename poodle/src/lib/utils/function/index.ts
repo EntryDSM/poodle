@@ -410,7 +410,8 @@ export const arrayToString = (array: any[]) => {
   return buffer;
 };
 
-export const isAbleAccessToken = (token: string) => {
+export const isAbleAccessToken = () => {
+  const token = localStorage.getItem('accessToken');
   if (typeof token === 'object') return false;
   return true;
 };
