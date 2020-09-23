@@ -83,7 +83,6 @@ const IntroductionState = (
       return {
         ...state,
         successDate: action.payload.date,
-        pageMove: action.payload.pageMove,
         setSelfIntroductionError: errorInitialState,
         setStudyPlanError: errorInitialState,
         getSelfIntroductionError: errorInitialState,
