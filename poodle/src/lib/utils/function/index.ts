@@ -409,3 +409,8 @@ export const arrayToString = (array: any[]) => {
   });
   return buffer;
 };
+
+export const isAbleAccessToken = (token: string) => {
+  if (typeof token === 'object') return false;
+  return true;
+};
