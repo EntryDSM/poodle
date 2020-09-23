@@ -8,12 +8,9 @@ import {
   SearchModalResult,
 } from '@/styles/common/Modal';
 import SchoolSearchContent from './SchoolSearchContent';
-import { Dropdown } from '@/components/default/ApplicationFormDefault';
 import { setMiddleSchool, setSchoolCode } from '@/core/redux/actions/Info';
-import eduOfficeList from './SchoolSearchConstance';
 import { ReducerType } from '@/core/redux/store';
 import {
-  eduOfficeChange,
   pageChange,
   schoolSearchInputChange,
   SchoolType,
@@ -37,9 +34,6 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
     dispatch(setSchoolCode({ code }));
     modalOff();
   };
-  const eduOfficeChangeHandler = useCallback((eduOffice: string) => {
-    dispatch(eduOfficeChange({ office: eduOffice }));
-  }, []);
   const inputChangeHandler = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
@@ -73,7 +67,7 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
     () =>
       dispatch(
         getSchoolCall({
-          url: getSearchSchoolUrl(eduOffice, schoolSearchInput, page, 10),
+          url: getSearchSchoolUrl(schoolSearchInput, page, 10),
         }),
       ),
   );
@@ -110,7 +104,7 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
   );
   const searchSchool = useCallback(
     (eduOffice: string, schoolSearchInput: string) => {
-      const url = getSearchSchoolUrl(eduOffice, schoolSearchInput, page, 10);
+      const url = getSearchSchoolUrl(schoolSearchInput, page, 10);
       dispatchPageChange(0);
       dispatchGetSchoolCall(url);
     },
@@ -130,13 +124,7 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
     <ModalWrapper>
       <SearchModalBox title='학교 검색' onModalChange={modalOff}>
         <SearchModalInputDiv>
-          <Dropdown
-            options={eduOfficeList}
-            onChange={eduOfficeChangeHandler}
-            value={eduOffice}
-            width='170px'
-          />
-          <SearchModalInput width='250px' leftMargin='16px'>
+          <SearchModalInput>
             <input
               placeholder='학교 이름을 입력해 주세요.'
               onChange={inputChangeHandler}
