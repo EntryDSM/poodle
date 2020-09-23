@@ -552,12 +552,11 @@ export const studyPlanResponseToState = (
 });
 
 export const getSearchSchoolUrl = (
-  eduOffice: string,
   name: string,
   page: number,
   size: number,
 ) => {
-  return `schools?eduOffice=${eduOffice}&name=${name}&page=${page}&size=${size}`;
+  return `schools?name=${name}&page=${page}&size=${size}`;
 };
 
 export const previewStateToRequest = (isSubmit: boolean): submitType => {
