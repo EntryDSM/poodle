@@ -14,7 +14,6 @@ const createGetSaga = (
   return function* saveSaga() {
     const isAbleToken = isAbleAccessToken();
     if (!isAbleToken) {
-      console.log('hihi');
       yield put({
         type: LOGOUT,
       });
