@@ -21,6 +21,7 @@ import { passwordRegExp } from '@/lib/RegExp';
 enum SendEmailError {
   '요청에 오류가 있습니다.' = 400,
   '일치하는 계정을 찾을수 없습니다.' = 404,
+  '*너무 많은 요청을 시도하였습니다.' = 429,
 }
 
 enum VerifyCodeError {
