@@ -13,6 +13,7 @@ const isNotNeedToken = (type: string) => {
     'resetPassword/RESET_PASSWORD',
     'join/VERIFY_CODE',
     'join/JOIN',
+    'header/LOGIN',
   ];
 
   return types.indexOf(type) !== -1 ? true : false;
