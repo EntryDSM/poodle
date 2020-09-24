@@ -1,7 +1,7 @@
 import client from './client';
 
 export const sendEmail = (email: string) =>
-  client.post(`/users/email/password/verify?email=${email}`, {});
+  client.post('/users/email/password/verify', { email });
 
 export const verifyCode = (data: { email: string; auth_cod: string }) =>
   client.put('/users/email/verify', data);
