@@ -412,6 +412,6 @@ export const arrayToString = (array: any[]) => {
 
 export const isAbleAccessToken = () => {
   const token = localStorage.getItem('accessToken');
-  if (typeof token === 'object') return false;
+  if (!token) return false;
   return true;
 };
