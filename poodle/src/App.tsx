@@ -19,6 +19,7 @@ import Maltese from 'entry-maltese';
 import AllFinish from './components/Schedules/AllFinish';
 import { getIsFinish, useAuth } from './lib/utils/function';
 import { AppWrapper } from './style';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const { isLogin, accessToken } = useAuth();
@@ -35,27 +36,29 @@ function App() {
         <AllFinish />
       ) : (
         <BrowserRouter>
-          <HeaderContainer />
-          <>
-            <Maltese
-              isLogin={isLogin}
-              token={accessToken !== null ? accessToken : ''}
-              errorHandler={chattingError}
-            />
-            <Switch>
-              <Route exact path='/' component={MainContainer} />
-              <Route path='/schedules' component={SchedulesContainer} />
-              <Route path='/join' component={JoinContainer} />
-              <Route path='/grade' component={ConnectGrade} />
-              <Route exact path='/mypage' component={MypageContainer} />
-              <Route path='/preview' component={PreviewContainer} />
-              <Route path='/Introduction' component={ConnectIntroduction} />
-              <Route path='/Type' component={ConnectChoiceType} />
-              <Route path='/Info' component={ConnectInfo} />
-              <Route component={Error} />
-            </Switch>
-          </>
-          <Footer />
+          <ScrollToTop>
+            <>
+              <HeaderContainer />
+              <Maltese
+                isLogin={isLogin}
+                token={accessToken !== null ? accessToken : ''}
+                errorHandler={chattingError}
+              />
+              <Switch>
+                <Route exact path='/' component={MainContainer} />
+                <Route path='/schedules' component={SchedulesContainer} />
+                <Route path='/join' component={JoinContainer} />
+                <Route path='/grade' component={ConnectGrade} />
+                <Route exact path='/mypage' component={MypageContainer} />
+                <Route path='/preview' component={PreviewContainer} />
+                <Route path='/Introduction' component={ConnectIntroduction} />
+                <Route path='/Type' component={ConnectChoiceType} />
+                <Route path='/Info' component={ConnectInfo} />
+                <Route component={Error} />
+              </Switch>
+              <Footer />
+            </>
+          </ScrollToTop>
         </BrowserRouter>
       )}
     </AppWrapper>
