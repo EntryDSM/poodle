@@ -52,19 +52,19 @@ const DefaultAnotherRows: FC<Props> = ({
       isError={isError}
     />
     <UserSchoolPhoneNumRow
-      describe='*완벽히 입력되지 않으면 자동저장이 되지 않습니다.'
+      describe='*전화번호 양식에 맞게 입력해주세요.'
       valueChangeHandler={setSchoolPhoneNum}
       schoolPhoneNum={schoolPhoneNum}
       isError={isError}
     />
     <UserProtectorPhoneNumRow
-      describe='*완벽히 입력되지 않으면 자동저장이 되지 않습니다.'
+      describe='*전화번호 양식에 맞게 입력해주세요.'
       valueChangeHandler={setProtectorPhoneNum}
       protectorPhoneNum={protectorPhoneNum}
       isError={isError}
     />
     <UserPhoneNumRow
-      describe='*완벽히 입력되지 않으면 자동저장이 되지 않습니다.'
+      describe='*전화번호 양식에 맞게 입력해주세요.'
       valueChangeHandler={setPhoneNum}
       phoneNum={phoneNum}
       isError={isError}
