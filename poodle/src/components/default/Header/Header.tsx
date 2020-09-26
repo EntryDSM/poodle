@@ -42,7 +42,7 @@ const Header: FC<HeaderProps> = ({
       !token.access_token &&
       !token.refresh_token
     ) {
-      alert('로그인 상태가 아니므로 메인으로 이동합니다.');
+      login();
       goToHome();
     }
   }, [location, token]);
