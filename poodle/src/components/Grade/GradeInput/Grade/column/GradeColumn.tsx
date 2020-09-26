@@ -94,17 +94,19 @@ const GradeColumn: FC<Props> = ({ subject, semester, grade }) => {
   }, []);
   return (
     <td colSpan={1} className='grade'>
-      <GradeButtonList>
-        <label>
-          <input
-            type='checkbox'
-            checked={getScoreList(gradeState)[0].isChecked}
-            onChange={() => updateScoreList(gradeState)}
-          />
-          <li>{getScore(gradeState)}</li>
-          <div>{setScoreList(scoreList)}</div>
-        </label>
-      </GradeButtonList>
+      <div>
+        <GradeButtonList>
+          <label>
+            <input
+              type='checkbox'
+              checked={getScoreList(gradeState)[0].isChecked}
+              onChange={() => updateScoreList(gradeState)}
+            />
+            <li>{getScore(gradeState)}</li>
+            <div>{setScoreList(scoreList)}</div>
+          </label>
+        </GradeButtonList>
+      </div>
     </td>
   );
 };
