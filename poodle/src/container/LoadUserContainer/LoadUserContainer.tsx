@@ -46,12 +46,18 @@ const LoadUserContainer: FC<Props> = ({ children }) => {
   useEffect(() => {
     if (getUserError.status === 401) {
       reGenerateTokenAndDoCallback();
-    } else if (getStatusError.status === 401) {
-      getStatusGenerateTokenAndDoCallback();
     } else if (getUserError.status) {
       dispatch(reset());
     }
   }, [getUserError]);
+
+  useEffect(() => {
+    if (getStatusError.status === 401) {
+      getStatusGenerateTokenAndDoCallback();
+    } else if (getUserError.status) {
+      dispatch(reset());
+    }
+  }, [getStatusError]);
 
   return children;
 };
