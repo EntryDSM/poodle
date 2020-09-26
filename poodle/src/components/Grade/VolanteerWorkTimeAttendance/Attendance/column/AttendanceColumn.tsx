@@ -40,7 +40,6 @@ const AttendanceColumn: FC<Props> = ({
               isCenter
               type='number'
             />
-            일
           </div>
         </div>
       </div>
