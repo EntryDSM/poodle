@@ -1,7 +1,16 @@
 import React, { FC } from 'react';
 
-const GradeColumn: FC = ({ children }) => (
-  <td className='header grade' colSpan={2}>
+interface Props {
+  rowspan?: number;
+  colspan?: number;
+}
+
+const GradeColumn: FC<Props> = ({ children, rowspan, colspan }) => (
+  <td
+    className='header grade'
+    colSpan={colspan ? colspan : 2}
+    rowSpan={rowspan}
+  >
     <div>{children}</div>
   </td>
 );

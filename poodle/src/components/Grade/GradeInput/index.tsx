@@ -3,6 +3,7 @@ import GradeScore from './Grade';
 import SchoolYear from './SchoolYear';
 import { GradeTable } from '@/styles/Grade';
 import GradeHeader from './GradeHeader';
+import NonTransferSemester from '../NonTransferSemester';
 import {
   mapStateToProps,
   mapDispatchToProps,
@@ -15,9 +16,9 @@ const GradeInput: FC<Props> = ({ isGradeAllX, isGradeFirst }) => {
   return (
     <>
       <GradeHeader />
+      <NonTransferSemester />
       <GradeTable>
         <tbody>
-          <SchoolYear />
           <GradeScore isGradeAllX={isGradeAllX} isGradeFirst={isGradeFirst} />
         </tbody>
       </GradeTable>
