@@ -17,25 +17,27 @@ const loginSaga = createRequestSaga(LOGIN, authCtrl.login);
 const reGenerateTokenSaga = function* ({
   payload,
 }: ReturnType<typeof reGenerateToken>) {
-  if (flag) {
-    yield delay(1000);
-    yield call(payload.callback, payload.callbackParams);
-    return;
+  if (localStorage.getItem('refreshToken')) {
+    if (flag) {
+      yield delay(1000);
+      yield call(payload.callback, payload.callbackParams);
+      return;
+    }
+    flag = true;
+    try {
+      const response = yield call(authCtrl.reGenerateToken);
+      yield put({
+        type: RE_GENERATE_TOKEN_SUCCESS,
+        payload: response.data,
+      });
+      yield call(payload.callback, payload.callbackParams);
+    } catch (e) {
+      yield put({
+        type: RE_GENERATE_TOKEN_FAILURE,
+      });
+    }
+    flag = false;
   }
-  flag = true;
-  try {
-    const response = yield call(authCtrl.reGenerateToken);
-    yield put({
-      type: RE_GENERATE_TOKEN_SUCCESS,
-      payload: response.data,
-    });
-    yield call(payload.callback, payload.callbackParams);
-  } catch (e) {
-    yield put({
-      type: RE_GENERATE_TOKEN_FAILURE,
-    });
-  }
-  flag = false;
 };
 const getUserSaga = createRequestSaga(GET_USER, authCtrl.getUser);
 const getStatusSaga = createRequestSaga(GET_STATUS, authCtrl.getStatus);
