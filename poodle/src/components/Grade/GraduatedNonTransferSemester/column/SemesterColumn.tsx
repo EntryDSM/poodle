@@ -22,6 +22,7 @@ const GradeColumn: FC<Props> = ({ children, grade, semester, isLast }) => {
     buf = gradeList.map(grade => {
       if (isSameScore(grade)) {
         grade.score = 'X';
+        grade.isChecked = false;
       }
       return grade;
     });

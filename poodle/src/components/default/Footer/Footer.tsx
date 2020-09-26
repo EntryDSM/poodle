@@ -27,12 +27,24 @@ const Footer: FC = () => (
         <FooterText>{BUSINESS_NUMBER}</FooterText>
       </div>
       <div>
-        <FooterLink link=''>Entry 소개</FooterLink>
-        <FooterLink link=''>시스템 소개</FooterLink>
-        <FooterLink link=''>개발자 소개</FooterLink>
+        <FooterLink link='https://www.entrydsm.hs.kr/'>Entry 소개</FooterLink>
+        <FooterLink link='https://www.entrydsm.hs.kr/#portfolio'>
+          시스템 소개
+        </FooterLink>
+        <FooterLink link='https://www.entrydsm.hs.kr/#team'>
+          개발자 소개
+        </FooterLink>
         <FooterImgButtonDiv>
-          <FooterImgLink link='' img={github} alt='github로' />
-          <FooterImgLink link='' img={facebook} alt='facebook으로' />
+          <FooterImgLink
+            link='https://github.com/EntryDSM'
+            img={github}
+            alt='github로'
+          />
+          <FooterImgLink
+            link='https://www.facebook.com/entrydsm'
+            img={facebook}
+            alt='facebook으로'
+          />
         </FooterImgButtonDiv>
       </div>
     </div>

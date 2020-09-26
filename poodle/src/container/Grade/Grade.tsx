@@ -22,6 +22,9 @@ import {
   useReGenerateTokenAndDoCallback,
 } from '@/lib/utils/function';
 import ToastController from '@/container/common/ToastContainer';
+import { useDispatch } from 'react-redux';
+import { modalOn, NOTICE_MODAL, modalOff } from '@/core/redux/actions/Modal';
+import ModalContainer from '../common/ModalContainer/ModalContainer';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -87,7 +90,11 @@ const Grade: FC<Props> = props => {
         <>
           <VolanteerWorkTimeAttend {...props} isError={isError} />
           <GraduatedNonTransferSemester {...props} />
-          <GraduatedGradeInput {...props} isGradeAllX={props.isGradeFirst} />
+          <GraduatedGradeInput
+            {...props}
+            isGradeAllX={props.isGradeAllX}
+            isGradeFirst={props.isGradeFirst}
+          />
         </>
       );
     else if (props.gradeType === 'UNGRADUATED')
@@ -95,13 +102,17 @@ const Grade: FC<Props> = props => {
         <>
           <VolanteerWorkTimeAttend {...props} isError={isError} />
           <NonTransferSemester {...props} />
-          <GradeInput {...props} isGradeAllX={props.isGradeFirst} />
+          <GradeInput
+            {...props}
+            isGradeAllX={props.isGradeAllX}
+            isGradeFirst={props.isGradeFirst}
+          />
         </>
       );
     else {
       return <></>;
     }
-  }, [props]);
+  }, [props, isError]);
   const moveCurrentPage = useCallback(() => {
     props.history.push('/info');
   }, []);
@@ -128,6 +139,7 @@ const Grade: FC<Props> = props => {
       history.push('/introduction');
       modalController.resetToast();
       props.pageMoveChange(false);
+      props.setSuccessDate(null);
     }
   }, [props.pageMove]);
 
@@ -143,9 +155,23 @@ const Grade: FC<Props> = props => {
       history.push('/');
     }
   }, [props.status]);
+  const dispatch = useDispatch();
+  const noticeModalOn = useCallback(() => {
+    dispatch(modalOn(NOTICE_MODAL));
+  }, [dispatch]);
+  const noticeModalOff = useCallback(() => {
+    dispatch(modalOff(NOTICE_MODAL));
+  }, [dispatch]);
+  useEffect(() => {
+    const isReadNotice = localStorage.getItem('isReadNotice');
+    if (isReadNotice) return;
+    noticeModalOn();
+    return () => noticeModalOff();
+  }, []);
   return (
     <GradeDiv>
       <div id={TOAST_DIV_ID} />
+      <ModalContainer onClick={() => {}} />
       <GradeMain>
         <Title margin='100px'>성적 입력</Title>
         {renderPage()}

@@ -82,7 +82,6 @@ const ModalContainer: FC<Props> = ({ onClick }) => {
       notice,
     ],
   );
-
   if (!modalList.some(m => m)) return null;
   return !notice ? (
     <Modal modalClear={() => dispatch(modalClear())}>

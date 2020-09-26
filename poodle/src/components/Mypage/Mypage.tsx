@@ -73,9 +73,9 @@ const Mypage: FC<Props> = ({
       {
         label: '최종제출',
         value: final_submit ? '제출 완료' : '미완료',
-        timeStampElement: (
+        timeStampElement: final_submit ? (
           <S.TimeStamp>{`${year}년 ${month}월 ${date}일 - ${hours}시 ${minutes}분 제출 완료`}</S.TimeStamp>
-        ),
+        ) : undefined,
         endAdornment: (
           <S.SubmitDocument
             isSubmited={final_submit}
@@ -114,7 +114,7 @@ const Mypage: FC<Props> = ({
 
   useEffect(() => {
     if (process.error.status === 401) {
-      reGenerateTokenAndGetUserStatus();
+      reGenerateTokenAndGetProcess();
     }
   }, [process.error]);
 

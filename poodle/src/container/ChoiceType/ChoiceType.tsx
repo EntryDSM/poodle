@@ -25,6 +25,9 @@ import {
   GraduationStatusType,
   setIsQualification,
 } from '@/core/redux/actions/ChoiceType';
+import { useDispatch } from 'react-redux';
+import { modalOff, modalOn, NOTICE_MODAL } from '@/core/redux/actions/Modal';
+import ModalContainer from '../common/ModalContainer/ModalContainer';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
@@ -62,6 +65,7 @@ const ChoiceType: FC<Props> = props => {
     getTypeToServer,
     pageMove,
     pageMoveChange,
+    setSuccessDate,
   } = props;
   const modalController = useMemo(() => new ToastController(TOAST_DIV_ID), []);
   const isStateAble = useCallback(
@@ -99,16 +103,18 @@ const ChoiceType: FC<Props> = props => {
   const graduationStatusChangeHandler = useCallback((status: string) => {
     if (status === 'UNGRADUATED') {
       setGraduationYear('2021');
+      setGraduationMonth('01');
       setIsQualification({ qualification: false });
     } else if (status === 'GRADUATED') {
       setGraduationYear('2020');
+      setGraduationMonth('01');
       setIsQualification({ qualification: false });
     }
     setIsQualification({ qualification: true });
     setGraduationStatus(status as GraduationStatusType);
   }, []);
   const getYearRow = (): React.ReactNode => {
-    if (graduationStatus === 'GRADUATED') {
+    if (graduationStatus !== 'GED') {
       return (
         <GraduationYear
           describe='*졸업자의 경우 졸업연도를 선택해주세요.'
@@ -116,6 +122,7 @@ const ChoiceType: FC<Props> = props => {
           graduationMonthChange={setGraduationMonth}
           graduationMonth={graduationMonth}
           graduationYear={graduationYear}
+          isUngraduated={graduationStatus !== 'UNGRADUATED'}
         />
       );
     } else if (graduationStatus === 'GED') {
@@ -171,6 +178,7 @@ const ChoiceType: FC<Props> = props => {
       history.push('/info');
       modalController.resetToast();
       pageMoveChange(false);
+      setSuccessDate(null);
     }
   }, [pageMove]);
 
@@ -186,9 +194,23 @@ const ChoiceType: FC<Props> = props => {
     }
     modalController.createNewToast('SERVER_ERROR');
   }, [error, getTypeError, setTypeError]);
+  const dispatch = useDispatch();
+  const noticeModalOn = useCallback(() => {
+    dispatch(modalOn(NOTICE_MODAL));
+  }, [dispatch]);
+  const noticeModalOff = useCallback(() => {
+    dispatch(modalOff(NOTICE_MODAL));
+  }, [dispatch]);
+  useEffect(() => {
+    const isReadNotice = localStorage.getItem('isReadNotice');
+    if (isReadNotice) return;
+    noticeModalOn();
+    return () => noticeModalOff();
+  }, []);
   return (
     <TypeDiv>
       <div id={TOAST_DIV_ID} />
+      <ModalContainer onClick={() => {}} />
       <TypeMain>
         <Title margin='80px'>전형 구분 선택</Title>
         <li>

@@ -11,7 +11,6 @@ import {
   GET_USER_SUCCESS,
   GET_USER_FAILURE,
   StatusType,
-  GET_STATUS,
   GET_STATUS_FAILURE,
   GET_STATUS_SUCCESS,
 } from '../../actions/Header';

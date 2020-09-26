@@ -9,6 +9,7 @@ export const STUDY_PLAN_CALL = 'Introduction/STUDY_PLAN_CALL' as const;
 export const GET_STUDY_PLAN_SUCCESS = 'Introduction/GET_STUDY_PLAN_SUCCESS' as const;
 export const GET_STUDY_PLAN_FAILURE = 'Introduction/GET_STUDY_PLAN_FAILURE' as const;
 export const GET_STUDY_PLAN_CALL = 'Introduction/GET_STUDY_PLAN_CALL' as const;
+export const SUCCESS_DATE = 'Introduction/SUCCESS_DATE' as const;
 export const PAGEMOVE = 'Introduction/PAGEMOVE' as const;
 
 export const SELF_INTRODUCTION_SUCCESS = 'Introduction/SELF_INTRODUCTION_SUCCESS' as const;
@@ -97,6 +98,11 @@ export interface PageMove {
   payload: { pageMove: boolean };
 }
 
+export interface SetSuccessDate {
+  type: typeof SUCCESS_DATE;
+  payload: { successDate: Date | null };
+}
+
 export type IntroductionActionType =
   | SetStudyPlan
   | SetSelfIntoduction
@@ -112,7 +118,8 @@ export type IntroductionActionType =
   | StudyPlanCall
   | StudyPlanFailure
   | StudyPlanSuccess
-  | PageMove;
+  | PageMove
+  | SetSuccessDate;
 
 export const setSelfIntoduction = (payload: {
   selfIntroduction: string;
@@ -210,5 +217,10 @@ export const getStudyPlanSuccess = (payload: {
 
 export const pageMove = (payload: { pageMove: boolean }) => ({
   type: PAGEMOVE,
+  payload,
+});
+
+export const setSuccessDate = (payload: { successDate: Date | null }) => ({
+  type: SUCCESS_DATE,
   payload,
 });

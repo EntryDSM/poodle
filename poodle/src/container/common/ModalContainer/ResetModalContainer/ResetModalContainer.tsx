@@ -21,6 +21,7 @@ import { passwordRegExp } from '@/lib/RegExp';
 enum SendEmailError {
   '요청에 오류가 있습니다.' = 400,
   '일치하는 계정을 찾을수 없습니다.' = 404,
+  '*너무 많은 요청을 시도하였습니다.' = 429,
 }
 
 enum VerifyCodeError {
@@ -116,7 +117,6 @@ const ResetModalContainer: FC<{}> = () => {
         case 3:
           if (passwordCheck && password !== passwordCheck)
             return '비밀번호가 일치하지 않습니다.';
-          console.log(passwordCheck, !passwordRegExp.exec(passwordCheck));
           if (passwordCheck && !passwordRegExp.exec(passwordCheck))
             return '조건에 맞지 않는 비밀번호 입니다.';
           if (resetPasswordValue.error.status)

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import {
   IntroductionSubTitle,
   IntroductionDescription,
@@ -26,6 +26,9 @@ const IntroductionInputTemplete: FC<Props> = ({
     lengthChange(value.length);
     valueChangeHandler(value);
   };
+  useEffect(() => {
+    lengthChange(value.length);
+  }, [value]);
   return (
     <>
       <IntroductionSubTitle>{title}</IntroductionSubTitle>

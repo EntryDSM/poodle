@@ -4,10 +4,9 @@ import { QuilificationUserPicture } from '../../../styles/Info';
 import { modalOn, REDERRORMODAL } from '@/core/redux/actions/Modal';
 import { setPictureCall, setPictureUrl } from '@/core/redux/actions/Info';
 import { RootState } from '@/core/redux/reducer';
-import { url } from 'inspector';
 import { useReGenerateTokenAndDoCallback } from '@/lib/utils/function';
 
-const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000';
+const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000,.GIF,.JPG,.PNG,.JPEG';
 
 const IMG_URL = 'https://image.entrydsm.hs.kr.s3.ap-northeast-2.amazonaws.com/';
 
@@ -16,7 +15,7 @@ interface Props {
   img: string;
 }
 
-const QualificationUserImg: FC<Props> = ({ img }) => {
+const QualificationUserImg: FC<Props> = () => {
   const [file, fileChange] = useState<File>(new File([], 'dummy.txt'));
   const dispatch = useDispatch();
   const { setImgError, pictureUrl } = useSelector(

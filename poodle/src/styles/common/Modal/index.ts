@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import ClearButton from '@/assets/Modal/Button_clear@3x.png';
-import SearchButton from '@/assets/Modal/button-search.png';
+import SearchButton from '@/assets/Modal/button-search.svg';
 
 export const ModalWrapper = styled.div`
   z-index: 3;
@@ -108,6 +108,7 @@ type SubTitleProps = {
 export const SubTitle = styled.div<SubTitleProps>`
   transition: width 1s;
   white-space: break-spaces;
+  overflow: hidden;
   text-align: center;
   width: 0;
   ${({ contour, color, effect }) =>
@@ -123,7 +124,7 @@ export const SubTitle = styled.div<SubTitleProps>`
     css`
       width: ${effect ? '0' : '19.25'}rem;
       margin: 2.125rem 0 2.625rem 0;
-      height: 1rem;
+      max-height: 2rem;
       font-family: NanumSquareR;
       font-size: 0.857rem;
       color: #ff5c5c;
@@ -359,7 +360,7 @@ export const SearchModalInput = styled.div<InputType>`
     color: #606060;
     box-sizing: border-box;
   }
-  > img {
+  > div {
     background-image: url(${SearchButton});
     position: absolute;
     margin: auto;

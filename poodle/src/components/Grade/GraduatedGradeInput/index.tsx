@@ -11,14 +11,14 @@ import {
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> & { isGradeAllX: boolean };
 
-const GraduatedGradeInput: FC<Props> = ({ isGradeAllX }) => {
+const GraduatedGradeInput: FC<Props> = ({ isGradeAllX, isGradeFirst }) => {
   return (
     <>
       <GradeHeader />
       <GradeTable>
         <tbody>
           <SchoolYear />
-          <GradeScore isGradeAllX={isGradeAllX} />
+          <GradeScore isGradeAllX={isGradeAllX} isGradeFirst={isGradeFirst} />
         </tbody>
       </GradeTable>
     </>

@@ -18,6 +18,9 @@ import {
   useReGenerateTokenAndDoCallback,
 } from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
+import { modalOn, NOTICE_MODAL, modalOff } from '@/core/redux/actions/Modal';
+import { useDispatch } from 'react-redux';
+import ModalContainer from '../common/ModalContainer/ModalContainer';
 
 type Props = ReturnType<typeof mapDispatchToProps> &
   ReturnType<typeof mapStateToProps> &
@@ -113,6 +116,7 @@ const Introduction: FC<Props> = props => {
       history.push('/preview');
       modalController.resetToast();
       pageMoveChange(false);
+      props.setSuccessDate(null);
     }
   }, [pageMove]);
   useEffect(() => {
@@ -127,9 +131,23 @@ const Introduction: FC<Props> = props => {
       history.push('/');
     }
   }, [props.status]);
+  const dispatch = useDispatch();
+  const noticeModalOn = useCallback(() => {
+    dispatch(modalOn(NOTICE_MODAL));
+  }, [dispatch]);
+  const noticeModalOff = useCallback(() => {
+    dispatch(modalOff(NOTICE_MODAL));
+  }, [dispatch]);
+  useEffect(() => {
+    const isReadNotice = localStorage.getItem('isReadNotice');
+    if (isReadNotice) return;
+    noticeModalOn();
+    return () => noticeModalOff();
+  }, []);
   return (
     <IntroductionDiv>
       <div id={TOAST_DIV_ID} />
+      <ModalContainer onClick={() => {}} />
       <IntroductionMain>
         <Title margin='80px'>자기소개서 & 학업계획서 작성</Title>
         <IntroductionInputTemplete

@@ -37,22 +37,22 @@ const QualificationAnotherRows: FC<Props> = ({
 }) => (
   <>
     <UserProtectorPhoneNumRow
-      describe='*‘-’문자를 제외한 숫자만 입력해주세요.'
+      describe='*완벽히 입력되지 않으면 자동저장이 되지 않습니다.'
       valueChangeHandler={setProtectorPhoneNum}
       protectorPhoneNum={protectorPhoneNum}
       isError={isError}
     />
     <UserPhoneNumRow
-      describe='*‘-’문자를 제외한 숫자만 입력해주세요.'
+      describe='*완벽히 입력되지 않으면 자동저장이 되지 않습니다.'
       valueChangeHandler={setPhoneNum}
       phoneNum={phoneNum}
       isError={isError}
     />
     <UserHomePhoneNumber
-      describe='*‘-’문자를 제외한 숫자만 입력해주세요.'
       valueChangeHandler={setHomePhoneNumber}
       homeNumber={homePhoneNumber}
       isError={isError}
+      describe='* 필수 입력칸이 아닙니다.'
     />
     <UserAddressRow
       valueChangeHandler={setAddress}

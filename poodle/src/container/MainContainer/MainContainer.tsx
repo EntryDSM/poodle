@@ -3,6 +3,7 @@ import Main from '@/components/Main/Main';
 import { useSchedules } from '@/lib/utils/function';
 import { useDispatch } from 'react-redux';
 import { modalOff, modalOn, NOTICE_MODAL } from '@/core/redux/actions/Modal';
+import ModalContainer from '@/container/common/ModalContainer/ModalContainer';
 
 const MainContainer: FC = () => {
   const [
@@ -11,26 +12,16 @@ const MainContainer: FC = () => {
     isLoading,
     getSchedules,
   ] = useSchedules();
-  const dispatch = useDispatch();
-  const noticeModalOn = useCallback(() => {
-    dispatch(modalOn(NOTICE_MODAL));
-  }, [dispatch]);
-  const noticeModalOff = useCallback(() => {
-    dispatch(modalOff(NOTICE_MODAL));
-  }, [dispatch]);
-  useEffect(() => {
-    const isReadNotice = localStorage.getItem('isReadNotice');
-    if (isReadNotice) return;
-    noticeModalOn();
-    return () => noticeModalOff();
-  }, []);
   return (
-    <Main
-      schedules={schedules}
-      isLoading={isLoading}
-      getSchedulesError={getSchedulesError}
-      getSchedules={getSchedules}
-    />
+    <>
+      <ModalContainer onClick={() => {}} />
+      <Main
+        schedules={schedules}
+        isLoading={isLoading}
+        getSchedulesError={getSchedulesError}
+        getSchedules={getSchedules}
+      />
+    </>
   );
 };
 

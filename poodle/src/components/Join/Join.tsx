@@ -48,6 +48,7 @@ import { emailRegExp, passwordRegExp } from '@/lib/RegExp';
 
 enum SendEmailError {
   '*이미 존재하는 이메일 입니다.' = 409,
+  '*너무 많은 요청을 시도하였습니다.' = 429,
 }
 
 type JoinReduxType = {
@@ -324,6 +325,16 @@ const Join: React.FC<JoinProps> = ({
     }
     return null;
   }, [verifyCodeValue, focusedState.code, sendEmailValue]);
+
+  useEffect(() => {
+    if (joinValue?.error?.status === 400) {
+      alert(
+        `이메일 인증 후 3분이 지나 회원가입에 실패하였습니다. 새로고침 후 다시 시도해주세요.`,
+      );
+    } else if (joinValue?.error?.status) {
+      alert(`Error Code: ${joinValue.error.status} 회원가입 실패!`);
+    }
+  }, [joinValue.error]);
   return (
     <S.JoinWrapper>
       <S.JoinContainer>
@@ -453,7 +464,8 @@ const Join: React.FC<JoinProps> = ({
                 {(!inputState.password ||
                   passwordRegExp.exec(inputState.password)) && (
                   <S.ExplainSentence>
-                    *영문(대소문자 구분), 숫자 포함 8자리 이상 특수기호 가능
+                    *8자 이상 영문 대소문자, 숫자, 특수문자(@, $, !, %, *, ?, &
+                    가능)를 모두 사용하여 구성
                   </S.ExplainSentence>
                 )}
                 {inputState.password &&

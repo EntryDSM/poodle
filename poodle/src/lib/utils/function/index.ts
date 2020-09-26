@@ -13,15 +13,21 @@ export const allPhoneNumCheck = ({
   protectorPhoneNum,
   phoneNum,
   schoolPhoneNum,
+  homePhoneNumber,
   gradeType,
 }: any) => {
   if (gradeType === 'GED') {
-    return phoneNumCheck(protectorPhoneNum) && phoneNumCheck(phoneNum);
+    return (
+      phoneNumCheck(protectorPhoneNum) &&
+      phoneNumCheck(phoneNum) &&
+      phoneNumCheckExceptLength(homePhoneNumber)
+    );
   } else {
     return (
       phoneNumCheck(protectorPhoneNum) &&
       phoneNumCheck(phoneNum) &&
-      phoneNumCheck(schoolPhoneNum)
+      phoneNumCheck(schoolPhoneNum) &&
+      phoneNumCheckExceptLength(homePhoneNumber)
     );
   }
 };
@@ -51,9 +57,20 @@ export const isScoreRangeAble = (score: number) => {
 };
 
 export const phoneNumCheck = (phoneNum: string) => {
-  if (phoneNum.length === 0) return true;
+  if (phoneNum.length === 0) return false;
   const rxg = new RegExp(
-    '(^\\+82[.-][1-9]\\d?[.-]|^\\(?0[1-9]\\d?\\)?[.-]?)?[1-9]\\d{2,3}[.-]\\d{4}$',
+    '(^\\+82[.-][1-9]\\d?[.-]|^\\(?0[0-9]\\d?\\)?[.-]?)?[0-9]\\d{2,3}[.-]\\d{4}$',
+  );
+  const result = rxg.test(phoneNum);
+  if (!result) return false;
+  return true;
+};
+
+export const phoneNumCheckExceptLength = (phoneNum: string) => {
+  if (phoneNum.length === 0) return true;
+
+  const rxg = new RegExp(
+    '(^\\+82[.-][1-9]\\d?[.-]|^\\(?0[0-9]\\d?\\)?[.-]?)?[0-9]\\d{2,3}[.-]\\d{4}$',
   );
   const result = rxg.test(phoneNum);
   if (!result) return false;
@@ -75,9 +92,14 @@ export const useAuth = () => {
 export const getYEAR = (
   startYear: number,
   lastYear: number,
+  orderBy?: 'desc' | 'asc',
 ): { VALUE: string; LABEL: string }[] => {
   const buf = [];
-  for (let YEAR = startYear; YEAR <= lastYear; YEAR++) {
+  for (
+    let YEAR = setStart(startYear, lastYear, orderBy);
+    setRule(YEAR, startYear, lastYear, orderBy);
+    YEAR = setIncreaseOrDecrease(YEAR, orderBy)
+  ) {
     const stringedYEAR = YEAR.toString();
     buf.push({
       VALUE: stringedYEAR,
@@ -87,12 +109,39 @@ export const getYEAR = (
   return buf;
 };
 
+const setRule = (
+  value: number,
+  start: number,
+  last: number,
+  orderBy: 'desc' | 'asc' | undefined,
+) => {
+  return orderBy === 'desc' ? value >= start : value <= last;
+};
+const setStart = (
+  start: number,
+  last: number,
+  orderBy: 'desc' | 'asc' | undefined,
+) => {
+  return orderBy === 'desc' ? last : start;
+};
+const setIncreaseOrDecrease = (
+  value: number,
+  orderBy: 'desc' | 'asc' | undefined,
+) => {
+  return orderBy === 'desc' ? value - 1 : value + 1;
+};
+
 export const getMONTH = (
   startMonth: number,
   lastMonth: number,
+  orderBy?: 'desc' | 'asc',
 ): { VALUE: string; LABEL: string }[] => {
   const buf = [];
-  for (let MONTH = startMonth; MONTH <= lastMonth; MONTH++) {
+  for (
+    let MONTH = setStart(startMonth, lastMonth, orderBy);
+    setRule(MONTH, startMonth, lastMonth, orderBy);
+    MONTH = setIncreaseOrDecrease(MONTH, orderBy)
+  ) {
     const stringedMONTH = MONTH.toString();
     const value = stringedMONTH.padStart(2, '0');
     buf.push({
@@ -106,9 +155,14 @@ export const getMONTH = (
 export const getDAY = (
   startDay: number,
   lastDay: number,
+  orderBy?: 'desc' | 'asc',
 ): { VALUE: string; LABEL: string }[] => {
   const buf = [];
-  for (let DAY = startDay; DAY <= lastDay; DAY++) {
+  for (
+    let DAY = setStart(startDay, lastDay, orderBy);
+    setRule(DAY, startDay, lastDay, orderBy);
+    DAY = setIncreaseOrDecrease(DAY, orderBy)
+  ) {
     const stringedDAY = DAY.toString();
     const value = stringedDAY.padStart(2, '0');
     buf.push({
@@ -185,8 +239,8 @@ export const useUser = () => {
   return user;
 };
 
-// export const TIME = '2020-11-20 15:00';
-export const TIME = '';
+export const TIME = '2020-10-19 09:00';
+// export const TIME = '';
 
 export const getDateObject = (date: string = TIME) =>
   date ? new Date(date) : new Date();
@@ -297,14 +351,14 @@ export const useUserStatus = (): [
 
 export const getIsFinish = () => {
   const time = getTime();
-  const finishTime = getTime('2020-11-20');
+  const finishTime = getTime('2020-10-26');
 
   return finishTime <= time;
 };
 
 export const getIsStarted = () => {
   const time = getTime();
-  const startTime = getTime('2020-10-10');
+  const startTime = getTime('2020-10-19');
   return startTime <= time;
 };
 
@@ -354,4 +408,10 @@ export const arrayToString = (array: any[]) => {
     buffer = buffer + data;
   });
   return buffer;
+};
+
+export const isAbleAccessToken = () => {
+  const token = localStorage.getItem('accessToken');
+  if (!token) return false;
+  return true;
 };

@@ -17,6 +17,7 @@ import {
   typeCall,
   setIsQualification,
   pageMove,
+  setSuccessDate,
 } from '@/core/redux/actions/ChoiceType';
 import { GraduationStatusType } from '@/core/redux/actions/ChoiceType';
 export const mapStateToProps = (state: RootState) => ({
@@ -57,6 +58,8 @@ export const mapDispatchToProps = (dispatch: Function) => ({
   setGEDSuccessYear: (year: string) => dispatch(setGEDSuccessYear({ year })),
   pageMoveChange: (isPageMove: boolean) =>
     dispatch(pageMove({ pageMove: isPageMove })),
+  setSuccessDate: (successDate: Date | null) =>
+    dispatch(setSuccessDate({ successDate })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChoiceType);

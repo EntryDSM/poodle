@@ -2,7 +2,12 @@ import React, { FC, useCallback, useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter, RouteComponentProps, useHistory } from 'react-router-dom';
 import ModalContainer from '@/container/common/ModalContainer/ModalContainer';
-import { modalOff, REDERRORMODAL } from '@/core/redux/actions/Modal';
+import {
+  modalOff,
+  modalOn,
+  NOTICE_MODAL,
+  REDERRORMODAL,
+} from '@/core/redux/actions/Modal';
 import { InfoDiv, InfoBody } from '../../styles/Info';
 import {
   Title,
@@ -161,11 +166,25 @@ const Info: FC<Props> = props => {
       history.push('/grade');
       modalController.resetToast();
       props.pageMoveChange(false);
+      props.setSuccessDate(null);
     }
   }, [props.pageMove]);
+  const noticeModalOn = useCallback(() => {
+    dispatch(modalOn(NOTICE_MODAL));
+  }, [dispatch]);
+  const noticeModalOff = useCallback(() => {
+    dispatch(modalOff(NOTICE_MODAL));
+  }, [dispatch]);
+  useEffect(() => {
+    const isReadNotice = localStorage.getItem('isReadNotice');
+    if (isReadNotice) return;
+    noticeModalOn();
+    return () => noticeModalOff();
+  }, []);
   return (
     <InfoDiv>
       <div id={TOAST_DIV_ID} />
+      <ModalContainer onClick={modalOffDispatch} />
       <InfoBody>
         <Title margin='80px'>인적사항</Title>
         {renderPage(props.gradeType)}
@@ -177,7 +196,6 @@ const Info: FC<Props> = props => {
           }}
         />
       </InfoBody>
-      <ModalContainer onClick={modalOffDispatch} />
     </InfoDiv>
   );
 };

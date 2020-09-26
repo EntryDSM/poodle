@@ -26,6 +26,7 @@ export const SCHOOL_CODE = 'Info/SCHOOL_CODE' as const;
 export const PAGEMOVE = 'Info/PAGEMOVE' as const;
 export const HOME_PHONE_NUMBER = 'Info/HONE_PHONE_NUMBER' as const;
 export const PICTURE_URL = 'Info/PICTURE_URL';
+export const SUCCESS_DATE = 'Info/SUCCESS_DATE' as const;
 
 export const INFO_SUCCESS = 'Info/INFO_SUCCESS' as const;
 export const INFO_FAILURE = 'Info/INFO_FAILURE' as const;
@@ -205,6 +206,11 @@ export interface SetPictureUrl {
   payload: { pictureUrl: string };
 }
 
+export interface SetSuccessDate {
+  type: typeof SUCCESS_DATE;
+  payload: { successDate: Date | null };
+}
+
 export type InfoActionType =
   | SetName
   | SetNumber
@@ -238,7 +244,8 @@ export type InfoActionType =
   | SetSchoolCode
   | PageMove
   | SetHomePhoneNumber
-  | SetPictureUrl;
+  | SetPictureUrl
+  | SetSuccessDate;
 
 export const setName = (payload: { name: string }): InfoActionType => ({
   type: NAME,
@@ -426,5 +433,10 @@ export const setHomePhoneNumber = (payload: { homePhoneNumber: string }) => ({
 
 export const setPictureUrl = (payload: { pictureUrl: string }) => ({
   type: PICTURE_URL,
+  payload,
+});
+
+export const setSuccessDate = (payload: { successDate: Date | null }) => ({
+  type: SUCCESS_DATE,
   payload,
 });

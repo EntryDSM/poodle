@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PreviewFile } from '@/components/Preview';
-import { EmptyPreview, PreviewDiv, PreviewMain } from '@/styles/Preview';
+import { Loader, PreviewDiv, PreviewMain } from '@/styles/Preview';
 import {
   Title,
   DefaultlNavigation,
@@ -10,6 +10,7 @@ import ModalContainer from '../common/ModalContainer/ModalContainer';
 import { modalOn, BLUECHECKMODAL } from '@/core/redux/actions/Modal';
 import {
   previewCall,
+  resetServerRequestStatus,
   setPageMove,
   setPreview,
   submitCall,
@@ -34,7 +35,7 @@ const PreviewContainer: FC = () => {
     getPreviewError,
     setUserStatusError,
   } = useSelector((state: ReducerType) => state.Preview);
-  const { status, user } = useSelector((state: ReducerType) => state.Header);
+  const { status } = useSelector((state: ReducerType) => state.Header);
   const history = useHistory();
   const dispatch = useDispatch();
   const goCurrentPage = useCallback(() => {
@@ -55,16 +56,13 @@ const PreviewContainer: FC = () => {
   );
   useEffect(() => {
     if (!error) return;
-    if (error.status === 406) {
-      modalController.createNewToast('SUBMIT_ERROR');
-    }
     if (error.status === 401) {
       if (getPreviewError.status === 401) getPdfGenerateTokenAndDoCallback();
       if (setUserStatusError.status === 401)
         setUserStatusGenerateTokenAndDoCallback();
       return;
     }
-    modalController.createNewToast('SERVER_ERROR');
+    modalController.createNewToast('SUBMIT_ERROR');
   }, [error, getPreviewError, setUserStatusError]);
   useEffect(() => {
     dispatch(previewCall());
@@ -86,9 +84,10 @@ const PreviewContainer: FC = () => {
   }, [status]);
   useEffect(() => {
     if (pageMove) {
+      dispatch(setPageMove({ pageMove: false }));
       history.push('/');
       modalController.resetToast();
-      dispatch(setPageMove({ pageMove: false }));
+      dispatch(resetServerRequestStatus());
     }
   }, [pageMove]);
   return (
@@ -100,8 +99,11 @@ const PreviewContainer: FC = () => {
         {preview.length > 0 ? (
           <PreviewFile pdfFile={preview} />
         ) : (
-          <EmptyPreview />
+          <Loader>
+            <div className='loader' />
+          </Loader>
         )}
+
         <DefaultlNavigation
           page='preview'
           currentPageClickHandler={goCurrentPage}

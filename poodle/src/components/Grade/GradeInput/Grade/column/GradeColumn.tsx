@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GradeButtonList } from '@/styles/Grade';
 import { ReducerType } from '@/core/redux/store';
@@ -14,10 +14,10 @@ interface Props {
   semester: number;
   grade: number;
   isGradeAllX: boolean;
+  isGradeFirst: boolean;
 }
 
-const GradeColumn: FC<Props> = ({ subject, semester, grade, isGradeAllX }) => {
-  const [isChecked, isCheckedChange] = useState<boolean>(false);
+const GradeColumn: FC<Props> = ({ subject, semester, grade }) => {
   const dispatch = useDispatch();
   const gradeState = useSelector(
     (state: ReducerType) => state.GradeState.grade,
@@ -80,17 +80,26 @@ const GradeColumn: FC<Props> = ({ subject, semester, grade, isGradeAllX }) => {
       )),
     [gradeState],
   );
-  useEffect(() => {
-    if (isGradeAllX) isCheckedChange(true);
-  }, [isGradeAllX]);
+  const updateScoreList = useCallback((gradeList: GradeType[]) => {
+    const copy = gradeList.map(grade => {
+      if (isSameScore(grade)) {
+        const buffer = { ...grade };
+        buffer.isChecked = !grade.isChecked;
+        return buffer;
+      }
+      return grade;
+    });
+    const action = setGrade({ grade: copy });
+    dispatch(action);
+  }, []);
   return (
     <td colSpan={1} className='grade'>
       <GradeButtonList>
         <label>
           <input
-            checked={isChecked}
-            onChange={() => isCheckedChange(!isChecked)}
             type='checkbox'
+            checked={getScoreList(gradeState)[0].isChecked}
+            onChange={() => updateScoreList(gradeState)}
           />
           <li>{getScore(gradeState)}</li>
           <div>{setScoreList(scoreList)}</div>

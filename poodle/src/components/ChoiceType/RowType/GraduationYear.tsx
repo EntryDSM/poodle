@@ -2,8 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { TypeElementContent } from '@/styles/ChoiceType';
 import { Dropdown } from '../../default/ApplicationFormDefault';
 import { DefaultRow } from '..';
-import graduationYearConstance from './constance/GraduationYearConstance';
-import { getMONTH } from '@/lib/utils/function';
+import { getMONTH, getYEAR } from '@/lib/utils/function';
 
 interface Props {
   describe: string;
@@ -11,6 +10,7 @@ interface Props {
   graduationMonthChange: (value: string) => void;
   graduationYear: string;
   graduationMonth: string;
+  isUngraduated: boolean;
 }
 
 const GraduationYear: FC<Props> = ({
@@ -18,22 +18,25 @@ const GraduationYear: FC<Props> = ({
   graduationYearChange,
   graduationMonthChange,
   graduationYear,
+  graduationMonth,
+  isUngraduated,
 }) => {
   return (
-    <DefaultRow title='졸업 연도'>
+    <DefaultRow title='졸업 연월'>
       <TypeElementContent>
         <div>
           <Dropdown
             onChange={graduationYearChange}
-            options={graduationYearConstance}
+            options={getYEAR(2010, 2021, 'desc')}
             value={graduationYear}
             width='100px'
+            isAble={isUngraduated}
           />
           <span className='dropdownText'>년</span>
           <Dropdown
             onChange={graduationMonthChange}
             options={getMONTH(1, 12)}
-            value={graduationYear}
+            value={graduationMonth}
             width='100px'
           />
           <span className='dropdownText'>월</span>

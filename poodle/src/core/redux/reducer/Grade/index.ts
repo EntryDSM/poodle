@@ -15,8 +15,13 @@ import {
   GET_GRADE_FAILURE,
   GET_GRADE_SUCCESS,
   PAGEMOVE,
+  setGrade,
+  SUCCESS_DATE,
 } from '../../actions/Grade';
-import { setInitalGradeState } from '@/lib/api/ApplicationApplyApi';
+import {
+  setInitalCheckedGradeState,
+  setInitalGradeState,
+} from '@/lib/api/ApplicationApplyApi';
 import { GraduationStatusType } from '../../actions/ChoiceType';
 
 export interface State {
@@ -34,6 +39,7 @@ export interface State {
   gradeType: GraduationStatusType | '';
   pageMove: boolean;
   isGradeFirst: boolean;
+  isGradeAllX: boolean;
 }
 
 export const initialState: State = {
@@ -51,13 +57,12 @@ export const initialState: State = {
   gradeType: '',
   pageMove: false,
   isGradeFirst: false,
+  isGradeAllX: false,
 };
 
 const isGradeAllX = (grades: GradeType[]) => {
   for (let i = 0; i < grades.length; i++) {
-    if (grades[i].score !== 'X') {
-      return false;
-    }
+    if (grades[i].score !== 'X') return false;
   }
   return true;
 };
@@ -101,6 +106,8 @@ const GradeState = (
       return {
         ...state,
         grade: action.payload.grade,
+        isGradeFirst: false,
+        isGradeAllX: isGradeAllX(action.payload.grade),
       };
     }
     case SCORE: {
@@ -145,13 +152,23 @@ const GradeState = (
         setGradeError: errorInitialState,
         getGradeError: errorInitialState,
         error: null,
-        isGradeFirst: isGradeAllX(action.payload.grade),
+        isGradeFirst: true,
+        isGradeAllX: isGradeAllX(action.payload.grade),
+        grade: isGradeAllX(action.payload.grade)
+          ? setInitalCheckedGradeState()
+          : action.payload.grade,
       };
     }
     case PAGEMOVE: {
       return {
         ...state,
         pageMove: action.payload.pageMove,
+      };
+    }
+    case SUCCESS_DATE: {
+      return {
+        ...state,
+        successTime: action.payload.successDate,
       };
     }
     default: {
