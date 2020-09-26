@@ -208,6 +208,9 @@ export const DropdownCurrentElement = styled(DropdownElement)<{
   display: flex;
   justify-content: space-between;
   font-size: ${props => (props.fontSize ? props.fontSize : '18px')};
+  &:hover {
+    background-color: ${props => (props.isAble ? '#D9D9D9' : '#D9D9D9#d9f1f5')};
+  }
   &::after {
     content: '';
     width: 0;

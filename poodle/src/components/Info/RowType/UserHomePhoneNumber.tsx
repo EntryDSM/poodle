@@ -7,11 +7,13 @@ interface Props {
   valueChangeHandler: (value: string) => void;
   homeNumber: string;
   isError: boolean;
+  describe: string;
 }
 
 const UserProtectorPhoneNumRow: FC<Props> = ({
   valueChangeHandler,
   homeNumber,
+  describe,
 }) => {
   return (
     <DefaultRow title='자택 연락처' isNonRequire={true}>
@@ -22,7 +24,9 @@ const UserProtectorPhoneNumRow: FC<Props> = ({
           isEmpty={false}
           value={homeNumber}
         />
-        <div></div>
+        <div>
+          <p>{describe}</p>
+        </div>
       </InfoElementContent>
     </DefaultRow>
   );

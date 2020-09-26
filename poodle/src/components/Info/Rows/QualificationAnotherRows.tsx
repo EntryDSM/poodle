@@ -52,6 +52,7 @@ const QualificationAnotherRows: FC<Props> = ({
       valueChangeHandler={setHomePhoneNumber}
       homeNumber={homePhoneNumber}
       isError={isError}
+      describe='* 필수 입력칸이 아닙니다.'
     />
     <UserAddressRow
       valueChangeHandler={setAddress}

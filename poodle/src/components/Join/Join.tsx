@@ -48,6 +48,7 @@ import { emailRegExp, passwordRegExp } from '@/lib/RegExp';
 
 enum SendEmailError {
   '*이미 존재하는 이메일 입니다.' = 409,
+  '*너무 많은 요청을 시도하였습니다.' = 429,
 }
 
 type JoinReduxType = {

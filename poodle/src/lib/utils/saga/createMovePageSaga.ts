@@ -1,6 +1,8 @@
 import { put, call, select } from 'redux-saga/effects';
 import { setDataToServer } from '@/lib/api/ApplicationApplyApi';
 import ErrorType from '../type';
+import { isAbleAccessToken } from '../function';
+import { LOGOUT } from '@/core/redux/actions/Header';
 
 const createMovePageSaga = (
   stateToRequest: (state: any) => any,
@@ -14,6 +16,13 @@ const createMovePageSaga = (
   return function* movePageSaga(action?: any) {
     const state = yield select(getStateFunc);
     const request = stateToRequest(state);
+    const isAbleToken = isAbleAccessToken();
+    if (!isAbleToken) {
+      yield put({
+        type: LOGOUT,
+      });
+      return;
+    }
     try {
       const response = yield call(setDataToServer, url, request);
       yield put({

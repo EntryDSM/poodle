@@ -11,6 +11,8 @@ import { PREVIEW_CALL, SUBMIT_CALL } from '../../actions/Preview';
 import { modalOff, BLUECHECKMODAL } from '../../actions/Modal';
 import { PAGE } from '../../actions/SearchSchool';
 import ErrorType from '@/lib/utils/type';
+import { isAbleAccessToken } from '@/lib/utils/function';
+import { LOGOUT } from '../../actions/Header';
 
 const submitRequest = () =>
   setDataToServer(SET_STATUS_URL, previewStateToRequest(true));
@@ -18,6 +20,13 @@ const submitRequest = () =>
 function* submitSavaSaga() {
   const SUCCESS = `${SUBMIT_CALL}_SUCCESS`;
   const FAILURE = `${SUBMIT_CALL}_FAILURE`;
+  const isAbleToken = isAbleAccessToken();
+  if (!isAbleToken) {
+    yield put({
+      type: LOGOUT,
+    });
+    return;
+  }
   try {
     yield call(submitRequest);
     yield put({
@@ -39,6 +48,13 @@ function* submitSavaSaga() {
 const getPdfSaga = function* () {
   const SUCCESS = `${PREVIEW_CALL}_SUCCESS`;
   const FAILURE = `${PREVIEW_CALL}_FAILURE`;
+  const isAbleToken = isAbleAccessToken();
+  if (!isAbleToken) {
+    yield put({
+      type: LOGOUT,
+    });
+    return;
+  }
   try {
     const response = yield call(getPdfToServer, GET_PDF_URL);
     const state = pdfResponseToState(response);
