@@ -25,14 +25,14 @@ const ChoiceGEDYear: FC<Props> = ({
         <div>
           <Dropdown
             onChange={yearChangeHandler}
-            options={getYEAR(2000, 2020)}
+            options={getYEAR(2000, 2020, 'desc')}
             value={year}
             width='100px'
           />
           <span className='dropdownText'>년</span>
           <Dropdown
             onChange={monthChangeHandler}
-            options={getMONTH(1, 12)}
+            options={getMONTH(1, 12, 'desc')}
             value={month}
             width='100px'
           />

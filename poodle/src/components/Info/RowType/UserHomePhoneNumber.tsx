@@ -16,7 +16,7 @@ const UserProtectorPhoneNumRow: FC<Props> = ({
   describe,
 }) => {
   return (
-    <DefaultRow title='자택 연락처'>
+    <DefaultRow title='자택 연락처' isNonRequire={true}>
       <InfoElementContent>
         <Input
           valueChangeHandler={valueChangeHandler}

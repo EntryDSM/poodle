@@ -89,7 +89,6 @@ const Grade: FC<Props> = props => {
       return (
         <>
           <VolanteerWorkTimeAttend {...props} isError={isError} />
-          <GraduatedNonTransferSemester {...props} />
           <GraduatedGradeInput
             {...props}
             isGradeAllX={props.isGradeAllX}
@@ -101,7 +100,6 @@ const Grade: FC<Props> = props => {
       return (
         <>
           <VolanteerWorkTimeAttend {...props} isError={isError} />
-          <NonTransferSemester {...props} />
           <GradeInput
             {...props}
             isGradeAllX={props.isGradeAllX}

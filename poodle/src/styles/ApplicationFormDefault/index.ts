@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const DefaultArrowButtonDiv = styled.div`
   width: 150px;
@@ -226,6 +226,7 @@ export const DefaultInput = styled.input<{
   isEmpty: boolean;
   isCenter?: boolean;
   height?: string;
+  isNotRequire?: boolean;
 }>`
   width: ${props => props.width};
   height: ${props => (props.height ? props.height : '40px')};
@@ -246,4 +247,12 @@ export const DefaultInput = styled.input<{
     -webkit-appearance: none;
     margin: 0;
   }
+`;
+
+export const RequireSign = styled.p`
+  color: red;
+  font-size: 12px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 `;
