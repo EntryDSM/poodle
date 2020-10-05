@@ -530,3 +530,11 @@ export const NoticeApproveButton = styled.button`
   color: white;
   font-size: 16px;
 `;
+
+export const SearchModalWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

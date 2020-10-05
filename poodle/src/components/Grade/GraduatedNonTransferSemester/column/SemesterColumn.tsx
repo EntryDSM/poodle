@@ -18,15 +18,21 @@ const GradeColumn: FC<Props> = ({ children, grade, semester, isLast }) => {
     (state: ReducerType) => state.GradeState.grade,
   );
   const setScoreToX = (gradeList: GradeType[]): GradeType[] => {
-    let buf = [];
-    buf = gradeList.map(grade => {
+    return gradeList.map(grade => {
       if (isSameScore(grade)) {
         grade.score = 'X';
         grade.isChecked = false;
       }
       return grade;
     });
-    return buf;
+  };
+  const setScoreToOpen = (gradeList: GradeType[]): GradeType[] => {
+    return gradeList.map(grade => {
+      if (isSameScore(grade)) {
+        grade.isChecked = true;
+      }
+      return grade;
+    });
   };
   const isScoreX = (grade: GradeType) => {
     if (isSameScore(grade) && grade.score !== 'X') {
@@ -36,16 +42,20 @@ const GradeColumn: FC<Props> = ({ children, grade, semester, isLast }) => {
   };
   const isSameScore = (gradeObject: GradeType) =>
     gradeObject.grade === grade && gradeObject.semester === semester;
+
   const checkboxClickHandler = (gradeList: GradeType[]) => {
-    const gradeListBuf = setScoreToX(gradeList);
+    let gradeListBuf: GradeType[];
     if (isChecked) {
       checkChange(false);
+      gradeListBuf = setScoreToOpen(gradeList);
     } else {
-      const action = setGrade({ grade: gradeListBuf });
-      dispatch(action);
       checkChange(true);
+      gradeListBuf = setScoreToX(gradeList);
     }
+    const action = setGrade({ grade: gradeListBuf });
+    dispatch(action);
   };
+
   const isAllScoreX = (gradeList: GradeType[]) => {
     let flag = true;
     gradeList.map(grade => {

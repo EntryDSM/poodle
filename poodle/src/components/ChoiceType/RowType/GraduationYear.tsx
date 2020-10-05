@@ -27,7 +27,7 @@ const GraduationYear: FC<Props> = ({
         <div>
           <Dropdown
             onChange={graduationYearChange}
-            options={getYEAR(2010, 2021, 'desc')}
+            options={getYEAR(2010, isUngraduated ? 2020 : 2021, 'desc')}
             value={graduationYear}
             width='100px'
             isAble={isUngraduated}

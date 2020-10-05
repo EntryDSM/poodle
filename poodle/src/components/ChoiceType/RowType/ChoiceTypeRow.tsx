@@ -49,14 +49,18 @@ const ChoiceTypeRow: FC<Props> = ({ valueChangeHandler, applyType }) => {
               사회 통합 전형
             </DropdownRadio>
           </RadioGroupProvider>
-          <Dropdown
-            options={typeConstance}
-            width='180px'
-            onChange={valueChangeHandler}
-            isAble={isDropdownAble}
-            value={applyType}
-            dropdownChange={dropdownChange}
-          />
+          {applyType !== 'COMMON' && applyType !== 'MEISTER' ? (
+            <Dropdown
+              options={typeConstance}
+              width='180px'
+              onChange={valueChangeHandler}
+              isAble={isDropdownAble}
+              value={applyType}
+              dropdownChange={dropdownChange}
+            />
+          ) : (
+            ''
+          )}
         </div>
       </TypeElementContent>
     </DefaultRow>

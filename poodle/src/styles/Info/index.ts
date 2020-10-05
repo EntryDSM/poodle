@@ -52,7 +52,7 @@ export const InfoElementContent = styled.div`
   width: calc(100% - 180px);
   display: flex;
   align-items: center;
-  padding: 0px 30px;
+  padding: 0px 30px 0px 10px;
   box-sizing: border-box;
   justify-content: space-between;
   position: relative;

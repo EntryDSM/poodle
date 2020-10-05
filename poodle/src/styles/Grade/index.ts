@@ -14,10 +14,15 @@ export const GradeMain = styled.div`
   margin: 100px;
 `;
 
-export const GradeTable = styled.table`
+export const GradeTable = styled.table<{
+  margin?: string;
+  borderBottom?: string;
+}>`
+  width: 100%;
   border-top: 2px solid ${TableBorder};
-  border-bottom: 2px solid ${TableBorder};
-  margin-bottom: 80px;
+  border-bottom: ${props =>
+    props.borderBottom ? props.borderBottom : `2px solid ${TableBorder}`};
+  margin-bottom: ${props => (props.margin ? props.margin : '80px')};
   tr:last-child > td {
     border-bottom: none;
   }
@@ -110,34 +115,63 @@ export const AttendanceRowDiv = styled.div`
 `;
 
 export const SchoolYearRow = styled.tr`
-  display: flex;
   > td {
-    width: 389px;
+    width: 407px;
     height: 70px;
     border: 1px solid ${TableElementBorderColor};
     border-top: none;
     border-right: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: ${TableElementHeaderColor};
   }
   td:first-child {
     border-left: none;
   }
+  td:last-child {
+    width: 200px;
+  }
+  > td.empty {
+    width: 159px;
+    border: 0px;
+    border-bottom: 1px solid #defaff;
+    background-color: #defaff;
+  }
+  > td > div {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
-export const SemesterRow = styled.tr`
-  display: flex;
+export const SchoolGraduatedYearRow = styled.tr`
   > td {
-    width: 194px;
+    width: 334px;
     height: 70px;
     border: 1px solid ${TableElementBorderColor};
     border-top: none;
     border-right: none;
+    background-color: ${TableElementHeaderColor};
+  }
+  td:first-child {
+    border-left: none;
+  }
+  > td.empty {
+    width: 154px;
+    border: 0px;
+    border-bottom: 1px solid #defaff;
+    background-color: #defaff;
+  }
+  > td > div {
     display: flex;
     justify-content: center;
-    align-items: center;
+  }
+`;
+
+export const SemesterRow = styled.tr`
+  > td {
+    width: 202px;
+    height: 70px;
+    border: 1px solid ${TableElementBorderColor};
+    border-top: none;
+    border-right: none;
   }
   td:first-child {
     border-left: none;
@@ -145,18 +179,43 @@ export const SemesterRow = styled.tr`
   > td.big {
     width: 384px;
   }
+  > td.empty {
+    width: 160px;
+    border: 0px;
+  }
+  > td > div {
+    display: flex;
+    justify-content: center;
+  }
+`;
+
+export const SemesterGraduatedRow = styled.tr`
+  > td {
+    width: 160px;
+    height: 70px;
+    border: 1px solid ${TableElementBorderColor};
+    border-top: none;
+    border-right: none;
+  }
+  td:first-child {
+    border-left: none;
+  }
+  > td.empty {
+    width: 160px;
+    border: 0px;
+  }
+  > td > div {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const GradeScoreRow = styled.tr`
-  display: flex;
   > td {
     height: 70px;
     border: 1px solid ${TableElementBorderColor};
     border-top: none;
     border-right: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
   > td.subject {
     background-color: ${TableElementHeaderColor};
@@ -167,6 +226,12 @@ export const GradeScoreRow = styled.tr`
   }
   td:first-child {
     border-left: none;
+  }
+  > td > div {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 

@@ -1,28 +1,18 @@
 import React, { FC } from 'react';
-import {
-  GradeTable,
-  GradeSubTitle,
-  SchoolYearRow,
-  SemesterRow,
-} from '@/styles/Grade';
+import { GradeTable, SchoolYearRow, SemesterRow } from '@/styles/Grade';
 import { GradeColumn, SemesterColumn } from './column';
-import {
-  mapStateToProps,
-  mapDispatchToProps,
-} from '@/container/Grade/ConnectionGrade';
 
-type Props = ReturnType<typeof mapStateToProps> &
-  ReturnType<typeof mapDispatchToProps>;
-
-const NonTransferSemester: FC<Props> = () => (
+const NonTransferSemester: FC = () => (
   <>
-    <GradeSubTitle>자유학기(학년)제</GradeSubTitle>
-    <GradeTable>
+    <GradeTable margin='0px' borderBottom='0px'>
       <tbody>
         <SchoolYearRow>
+          <td className='empty' rowSpan={2}>
+            <div>자유학기(학년)제</div>
+          </td>
           <GradeColumn>1학년</GradeColumn>
           <GradeColumn>2학년</GradeColumn>
-          <GradeColumn>3학년</GradeColumn>
+          <GradeColumn colspan={1}>3학년</GradeColumn>
         </SchoolYearRow>
         <SemesterRow>
           <SemesterColumn grade={1} semester={1}>
@@ -38,7 +28,7 @@ const NonTransferSemester: FC<Props> = () => (
             2학기
           </SemesterColumn>
 
-          <SemesterColumn grade={3} semester={1} isLast>
+          <SemesterColumn grade={3} semester={1}>
             1학기
           </SemesterColumn>
         </SemesterRow>

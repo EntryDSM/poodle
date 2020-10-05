@@ -50,13 +50,16 @@ function Dropdown<T>({
     },
     [],
   );
-  const getSavedData = useCallback(value => {
-    const savedMenu = options.filter(menu => menu.VALUE === value);
-    if (savedMenu.length <= 0) {
-      return options[0];
-    }
-    return savedMenu[0];
-  }, []);
+  const getSavedData = useCallback(
+    value => {
+      const savedMenu = options.filter(menu => menu.VALUE === value);
+      if (savedMenu.length <= 0) {
+        return options[0];
+      }
+      return savedMenu[0];
+    },
+    [options],
+  );
   const elementClickHandler = useCallback((clickedMenu: options<T>) => {
     checkedMenuChange(clickedMenu);
     onChange(clickedMenu.VALUE);
