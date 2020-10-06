@@ -411,6 +411,11 @@ export const SearchModalCategory = styled.p`
   font-weight: 200;
 `;
 
+export const SearchModalEmptyCategory = styled.p`
+  width: 1px;
+  height: 15px;
+`;
+
 export const SearchModalContentText = styled.p`
   font-size: 0.625rem;
   font-weight: 100;
