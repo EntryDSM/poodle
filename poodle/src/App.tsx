@@ -17,16 +17,25 @@ import SchedulesContainer from './container/SchedulesContainer/SchedulesContaine
 import './';
 import Maltese from 'entry-maltese';
 import AllFinish from './components/Schedules/AllFinish';
-import { getIsFinish, useAuth } from './lib/utils/function';
+import {
+  getIsFinish,
+  useAuth,
+  useReGenerateTokenAndDoCallback,
+} from './lib/utils/function';
 import { AppWrapper } from './style';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const { isLogin, accessToken } = useAuth();
   const isFinish = getIsFinish();
+  const reGenerateToken = useReGenerateTokenAndDoCallback(() => {});
 
   const chattingError = (err: number) => {
-    alert(`Error code:${err} 채팅에 문제가 있습니다.`);
+    if (err === 401) {
+      reGenerateToken();
+    } else {
+      alert(`Error code:${err} 채팅에 문제가 있습니다.`);
+    }
   };
 
   return (
