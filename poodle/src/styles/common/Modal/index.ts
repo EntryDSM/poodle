@@ -78,7 +78,7 @@ export const CloseButtonImage = styled.span`
 `;
 
 export const ModalContentWrapper = styled.div`
-  padding: 0 3.25rem;
+  padding: 0;
   width: 100%;
   height: auto;
   box-sizing: border-box;
