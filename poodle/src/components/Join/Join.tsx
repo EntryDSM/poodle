@@ -464,8 +464,8 @@ const Join: React.FC<JoinProps> = ({
                 {(!inputState.password ||
                   passwordRegExp.exec(inputState.password)) && (
                   <S.ExplainSentence>
-                    *8자 이상 영문 대소문자, 숫자, 특수문자(@, $, !, %, *, ?, &
-                    가능)를 모두 사용하여 구성
+                    *8자 이상 영문 대소문자, 숫자, 특수문자(@, $, !, %, *, ?, &,
+                    _, ~ 가능)를 모두 사용하여 구성
                   </S.ExplainSentence>
                 )}
                 {inputState.password &&

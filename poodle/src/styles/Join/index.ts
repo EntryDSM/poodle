@@ -244,6 +244,7 @@ type ExplainSentenceProps = {
 };
 
 export const ExplainSentence = styled.p<ExplainSentenceProps>`
+  max-width: 24rem;
   height: 0.8125rem;
   font-family: NanumSquare;
   font-size: 0.75rem;
