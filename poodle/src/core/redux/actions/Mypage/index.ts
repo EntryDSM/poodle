@@ -1,5 +1,5 @@
 import ErrorType from '@/lib/utils/type';
-import { UserStatus } from '@/lib/api/mypage';
+import { UserStatus, FirstPassStatus, FinalPassStatus } from '@/lib/api/mypage';
 
 export const PROCESS = 'mypage/PROCESS' as const;
 export const PROCESS_SUCCESS = 'mypage/PROCESS_SUCCESS' as const;
@@ -12,6 +12,14 @@ export const USER_STATUS_FAILURE = 'mypage/USER_STATUS_FAILURE' as const;
 export const GET_PDF = 'mypage/GET_PDF' as const;
 export const GET_PDF_SUCCESS = 'mypage/GET_PDF_SUCCESS' as const;
 export const GET_PDF_FAILURE = 'mypage/GET_PDF_FAILURE' as const;
+
+export const GET_FIRST_PASS_STATUS = 'mypage/GET_FIRST_PASS_STATUS' as const;
+export const GET_FIRST_PASS_STATUS_SUCCESS = 'mypage/GET_FIRST_PASS_STATUS_SUCCESS' as const;
+export const GET_FIRST_PASS_STATUS_FAILURE = 'mypage/GET_FIRST_PASS_STATUS_FAILURE' as const;
+
+export const GET_FINAL_PASS_STATUS = 'mypage/GET_FINAL_PASS_STATUS' as const;
+export const GET_FINAL_PASS_STATUS_SUCCESS = 'mypage/GET_FINAL_PASS_STATUS_SUCCESS' as const;
+export const GET_FINAL_PASS_STATUS_FAILURE = 'mypage/GET_FINAL_PASS_STATUS_FAILURE' as const;
 
 export const RESET_MYPAGE = 'mypage/RESET_MYPAGE' as const;
 
@@ -59,8 +67,36 @@ export const getPdfSuccess = (payload: Blob) => ({
   payload,
 });
 
-export const getPdfError = (error: ErrorType) => ({
+export const getPdfFailure = (error: ErrorType) => ({
   type: GET_PDF_FAILURE,
+  payload: error,
+});
+
+export const getFirstPassStatus = () => ({
+  type: GET_FIRST_PASS_STATUS,
+});
+
+export const getFirstPassStatusSuccess = (payload: FirstPassStatus) => ({
+  type: GET_FIRST_PASS_STATUS_SUCCESS,
+  payload,
+});
+
+export const getFirstPassStatusFailure = (error: ErrorType) => ({
+  type: GET_FIRST_PASS_STATUS_FAILURE,
+  payload: error,
+});
+
+export const getFinalPassStatus = () => ({
+  type: GET_FINAL_PASS_STATUS,
+});
+
+export const getFinalPassStatusSuccess = (payload: FinalPassStatus) => ({
+  type: GET_FINAL_PASS_STATUS_SUCCESS,
+  payload,
+});
+
+export const getFinalPassStatusFailure = (error: ErrorType) => ({
+  type: GET_FINAL_PASS_STATUS_FAILURE,
   payload: error,
 });
 
@@ -76,5 +112,9 @@ export type MypageAction =
   | ReturnType<typeof userStatusFailure>
   | ReturnType<typeof getPdf>
   | ReturnType<typeof getPdfSuccess>
-  | ReturnType<typeof getPdfError>
+  | ReturnType<typeof getPdfFailure>
+  | ReturnType<typeof getFirstPassStatusSuccess>
+  | ReturnType<typeof getFirstPassStatusFailure>
+  | ReturnType<typeof getFinalPassStatusSuccess>
+  | ReturnType<typeof getFinalPassStatusFailure>
   | ReturnType<typeof resetMypage>;
