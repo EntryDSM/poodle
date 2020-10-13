@@ -19,9 +19,9 @@ import { useHistory } from 'react-router-dom';
 import { ReducerType } from '@/core/redux/store';
 import ToastController from '../common/ToastContainer';
 import {
-  getIsFinish,
   getIsStarted,
   useReGenerateTokenAndDoCallback,
+  isFinishApplicationApply,
 } from '@/lib/utils/function';
 
 const TOAST_DIV_ID = 'toastDivPreview';
@@ -74,7 +74,7 @@ const PreviewContainer: FC = () => {
     if (status.final_submit) {
       alert('최종 제출 하셨습니다.');
       history.push('/');
-    } else if (getIsFinish()) {
+    } else if (isFinishApplicationApply()) {
       alert('종료 되었습니다.');
       history.push('/');
     } else if (!getIsStarted()) {
