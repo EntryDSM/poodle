@@ -54,6 +54,7 @@ function* searchSchool(action: GetSchoolCall) {
 }
 
 function* pageChangeSaga(action: PageChange) {
+  if (action.payload.page === 0) return;
   const { schoolSearchInput } = yield select(getStateFunc);
   const url = getSearchSchoolUrl(schoolSearchInput, action.payload.page, 10);
   yield put({ type: GET_SCHOOL_CALL, payload: { url } });

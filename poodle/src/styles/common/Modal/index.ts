@@ -78,7 +78,7 @@ export const CloseButtonImage = styled.span`
 `;
 
 export const ModalContentWrapper = styled.div`
-  padding: 0 3.25rem;
+  padding: 0;
   width: 100%;
   height: auto;
   box-sizing: border-box;
@@ -409,6 +409,11 @@ export const SearchModalContent = styled.div`
 export const SearchModalCategory = styled.p`
   font-size: 0.625rem;
   font-weight: 200;
+`;
+
+export const SearchModalEmptyCategory = styled.p`
+  width: 1px;
+  height: 15px;
 `;
 
 export const SearchModalContentText = styled.p`

@@ -6,9 +6,7 @@ import { setPictureCall, setPictureUrl } from '@/core/redux/actions/Info';
 import { RootState } from '@/core/redux/reducer';
 import { useReGenerateTokenAndDoCallback } from '@/lib/utils/function';
 
-const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000,.GIF,.JPG,.PNG,.JPEG';
-
-const IMG_URL = 'https://image.entrydsm.hs.kr.s3.ap-northeast-2.amazonaws.com/';
+const ACCEPT_FILE_TYPE = '.jpg,.png,.jpeg,.jpeg2000,.JPG,.PNG,.JPEG';
 
 interface Props {
   valueChangeHandler: (value: string) => void;

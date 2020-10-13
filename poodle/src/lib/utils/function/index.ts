@@ -154,10 +154,12 @@ export const getMONTH = (
 
 export const getDAY = (
   startDay: number,
-  lastDay: number,
+  year: number,
+  month: number,
   orderBy?: 'desc' | 'asc',
 ): { VALUE: string; LABEL: string }[] => {
   const buf = [];
+  let lastDay = getLastDayOfMonth(year, month);
   for (
     let DAY = setStart(startDay, lastDay, orderBy);
     setRule(DAY, startDay, lastDay, orderBy);
@@ -171,6 +173,32 @@ export const getDAY = (
     });
   }
   return buf;
+};
+
+export const getLastDayOfMonth = (year: number, month: number) => {
+  switch (month) {
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12: {
+      return 31;
+    }
+    case 4:
+    case 6:
+    case 9:
+    case 11: {
+      return 30;
+    }
+    case 2:
+      {
+        if (year % 4 === 0) return 29;
+      }
+      return 28;
+  }
+  return 31;
 };
 
 export const lPad = (str: string, padLen: Number, padStr: string) => {

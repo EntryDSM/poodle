@@ -75,12 +75,18 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
     (schoolInfo: SchoolType[]): React.ReactNode => {
       if (schoolInfo.length <= 0) return <p>결과가 없습니다.</p>;
       return schoolInfo.map(data => {
-        const { school_name, school_address, school_code } = data;
+        const {
+          school_name,
+          school_address,
+          school_code,
+          school_full_name,
+        } = data;
         return (
           <SchoolSearchContent
             schoolName={school_name}
             address={school_address}
             schoolCode={school_code}
+            schoolFullName={school_full_name}
             onClick={middleSchoolNameChange}
           />
         );
@@ -98,7 +104,7 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
   );
   const isBottom = useCallback(
     (scrollTop: number, scrollHeight: number, clientHeight: number) => {
-      return scrollTop + clientHeight === scrollHeight;
+      return scrollTop + clientHeight >= scrollHeight;
     },
     [],
   );
