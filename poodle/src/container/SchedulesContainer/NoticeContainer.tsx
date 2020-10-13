@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { NoticeDetail } from '@/components/Schedules';
 import { Schedule } from '@/core/redux/actions/Main';
-import { useUserStatus } from '@/lib/utils/function';
+import { useFinalPassStatus } from '@/lib/utils/function';
 
 interface Props {
   schedules: Schedule[];
@@ -9,17 +9,18 @@ interface Props {
 
 const NoticeContainer: FC<Props> = ({ schedules }) => {
   const [
-    userStatus,
-    userStatusError,
-    getUserStatus,
+    isPassedFinal,
+    getFinalPassStatusError,
+    getFinalPassStatus,
     isLoading,
-  ] = useUserStatus();
+  ] = useFinalPassStatus();
+
   return (
     <NoticeDetail
       schedules={schedules}
-      isPass={userStatus.passed_interview}
-      userStatusError={userStatusError}
-      getUserStatus={getUserStatus}
+      isPass={isPassedFinal}
+      getPassStatusError={getFinalPassStatusError}
+      getPassStatus={getFinalPassStatus}
       isLoading={isLoading}
     />
   );

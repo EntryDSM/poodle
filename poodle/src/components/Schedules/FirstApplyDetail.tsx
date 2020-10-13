@@ -7,17 +7,18 @@ import {
   FAIL_INFO,
 } from '@/components/Schedules/SchedulesConstance';
 import {
-  isProgressingSchedule,
   getFullDateText,
   useReGenerateTokenAndDoCallback,
+  isNotStartedSchedule,
+  useResetMyPageStatus,
 } from '@/lib/utils/function';
 import ErrorType from '@/lib/utils/type';
 
 interface Props {
   schedules: Schedule[];
   isPass: boolean;
-  userStatusError: ErrorType;
-  getUserStatus: () => void;
+  getPassStatusError: ErrorType;
+  getPassStatus: () => void;
   isLoading: boolean;
 }
 
@@ -27,14 +28,15 @@ const INTERVIEW_INDEX = 2;
 const FirstApplyDetail: FC<Props> = ({
   schedules,
   isPass,
-  userStatusError,
-  getUserStatus,
+  getPassStatusError,
+  getPassStatus,
   isLoading,
 }) => {
+  const [resetMypageStatus] = useResetMyPageStatus();
   const reGenerateTokenAndGetUserStatus = useReGenerateTokenAndDoCallback(
-    getUserStatus,
+    getPassStatus,
   );
-  const isProgressing = isProgressingSchedule(schedules[FIRST_APPLY_INDEX]);
+  const isNotStarted = isNotStartedSchedule(schedules[FIRST_APPLY_INDEX]);
   const wait = WAIT_INFO(
     getFullDateText(schedules[FIRST_APPLY_INDEX].start_date),
   );
@@ -44,30 +46,38 @@ const FirstApplyDetail: FC<Props> = ({
   const fail = FAIL_INFO;
 
   useEffect(() => {
-    if (isProgressingSchedule(schedules[1])) {
-      getUserStatus();
+    if (!isNotStarted) {
+      getPassStatus();
     }
+
+    return () => {
+      resetMypageStatus();
+    };
   }, [schedules]);
 
   useEffect(() => {
-    if (userStatusError.status === 401) {
+    if (getPassStatusError.status === 401) {
       reGenerateTokenAndGetUserStatus();
-    } else if (userStatusError.status) {
-      alert(`Error code: ${userStatusError.status} 상태 불러오기 실패!`);
+    } else if (getPassStatusError.status) {
+      alert(
+        `Error code: ${getPassStatusError.status} 합격 여부 불러오기 실패!`,
+      );
     }
-  }, [userStatusError]);
+  }, [getPassStatusError]);
 
   return (
     <>
       {isLoading ? (
         '합격 여부를 불러오는 중입니다...'
+      ) : getPassStatusError.status ? (
+        <h1>합격 여부를 불러오지 못했습니다.</h1>
       ) : (
         <ScheduleDetail
           title={
-            isProgressing ? (isPass ? pass.title : fail.title) : wait.title
+            !isNotStarted ? (isPass ? pass.title : fail.title) : wait.title
           }
           explains={
-            isProgressing
+            !isNotStarted
               ? isPass
                 ? pass.explains
                 : fail.explains
