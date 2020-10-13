@@ -104,7 +104,7 @@ const SchoolSearchModal: FC<Props> = ({ modalOff }) => {
   );
   const isBottom = useCallback(
     (scrollTop: number, scrollHeight: number, clientHeight: number) => {
-      return scrollTop + clientHeight === scrollHeight;
+      return scrollTop + clientHeight >= scrollHeight;
     },
     [],
   );
