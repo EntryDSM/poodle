@@ -15,10 +15,10 @@ import {
 } from '@/components/ChoiceType/RowType';
 import { mapStateToProps, mapDispatchToProps } from './ConnectChoiceType';
 import {
-  getIsFinish,
   getIsStarted,
   isEmptyCheck,
   useReGenerateTokenAndDoCallback,
+  isFinishApplicationApply,
 } from '@/lib/utils/function';
 import ToastController from '../common/ToastContainer';
 import {
@@ -160,7 +160,7 @@ const ChoiceType: FC<Props> = props => {
     if (status) {
       alert('최종 제출 하셨습니다.');
       history.push('/');
-    } else if (getIsFinish()) {
+    } else if (isFinishApplicationApply()) {
       alert('종료 되었습니다.');
       history.push('/');
     } else if (!getIsStarted()) {

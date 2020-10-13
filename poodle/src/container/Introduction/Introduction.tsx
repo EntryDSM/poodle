@@ -12,10 +12,10 @@ import {
 } from '@/components/Introduction/constance';
 import { mapDispatchToProps, mapStateToProps } from './ConnectIntroduction';
 import {
-  getIsFinish,
   getIsStarted,
   isEmptyCheck,
   useReGenerateTokenAndDoCallback,
+  isFinishApplicationApply,
 } from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
 import { modalOn, NOTICE_MODAL, modalOff } from '@/core/redux/actions/Modal';
@@ -123,7 +123,7 @@ const Introduction: FC<Props> = props => {
     if (props.status) {
       alert('최종 제출 하셨습니다.');
       history.push('/');
-    } else if (getIsFinish()) {
+    } else if (isFinishApplicationApply()) {
       alert('종료 되었습니다.');
       history.push('/');
     } else if (!getIsStarted()) {
