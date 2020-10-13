@@ -7,11 +7,18 @@ export interface UserStatus {
   sex: 'MALE' | 'FEMALE';
   paid: boolean;
   printed_application_arrived: boolean;
-  passed_first_apply: boolean;
-  passed_interview: boolean;
   final_submit: boolean;
   submitted_at: string;
 }
+
+export interface FirstPassStatus {
+  is_passed: boolean;
+}
+
+export interface FinalPassStatus {
+  is_passed: boolean;
+}
+
 export const getUserStatus = () =>
   getClientWithAccessToken().get<UserStatus>('/users/me/status');
 
@@ -22,3 +29,9 @@ export const getDocument = () =>
       responseType: 'blob',
     },
   );
+
+export const getFirstPassStatus = () =>
+  getClientWithAccessToken().get<FirstPassStatus>('/users/me/pass/first');
+
+export const getFinalPassStatus = () =>
+  getClientWithAccessToken().get<FinalPassStatus>('/users/me/pass/final');
