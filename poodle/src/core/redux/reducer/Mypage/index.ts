@@ -8,6 +8,10 @@ import {
   GET_PDF_SUCCESS,
   GET_PDF_FAILURE,
   RESET_MYPAGE,
+  GET_FIRST_PASS_STATUS_SUCCESS,
+  GET_FIRST_PASS_STATUS_FAILURE,
+  GET_FINAL_PASS_STATUS_SUCCESS,
+  GET_FINAL_PASS_STATUS_FAILURE,
 } from '../../actions/Mypage';
 import ErrorType, { errorInitialState } from '@/lib/utils/type';
 import { UserStatus } from '@/lib/api/mypage';
@@ -19,6 +23,10 @@ type MypageState = {
   userStatueError: ErrorType;
   pdf: Blob;
   getPdfError: ErrorType;
+  isPassedFirst: boolean;
+  isPassedFinal: boolean;
+  getFirstPassStatusError: ErrorType;
+  getFinalPassStatusError: ErrorType;
 };
 
 const userStatusInitialState: UserStatus = {
@@ -26,8 +34,6 @@ const userStatusInitialState: UserStatus = {
   sex: 'FEMALE',
   paid: false,
   printed_application_arrived: false,
-  passed_first_apply: false,
-  passed_interview: false,
   final_submit: false,
   submitted_at: '',
 };
@@ -44,6 +50,10 @@ const initialState: MypageState = {
   userStatueError: errorInitialState,
   pdf: new Blob(),
   getPdfError: errorInitialState,
+  isPassedFirst: false,
+  isPassedFinal: false,
+  getFirstPassStatusError: errorInitialState,
+  getFinalPassStatusError: errorInitialState,
 };
 
 export default function mypage(
@@ -83,6 +93,28 @@ export default function mypage(
       return {
         ...state,
         getPdfError: action.payload,
+      };
+    case GET_FIRST_PASS_STATUS_SUCCESS:
+      return {
+        ...state,
+        isPassedFirst: action.payload.is_passed,
+        getFirstPassStatusError: errorInitialState,
+      };
+    case GET_FIRST_PASS_STATUS_FAILURE:
+      return {
+        ...state,
+        getFirstPassStatusError: action.payload,
+      };
+    case GET_FINAL_PASS_STATUS_SUCCESS:
+      return {
+        ...state,
+        isPassedFirst: action.payload.is_passed,
+        getFinalPassStatusError: errorInitialState,
+      };
+    case GET_FINAL_PASS_STATUS_FAILURE:
+      return {
+        ...state,
+        getFinalPassStatusError: action.payload,
       };
     case RESET_MYPAGE:
       return initialState;
