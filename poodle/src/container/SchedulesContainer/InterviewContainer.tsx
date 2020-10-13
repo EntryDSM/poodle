@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { InterviewDetail } from '@/components/Schedules';
 import { Schedule } from '@/core/redux/actions/Main';
-import { useUserStatus } from '@/lib/utils/function';
+import { useFirstPassStatus } from '@/lib/utils/function';
 
 interface Props {
   schedules: Schedule[];
@@ -9,17 +9,18 @@ interface Props {
 
 const InterviewContainer: FC<Props> = ({ schedules }) => {
   const [
-    userStatus,
-    userStatusError,
-    getUserStatus,
+    isPassedFirst,
+    getFirstPassStatusError,
+    getFirstPassStatus,
     isLoading,
-  ] = useUserStatus();
+  ] = useFirstPassStatus();
+
   return (
     <InterviewDetail
       schedules={schedules}
-      isPass={userStatus.passed_first_apply}
-      userStatusError={userStatusError}
-      getUserStatus={getUserStatus}
+      isPass={isPassedFirst}
+      getPassStatusError={getFirstPassStatusError}
+      getPassStatus={getFirstPassStatus}
       isLoading={isLoading}
     />
   );

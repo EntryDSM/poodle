@@ -6,8 +6,13 @@ import { RootState } from '@/core/redux/reducer';
 import { Schedule } from '@/core/redux/actions/Main';
 import { schedules as createSchedulesAction } from '@/core/redux/actions/Main';
 import ErrorType from '../type';
-import { userStatus as createUserStatusAction } from '@/core/redux/actions/Mypage';
-import { UserStatus } from '@/lib/api/mypage';
+import {
+  userStatus as createUserStatusAction,
+  getFirstPassStatus as createGetFirstPassStatusAction,
+  getFinalPassStatus as createGetFinalPassStatusAction,
+  resetMypage as createResetMypage,
+} from '@/core/redux/actions/Mypage';
+import { UserStatus, FirstPassStatus, FinalPassStatus } from '@/lib/api/mypage';
 
 export const allPhoneNumCheck = ({
   protectorPhoneNum,
@@ -267,7 +272,7 @@ export const useUser = () => {
   return user;
 };
 
-// export const TIME = '2020-10-28 13:01';
+// export const TIME = '2020-10-22 17:01';
 export const TIME = '';
 
 export const getDateObject = (date: string = TIME) =>
@@ -379,15 +384,23 @@ export const useUserStatus = (): [
 
 export const getIsFinish = () => {
   const time = getTime();
-  const finishTime = getTime('2020-10-26');
+  const finishTime = getTime('2020-11-15');
 
   return finishTime <= time;
 };
 
 export const getIsStarted = () => {
   const time = getTime();
-  const startTime = getTime('2020-10-19');
+  const startTime = getTime('2020-10-19 07:00');
+
   return startTime <= time;
+};
+
+export const isFinishApplicationApply = () => {
+  const time = getTime();
+  const endTime = getTime('2020-10-22 17:00');
+
+  return endTime < time;
 };
 
 export const getFirstApplyStatus = (schedule: Schedule) => {
@@ -442,4 +455,67 @@ export const isAbleAccessToken = () => {
   const token = localStorage.getItem('accessToken');
   if (!token) return false;
   return true;
+};
+
+export const useFirstPassStatus = (): [
+  boolean,
+  ErrorType,
+  () => void,
+  boolean,
+] => {
+  const dispatch = useDispatch();
+  const { isPassedFirst, getFirstPassStatusError, isLoading } = useSelector(
+    ({ Mypage: mypage, Loading: loading }: RootState) => ({
+      isPassedFirst: mypage.isPassedFirst,
+      getFirstPassStatusError: mypage.getFirstPassStatusError,
+      isLoading: loading['mypage/GET_FIRST_PASS_STATUS'],
+    }),
+  );
+
+  const getFirstPassStatus = () => {
+    dispatch(createGetFirstPassStatusAction());
+  };
+
+  return [
+    isPassedFirst,
+    getFirstPassStatusError,
+    getFirstPassStatus,
+    isLoading,
+  ];
+};
+
+export const useFinalPassStatus = (): [
+  boolean,
+  ErrorType,
+  () => void,
+  boolean,
+] => {
+  const dispatch = useDispatch();
+  const { isPassedFinal, getFinalPassStatusError, isLoading } = useSelector(
+    ({ Mypage: mypage, Loading: loading }: RootState) => ({
+      isPassedFinal: mypage.isPassedFirst,
+      getFinalPassStatusError: mypage.getFinalPassStatusError,
+      isLoading: loading['mypage/GET_FINAL_PASS_STATUS'],
+    }),
+  );
+
+  const getFinalPassStatus = () => {
+    dispatch(createGetFirstPassStatusAction());
+  };
+
+  return [
+    isPassedFinal,
+    getFinalPassStatusError,
+    getFinalPassStatus,
+    isLoading,
+  ];
+};
+
+export const useResetMyPageStatus = (): [() => void] => {
+  const dispatch = useDispatch();
+  const resetMypage = () => {
+    dispatch(createResetMypage());
+  };
+
+  return [resetMypage];
 };

@@ -41,6 +41,7 @@ export default function main(
       });
       return {
         ...state,
+        error: errorInitialState,
         schedules: sortedSchedules,
       };
     case SCHEDULES_FAILURE:

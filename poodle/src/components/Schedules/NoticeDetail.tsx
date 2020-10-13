@@ -6,6 +6,7 @@ import {
   getFullDateText,
   isNotStartedSchedule,
   useReGenerateTokenAndDoCallback,
+  useResetMyPageStatus,
 } from '@/lib/utils/function';
 import {
   FAIL_INFO,
@@ -16,8 +17,8 @@ import {
 interface Props {
   schedules: Schedule[];
   isPass: boolean;
-  userStatusError: ErrorType;
-  getUserStatus: () => void;
+  getPassStatusError: ErrorType;
+  getPassStatus: () => void;
   isLoading: boolean;
 }
 
@@ -26,12 +27,13 @@ const NOTICE_INDEX = 3;
 const NoticeDetail: FC<Props> = ({
   schedules,
   isPass,
-  userStatusError,
-  getUserStatus,
+  getPassStatusError,
+  getPassStatus,
   isLoading,
 }) => {
+  const [resetMypageStatus] = useResetMyPageStatus();
   const reGenerateTokenAndGetUserStatus = useReGenerateTokenAndDoCallback(
-    getUserStatus,
+    getPassStatus,
   );
   const isStarted = !isNotStartedSchedule(schedules[NOTICE_INDEX]);
   const wait = WAIT_INFO(getFullDateText(schedules[NOTICE_INDEX].start_date));
@@ -41,21 +43,29 @@ const NoticeDetail: FC<Props> = ({
   const fail = FAIL_INFO;
 
   useEffect(() => {
-    getUserStatus();
+    getPassStatus();
+
+    return () => {
+      resetMypageStatus();
+    };
   }, []);
 
   useEffect(() => {
-    if (userStatusError.status === 401) {
+    if (getPassStatusError.status === 401) {
       reGenerateTokenAndGetUserStatus();
-    } else if (userStatusError.status) {
-      alert(`Error code: ${userStatusError.status} 상태 불러오기 실패!`);
+    } else if (getPassStatusError.status) {
+      alert(
+        `Error code: ${getPassStatusError.status} 합격 여부 불러오기 실패!`,
+      );
     }
-  }, [userStatusError]);
+  }, [getPassStatusError]);
 
   return (
     <>
       {isLoading ? (
         '합격 여부를 불러오는 중입니다...'
+      ) : getPassStatusError.status ? (
+        <h1>합격 여부를 불러오지 못했습니다.</h1>
       ) : (
         <ScheduleDetail
           title={isPass ? (isStarted ? notice.title : wait.title) : fail.title}
