@@ -63,7 +63,7 @@ const Mypage: FC<Props> = ({
       sex,
       final_submit,
       paid,
-      passed_first_apply,
+      printed_application_arrived,
       submitted_at,
     } = userStatus;
     const [year, month, date, hours, minutes] = getDate(submitted_at);
@@ -91,7 +91,7 @@ const Mypage: FC<Props> = ({
       },
       {
         label: '우편물 수령',
-        value: passed_first_apply ? '수령 완료' : '수령 전',
+        value: printed_application_arrived ? '수령 완료' : '수령 전',
       },
     ];
     if (grade_type === 'GED') {
