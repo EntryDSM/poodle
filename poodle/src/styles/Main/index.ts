@@ -8,7 +8,6 @@ import {
 } from '@/assets/Main';
 
 export const MainWrapper = styled(Wrapper)`
-  min-height: 100vh;
   > div {
     position: relative;
   }
