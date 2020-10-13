@@ -21,6 +21,7 @@ import {
   useReGenerateTokenAndDoCallback,
   getIsFinish,
   getIsStarted,
+  isFinishApplicationApply,
 } from '../../lib/utils/function';
 import ToastController from '../common/ToastContainer';
 
@@ -149,7 +150,7 @@ const Info: FC<Props> = props => {
     if (props.status) {
       alert('최종 제출 하셨습니다.');
       history.push('/');
-    } else if (getIsFinish()) {
+    } else if (isFinishApplicationApply()) {
       alert('종료 되었습니다.');
       history.push('/');
     } else if (!getIsStarted()) {
