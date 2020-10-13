@@ -17,15 +17,14 @@ interface Props {
   birthday: string;
 }
 
-const DAY = getDAY(1, 31);
-const MONTH = getMONTH(1, 12);
-const YEAR = getYEAR(2000, 2020);
-
 const UserBirthDayRow: FC<Props> = () => {
   const dispatch = useDispatch();
   const { day, month, year } = useSelector(
     (state: RootState) => state.InfoState,
   );
+  const DAY = getDAY(1, parseInt(year), parseInt(month));
+  const MONTH = getMONTH(1, 12);
+  const YEAR = getYEAR(2000, 2020);
   const dayChange = (day: string) => dispatch(setDay({ day }));
   const monthChange = (month: string) => dispatch(setMonth({ month }));
   const yearChange = (year: string) => dispatch(setYear({ year }));

@@ -11,9 +11,7 @@ interface Props {
   img: string;
 }
 
-const IMG_URL = 'https://image.entrydsm.hs.kr.s3.ap-northeast-2.amazonaws.com/';
-
-const ACCEPT_FILE_TYPE = '.gif,.jpg,.png,.jpeg,.jpeg2000,.GIF,.JPG,.PNG,.JPEG';
+const ACCEPT_FILE_TYPE = '.jpg,.png,.jpeg,.jpeg2000,.JPG,.PNG,.JPEG';
 
 const UserImg: FC<Props> = () => {
   const [file, fileChange] = useState<File>(new File([], 'dummy.txt'));

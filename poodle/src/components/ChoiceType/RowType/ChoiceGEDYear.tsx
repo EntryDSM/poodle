@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { TypeElementContent } from '@/styles/ChoiceType';
 import { Dropdown } from '../../default/ApplicationFormDefault';
 import { DefaultRow } from '..';
-import { getMONTH, getDAY, getYEAR } from '@/lib/utils/function';
+import { getMONTH, getYEAR } from '@/lib/utils/function';
 
 interface Props {
   describe: string;
