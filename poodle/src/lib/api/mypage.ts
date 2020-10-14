@@ -1,6 +1,7 @@
 import { getClientWithAccessToken } from './client';
 
-export const getProcess = () => getClientWithAccessToken().get('/process/me');
+export const getProcess = () =>
+  getClientWithAccessToken(true).get('/process/me');
 
 export interface UserStatus {
   name: string;
@@ -20,10 +21,10 @@ export interface FinalPassStatus {
 }
 
 export const getUserStatus = () =>
-  getClientWithAccessToken().get<UserStatus>('/users/me/status');
+  getClientWithAccessToken(true).get<UserStatus>('/users/me/status');
 
 export const getDocument = () =>
-  getClientWithAccessToken('application/pdf').get<Blob>(
+  getClientWithAccessToken(true, 'application/pdf').get<Blob>(
     '/grade/application/final',
     {
       responseType: 'blob',
@@ -31,7 +32,7 @@ export const getDocument = () =>
   );
 
 export const getFirstPassStatus = () =>
-  getClientWithAccessToken().get<FirstPassStatus>('/users/me/pass/first');
+  getClientWithAccessToken(true).get<FirstPassStatus>('/users/me/pass/first');
 
 export const getFinalPassStatus = () =>
-  getClientWithAccessToken().get<FinalPassStatus>('/users/me/pass/final');
+  getClientWithAccessToken(true).get<FinalPassStatus>('/users/me/pass/final');

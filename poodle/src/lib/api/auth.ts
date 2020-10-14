@@ -29,9 +29,10 @@ export interface User {
   post_code: string | null;
 }
 
-export const getUser = () => getClientWithAccessToken().get<User>('/users/me');
+export const getUser = () =>
+  getClientWithAccessToken(true).get<User>('/users/me');
 export const getStatus = () =>
-  getClientWithAccessToken().get('/users/me/status');
+  getClientWithAccessToken(true).get('/users/me/status');
 
 export const reGenerateToken = () =>
   getClientWithRefreshToken().put<Token>('/auth');

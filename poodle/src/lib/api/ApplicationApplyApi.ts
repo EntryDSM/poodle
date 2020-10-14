@@ -48,7 +48,7 @@ export const stringToNumberOrNull = (value: string): number | null => {
 export const getDataToServer = async <ResponseType>(
   url: string,
 ): Promise<ResponseType> => {
-  const response = await getClientWithAccessToken().get<ResponseType>(url);
+  const response = await getClientWithAccessToken(true).get<ResponseType>(url);
   return response.data;
 };
 
@@ -56,7 +56,7 @@ export const setDataToServer = async <RequestType>(
   url: string,
   payload: RequestType,
 ) => {
-  const response = await getClientWithAccessToken().patch(url, payload);
+  const response = await getClientWithAccessToken(false).patch(url, payload);
   return response.data;
 };
 
@@ -64,14 +64,14 @@ export const setPostToServer = async <RequestType>(
   url: string,
   payload: RequestType,
 ) => {
-  const response = await getClientWithAccessToken().post(url, payload);
+  const response = await getClientWithAccessToken(false).post(url, payload);
   return response.data;
 };
 
 export const getPdfToServer = async <ResponseType>(
   url: string,
 ): Promise<ResponseType> => {
-  const response = await getClientWithAccessToken('application/pdf').get<
+  const response = await getClientWithAccessToken(true, 'application/pdf').get<
     ResponseType
   >(url, { responseType: 'blob' });
   return response.data;
