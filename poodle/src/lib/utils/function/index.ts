@@ -500,7 +500,7 @@ export const useFinalPassStatus = (): [
   );
 
   const getFinalPassStatus = () => {
-    dispatch(createGetFirstPassStatusAction());
+    dispatch(createGetFinalPassStatusAction());
   };
 
   return [

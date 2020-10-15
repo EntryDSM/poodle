@@ -97,7 +97,7 @@ export default function mypage(
     case GET_FIRST_PASS_STATUS_SUCCESS:
       return {
         ...state,
-        isPassedFirst: action.payload.is_passed,
+        isPassedFirst: action.payload.passed,
         getFirstPassStatusError: errorInitialState,
       };
     case GET_FIRST_PASS_STATUS_FAILURE:
@@ -108,7 +108,7 @@ export default function mypage(
     case GET_FINAL_PASS_STATUS_SUCCESS:
       return {
         ...state,
-        isPassedFirst: action.payload.is_passed,
+        isPassedFirst: action.payload.passed,
         getFinalPassStatusError: errorInitialState,
       };
     case GET_FINAL_PASS_STATUS_FAILURE:

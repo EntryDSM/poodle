@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import Schedules from '@/components/Schedules/Schedules';
 import { useSchedules } from '@/lib/utils/function';
 
@@ -9,6 +9,11 @@ const SchedulesContainer: FC = () => {
     isLoading,
     getSchedules,
   ] = useSchedules();
+  
+  
+  useEffect(() => {
+    getSchedules();
+  }, [])
 
   return (
     <Schedules
