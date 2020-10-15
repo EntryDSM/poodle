@@ -48,7 +48,6 @@ export const Global = createGlobalStyle`
 export const Wrapper = styled.div`
   min-width: 1270px;
   margin-top: -60px;
-  min-height: 100vh;
 `;
 
 export const Container = styled.main`
