@@ -12,11 +12,11 @@ export interface UserStatus {
 }
 
 export interface FirstPassStatus {
-  is_passed: boolean;
+  passed: boolean;
 }
 
 export interface FinalPassStatus {
-  is_passed: boolean;
+  passed: boolean;
 }
 
 export const getUserStatus = () =>
