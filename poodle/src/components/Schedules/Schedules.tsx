@@ -26,6 +26,7 @@ const Schedules: FC<Props> = ({
   getSchedules,
 }) => {
   const { type } = queryString.parse(window.location.search);
+  
   useEffect(() => {
     getSchedules();
   }, []);
