@@ -35,7 +35,7 @@ const GraduationYear: FC<Props> = ({
           <span className='dropdownText'>년</span>
           <Dropdown
             onChange={graduationMonthChange}
-            options={getMONTH(1, 12, 'desc')}
+            options={getMONTH(1, 12)}
             value={graduationMonth}
             width='100px'
           />

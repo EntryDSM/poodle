@@ -32,7 +32,7 @@ const ChoiceGEDYear: FC<Props> = ({
           <span className='dropdownText'>년</span>
           <Dropdown
             onChange={monthChangeHandler}
-            options={getMONTH(1, 12, 'desc')}
+            options={getMONTH(1, 12)}
             value={month}
             width='100px'
           />
