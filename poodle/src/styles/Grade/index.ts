@@ -366,6 +366,9 @@ export const QualificationScoreRow = styled(GradeScoreRow)`
     }
   }
   > td {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
   }
 `;
