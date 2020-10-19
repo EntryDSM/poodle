@@ -50,7 +50,7 @@ const Attendance: FC<Props> = ({
         valueChangeHandler={setCutClassDay}
         value={cutClassDay}
         isError={isError}
-        describe='전체 미인정(무단) 결과 일수'
+        describe='전체 미인정(무단) 결과 회수'
       />
       <AttendanceColumn
         valueChangeHandler={setLeaveLateDay}
