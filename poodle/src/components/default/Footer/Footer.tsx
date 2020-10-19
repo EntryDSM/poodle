@@ -31,7 +31,7 @@ const Footer: FC = () => (
         <FooterLink link='https://www.entrydsm.hs.kr/#portfolio'>
           시스템 소개
         </FooterLink>
-        <FooterLink link='https://www.entrydsm.hs.kr/#team'>
+        <FooterLink link='https://www.entrydsm.hs.kr/#page-team'>
           개발자 소개
         </FooterLink>
         <FooterImgButtonDiv>
