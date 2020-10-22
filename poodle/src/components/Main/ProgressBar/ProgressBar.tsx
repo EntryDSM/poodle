@@ -106,7 +106,7 @@ const ProgressItem: FC<ProgressItemProps> = ({
               : ''
           }
         >
-          <S.ProgressTitle isBlue={isProgressing}>
+          <S.ProgressTitle isBlue={isAllFinish || isProgressing || isFinished}>
             {Progress[schedule.id]}
           </S.ProgressTitle>
         </Link>
