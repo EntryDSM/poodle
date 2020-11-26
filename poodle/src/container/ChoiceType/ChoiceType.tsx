@@ -162,18 +162,18 @@ const ChoiceType: FC<Props> = props => {
     getTypeToServer();
   }, []);
 
-  // useEffect(() => {
-  //   if (status) {
-  //     alert('최종 제출 하셨습니다.');
-  //     history.push('/');
-  //   } else if (isFinishApplicationApply()) {
-  //     alert('종료 되었습니다.');
-  //     history.push('/');
-  //   } else if (!getIsStarted()) {
-  //     alert('시작 하지 않았습니다.');
-  //     history.push('/');
-  //   }
-  // }, [status]);
+  useEffect(() => {
+    if (status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    } else if (isFinishApplicationApply()) {
+      alert('종료 되었습니다.');
+      history.push('/');
+    } else if (!getIsStarted()) {
+      alert('시작 하지 않았습니다.');
+      history.push('/');
+    }
+  }, [status]);
   useEffect(() => {
     if (!props.successTime) return;
     modalController.createNewToast('SUCCESS');

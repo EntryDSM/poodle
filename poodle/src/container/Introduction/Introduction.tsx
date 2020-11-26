@@ -119,18 +119,18 @@ const Introduction: FC<Props> = props => {
       props.setSuccessDate(null);
     }
   }, [pageMove]);
-  // useEffect(() => {
-  //   if (props.status) {
-  //     alert('최종 제출 하셨습니다.');
-  //     history.push('/');
-  //   } else if (isFinishApplicationApply()) {
-  //     alert('종료 되었습니다.');
-  //     history.push('/');
-  //   } else if (!getIsStarted()) {
-  //     alert('시작 하지 않았습니다.');
-  //     history.push('/');
-  //   }
-  // }, [props.status]);
+  useEffect(() => {
+    if (props.status) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    } else if (isFinishApplicationApply()) {
+      alert('종료 되었습니다.');
+      history.push('/');
+    } else if (!getIsStarted()) {
+      alert('시작 하지 않았습니다.');
+      history.push('/');
+    }
+  }, [props.status]);
   const dispatch = useDispatch();
   const noticeModalOn = useCallback(() => {
     dispatch(modalOn(NOTICE_MODAL));

@@ -70,18 +70,18 @@ const PreviewContainer: FC = () => {
       dispatch(setPreview(''));
     };
   }, []);
-  // useEffect(() => {
-  //   if (status.final_submit) {
-  //     alert('최종 제출 하셨습니다.');
-  //     history.push('/');
-  //   } else if (isFinishApplicationApply()) {
-  //     alert('종료 되었습니다.');
-  //     history.push('/');
-  //   } else if (!getIsStarted()) {
-  //     alert('시작 하지 않았습니다.');
-  //     history.push('/');
-  //   }
-  // }, [status]);
+  useEffect(() => {
+    if (status.final_submit) {
+      alert('최종 제출 하셨습니다.');
+      history.push('/');
+    } else if (isFinishApplicationApply()) {
+      alert('종료 되었습니다.');
+      history.push('/');
+    } else if (!getIsStarted()) {
+      alert('시작 하지 않았습니다.');
+      history.push('/');
+    }
+  }, [status]);
   useEffect(() => {
     if (pageMove) {
       dispatch(setPageMove({ pageMove: false }));
