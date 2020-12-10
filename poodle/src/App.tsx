@@ -41,9 +41,9 @@ function App() {
   return (
     <AppWrapper>
       <GlobalStyle />
-      {/* {isFinish ? (
+      {isFinish ? (
         <AllFinish />
-      ) : ( */}
+      ) : (
       <BrowserRouter>
         <ScrollToTop>
           <>
@@ -69,7 +69,7 @@ function App() {
           </>
         </ScrollToTop>
       </BrowserRouter>
-      {/* )} */}
+    )}
     </AppWrapper>
   );
 }
