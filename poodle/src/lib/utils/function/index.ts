@@ -398,7 +398,7 @@ export const getIsStarted = () => {
 
 export const isFinishApplicationApply = () => {
   const time = getTime();
-  const endTime = getTime('2020-12-22 17:00');
+  const endTime = getTime('2020-10-22 17:00');
 
   return endTime < time;
 };
