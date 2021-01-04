@@ -351,33 +351,7 @@ export const useSchedules = (): [
     dispatch(createSchedulesAction());
   };
 
-  return [
-    [
-      {
-        id: 'application',
-        start_date: '2020-10-11',
-        end_date: '2020-10-12',
-      },
-      {
-        id: 'first_apply',
-        start_date: '2020-10-13',
-        end_date: '2020-10-14',
-      },
-      {
-        id: 'interview',
-        start_date: '2020-10-15',
-        end_date: '2020-10-16',
-      },
-      {
-        id: 'notice',
-        start_date: '2020-10-17',
-        end_date: '2020-10-18',
-      },
-    ] as Schedule[],
-    getSchedulesError,
-    isLoading,
-    getSchedules,
-  ];
+  return [schedules, getSchedulesError, isLoading, getSchedules];
 };
 
 export const getFullDateText = (time: string) => {
