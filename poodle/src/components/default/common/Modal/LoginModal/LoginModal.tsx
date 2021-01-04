@@ -46,7 +46,7 @@ const LoginModal: FC<LoginModalProps> = ({
     } else {
       isRequesting.current = true;
       onClick(email, password);
-      setTimeout(() => (isRequesting.current = false), [2000]);
+      setTimeout(() => (isRequesting.current = false), 2000);
     }
   }, [email, password, isRequesting]);
   const goToJoin = useCallback(() => {
