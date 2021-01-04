@@ -23,24 +23,24 @@ const ModalContent: FC<ModalContentProps> = ({
   const [isEffect, setIsEffect] = useState(false);
   const [hasContour, setHasContour] = useState(contour);
   const [hasError, setHasError] = useState(false);
-  const timout = useRef(0);
+  const timout = useRef<ReturnType<typeof setTimeout>>(0);
   useEffect(() => {
     if (errorSentence) {
       setIsEffect(true);
       setHasContour(true);
-      timout.current = (setTimeout(() => {
+      timout.current = setTimeout(() => {
         setIsEffect(false);
         setHasContour(false);
         setHasError(true);
-      }, 1000) as unknown) as number;
+      }, 1000);
     } else {
       setIsEffect(true);
       setHasError(true);
-      timout.current = (setTimeout(() => {
+      timout.current = setTimeout(() => {
         setIsEffect(false);
         setHasContour(true);
         setHasError(false);
-      }) as unknown) as number;
+      });
     }
     return () => {
       clearTimeout(timout.current);
