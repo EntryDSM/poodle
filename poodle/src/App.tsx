@@ -44,32 +44,32 @@ function App() {
       {!isFinish ? (
         <AllFinish />
       ) : (
-        <BrowserRouter>
-          <ScrollToTop>
-            <>
-              <HeaderContainer />
-              <Maltese
-                isLogin={isLogin}
-                token={accessToken !== null ? accessToken : ''}
-                errorHandler={chattingError}
-              />
-              <Switch>
-                <Route exact path='/' component={MainContainer} />
-                <Route path='/schedules' component={SchedulesContainer} />
-                <Route path='/join' component={JoinContainer} />
-                <Route path='/grade' component={ConnectGrade} />
-                <Route exact path='/mypage' component={MypageContainer} />
-                <Route path='/preview' component={PreviewContainer} />
-                <Route path='/Introduction' component={ConnectIntroduction} />
-                <Route path='/Type' component={ConnectChoiceType} />
-                <Route path='/Info' component={ConnectInfo} />
-                <Route component={Error} />
-              </Switch>
-              <Footer />
-            </>
-          </ScrollToTop>
-        </BrowserRouter>
-      )}
+      <BrowserRouter>
+        <ScrollToTop>
+          <>
+            <HeaderContainer />
+            <Maltese
+              isLogin={isLogin}
+              token={accessToken !== null ? accessToken : ''}
+              errorHandler={chattingError}
+            />
+            <Switch>
+              <Route exact path='/' component={MainContainer} />
+              <Route path='/schedules' component={SchedulesContainer} />
+              <Route path='/join' component={JoinContainer} />
+              <Route path='/grade' component={ConnectGrade} />
+              <Route exact path='/mypage' component={MypageContainer} />
+              <Route path='/preview' component={PreviewContainer} />
+              <Route path='/Introduction' component={ConnectIntroduction} />
+              <Route path='/Type' component={ConnectChoiceType} />
+              <Route path='/Info' component={ConnectInfo} />
+              <Route component={Error} />
+            </Switch>
+            <Footer />
+          </>
+        </ScrollToTop>
+      </BrowserRouter>
+    )}
     </AppWrapper>
   );
 }

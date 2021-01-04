@@ -417,7 +417,7 @@ export const getIsFinish = () => {
 
 export const getIsStarted = () => {
   const time = getTime();
-  const startTime = getTime('2020-10-19 07:00');
+  const startTime = getTime('2020-10-19 00:00');
 
   return startTime <= time;
 };

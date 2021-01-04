@@ -1,8 +1,6 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import Main from '@/components/Main/Main';
 import { useSchedules } from '@/lib/utils/function';
-import { useDispatch } from 'react-redux';
-import { modalOff, modalOn, NOTICE_MODAL } from '@/core/redux/actions/Modal';
 import ModalContainer from '@/container/common/ModalContainer/ModalContainer';
 
 const MainContainer: FC = () => {
