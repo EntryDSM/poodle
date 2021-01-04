@@ -41,7 +41,7 @@ function App() {
   return (
     <AppWrapper>
       <GlobalStyle />
-      {isFinish ? (
+      {!isFinish ? (
         <AllFinish />
       ) : (
         <BrowserRouter>
