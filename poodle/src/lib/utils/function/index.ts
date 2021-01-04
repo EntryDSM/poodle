@@ -218,7 +218,7 @@ export const useTimer = (): [
   number,
   string,
 ] => {
-  const timer = useRef<number>(0);
+  const timer = useRef<any>(0);
   const [remainedTime, setRemainedTime] = useState(0);
   const getFormatedTime = useMemo(() => {
     const ONE_MINUTE = 60;

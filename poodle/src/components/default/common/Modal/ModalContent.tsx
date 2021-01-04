@@ -24,6 +24,7 @@ const ModalContent: FC<ModalContentProps> = ({
   const [hasContour, setHasContour] = useState(contour);
   const [hasError, setHasError] = useState(false);
   const timout = useRef<any>(0);
+
   useEffect(() => {
     if (errorSentence) {
       setIsEffect(true);
