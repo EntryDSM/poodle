@@ -28,19 +28,19 @@ const ModalContent: FC<ModalContentProps> = ({
     if (errorSentence) {
       setIsEffect(true);
       setHasContour(true);
-      timout.current = setTimeout(() => {
+      timout.current = (setTimeout(() => {
         setIsEffect(false);
         setHasContour(false);
         setHasError(true);
-      }, 1000) as number;
+      }, 1000) as unknown) as number;
     } else {
       setIsEffect(true);
       setHasError(true);
-      timout.current = setTimeout(() => {
+      timout.current = (setTimeout(() => {
         setIsEffect(false);
         setHasContour(true);
         setHasError(false);
-      }) as number;
+      }) as unknown) as number;
     }
     return () => {
       clearTimeout(timout.current);
