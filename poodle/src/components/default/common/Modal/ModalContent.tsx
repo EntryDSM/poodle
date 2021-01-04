@@ -32,7 +32,7 @@ const ModalContent: FC<ModalContentProps> = ({
         setIsEffect(false);
         setHasContour(false);
         setHasError(true);
-      }, 1000);
+      }, 1000) as number;
     } else {
       setIsEffect(true);
       setHasError(true);
@@ -40,7 +40,7 @@ const ModalContent: FC<ModalContentProps> = ({
         setIsEffect(false);
         setHasContour(true);
         setHasError(false);
-      });
+      }) as number;
     }
     return () => {
       clearTimeout(timout.current);
