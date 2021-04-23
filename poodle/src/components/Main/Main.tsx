@@ -45,8 +45,11 @@ const Main: FC<Props> = ({
   }, []);
 
   useEffect(() => {
+    alert('오픈 기간이 아닙니다.');
+    window.history.back();
+    window.location.href = 'https://www.google.com/';
     if (getSchedulesError.status) {
-      alert(`Error code: ${getSchedulesError.status} 일정 불러오기 실패!`);
+      // alert(`Error code: ${getSchedulesError.status} 일정 불러오기 실패!`);
     }
   }, [getSchedulesError]);
 
